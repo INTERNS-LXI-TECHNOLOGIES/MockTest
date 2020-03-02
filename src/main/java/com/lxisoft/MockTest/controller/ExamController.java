@@ -12,10 +12,10 @@ public class ExamController {
 		return "index";
 	}
 	
-	@GetMapping("/view")
-	public String view()
+	@RequestMapping("/register")
+	public String register()
 	{
-		return "view";
+		return "user_registration";
 	}
 	
 	@RequestMapping("/adminpage")

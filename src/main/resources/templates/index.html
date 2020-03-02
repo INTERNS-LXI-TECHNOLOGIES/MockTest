@@ -2,17 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Home page</title>
 </head>
 <body>
-	welcome
-	<a th:href="@{/userpage}">user</a>
-	<a th:href="@{/adminpage}">admin</a>
+<div align="center">
+	 <h1> Mock Test Application</h1>
 	
-	<br>
-	passwords<br>
+	<a th:href="@{/userpage}"><button>user</button></a> &nbsp;&nbsp;&nbsp;
+	<a th:href="@{/adminpage}"><button>admin</button></a>&nbsp;&nbsp;&nbsp;
+	<a th:href="@{/register}"><button>Register here</button></a>
+	</div>
 	
-	admin		admin<br>
-	user		user
 </body>
 </html>
