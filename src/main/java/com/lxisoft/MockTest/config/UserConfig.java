@@ -17,14 +17,12 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
                  .antMatchers("/index").permitAll()
                  .antMatchers("/userpage").access("hasRole('USER')")
                  .antMatchers("/adminpage").access("hasRole('ADMIN')")
-                 .and()
-             .formLogin();
+                 .and().formLogin();
      }
 	 
      @Override
      protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-         auth
-              .inMemoryAuthentication()
+         auth.inMemoryAuthentication()
                    .withUser("admin").password("{noop}admin").roles("ADMIN")
                    .and().withUser("user").password("{noop}user").roles("USER");
      }
