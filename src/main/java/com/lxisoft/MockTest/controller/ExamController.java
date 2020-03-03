@@ -9,12 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ExamController {
 	
-	@RequestMapping("/helo")
-	@ResponseBody
-	public String abc()
-	{
-		return "hello";
-	}
+
 	
 	@RequestMapping(value="/")
 	public String index()
