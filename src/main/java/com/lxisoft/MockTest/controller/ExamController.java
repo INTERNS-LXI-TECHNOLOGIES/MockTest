@@ -2,10 +2,20 @@ package com.lxisoft.MockTest.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ExamController {
+	
+	@RequestMapping("/helo")
+	@ResponseBody
+	public String abc()
+	{
+		return "hello";
+	}
+	
 	@RequestMapping(value="/")
 	public String index()
 	{
@@ -28,6 +38,16 @@ public class ExamController {
 	public String user()
 	{
 		return "userpage";
+	}
+	@RequestMapping("/question")
+	public String question()
+	{
+		return "question";
+	}
+	@RequestMapping ("/userpage2")
+	public String user2()
+	{
+		return "userpage2";
 	}
 	
 }
