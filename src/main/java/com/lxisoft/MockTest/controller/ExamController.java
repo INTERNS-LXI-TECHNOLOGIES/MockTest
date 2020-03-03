@@ -41,15 +41,14 @@ public class ExamController
 	{
 		return "userpage";
 	}
-	@RequestMapping(value="/save")  
-	public String save(@ModelAttribute UserRegistrationModel user,@RequestParam String name,@RequestParam String email,@RequestParam String password,@RequestParam String cpw)
+	@RequestMapping("/save")  
+	public String save()
 	{  
-		user.setName(name);
-		user.setEmail(email);
-		user.setPassword(password);
-		service.saveService(user);  
-		  
-	return "index";
+//		user.setName(name);
+//		user.setEmail(email);
+//		user.setPassword(password);
+//		service.saveService(user);  
+		  return "index";
  
 	}  
 	 

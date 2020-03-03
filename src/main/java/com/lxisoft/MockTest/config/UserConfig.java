@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
+
+
+
 @Configuration
 @EnableWebSecurity
 public class UserConfig extends WebSecurityConfigurerAdapter 
@@ -36,5 +39,14 @@ public class UserConfig extends WebSecurityConfigurerAdapter
                    .withUser("admin").password("{noop}admin").roles("ADMIN")
                    .and().withUser("user").password("{noop}user").roles("USER");
      }
-	
+//	 @Bean
+//	 public AuthenticationProvider authProvider()
+//	 {
+//		DaoAuthenticationProvider p=new DaoAuthenticationProvider();
+//		p.setUserDetailsService(userservice);
+//		p.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+//		 
+//		return p;
+//		 
+//	 }
 }

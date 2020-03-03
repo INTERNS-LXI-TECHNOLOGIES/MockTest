@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.lxisoft.MockTest.model.UserRegistrationModel;
 
 @Repository
-@Transactional
+@Transactional 
 public class UserRegistrationRepository 
 {
 	@PersistenceContext
