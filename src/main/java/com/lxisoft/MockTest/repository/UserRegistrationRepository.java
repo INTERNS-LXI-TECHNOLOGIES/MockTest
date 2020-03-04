@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.lxisoft.MockTest.model.UserRegistrationModel;
+import com.lxisoft.MockTest.model.UserRegistration;
 
 @Repository
 @Transactional 
@@ -16,7 +16,7 @@ public class UserRegistrationRepository
     private EntityManager em;
 
 
-	public void saveUser(UserRegistrationModel user) 
+	public void saveUser(UserRegistration user) 
 	{
 		em.persist(user);
 	}
