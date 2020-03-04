@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lxisoft.MockTest.model.SetTimerModel;
 import com.lxisoft.MockTest.model.UserRegistrationModel;
 import com.lxisoft.MockTest.service.ExamService;
 
@@ -37,7 +38,30 @@ public class ExamController
 	{
 		return "adminpage";
 	}
+	@RequestMapping("/timer")
+	public String setTimer(Model model,@ModelAttribute SetTimerModel timer1)
+	{
+		model.addAttribute("timer",timer1);
+		return "setTimer";
+	}
+	@RequestMapping("/setTime")
+	public String setTime()
+	{
 	
+		return "userpage2";
+	}
+	@RequestMapping("/sampleview")
+	public String sampleView()
+	{
+		return "sampleView";
+	}
+	
+	@RequestMapping("/submit")
+	public String submit()
+	{
+	
+		return "submit";
+	}
 	@RequestMapping("/userpage")
 	public String user()
 	{
