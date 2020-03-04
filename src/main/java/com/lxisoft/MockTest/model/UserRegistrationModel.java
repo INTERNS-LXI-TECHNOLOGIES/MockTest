@@ -16,21 +16,28 @@ public class UserRegistrationModel
 	private Long id;
 	
 	@Column(name="username")
-	private String name; 
+	private String username; 
 
 	@Column(name="email")
 	private String email;  
 
 	@Column(name="password")
 	private String password;
+	
+	@Column(name = "role")
+    private String role="USER";
+    
+	public String getRole() {
+		return role;
+	}
 
 	public String getName() 
 	{  
-	return name;  
+	return username;  
 	}  
-	public void setName(String name) 
+	public void setName(String username) 
 	{  
-	this.name = name;  
+	this.username = username;  
 	}  
 	public String getEmail() 
 	{  
