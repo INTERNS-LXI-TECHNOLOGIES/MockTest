@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.lxisoft.MockTest.model.ExamUserDetails;
+import com.lxisoft.MockTest.config.ExamUserDetails;
 import com.lxisoft.MockTest.model.UserRegistration;
 import com.lxisoft.MockTest.repository.UserRegistrationRepository;
 import com.lxisoft.MockTest.repository.UserRepository;

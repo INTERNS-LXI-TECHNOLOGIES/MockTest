@@ -1,8 +1,11 @@
 package com.lxisoft.MockTest.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,13 +72,15 @@ public class ExamController
 		return "userpage";
 	}
 	@RequestMapping(value="/save")  
-	public String save(@ModelAttribute UserRegistration user,@RequestParam String name,@RequestParam String email,@RequestParam String password,@RequestParam String cpw)
+	public String save(@ModelAttribute @Valid UserRegistration user,BindingResult bindingResult,@RequestParam String name,@RequestParam String email,@RequestParam String password,@RequestParam String cpw)
 	{  
+		 if (!bindingResult.hasErrors()) {
 		user.setName(name);
 		user.setEmail(email);
 		user.setPassword(password);
 		service.saveService(user);  
-	return "index";
+		 }
+		 return ((bindingResult.hasErrors()) ? "wrong" : "index");
 	}  
 	
 	@RequestMapping("/question")
