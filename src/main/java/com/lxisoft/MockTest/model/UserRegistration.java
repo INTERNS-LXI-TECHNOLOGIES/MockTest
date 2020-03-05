@@ -27,7 +27,7 @@ public class UserRegistration
 	@Column(name="email")
 	private String email;  
 
-	@Size(min=1, max=6, message="password must contain 6 characters")
+	@Size(min=3, message="password must contain 3 characters")
 	@NotNull(message = "password is required.")
 	@Column(name="password")
 	private String password;
@@ -39,14 +39,17 @@ public class UserRegistration
 		return role;
 	}
 
-	public String getName() 
-	{  
-	return username;  
-	}  
-	public void setName(String username) 
-	{  
-	this.username = username;  
-	}  
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
 	public String getEmail() 
 	{  
 	return email;  
