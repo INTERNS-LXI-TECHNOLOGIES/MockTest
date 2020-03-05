@@ -9,5 +9,5 @@ import com.lxisoft.MockTest.model.UserRegistration;
 public interface UserRepository extends JpaRepository<UserRegistration, Long> 
 {
 	UserRegistration findByUsername(String username);
-
+	
 }
