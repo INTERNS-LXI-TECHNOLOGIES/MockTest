@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.lxisoft.MockTest.model.SetTimerModel;
-import com.lxisoft.MockTest.model.UserRegistrationModel;
+import com.lxisoft.MockTest.model.UserRegistration;
 import com.lxisoft.MockTest.service.ExamService;
 
 @Controller
@@ -29,7 +30,7 @@ public class ExamController
 	@RequestMapping("/register")
 	public String register(Model model)
 	{
-		model.addAttribute("userRegistration", new UserRegistrationModel());
+		model.addAttribute("userRegistration", new UserRegistration());
 		return "user_registration";
 	}
 	
@@ -68,7 +69,7 @@ public class ExamController
 		return "userpage";
 	}
 	@RequestMapping(value="/save")  
-	public String save(@ModelAttribute UserRegistrationModel user,@RequestParam String name,@RequestParam String email,@RequestParam String password,@RequestParam String cpw)
+	public String save(@ModelAttribute UserRegistration user,@RequestParam String name,@RequestParam String email,@RequestParam String password,@RequestParam String cpw)
 	{  
 		user.setName(name);
 		user.setEmail(email);

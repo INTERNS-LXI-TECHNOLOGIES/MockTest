@@ -9,18 +9,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class ExamUserDetails implements UserDetails {
 
-	private UserRegistrationModel user;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6366471012078300670L;
+	private UserRegistration user;
 	
 	
-	public ExamUserDetails(UserRegistrationModel user) {
+	public ExamUserDetails(UserRegistration user) {
 		super();
 		this.user = user;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		
-		return Collections.singleton(new SimpleGrantedAuthority("USER"));
+		System.out.println("role44444444--"+user.getRole());
+		return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
 	}
 
 	@Override
