@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="user_registration")
@@ -20,10 +22,12 @@ public class UserRegistration
 	@Column(name="username")
 	private String username; 
 
+	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="Email address is invalid")
 	@NotNull(message = "Email is required.")
 	@Column(name="email")
 	private String email;  
 
+	@Size(min=1, max=6, message="password must contain 6 characters")
 	@NotNull(message = "password is required.")
 	@Column(name="password")
 	private String password;
