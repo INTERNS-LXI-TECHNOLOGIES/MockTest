@@ -1,3 +1,4 @@
+
 package com.lxisoft.MockTest.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;

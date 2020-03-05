@@ -4,12 +4,15 @@
 <meta charset="ISO-8859-1">
 </head>
 <body>
-	<center><h1>HELLO ADMIN</h1>
-	</center>
-	
+<div align="center">
+	<h1>HELLO ADMIN</h1>
+	</div>
+	<div align="right"><a th:href="@{/logout}">logout</a></div>
+	<div align="center">
 	<a th:href="@{/question}"><button>Question</button></a>
-	<button>Timer</button>
-	<button>Sample View</button>
-	<a th:href="@{/logout}">logout</a>
+	<a th:href="@{/timer}"><button>Set Timer</button></a>
+	<a th:href="@{/sampleview}"><button>Sample View</button></a>
+	</div>
+	
 </body>
 </html>

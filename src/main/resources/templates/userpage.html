@@ -5,19 +5,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-<center><h1>HELLO USER</h1>
-</center>
-<h3>INSTRUCTIONS TO CANDIDATES:</h3>
+<div align ="center"><h1>HELLO USER</h1>
+</div>
+<div align ="center">
+<h3>INSTRUCTIONS TO CANDIDATES</h3>
 <h4>No other electronic devices are allowed for assistance.
  Paper is provided for rough working. This and all exam scripts are collected at the end
   –under no circumstances can anything leave the exam room.</h4>
-  <form action="userpage2" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy'); return false; }">
+  <form action="userpage2" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('You have must agree to the Terms and Conditions and Privacy Policy'); return false; }">
 
-<input type="checkbox" name="checkbox" value="check" id="agree" /> I have read thr instructions to the Terms and Conditions and Privacy Policy
-
+<input type="checkbox" name="checkbox" value="check" id="agree" /> I have read the instructions to the Terms and Conditions and Privacy Policy
+<br><br>
 <input type="submit" name="submit" value="submit" />
 
 </form>
-<a th:href="@{/logout}">logout</a>
+</div>
+<div align="right"><a th:href="@{/logout}">logout</a></div>
 </body>
 </html>

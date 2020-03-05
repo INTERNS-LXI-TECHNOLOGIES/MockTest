@@ -37,6 +37,7 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
 	 @Override
 	  public void configure(AuthenticationManagerBuilder auth) throws Exception {
 	      auth.authenticationProvider(authenticationProvider());
+	      
 	  }
 
 	 
@@ -45,7 +46,7 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
          http
              .authorizeRequests()
                  .antMatchers("/index").permitAll()
-                 .antMatchers("/userpage").hasRole("USER")
+                 .antMatchers("/userpage").access("hasRole('USER') or hasRole('ADMIN')")
                  .antMatchers("/adminpage").hasRole("ADMIN")
                  .and().formLogin().and()
                  .rememberMe();

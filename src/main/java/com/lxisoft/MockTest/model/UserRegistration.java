@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="user_registration")
@@ -15,12 +16,15 @@ public class UserRegistration
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@NotNull(message = "Username is required.")
 	@Column(name="username")
 	private String username; 
 
+	@NotNull(message = "Email is required.")
 	@Column(name="email")
 	private String email;  
 
+	@NotNull(message = "password is required.")
 	@Column(name="password")
 	private String password;
 	
