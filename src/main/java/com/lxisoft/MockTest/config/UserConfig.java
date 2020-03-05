@@ -46,7 +46,7 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
          http
              .authorizeRequests()
                  .antMatchers("/index").permitAll()
-                 .antMatchers("/userpage").hasRole("USER")
+                 .antMatchers("/userpage").access("hasRole('USER') or hasRole('ADMIN')")
                  .antMatchers("/adminpage").hasRole("ADMIN")
                  .and().formLogin().and()
                  .rememberMe();
