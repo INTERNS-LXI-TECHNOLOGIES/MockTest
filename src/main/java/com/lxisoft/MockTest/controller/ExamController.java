@@ -34,7 +34,7 @@ public class ExamController
 	public String register(Model model)
 	{
 		model.addAttribute("userRegistration", new UserRegistration());
-		return "user_registration";
+		return "registration";
 	}
 	
 	@RequestMapping("/adminpage")
