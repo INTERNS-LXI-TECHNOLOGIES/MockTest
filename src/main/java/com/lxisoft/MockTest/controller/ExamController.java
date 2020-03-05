@@ -72,12 +72,10 @@ public class ExamController
 		return "userpage";
 	}
 	@RequestMapping(value="/save")  
-	public String save(@ModelAttribute @Valid UserRegistration user,BindingResult bindingResult,@RequestParam String name,@RequestParam String email,@RequestParam String password,@RequestParam String cpw)
+	public String save(@ModelAttribute @Valid UserRegistration user,BindingResult bindingResult)
 	{  
-		 if (!bindingResult.hasErrors()) {
-		user.setName(name);
-		user.setEmail(email);
-		user.setPassword(password);
+		
+		if (!bindingResult.hasErrors()) {
 		service.saveService(user);  
 		 }
 		 return ((bindingResult.hasErrors()) ? "wrong" : "index");
