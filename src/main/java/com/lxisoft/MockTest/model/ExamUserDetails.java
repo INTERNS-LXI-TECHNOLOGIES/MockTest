@@ -23,8 +23,7 @@ public class ExamUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		System.out.println("role44444444--"+user.getRole());
-		return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
+		return Collections.singleton(new SimpleGrantedAuthority("ROLE_"+user.getRole()));
 	}
 
 	@Override

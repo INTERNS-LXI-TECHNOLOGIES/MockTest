@@ -18,10 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.lxisoft.MockTest.model.UserRegistration;
 import com.lxisoft.MockTest.service.ExamService;
 
-
-
-
-
 @Configuration
 @EnableWebSecurity
 public class UserConfig extends WebSecurityConfigurerAdapter {
@@ -37,12 +33,7 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
 			
 			return provider;
 		}
-//	@Bean
-//	public PasswordEncoder passwordEncoder()
-//	{
-//		return NoOpPasswordEncoder.getInstance();
-//	}
-//	
+
 	 @Override
 	  public void configure(AuthenticationManagerBuilder auth) throws Exception {
 	      auth.authenticationProvider(authenticationProvider());
@@ -56,14 +47,10 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
              .authorizeRequests()
                  .antMatchers("/index").permitAll()
                  .antMatchers("/userpage").hasRole("USER")
-                 .and().formLogin();
+                 .antMatchers("/adminpage").hasRole("ADMIN")
+                 .and().formLogin().and()
+                 .rememberMe();
          
      }
-	
-//     @Override
-//     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//         auth.inMemoryAuthentication()
-//                   .withUser("admin").password("{noop}admin").roles("ADMIN")
-//                   .and().withUser("user").password("{noop}user").roles("USER");
-//     }
+
 }
