@@ -93,12 +93,12 @@ public class ExamController
 	{
 		return "userpage2";
 	}
-	@RequestMapping("/timer")
-	public String timer()
-	{
-		return "timer";
-	}
-	 
+//	@RequestMapping("/timer")
+//	public String timer()
+//	{
+//		return "timer";
+//	}
+//	 
 	
 }
 
