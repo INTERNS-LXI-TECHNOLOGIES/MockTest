@@ -70,7 +70,7 @@ public class ExamController
 	@RequestMapping("/submit")
 	public String submit()
 	{
-	
+	 
 		return "submit";
 	}
 	@RequestMapping("/user_instruction")
