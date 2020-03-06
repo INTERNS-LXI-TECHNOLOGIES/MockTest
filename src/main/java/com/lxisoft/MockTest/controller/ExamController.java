@@ -93,15 +93,6 @@ public class ExamController
 	{
 		return "userpage";
 	}
-<<<<<<< HEAD
-//	@RequestMapping("/timer")
-//	public String timer()
-//	{
-//		return "timer";
-//	}
-//	 
-=======
->>>>>>> 47954ac040168e94910eff205eb9eed0491b8208
 	
 	@RequestMapping ("/login")
 	public String login()
