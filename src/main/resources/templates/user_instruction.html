@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -22,4 +23,30 @@
 </div>
 <div align="right"><a th:href="@{/logout}">logout</a></div>
 </body>
+=======
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- <meta charset="ISO-8859-1"> -->
+<title>Insert title here</title>
+</head>
+<body>
+<div align ="center"><h1>HELLO USER</h1>
+</div>
+<div align ="center">
+<h3>INSTRUCTIONS TO CANDIDATES</h3>
+<h4>No other electronic devices are allowed for assistance.
+ Paper is provided for rough working. This and all exam scripts are collected at the end
+  –under no circumstances can anything leave the exam room.</h4>
+  <form action="userpage" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('You have must agree to the Terms and Conditions and Privacy Policy'); return false; }">
+
+<input type="checkbox" name="checkbox" value="check" id="agree" /> I have read the instructions to the Terms and Conditions and Privacy Policy
+<br><br>
+<input type="submit" name="submit" value="submit" />
+
+</form>
+</div>
+<div align="right"><a th:href="@{/logout}">logout</a></div>
+</body>
+>>>>>>> abd88d318ee598928509cee3c2864eabfc31ed48
 </html>
