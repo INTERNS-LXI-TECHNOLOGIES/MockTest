@@ -19,6 +19,9 @@ public class Questions
 	
 	@Column(name="answer")
 	private String answer;
+	
+	@Column(name="level")
+	private String level;
 
 	public String getQn() {
 		return qn;
@@ -42,5 +45,13 @@ public class Questions
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 }
