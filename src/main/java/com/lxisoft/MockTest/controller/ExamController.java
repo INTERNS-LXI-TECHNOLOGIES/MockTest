@@ -3,6 +3,8 @@ package com.lxisoft.MockTest.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +29,12 @@ public class ExamController
 	@RequestMapping(value="/")
 	public String index()
 	{
-		return "index";
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+		if(isAdmin)
+			return "adminpage";
+		else
+			return "redirect:/user_instruction";
 	}
 	
 	@RequestMapping("/register")
@@ -52,7 +59,7 @@ public class ExamController
 	public String setTime()
 	{
 	
-		return "userpage2";
+		return "userpage";
 	}
 	@RequestMapping("/sampleview")
 	public String sampleView()
@@ -63,13 +70,13 @@ public class ExamController
 	@RequestMapping("/submit")
 	public String submit()
 	{
-	
+	 
 		return "submit";
 	}
-	@RequestMapping("/userpage")
+	@RequestMapping("/user_instruction")
 	public String user()
 	{
-		return "userpage";
+		return "user_instruction";
 	}
 	@RequestMapping(value="/save")  
 	public String save(@ModelAttribute @Valid UserRegistration user,BindingResult bindingResult)
@@ -86,10 +93,10 @@ public class ExamController
 	{
 		return "question";
 	}
-	@RequestMapping ("/userpage2")
+	@RequestMapping ("/userpage")
 	public String user2()
 	{
-		return "userpage2";
+		return "userpage";
 	}
 //	@RequestMapping("/timer")
 //	public String timer()
