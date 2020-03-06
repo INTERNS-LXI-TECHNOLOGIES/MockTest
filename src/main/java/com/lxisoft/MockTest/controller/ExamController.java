@@ -31,10 +31,13 @@ public class ExamController
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
 		if(isAdmin)
 			return "adminpage";
+		else if(isUser)
+			return "user_instruction";
 		else
-			return "redirect:/user_instruction";
+			return "redirect:/login";
 	}
 	
 	@RequestMapping("/register")
@@ -44,11 +47,6 @@ public class ExamController
 		return "registration";
 	}
 	
-	@RequestMapping("/adminpage")
-	public String admin()
-	{
-		return "adminpage";
-	}
 	@RequestMapping("/timer")
 	public String setTimer(Model model,@ModelAttribute SetTimerModel timer1)
 	{
@@ -73,11 +71,7 @@ public class ExamController
 	 
 		return "submit";
 	}
-	@RequestMapping("/user_instruction")
-	public String user()
-	{
-		return "user_instruction";
-	}
+	
 	@RequestMapping(value="/save")  
 	public String save(@ModelAttribute @Valid UserRegistration user,BindingResult bindingResult)
 	{  
@@ -93,12 +87,11 @@ public class ExamController
 	{
 		return "question";
 	}
+	
 	@RequestMapping ("/userpage")
-	public String user2()
+	public String userpage()
 	{
 		return "userpage";
 	}
-	 
-	
 }
 
