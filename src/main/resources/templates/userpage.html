@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<!-- <meta charset="ISO-8859-1"> -->
+<meta charset="UTF-8">
 <title>Insert title here</title>
+<script> 
+var deadline = new Date("mar 5, 2020 10:15:25").getTime(); 
+var x = setInterval(function() { 
+var now = new Date().getTime(); 
+var t = deadline - now; 
+var days = Math.floor(t / (1000 * 60 * 60 * 24)); 
+var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
+var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)); 
+var seconds = Math.floor((t % (1000 * 60)) / 1000); 
+document.getElementById("demo").innerHTML = days + "d "  
++ hours + "h " + minutes + "m " + seconds + "s "; 
+    if (t < 0) { 
+        clearInterval(x); 
+        document.getElementById("demo").innerHTML = "TIME OUT"; 
+    } 
+}, 1000); 
+</script>	
 </head>
 <body>
-<div align ="center"><h1>HELLO USER</h1>
-</div>
-<div align ="center">
-<h3>INSTRUCTIONS TO CANDIDATES</h3>
-<h4>No other electronic devices are allowed for assistance.
- Paper is provided for rough working. This and all exam scripts are collected at the end
-  –under no circumstances can anything leave the exam room.</h4>
-  <form action="userpage2" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('You have must agree to the Terms and Conditions and Privacy Policy'); return false; }">
+<a th:href="@{/sampleview}"><button>Start Now</button></a> 
 
-<input type="checkbox" name="checkbox" value="check" id="agree" /> I have read the instructions to the Terms and Conditions and Privacy Policy
-<br><br>
-<input type="submit" name="submit" value="submit" />
-
-</form>
-</div>
-<div align="right"><a th:href="@{/logout}">logout</a></div>
+<h2>LETS GO...</h2>
+<p id="demo"></p>  
 </body>
 </html>

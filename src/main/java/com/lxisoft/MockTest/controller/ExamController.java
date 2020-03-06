@@ -3,6 +3,8 @@ package com.lxisoft.MockTest.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +29,15 @@ public class ExamController
 	@RequestMapping(value="/")
 	public String index()
 	{
-		return "index";
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
+		if(isAdmin)
+			return "adminpage";
+		else if(isUser)
+			return "user_instruction";
+		else
+			return "redirect:/login";
 	}
 	
 	@RequestMapping("/register")
@@ -37,11 +47,6 @@ public class ExamController
 		return "registration";
 	}
 	
-	@RequestMapping("/adminpage")
-	public String admin()
-	{
-		return "adminpage";
-	}
 	@RequestMapping("/timer")
 	public String setTimer(Model model,@ModelAttribute SetTimerModel timer1)
 	{
@@ -52,7 +57,7 @@ public class ExamController
 	public String setTime()
 	{
 	
-		return "userpage2";
+		return "userpage";
 	}
 	@RequestMapping("/sampleview")
 	public String sampleView()
@@ -66,11 +71,7 @@ public class ExamController
 	 
 		return "submit";
 	}
-	@RequestMapping("/userpage")
-	public String user()
-	{
-		return "userpage";
-	}
+	
 	@RequestMapping(value="/save")  
 	public String save(@ModelAttribute @Valid UserRegistration user,BindingResult bindingResult, @RequestParam String cpw)
 	{  
@@ -79,7 +80,7 @@ public class ExamController
 		service.saveService(user);  
 			else return "registration";
 		 }
-		 return ((bindingResult.hasErrors()) ? "wrong" : "index");
+		 return ((bindingResult.hasErrors()) ? "wrong" : "login");
 	}  
 	
 	@RequestMapping("/question")
@@ -87,12 +88,23 @@ public class ExamController
 	{
 		return "question";
 	}
-	@RequestMapping ("/userpage2")
-	public String user2()
-	{
-		return "userpage2";
-	}
-	 
 	
+	@RequestMapping ("/userpage")
+	public String userpage()
+	{
+		return "userpage";
+	}
+	
+	@RequestMapping ("/login")
+	public String login()
+	{
+		return "login";
+	}
+	
+	@RequestMapping ("/logout")
+	public String logout()
+	{
+		return "logout";
+	}
 }
 

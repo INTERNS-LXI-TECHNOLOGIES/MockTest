@@ -45,12 +45,9 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
      protected void configure(HttpSecurity http) throws Exception {
          http
              .authorizeRequests()
-                 .antMatchers("/index").permitAll()
-                 .antMatchers("/userpage").access("hasRole('USER') or hasRole('ADMIN')")
+                 .antMatchers("/user_instruction").hasRole("USER")
                  .antMatchers("/adminpage").hasRole("ADMIN")
-                 .and().formLogin().and()
-                 .rememberMe();
-         
+                 .and().formLogin().loginPage("/login");
      }
 
 }
