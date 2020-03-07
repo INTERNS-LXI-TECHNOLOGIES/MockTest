@@ -57,10 +57,10 @@ public class ExamController
 	
 		return "userpage";
 	}
-	@RequestMapping("/sampleview")
+	@RequestMapping("/Displaysets")
 	public String sampleView()
 	{
-		return "sampleView";
+		return "questionpapers";
 	}
 	
 	@RequestMapping("/submit")
@@ -107,8 +107,13 @@ public class ExamController
 	@RequestMapping("/deletequestion")
 	public String Deletequestion()
 	{
-	 
 		return "viewall_qstn";
+	}
+
+	@RequestMapping("/user_view")
+	public String userview()
+	{
+		return "user_view";
 	}
 }
 
