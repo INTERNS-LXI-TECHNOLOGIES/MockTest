@@ -11,57 +11,55 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="user_registration")
-public class UserRegistration 
-{
+@Table(name = "user_registration")
+public class UserRegistration {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@NotNull(message = "Username is required.")
-	@Column(name="username")
-	private String username; 
+	@Column(name = "username")
+	private String username;
 
-	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="Email address is invalid")
+	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "Email address is invalid")
 	@NotNull(message = "Email is required.")
-	@Column(name="email")
-	private String email;  
+	@Column(name = "email")
+	private String email;
 
-	@Size(min=3, message="password must contain 3 characters")
+	@Size(min = 3, message = "password must contain 3 characters")
 	@NotNull(message = "password is required.")
-	@Column(name="password")
+	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "role")
-    private String role="USER";
-    
+	private String role = "USER";
+
 	public String getRole() {
 		return role;
 	}
-
 
 	public String getUsername() {
 		return username;
 	}
 
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
+	public String getEmail() {
+		return email;
+	}
 
-	public String getEmail() 
-	{  
-	return email;  
-	}  
-	public void setEmail(String email) 
-	{  
-	this.email = email;  
-	} 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }

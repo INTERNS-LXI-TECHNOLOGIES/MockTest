@@ -6,24 +6,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
-@Table(name="question")
-public class Questions 
-{
+@Table(name = "question")
+public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
-	@Column(name="qstn")
+
+	@Column(name = "qstn")
 	private String qstn;
-	
-	@Column(name="options")
+
+	@Column(name = "options")
 	private String options;
-	
-	@Column(name="answer")
+
+	@Column(name = "answer")
 	private String answer;
-	
-	@Column(name="level")
+
+	@Column(name = "level")
 	private String level;
 
 	public String getQstn() {
@@ -57,4 +57,5 @@ public class Questions
 	public void setLevel(String level) {
 		this.level = level;
 	}
+
 }
