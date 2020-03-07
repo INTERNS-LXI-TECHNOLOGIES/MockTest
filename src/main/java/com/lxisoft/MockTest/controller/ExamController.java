@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.lxisoft.MockTest.model.Exam;
 import com.lxisoft.MockTest.model.SetTimerModel;
 import com.lxisoft.MockTest.model.UserRegistration;
-import com.lxisoft.MockTest.service.ExamService;
+import com.lxisoft.MockTest.service.UserService;
 
 @Controller
 public class ExamController
 {
 	@Autowired
-	private ExamService service;
-	
+	private UserService service;
+
 	@RequestMapping(value="/")
 	public String index()
 	{
@@ -39,14 +39,14 @@ public class ExamController
 		else
 			return "redirect:/login";
 	}
-	
+
 	@RequestMapping("/register")
 	public String register(Model model)
 	{
 		model.addAttribute("userRegistration", new UserRegistration());
 		return "registration";
 	}
-	
+
 	@RequestMapping("/timer")
 	public String setTimer(Model model,@ModelAttribute SetTimerModel timer1)
 	{
@@ -56,7 +56,7 @@ public class ExamController
 	@RequestMapping("/setTime")
 	public String setTime()
 	{
-	
+
 		return "userpage";
 	}
 	@RequestMapping("/sampleview")
@@ -64,30 +64,29 @@ public class ExamController
 	{
 		return "sampleView";
 	}
-	
+
 	@RequestMapping("/submit")
 	public String submit()
 	{
-	 
+
 		return "submit";
 	}
-	
+
 	@RequestMapping(value="/save")  
 	public String save(@ModelAttribute @Valid UserRegistration user,BindingResult bindingResult)
 	{  
-		
 		if (!bindingResult.hasErrors()) {
-		service.saveService(user);  
-		 }
-		 return ((bindingResult.hasErrors()) ? "wrong" : "index");
+			service.saveService(user);  
+		}
+		return ((bindingResult.hasErrors()) ? "wrong" : "redirect:/");
 	}  
-	
+
 	@RequestMapping("/question")
 	public String question()
 	{
 		return "question";
 	}
-	
+
 	@RequestMapping ("/userpage")
 	public String userpage()
 	{
@@ -99,19 +98,26 @@ public class ExamController
 	{
 		return "login";
 	}
-	
+
 	@RequestMapping ("/logout")
 	public String logout()
 	{
 		return "logout";
 	}
-	
+
 
 	@RequestMapping ("/create_exam")
-	public String create_exam()
+	public String create_exam(Model model)
 	{
+		model.addAttribute("exam",new Exam());	
 		return "create_exam";
 	}
 	
+	@RequestMapping ("/save_exam")
+	public String save_exam(Exam exam)
+	{			
+		return "redirect:/";
+	}
+
 }
 

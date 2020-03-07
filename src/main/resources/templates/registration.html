@@ -8,7 +8,7 @@
    <h1>Registration </h1>
 </div>
 <div align="center">
-<form action="#" th:action="@{/save}" th:object="${userRegistration}" method="post">
+<form action="#" th:action="@{/save}" th:object="${userRegistration}" >
 
             	<table><tr>
             	<td> <label>User Name</label></td><td><input type="text" th:field="*{username}" /></td></tr>
