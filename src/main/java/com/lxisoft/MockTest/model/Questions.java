@@ -12,7 +12,10 @@ public class Questions
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String qn;
+	private long id;
+	
+	@Column(name="qstn")
+	private String qstn;
 	
 	@Column(name="options")
 	private String options;
@@ -23,12 +26,12 @@ public class Questions
 	@Column(name="level")
 	private String level;
 
-	public String getQn() {
-		return qn;
+	public String getQstn() {
+		return qstn;
 	}
 
-	public void setQn(String qn) {
-		this.qn = qn;
+	public void setQstn(String qstn) {
+		this.qstn = qstn;
 	}
 
 	public String getOptions() {
