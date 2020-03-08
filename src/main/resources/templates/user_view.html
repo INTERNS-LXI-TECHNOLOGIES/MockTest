@@ -6,10 +6,13 @@
 </head>
 <body background="">
 
-<form action="#" th:action="@{/submit}"  method='POST'>
+<form action="#" th:action="@{/submit}" th:object="${question}"  method='POST'>
+
+
 	<h1><font color="">question</font></h1>
 	<div>
 	<h3><font color="">
+	<!-- <input type="radio" th:field="*{carModel}" th:value="${model}" > -->
 	<br><input type="radio" name="option" value="A">A
 	<br><input type="radio" name="option" value="B">B
 	<br><input type="radio" name="option" value="C">C

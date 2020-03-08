@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>create exam</title>
+</head>
+<body>
+<div align="center">
+   <h2>generate exam </h2>
+</div>
+<div align="center">
+		<form action="#" th:action="@{/save_exam}" th:object="${exam}" method="get">
+
+			<table>
+				<tr>
+					<td>Enter no. of questions needed:</td>
+					<td><input type="text" th:field="*{count}" /></td>
+				</tr>
+				<tr>
+					<td>Level:</td>
+					<td><select name="level" th:field="*{level}" >
+							<option th:value="beginner">beginner</option>
+							<option th:value="intermediate">intermediate</option>
+							<option th:value="expert">expert</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Time:</td>
+					<td>hour<input type="number" th:field="*{time_hr}" /> min<input
+						type="number" th:field="*{time_min}" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Submit" /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
