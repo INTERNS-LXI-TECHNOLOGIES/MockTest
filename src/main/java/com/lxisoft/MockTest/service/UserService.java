@@ -19,6 +19,8 @@ public class UserService implements UserDetailsService
 	private UserRepository userRepo;
 
 	@Override
+	
+	
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserRegistration user=userRepo.findByUsername(username);
 		if(user==null)
@@ -29,7 +31,6 @@ public class UserService implements UserDetailsService
 	public void saveService(UserRegistration user)
 	{
 		userRepo.save(user);
-		
 	}
 
 	public List<Question> findall(Question quest) {

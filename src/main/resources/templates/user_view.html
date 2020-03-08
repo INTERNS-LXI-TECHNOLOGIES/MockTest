@@ -6,20 +6,16 @@
 </head>
 <body background="">
 
-<form action="#" th:action="@{/submit}" th:object="${question}"  method='POST'>
-
-
-	<h1><font color="">question</font></h1>
-	<div>
-	<h3><font color="">
-	<!-- <input type="radio" th:field="*{carModel}" th:value="${model}" > -->
-	<br><input type="radio" name="option" value="A">A
+<form action="#" th:action="@{/submit}" th:object="${questions}">
+<div>
+	<span th:text="*{qstn}"> question </span>
+	<input type="radio"  name="option" value="*{option1}" th:field="*{option1}"  ><span th:text="*{option1}"> </span>
+	<!-- <input type="radio" name="option2" value="*{option2}" th:field="*{option2}">
+	<input type="radio" name="option3" value="*{option3}" th:field="*{option3}">
 	<br><input type="radio" name="option" value="B">B
 	<br><input type="radio" name="option" value="C">C
-	<br><input type="radio" name="option" value="D">D
+	<br><input type="radio" name="option" value="D">D -->
 	<br><input type="submit" value="next">
-	</font>
-	</h3>
 	</div>
 	</form>
 
