@@ -108,10 +108,10 @@ public class ExamController
 		return "login";
 	}
 
-	@RequestMapping ("/logout")
+	@RequestMapping ("/logoutpage")
 	public String logout()
 	{
-		return "logout";
+		return "logoutpage";
 	}
 
 
