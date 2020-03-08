@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -41,7 +42,9 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
              .authorizeRequests()
                  .antMatchers("/user_instruction").hasRole("USER")
                  .antMatchers("/adminpage").hasRole("ADMIN")
-                 .and().formLogin().loginPage("/login");
+                 .and().formLogin().loginPage("/login").and()
+     			.logout().invalidateHttpSession(true).clearAuthentication(true)
+     			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
      }
 
 }
