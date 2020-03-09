@@ -140,12 +140,20 @@ public class ExamController
 		}
 		return "user_view";
 	}
+
 	@RequestMapping("create_question")
 	public String createExam(@ModelAttribute Question question)
 	{
 //		quest.save(question);
 		
 	return "question";
+	}
+
+	@RequestMapping ("/viewall_qstn")
+	public String viewall_qstn() 
+	{
+		return "viewall_qstn";
+
 	}
 }
 
