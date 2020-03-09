@@ -93,7 +93,7 @@ public class ExamController
 	public String question(Model model)
 	{
 		model.addAttribute("question",new Question());
-		return "question";
+		return "create_question";
 	}
 
 	@RequestMapping ("/userpage")
@@ -141,12 +141,12 @@ public class ExamController
 		return "user_view";
 	}
 
-	@RequestMapping("create_question")
+	@RequestMapping(value="/create_question")
 	public String createExam(@ModelAttribute Question question)
 	{
 		questService.save(question);
+	return "redirect:/";
 
-		return "question";
 	}
 
 	@RequestMapping ("/viewall_qstn")
@@ -155,6 +155,14 @@ public class ExamController
 		List<Question> questions=questService.findAll();
 		model.addAttribute("questions",questions);	
 		return "viewall_qstn";
+
+	}
+	@RequestMapping(value="/addmore")
+	public String addmore(@ModelAttribute Question ques,Model model) 
+	{
+		questService.save(ques);
+		model.addAttribute("question",new Question());
+		return "create_question";
 
 	}
 }

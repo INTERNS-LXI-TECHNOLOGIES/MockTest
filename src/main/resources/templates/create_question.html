@@ -2,7 +2,7 @@
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Question creation</title>
 </head>
 <body>
 
@@ -10,7 +10,7 @@
    <h1>Exam Creation </h1>
 </div>
 <div align="center">
-<form action="#" th:action="@{/create_question}" th:object="${question}" >
+<form  th:object="${question}" >
 
             	<table>
             	<tr><td>Level</td>
@@ -23,13 +23,14 @@
         		<tr><td>Option1</td><td><input type="text" th:field="*{option1}" /></td></tr>
         		<tr><td>Option2</td><td><input type="text" th:field="*{option2}" /></td></tr>
         		<tr><td>Option3</td><td><input type="text" th:field="*{option3}"/></td></tr>
-        		<tr><td>Answer</td><td><input type="password" th:field="*{answer}" /></td></tr>
+        		<tr><td>Answer</td><td><input type="text" th:field="*{answer}" /></td></tr>
         		
-        		<tr><td></td><td><input type="submit" value="Add"/></td></tr>
-        		</table>   
-        					
+        		<tr><td><input type="submit" value="Add" formaction="/create_question"/></td></tr>
+        		
+        		<tr><td><input type="submit" value="Add More" formaction="/addmore"></td></tr>
+        					</table>   
 </form> 
-				<a th:href="@{/question}">Add more</a>
+
 </div>
 </body>
 </html>
