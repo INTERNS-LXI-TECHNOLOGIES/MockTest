@@ -10,18 +10,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.lxisoft.MockTest.model.Exam;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.model.SetTimerModel;
 import com.lxisoft.MockTest.model.UserRegistration;
-import com.lxisoft.MockTest.repository.QuestionRepository;
+import com.lxisoft.MockTest.service.QuestionService;
 import com.lxisoft.MockTest.service.UserService;
 
 @Controller
@@ -30,7 +27,7 @@ public class ExamController
 	@Autowired
 	private UserService service;
 	@Autowired
-	private QuestionRepository quest;
+	private QuestionService quest;
 
 	@RequestMapping(value="/")
 	public String index()
@@ -91,8 +88,9 @@ public class ExamController
 	}  
 
 	@RequestMapping("/question")
-	public String question()
+	public String question(Model model)
 	{
+		model.addAttribute("question",new Question());
 		return "question";
 	}
 
@@ -138,6 +136,12 @@ public class ExamController
 		model.addAttribute("questions",quest);	
 		}
 		return "user_view";
+	}
+	@RequestMapping("create_question")
+	public String createExam(Model model)
+	{
+		
+	return "question";
 	}
 }
 

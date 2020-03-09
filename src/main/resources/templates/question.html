@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<button>ADD</button>
-<form action="add" method = "get">
-   
-       
- <input type="submit" value="SAVE">
-</form>
+
+<div align="center">
+   <h1>Exam Creation </h1>
+</div>
+<div align="center">
+<form action="#" th:action="@{/create_question}" th:object="${question}" >
+
+            	<table><tr>
+            	<td>Name</td><td><input type="text" th:field="*{name}" /></td></tr>
+            	<tr><td>Level</td>
+					<td><select name="level" th:field="*{level}" >
+							<option th:value="beginner">Beginner</option>
+							<option th:value="intermediate">Intermediate</option>
+							<option th:value="expert">Expert</option>
+					</select></td></tr>
+        		<tr><td>Question</td> <td><input type="text" th:field="*{qstn}" /></td>
+        		<tr><td>Option1</td><td><input type="text" th:field="*{option1}" /></td></tr>
+        		<tr><td>Option2</td><td><input type="text" th:field="*{option2}" /></td></tr>
+        		<tr><td>Option3</td><td><input type="text" th:field="*{option3}"/></td></tr>
+        		<tr><td>Answer</td><td><input type="password" th:field="*{answer}" /></td></tr>
+        		
+        		<tr><td></td><td><input type="submit" value="Add"/></td></tr>
+        		</table>   			
+</form> 
+</div>
 </body>
 </html>
