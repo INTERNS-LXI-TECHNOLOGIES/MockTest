@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -164,6 +165,22 @@ public class ExamController
 		model.addAttribute("question",new Question());
 		return "create_question";
 
+	}
+	
+	@RequestMapping ("/current_exams")
+	public String current_exams(Model model)
+	{
+		model.addAttribute("exams",examService.findAll());
+		return "current_exams";
+	}
+	
+	@RequestMapping ("/selectExam")
+	public String selectExam(Model model,@RequestParam String id)
+	{
+		System.out.println("id#####-"+id);
+		List<Question> examQstns=examService.getExamQstns(id);
+		//model.addAttribute("exams",examService.findAll());
+		return "selectExam";
 	}
 }
 

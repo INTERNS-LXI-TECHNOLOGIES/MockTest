@@ -4,16 +4,21 @@
 <meta charset="ISO-8859-1">
 </head>
 <body>
-<div align="center">
-	<h1>HELLO ADMIN</h1>
-	</div>
-	<div align="right"><a th:href="@{/logoutpage}">logout</a></div>
 	<div align="center">
-	<a th:href="@{/question}"><button>Create Question</button></a>
-		<a th:href="@{/viewall_qstn}"><button>All questions</button></a>
-	<a th:href="@{/create_exam}"><button>Create Exam</button></a>
-	<a th:href="@{/Displaysets}"><button>Question papers</button></a>
+		<h1>HELLO ADMIN</h1>
 	</div>
-	
+	<div align="right">
+		<a th:href="@{/logoutpage}"><button>logout</button></a>
+	</div>
+	<div align="center">
+		<a th:href="@{/question}"><button>Create Question</button></a> &nbsp;&nbsp;
+		<a th:href="@{/viewall_qstn}"><button>All questions</button></a>
+	</div>
+	<br><br><br>
+	<div align="center">
+		<a th:href="@{/create_exam}"><button>Create Exam</button></a> &nbsp;&nbsp;
+		<a th:href="@{/current_exams}"><button>Current Exams</button></a>
+	</div>
+
 </body>
 </html>

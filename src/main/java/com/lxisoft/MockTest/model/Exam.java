@@ -36,7 +36,26 @@ public class Exam
 	@Column
 	private int time_min;
 	
-	 @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Column 
+	private boolean isActive=false;
+	
+	 public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	    @JoinTable(name = "exam_qstns",joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
 	        inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
 	 private Collection<Question> questions;

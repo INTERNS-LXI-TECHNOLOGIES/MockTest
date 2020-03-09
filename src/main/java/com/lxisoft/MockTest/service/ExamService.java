@@ -19,6 +19,14 @@ public class ExamService {
 	ExamRepo examRepo;
 	@Autowired
 	QuestionRepository qstnRepo;
+	
+	public List<Exam> findAll() {
+		return examRepo.findAll();
+	}	
+	
+	public List<Question> getExamQstns(String id) {
+		return null;
+	}
 
 	public void save_exam(Exam exam) throws Exception
 	{
