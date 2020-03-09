@@ -9,18 +9,18 @@ import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.repository.QuestionRepository;
 
 @Service
-public class QuestionService 
+public class QuestionService  
 {
 	@Autowired
-	private QuestionRepository quest;
+	private QuestionRepository questRepo;
 
 	public List<Question> findAll() {
-		List<Question> question=quest.findAll();
+		List<Question> question=questRepo.findAll();
 		return question;
 	}
 
 	public void save(Question question) {
-		quest.save(question);
+		questRepo.save(question);
 		
 	}
 }

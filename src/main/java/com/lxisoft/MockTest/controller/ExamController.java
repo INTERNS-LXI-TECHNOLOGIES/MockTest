@@ -29,7 +29,7 @@ public class ExamController
 	@Autowired
 	private UserService service;
 	@Autowired
-	private QuestionService questRepo;
+	private QuestionService questService;
 
 	@RequestMapping(value="/")
 	public String index()
@@ -133,7 +133,7 @@ public class ExamController
 	public String userview(Model model)
 	{
 		
-		List<Question> question=questRepo.findAll();
+		List<Question> question=questService.findAll();
 		for(Question quest:question)
 		{
 		model.addAttribute("questions",quest);	
@@ -144,7 +144,7 @@ public class ExamController
 	@RequestMapping("create_question")
 	public String createExam(@ModelAttribute Question question)
 	{
-//		quest.save(question);
+		questService.save(question);
 		
 	return "question";
 	}
