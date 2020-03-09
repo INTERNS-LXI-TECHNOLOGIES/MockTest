@@ -132,12 +132,15 @@ public class ExamController
 		return "redirect:/";
 	}
 
-	@RequestMapping("/user_view")
+	@RequestMapping(value="/user_view", method=RequestMethod.GET)
 	public String userview(Model model)
 	{
 		
-//		List<Question> question=quest.findAll();
-//		model.addAttribute("questions","question");	
+		List<Question> question=quest.findAll();
+		for(Question quest:question)
+		{
+		model.addAttribute("questions",quest);	
+		}
 		return "user_view";
 	}
 }
