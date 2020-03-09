@@ -1,5 +1,6 @@
 package com.lxisoft.MockTest.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -130,10 +131,11 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/user_view", method=RequestMethod.GET)
-	public String userview(Model model)
+	public String userview(Model model,@ModelAttribute Exam exam)
 	{
 
 		List<Question> question=questService.findAll();
+//		Collection<Question>question =exam.getQuestions();
 		for(Question quest:question)
 		{
 			model.addAttribute("questions",quest);	
