@@ -23,13 +23,13 @@
             <td colspan="7"> No Questions Available </td>
         </tr>
         <tr th:each="qstn ,iterator : ${questions}" >
-        <td><span th:text="${iterator.index+1}" > Sl.No. </span></td>
-            <td><span th:text="${qstn.getQstn()}"> Question </span></td>
-            <td><span th:text="${qstn.getOption1()}"> Option1 </span></td>
-            <td><span th:text="${qstn.getOption2()}"> Option2 </span></td>
-            <td><span th:text="${qstn.getOption3()}"> Option3 </span></td>
-            <td><span th:text="${qstn.getAnswer()}"> Answer </span></td>
-            <td><span th:text="${qstn.getLevel()}"> Level </span></td>
+        <td th:text="${iterator.index+1}" > Sl.No. </td>
+            <td th:text="${qstn.getQstn()}"> Question </td>
+            <td th:text="${qstn.getOption1()}"> Option1 </td>
+            <td th:text="${qstn.getOption2()}"> Option2 </td>
+            <td th:text="${qstn.getOption3()}"> Option3 </td>
+            <td th:text="${qstn.getAnswer()}"> Answer </td>
+            <td th:text="${qstn.getLevel()}"> Level </td>
         </tr>
     </tbody>
 </table>
