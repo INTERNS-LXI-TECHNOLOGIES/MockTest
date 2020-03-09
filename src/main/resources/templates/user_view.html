@@ -5,17 +5,14 @@
 <title>mock test </title>
 </head>
 <body background="">
-
+<div align="center"><h1> Mocktest</h1></div>
 <form action="#" th:action="@{/submit}" th:object="${questions}">
-<div>
-	<span th:text="*{qstn}"> question </span>
-	<input type="radio"  name="option" value="*{option1}" th:field="*{option1}"  ><span th:text="*{option1}"> </span>
-	<!-- <input type="radio" name="option2" value="*{option2}" th:field="*{option2}">
-	<input type="radio" name="option3" value="*{option3}" th:field="*{option3}">
-	<br><input type="radio" name="option" value="B">B
-	<br><input type="radio" name="option" value="C">C
-	<br><input type="radio" name="option" value="D">D -->
-	<br><input type="submit" value="next">
+<div align="left">
+	<h2><span th:text="*{qstn}"> question </span></h2>
+	<h3><input type="radio"  name="option" value="*{option1}" th:field="*{option1}"  ><span th:text="*{option1}"> </span></h3>
+	<h3><input type="radio" name="option2" value="*{option2}" th:field="*{option2}"><span th:text="*{option2}"> </span></h3>
+	<h3><input type="radio" name="option3" value="*{option3}" th:field="*{option3}"><span th:text="*{option3}"> </span></h3>
+	<br><h3><input type="submit" value="next"></h3>
 	</div>
 	</form>
 
