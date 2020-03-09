@@ -82,9 +82,9 @@ public class ExamController
 	{  
 		if (!bindingResult.hasErrors()) {
 			if(user.getPassword().equals(cpw))
-			service.saveService(user);  
+				service.saveService(user);  
 			else return "registration";
-			
+
 		}
 		return ((bindingResult.hasErrors()) ? "wrong" : "redirect:/");
 	}  
@@ -121,7 +121,7 @@ public class ExamController
 		model.addAttribute("exam",new Exam());	
 		return "create_exam";
 	}
-	
+
 	@RequestMapping ("/save_exam")
 	public String save_exam(Exam exam) throws Exception
 	{
@@ -132,11 +132,11 @@ public class ExamController
 	@RequestMapping(value="/user_view", method=RequestMethod.GET)
 	public String userview(Model model)
 	{
-		
+
 		List<Question> question=questService.findAll();
 		for(Question quest:question)
 		{
-		model.addAttribute("questions",quest);	
+			model.addAttribute("questions",quest);	
 		}
 		return "user_view";
 	}
@@ -145,13 +145,15 @@ public class ExamController
 	public String createExam(@ModelAttribute Question question)
 	{
 		questService.save(question);
-		
-	return "question";
+
+		return "question";
 	}
 
 	@RequestMapping ("/viewall_qstn")
-	public String viewall_qstn() 
+	public String viewall_qstn(Model model) 
 	{
+		List<Question> questions=questService.findAll();
+		model.addAttribute("questions",questions);	
 		return "viewall_qstn";
 
 	}
