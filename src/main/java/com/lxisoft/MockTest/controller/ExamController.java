@@ -21,12 +21,15 @@ import com.lxisoft.MockTest.model.Exam;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.model.SetTimerModel;
 import com.lxisoft.MockTest.model.UserRegistration;
+import com.lxisoft.MockTest.repository.ExamRepo;
 import com.lxisoft.MockTest.repository.QuestionRepository;
 import com.lxisoft.MockTest.service.UserService;
 
 @Controller
 public class ExamController
 {
+	@Autowired
+	private com.lxisoft.MockTest.service.ExamService examService;
 	@Autowired
 	private UserService service;
 	@Autowired
@@ -123,8 +126,9 @@ public class ExamController
 	}
 	
 	@RequestMapping ("/save_exam")
-	public String save_exam(Exam exam)
-	{			
+	public String save_exam(Exam exam) throws Exception
+	{
+		examService.save_exam(exam);
 		return "redirect:/";
 	}
 

@@ -10,8 +10,11 @@
 </div>
 <div align="center">
 		<form action="#" th:action="@{/save_exam}" th:object="${exam}" method="get">
-
 			<table>
+				<tr>
+					<td>Enter name of this exam:</td>
+					<td><input type="text" th:field="*{exam_name}" /></td>
+				</tr>
 				<tr>
 					<td>Enter no. of questions needed:</td>
 					<td><input type="text" th:field="*{count}" /></td>
