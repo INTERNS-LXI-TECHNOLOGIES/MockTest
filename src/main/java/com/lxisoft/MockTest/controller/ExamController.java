@@ -87,7 +87,7 @@ public class ExamController
 			else return "registration";
 
 		}
-		return ((bindingResult.hasErrors()) ? "wrong" : "redirect:/");
+		return ((bindingResult.hasErrors()) ? "error" : "redirect:/");
 	}  
 
 	@RequestMapping("/question")
