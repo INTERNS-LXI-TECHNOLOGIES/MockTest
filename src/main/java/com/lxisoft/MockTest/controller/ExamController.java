@@ -143,5 +143,11 @@ public class ExamController
 		}
 		return "user_view";
 	}
+	
+	@RequestMapping ("/viewall_qstn")
+	public String viewall_qstn() 
+	{
+		return "viewall_qstn";
+	}
 }
 
