@@ -22,6 +22,9 @@ public class Exam
 	private long id;
 	
 	@Column
+	private String exam_name;
+
+	@Column
 	private int count;
 	
 	@Column
@@ -46,20 +49,14 @@ public class Exam
 		this.questions = questions;
 	}
 
-	public Exam() {
-		
-	}
-	
-	public Exam(long id, int count, String level, int time_hr, int time_min, Collection<Question> questions) {
-		super();
-		this.id = id;
-		this.count = count;
-		this.level = level;
-		this.time_hr = time_hr;
-		this.time_min = time_min;
-		this.questions = questions;
+	public String getExam_name() {
+		return exam_name;
 	}
 
+	public void setExam_name(String exam_name) {
+		this.exam_name = exam_name;
+	}
+	
 	public int getCount() {
 		return count;
 	}

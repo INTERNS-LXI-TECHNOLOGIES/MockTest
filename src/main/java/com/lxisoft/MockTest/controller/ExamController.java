@@ -25,9 +25,11 @@ import com.lxisoft.MockTest.service.UserService;
 public class ExamController
 {
 	@Autowired
+	private com.lxisoft.MockTest.service.ExamService examService;
+	@Autowired
 	private UserService service;
 	@Autowired
-	private QuestionService quest;
+	private QuestionService questRepo;
 
 	@RequestMapping(value="/")
 	public String index()
@@ -121,8 +123,9 @@ public class ExamController
 	}
 	
 	@RequestMapping ("/save_exam")
-	public String save_exam(Exam exam)
-	{			
+	public String save_exam(Exam exam) throws Exception
+	{
+		examService.save_exam(exam);
 		return "redirect:/";
 	}
 
@@ -130,7 +133,7 @@ public class ExamController
 	public String userview(Model model)
 	{
 		
-		List<Question> question=quest.findAll();
+		List<Question> question=questRepo.findAll();
 		for(Question quest:question)
 		{
 		model.addAttribute("questions",quest);	
@@ -138,8 +141,9 @@ public class ExamController
 		return "user_view";
 	}
 	@RequestMapping("create_question")
-	public String createExam(Model model)
+	public String createExam(@ModelAttribute Question question)
 	{
+//		quest.save(question);
 		
 	return "question";
 	}

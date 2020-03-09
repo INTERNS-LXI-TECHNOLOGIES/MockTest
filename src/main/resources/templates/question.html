@@ -12,8 +12,7 @@
 <div align="center">
 <form action="#" th:action="@{/create_question}" th:object="${question}" >
 
-            	<table><tr>
-            	<td>Name</td><td><input type="text" th:field="*{name}" /></td></tr>
+            	<table>
             	<tr><td>Level</td>
 					<td><select name="level" th:field="*{level}" >
 							<option th:value="beginner">Beginner</option>
@@ -27,8 +26,10 @@
         		<tr><td>Answer</td><td><input type="password" th:field="*{answer}" /></td></tr>
         		
         		<tr><td></td><td><input type="submit" value="Add"/></td></tr>
-        		</table>   			
+        		</table>   
+        					
 </form> 
+				<a th:href="@{/question}">Add more</a>
 </div>
 </body>
 </html>
