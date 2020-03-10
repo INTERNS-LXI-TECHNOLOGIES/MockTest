@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.lxisoft.MockTest.model.Exam;
 import com.lxisoft.MockTest.model.Question;
+import com.lxisoft.MockTest.model.UserRegistration;
 import com.lxisoft.MockTest.repository.ExamRepo;
 import com.lxisoft.MockTest.repository.QuestionRepository;
 
@@ -24,9 +26,33 @@ public class ExamService {
 		return examRepo.findAll();
 	}	
 	
-	public List<Question> getExamQstns(String id) {
-		return null;
+	public Exam findById(String eId) throws Exception
+	{
+		long id=Integer.parseInt(eId);
+		Exam exam=null;
+		Optional<Exam> optional=examRepo.findById(id);
+		if(optional.isPresent())
+		{
+			exam=optional.get();
+		}
+		else
+			throw new Exception("Exam(id="+id+") not present. Sorry!!");
+		return exam;
 	}
+	
+//	public List<Question> getExamQstns(String eId) throws Exception {
+//		long id=Integer.parseInt(eId);
+//		List<Question> qstns;
+//		Optional<Exam> optional=examRepo.findById(id);
+//		if(optional.isPresent())
+//		{
+//			Exam exam=optional.get();
+//			qstns=(List<Question>) exam.getQuestions();
+//		}
+//		else
+//			throw new Exception("Exam(id="+id+") not present. Sorry!!");
+//		return qstns;
+//	}
 
 	public void save_exam(Exam exam) throws Exception
 	{
