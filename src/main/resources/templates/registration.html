@@ -13,9 +13,9 @@
 
             	<table><tr>
             	<td> <label>User Name</label></td><td><input type="text" th:field="*{username}" /></td>
-     			  <td><font color="red"> <span  th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> Username is required. </span></font></td></tr>
+     			  <td><font color="red"> <span  th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> </span></font></td></tr>
         		<tr><td> <label>E-Mail</label></td> <td><input type="text" th:field="*{email}" /></td>
-        		  <td> <font color="red"><span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"> email required</span></font></td></tr>
+        		  <td> <font color="red"><span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></font></td></tr>
         		<tr><td> <label>Password</label></td><td><input type="password" th:field="*{password}" /></td>
         		  <td><font color="red"> <span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></font></td></tr>
         		<tr><td> <label>Confirm Password</label></td><td><input type="password" name="cpw" /></td>

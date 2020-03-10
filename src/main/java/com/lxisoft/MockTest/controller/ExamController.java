@@ -150,10 +150,12 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/create_question")
-	public String createExam(@ModelAttribute Question question)
+	public String createExam(@ModelAttribute @Valid Question question ,BindingResult bindingResult)
 	{
-		questService.save(question);
-	return "redirect:/";
+		if (!bindingResult.hasErrors()) {
+		 questService.save(question);
+	      return "redirect:/";}
+	    else return"create_question";
 
 	}
 
@@ -166,11 +168,13 @@ public class ExamController
 
 	}
 	@RequestMapping(value="/addmore")
-	public String addmore(@ModelAttribute Question ques,Model model) 
+	public String addmore(@ModelAttribute @Valid Question ques,Model model,BindingResult binding) 
 	{
+		if(!binding.hasErrors()) {
 		questService.save(ques);
 		model.addAttribute("question",new Question());
-		return "create_question";
+		return "create_question";}
+		else return"create_question";
 
 	}
 	@RequestMapping("/error")
