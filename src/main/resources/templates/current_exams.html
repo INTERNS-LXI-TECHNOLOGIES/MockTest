@@ -27,7 +27,7 @@ span {
 				<td colspan="1">No Questions Available</td>
 			</tr>
 			<tr class="border border-dark" th:each="exam: ${exams}">
-				<td><a th:href="@{/selectExam(id=${exam.getId()})}"><span th:text="${exam.getExam_name()}">exam</span></a></td>
+				<td><a th:href="@{/selectExam(eId=${exam.getId()})}"><span th:text="${exam.getExam_name()}">exam</span></a></td>
 			</tr>
 		</table>
 

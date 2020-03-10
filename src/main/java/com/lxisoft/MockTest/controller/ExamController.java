@@ -177,10 +177,10 @@ public class ExamController
 	}
 	
 	@RequestMapping ("/selectExam")
-	public String selectExam(Model model,@RequestParam String id)
+	public String selectExam(Model model,@RequestParam String eId)
 	{
-		System.out.println("id#####-"+id);
-		List<Question> examQstns=examService.getExamQstns(id);
+		System.out.println("id#####-"+eId);
+		List<Question> examQstns=examService.getExamQstns(eId);
 		//model.addAttribute("exams",examService.findAll());
 		return "selectExam";
 	}
