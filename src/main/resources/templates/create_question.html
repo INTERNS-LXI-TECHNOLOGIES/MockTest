@@ -25,7 +25,15 @@
         		<tr><td>Option3</td><td><input type="text" th:field="*{option3}"/></td></tr>
         		<tr><td>Answer</td><td><input type="text" th:field="*{answer}" /></td></tr>
         		
-        		<tr><td><input type="submit" value="Add" formaction="/create_question"/></td></tr>
+        		<tr><td><input type="submit"  value="Add" onclick="alert_func()" formaction="/create_question"/></td></tr>
+        		
+
+<script>
+function alert_func() {
+  alert("Successfully Created");
+}
+</script>
+        		
         		
         		<tr><td><input type="submit" value="Add More" formaction="/addmore"></td></tr>
         					</table>   
