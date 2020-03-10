@@ -205,6 +205,9 @@ public class ExamController
 	{
 		Exam exam=examService.findById(eId);
 		model.addAttribute("questions",exam.getQuestions());
+		model.addAttribute("level",exam.getLevel());
+		model.addAttribute("hr",exam.getTime_hr());
+		model.addAttribute("min",exam.getTime_min());
 		return "selectExam";
 	}
 }
