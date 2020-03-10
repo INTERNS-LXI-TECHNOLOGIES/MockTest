@@ -3,9 +3,12 @@ package com.lxisoft.MockTest.controller;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,8 +46,9 @@ public class ExamController
 			return "adminpage";
 		else if(isUser)
 			return "user_instruction";
-		else
+		else 
 			return "redirect:/login";
+	
 	}
 
 	@RequestMapping("/register")
@@ -85,10 +89,11 @@ public class ExamController
 		if (!bindingResult.hasErrors()) {
 			if(user.getPassword().equals(cpw))
 				service.saveService(user);  
-			else return "registration";
+			else
+				return "registration";
 
 		}
-		return ((bindingResult.hasErrors()) ? "error" : "redirect:/");
+		return ((bindingResult.hasErrors()) ? "registration" : "redirect:/");
 	}  
 
 	@RequestMapping("/question")
@@ -145,10 +150,12 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/create_question")
-	public String createExam(@ModelAttribute Question question)
+	public String createExam(@ModelAttribute @Valid Question question ,BindingResult bindingResult)
 	{
-		questService.save(question);
-	return "redirect:/";
+		if (!bindingResult.hasErrors()) {
+		 questService.save(question);
+	      return "redirect:/";}
+	    else return"create_question";
 
 	}
 
@@ -161,14 +168,31 @@ public class ExamController
 
 	}
 	@RequestMapping(value="/addmore")
-	public String addmore(@ModelAttribute Question ques,Model model) 
+	public String addmore(@ModelAttribute @Valid Question ques,Model model,BindingResult binding) 
 	{
+		if(!binding.hasErrors()) {
 		questService.save(ques);
 		model.addAttribute("question",new Question());
-		return "create_question";
+		return "create_question";}
+		else return"create_question";
 
 	}
-	
+	@RequestMapping("/error")
+	public String handleError(HttpServletRequest request) {
+	    Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+	     
+	    if (status != null) {
+	        Integer statusCode = Integer.valueOf(status.toString());
+	     
+	        if(statusCode == HttpStatus.NOT_FOUND.value()) {
+	            return "error-404";
+	        }
+	        else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+	            return "error-500";
+	        }
+	    }
+	    return "error";
+	}
 	@RequestMapping ("/current_exams")
 	public String current_exams(Model model)
 	{
@@ -177,11 +201,10 @@ public class ExamController
 	}
 	
 	@RequestMapping ("/selectExam")
-	public String selectExam(Model model,@RequestParam String eId)
+	public String selectExam(Model model,@RequestParam String eId) throws Exception
 	{
-		System.out.println("id#####-"+eId);
-		List<Question> examQstns=examService.getExamQstns(eId);
-		//model.addAttribute("exams",examService.findAll());
+		Exam exam=examService.findById(eId);
+		model.addAttribute("questions",exam.getQuestions());
 		return "selectExam";
 	}
 }

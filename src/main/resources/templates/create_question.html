@@ -19,11 +19,16 @@
 							<option th:value="intermediate">Intermediate</option>
 							<option th:value="expert">Expert</option>
 					</select></td></tr>
-        		<tr><td>Question</td> <td><input type="text" th:field="*{qstn}" /></td>
-        		<tr><td>Option1</td><td><input type="text" th:field="*{option1}" /></td></tr>
-        		<tr><td>Option2</td><td><input type="text" th:field="*{option2}" /></td></tr>
-        		<tr><td>Option3</td><td><input type="text" th:field="*{option3}"/></td></tr>
-        		<tr><td>Answer</td><td><input type="text" th:field="*{answer}" /></td></tr>
+        		<tr><td>Question</td> <td><input type="text" th:field="*{qstn}" />
+        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('qstn')}" th:errors="*{qstn}"></span></font></td></td>
+        		<tr><td>Option1</td><td><input type="text" th:field="*{option1}" /></td>
+        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('option1')}" th:errors="*{option1}"></span></font></td></tr>
+        		<tr><td>Option2</td><td><input type="text" th:field="*{option2}" /></td>
+        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('option2')}" th:errors="*{option2}"></span></font></td></tr>
+        		<tr><td>Option3</td><td><input type="text" th:field="*{option3}"/></td>
+        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('option3')}" th:errors="*{option3}"></span></font></td></tr>
+        		<tr><td>Answer</td><td><input type="text" th:field="*{answer}" /></td>
+        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('answer')}" th:errors="*{answer}"></span></font></td></tr>
         		
         		<tr><td><input type="submit"  value="Add" onclick="alert_func()" formaction="/create_question"/></td></tr>
         		

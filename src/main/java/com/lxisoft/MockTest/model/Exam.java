@@ -12,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name="exam")
 public class Exam 
@@ -21,18 +23,23 @@ public class Exam
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@NotEmpty(message = "Exam_name is required.")
 	@Column
 	private String exam_name;
 
+	@NotEmpty(message = "count is required.")
 	@Column
 	private int count;
 	
+	@NotEmpty(message = "level is required.")
 	@Column
 	private String level;
 	
+	@NotEmpty(message = "time is required.")
 	@Column
 	private int time_hr;
 	
+	@NotEmpty(message = "time is required.")
 	@Column
 	private int time_min;
 	
@@ -54,12 +61,12 @@ public class Exam
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	    @JoinTable(name = "exam_qstns",joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
-	        inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
-	 private Collection<Question> questions;
 	 
+	@OneToMany(cascade = CascadeType.ALL)
+	 @JoinTable(name = "exam_qstns",joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
+     inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
+	private Collection<Question> questions;
+	
 	public Collection<Question> getQuestions() {
 		return questions;
 	}
