@@ -205,7 +205,7 @@ public class ExamController
 	{
 		Exam exam=examService.findById(eId);
 		model.addAttribute("questions",exam.getQuestions());
-		return "exam_qstns";
+		return "selectExam";
 	}
 }
 
