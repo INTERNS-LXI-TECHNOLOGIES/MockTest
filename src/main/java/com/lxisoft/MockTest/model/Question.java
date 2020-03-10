@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "question")
@@ -14,15 +16,23 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@NotEmpty(message = "Question is required.")
 	@Column(name = "qstn")
 	private String qstn;
 
+	@NotEmpty(message = "option1 is required.")
 	@Column(name = "option1")
 	private String option1;
+	
+	@NotEmpty(message = "option2 is required.")
 	@Column(name = "option2")
 	private String option2;
+	
+	@NotEmpty(message = "optoin3 is required.")
 	@Column(name = "option3")
 	private String option3;
+	
+	@NotEmpty(message = "Answer is required.")
 	@Column(name = "answer")
 	private String answer;
 
