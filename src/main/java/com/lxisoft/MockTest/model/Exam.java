@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 @Table(name="exam")
@@ -36,11 +37,30 @@ public class Exam
 	@Column
 	private int time_min;
 	
-	 @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	    @JoinTable(name = "exam_qstns",joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
-	        inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
-	 private Collection<Question> questions;
+	@Column 
+	private boolean isActive=false;
+	
+	 public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 	 
+	@OneToMany(cascade = CascadeType.ALL)
+	 @JoinTable(name = "exam_qstns",joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
+     inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
+	private Collection<Question> questions;
+	
 	public Collection<Question> getQuestions() {
 		return questions;
 	}
