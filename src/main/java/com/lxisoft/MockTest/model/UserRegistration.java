@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -17,17 +19,17 @@ public class UserRegistration {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotNull(message = "Username is required.")
+	@NotEmpty(message = "Username is required.")
 	@Column(name = "username")
 	private String username;
 
+	@NotEmpty(message = "Email is required.")
 	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "Email address is invalid")
-	@NotNull(message = "Email is required.")
 	@Column(name = "email")
 	private String email;
 
+	@NotEmpty(message = "password is required.")
 	@Size(min = 3, message = "password must contain 3 characters")
-	@NotNull(message = "password is required.")
 	@Column(name = "password")
 	private String password;
 
