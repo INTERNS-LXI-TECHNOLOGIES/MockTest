@@ -201,13 +201,14 @@ public class ExamController
 	}
 	
 	@RequestMapping ("/selectExam")
-	public String selectExam(Model model,@RequestParam String eId)
+	public String selectExam(Model model,@RequestParam String eId) throws Exception
 	{
-		System.out.println("id#####-"+eId);
-		List<Question> examQstns=examService.getExamQstns(eId);
-		//model.addAttribute("exams",examService.findAll());
+		Exam exam=examService.findById(eId);
+		model.addAttribute("questions",exam.getQuestions());
+		model.addAttribute("level",exam.getLevel());
+		model.addAttribute("hr",exam.getTime_hr());
+		model.addAttribute("min",exam.getTime_min());
 		return "selectExam";
-
 	}
 }
 
