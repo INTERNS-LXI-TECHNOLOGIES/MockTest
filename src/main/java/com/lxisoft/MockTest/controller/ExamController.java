@@ -59,7 +59,7 @@ public class ExamController
 	}
 
 	@RequestMapping("/timer")
-	public String setTimer(Model model,@ModelAttribute SetTimerModel timer1)
+	public String setTimer(Model model, SetTimerModel timer1)
 	{
 		model.addAttribute("timer",timer1);
 		return "setTimer";
@@ -84,7 +84,7 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/save")  
-	public String save(@ModelAttribute @Valid UserRegistration user,BindingResult bindingResult,@RequestParam String cpw)
+	public String save(@Valid UserRegistration user,BindingResult bindingResult,@RequestParam String cpw)
 	{  
 		if (!bindingResult.hasErrors()) {
 			if(user.getPassword().equals(cpw))
@@ -125,7 +125,7 @@ public class ExamController
 	@RequestMapping ("/create_exam")
 	public String create_exam(Model model)
 	{
-		model.addAttribute("exam",new Exam());	
+		model.addAttribute("exam",new Exam());	 
 		return "create_exam";
 	}
 
@@ -136,8 +136,8 @@ public class ExamController
 		return "redirect:/";
 	}
 
-	@RequestMapping(value="/user_view", method=RequestMethod.GET)
-	public String userview(Model model,@ModelAttribute Exam exam)
+	@RequestMapping(value="/user_view")
+	public String userview(Model model, Exam exam)
 	{
 
 		List<Question> question=questService.findAll();
@@ -150,7 +150,7 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/create_question")
-	public String createExam(@ModelAttribute @Valid Question question ,BindingResult bindingResult)
+	public String createExam( @Valid Question question ,BindingResult bindingResult)
 	{
 		if (!bindingResult.hasErrors()) {
 		 questService.save(question);
@@ -168,7 +168,7 @@ public class ExamController
 
 	}
 	@RequestMapping(value="/addmore")
-	public String addmore(@ModelAttribute @Valid Question ques,Model model,BindingResult binding) 
+	public String addmore( @Valid Question ques,Model model,BindingResult binding) 
 	{
 		if(!binding.hasErrors()) {
 		questService.save(ques);
