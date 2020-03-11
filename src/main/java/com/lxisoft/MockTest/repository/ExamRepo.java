@@ -8,4 +8,5 @@ import com.lxisoft.MockTest.model.Exam;
 
 public interface ExamRepo extends JpaRepository<Exam, Long> {
 	Optional<Exam> findById(Long id);
+	Optional<Exam> findByIsActive(boolean isActive);
 }

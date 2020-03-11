@@ -125,8 +125,7 @@ public class ExamController
 	@RequestMapping ("/create_exam")
 	public String create_exam(Model model)
 	{
-		Exam exam=new Exam();
-		model.addAttribute("exam",exam);	 
+		model.addAttribute("exam",new Exam());	 
 		return "create_exam";
 	}
 
@@ -138,14 +137,12 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/user_view")
-	public String userview(Model model, Exam exam)
+	public String userview(Model model) throws Exception
 	{
-
-		List<Question> question=questService.findAll();
-		for(Question quest:question)
-		{
-			model.addAttribute("questions",quest);	
-		}
+		Exam exam=examService.findActiveExam();
+		System.out.println("active is----"+exam.getExam_name());
+		model.addAttribute("questions",exam.getQuestions());
+		model.addAttribute("exam",exam);
 		return "user_view";
 	}
 

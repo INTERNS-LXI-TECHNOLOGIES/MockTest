@@ -11,7 +11,7 @@
 			Level:- <span th:text="${exam.getLevel()} ">level</span><br> 
 			Active:- <span	th:text="${exam.isActive()} ">active</span>&nbsp;&nbsp; 
 		<span
-			th:if="!${exam.isActive()} "> <a th:href="@{/activate_exam(eId=${exam.getId()})}">activate exam</a>
+			th:if="!${exam.isActive()} "><button><a th:href="@{/activate_exam(eId=${exam.getId()})}">activate exam</a></button>
 		</span>
 		<h3>
 			<u>Questions in Exam - <span	th:text="${exam.getExam_name()} ">exam name</span></u>

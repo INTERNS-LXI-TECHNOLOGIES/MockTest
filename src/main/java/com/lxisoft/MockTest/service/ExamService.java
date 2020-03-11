@@ -82,5 +82,17 @@ public class ExamService {
 	public void update(Exam exam) {
 		examRepo.save(exam);
 	}
+	
+	public Exam findActiveExam() throws Exception {
+		Exam exam=null;
+		Optional<Exam> optional=examRepo.findByIsActive(true);
+		if(optional.isPresent())
+		{
+			exam=optional.get();
+		}
+		else
+			throw new Exception("something wrong in active exams");
+		return exam;
+	}
 
 }
