@@ -125,7 +125,8 @@ public class ExamController
 	@RequestMapping ("/create_exam")
 	public String create_exam(Model model)
 	{
-		model.addAttribute("exam",new Exam());	 
+		Exam exam=new Exam();
+		model.addAttribute("exam",exam);	 
 		return "create_exam";
 	}
 
@@ -141,7 +142,6 @@ public class ExamController
 	{
 
 		List<Question> question=questService.findAll();
-//		Collection<Question>question =exam.getQuestions();
 		for(Question quest:question)
 		{
 			model.addAttribute("questions",quest);	
@@ -205,10 +205,19 @@ public class ExamController
 	{
 		Exam exam=examService.findById(eId);
 		model.addAttribute("questions",exam.getQuestions());
-		model.addAttribute("level",exam.getLevel());
-		model.addAttribute("hr",exam.getTime_hr());
-		model.addAttribute("min",exam.getTime_min());
+		model.addAttribute("exam",exam);
 		return "selectExam";
 	}
+	
+	@RequestMapping ("/activate_exam")
+	public String activate_exam(@RequestParam String eId) throws Exception
+	{
+		Exam exam=examService.findById(eId);
+		examService.deactivate();
+		exam.setActive(true);
+		examService.update(exam);
+		return "redirect:/selectExam?eId="+eId;
+	}
+	
 }
 

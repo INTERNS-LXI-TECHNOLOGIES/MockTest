@@ -60,7 +60,7 @@ public class Exam
 		this.isActive = isActive;
 	}
 	 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	 @JoinTable(name = "exam_qstns",joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
      inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
 	private Collection<Question> questions;

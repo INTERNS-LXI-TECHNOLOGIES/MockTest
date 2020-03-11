@@ -10,9 +10,9 @@
 /* CSS for Square boxes */
 span {
 	display: inline-block;
-	width: 100px;
+	width: 200px;
 	height: 50px;
-	margin: 2px;
+	
 	background-color: #DCDCDC;
 }
 </style>
@@ -27,7 +27,10 @@ span {
 				<td colspan="1">No Questions Available</td>
 			</tr>
 			<tr class="border border-dark" th:each="exam: ${exams}">
-				<td><a th:href="@{/selectExam(eId=${exam.getId()})}"><span th:text="${exam.getExam_name()}">exam</span></a></td>
+				<td><a th:href="@{/selectExam(eId=${exam.getId()})}"><span></span><h6 th:text="${exam.getExam_name()}">exam</h6>
+				<h6 th:text="${exam.getLevel()}">level</h6>
+				is active:-<h6 th:text="${exam.isActive()}">isActive</h6></span></a>
+				</td>
 			</tr>
 		</table>
 
