@@ -210,5 +210,6 @@ public class ExamController
 		model.addAttribute("min",exam.getTime_min());
 		return "selectExam";
 	}
+	
 }
 
