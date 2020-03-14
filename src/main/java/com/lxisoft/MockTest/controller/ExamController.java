@@ -137,15 +137,17 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/user_view")
-	public String userview(Model model, Exam exam)
+	public String userview(Model model) throws Exception
 	{
-
-		List<Question> question=questService.findAll();
-//		Collection<Question>question =exam.getQuestions();
-		for(Question quest:question)
-		{
-			model.addAttribute("questions",quest);	
-		}
+		Exam exam=examService.findActiveExam();
+		System.out.println("active is----"+exam.getExam_name());
+		model.addAttribute("questions",exam.getQuestions());
+//		Collection<Question> quest=exam.getQuestions();
+//		for(Question q :quest) 
+//		{
+//		System.out.println("active is-question---"+ q.getQstn()); 
+//		}
+		model.addAttribute("exam",exam);
 		return "user_view";
 	}
 
@@ -205,10 +207,18 @@ public class ExamController
 	{
 		Exam exam=examService.findById(eId);
 		model.addAttribute("questions",exam.getQuestions());
-		model.addAttribute("level",exam.getLevel());
-		model.addAttribute("hr",exam.getTime_hr());
-		model.addAttribute("min",exam.getTime_min());
+		model.addAttribute("exam",exam);
 		return "selectExam";
+	}
+	
+	@RequestMapping ("/activate_exam")
+	public String activate_exam(@RequestParam String eId) throws Exception
+	{
+		Exam exam=examService.findById(eId);
+		examService.deactivate();
+		exam.setActive(true);
+		examService.update(exam);
+		return "redirect:/selectExam?eId="+eId;
 	}
 	
 }

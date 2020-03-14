@@ -1,41 +1,48 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Exam Questions</title>
 </head>
 <body>
-<div align="center">
-Time:- <span th:text="${hr} "></span>hr <span th:text="${min} "></span>min<br>
-Level:- <span th:text="${level} "></span>
-<h3><u>Questions in Exam</u></h3>
-</div>
-<table width=100%>
-    <thead>
-        <tr>
-            <th> Sl.No. </th>
-            <th> Question </th>
-            <th> Option1 </th>
-             <th> Option2 </th>
-              <th> Option3 </th>
-             <th> Answer </th>
-              <th> Level </th>
-        </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${questions.empty}">
-            <td colspan="7"> No Questions Available </td>
-        </tr>
-        <tr th:each="qstn ,iterator : ${questions}" >
-        <td th:text="${iterator.index+1}" > Sl.No. </td>
-            <td th:text="${qstn.getQstn()}"> Question </td>
-            <td th:text="${qstn.getOption1()}"> Option1 </td>
-            <td th:text="${qstn.getOption2()}"> Option2 </td>
-            <td th:text="${qstn.getOption3()}"> Option3 </td>
-            <td th:text="${qstn.getAnswer()}"> Answer </td>
-            <td th:text="${qstn.getLevel()}"> Level </td>
-        </tr>
-    </tbody>
-</table>
+	<div align="center">
+		Time:- <span th:text="${exam.getTime_hr()} "></span>hr <span
+			th:text="${exam.getTime_min()} "></span>min<br> 
+			Level:- <span th:text="${exam.getLevel()} ">level</span><br> 
+			Active:- <span	th:text="${exam.isActive()} ">active</span>&nbsp;&nbsp; 
+		<span
+			th:if="!${exam.isActive()} "><button><a th:href="@{/activate_exam(eId=${exam.getId()})}">activate exam</a></button>
+		</span>
+		<h3>
+			<u>Questions in Exam - <span	th:text="${exam.getExam_name()} ">exam name</span></u>
+		</h3>
+	</div>
+	<table width=100%>
+		<thead>
+			<tr>
+				<th>Sl.No.</th>
+				<th>Question</th>
+				<th>Option1</th>
+				<th>Option2</th>
+				<th>Option3</th>
+				<th>Answer</th>
+				<th>Level</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${questions.empty}">
+				<td colspan="7">No Questions Available</td>
+			</tr>
+			<tr th:each="qstn ,iterator : ${questions}">
+				<td th:text="${iterator.index+1}">Sl.No.</td>
+				<td th:text="${qstn.getQstn()}">Question</td>
+				<td th:text="${qstn.getOption1()}">Option1</td>
+				<td th:text="${qstn.getOption2()}">Option2</td>
+				<td th:text="${qstn.getOption3()}">Option3</td>
+				<td th:text="${qstn.getAnswer()}">Answer</td>
+				<td th:text="${qstn.getLevel()}">Level</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>

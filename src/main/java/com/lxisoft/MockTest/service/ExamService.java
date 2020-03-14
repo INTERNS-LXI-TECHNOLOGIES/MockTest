@@ -39,20 +39,6 @@ public class ExamService {
 			throw new Exception("Exam(id="+id+") not present. Sorry!!");
 		return exam;
 	}
-	
-//	public List<Question> getExamQstns(String eId) throws Exception {
-//		long id=Integer.parseInt(eId);
-//		List<Question> qstns;
-//		Optional<Exam> optional=examRepo.findById(id);
-//		if(optional.isPresent())
-//		{
-//			Exam exam=optional.get();
-//			qstns=(List<Question>) exam.getQuestions();
-//		}
-//		else
-//			throw new Exception("Exam(id="+id+") not present. Sorry!!");
-//		return qstns;
-//	}
 
 	public void save_exam(Exam exam) throws Exception
 	{
@@ -82,6 +68,31 @@ public class ExamService {
 		
 		exam.setQuestions(finalQstns);
 		examRepo.save(exam);
+	}
+	
+	public void deactivate() {
+		List<Exam> examList=examRepo.findAll();
+		for(Exam e: examList)
+		{
+			e.setActive(false);
+			examRepo.save(e);
+		}
+	}
+	
+	public void update(Exam exam) {
+		examRepo.save(exam);
+	}
+	
+	public Exam findActiveExam() throws Exception {
+		Exam exam=null;
+		Optional<Exam> optional=examRepo.findByIsActive(true);
+		if(optional.isPresent())
+		{
+			exam=optional.get();
+		}
+		else
+			throw new Exception("something wrong in active exams");
+		return exam;
 	}
 
 }

@@ -5,16 +5,27 @@
 <title>mock test </title>
 </head>
 <body background="">
-<div align="center"><h1> Mocktest</h1></div>
+<div align="center"><h1> Mocktest</h1>
+<u>Exam name - <span	th:text="${exam.getExam_name()} "></span></u></div>
+<div align="center">
 <form action="#" th:action="@{/submit}" th:object="${questions}">
-<div align="left">
-	<h2><span th:text="*{qstn}"> question </span></h2>
-	<h3><input type="radio"  name="option" value="*{option1}" th:field="*{option1}"  ><span th:text="*{option1}"> </span></h3>
-	<h3><input type="radio" name="option2" value="*{option2}" th:field="*{option2}"><span th:text="*{option2}"> </span></h3>
-	<h3><input type="radio" name="option3" value="*{option3}" th:field="*{option3}"><span th:text="*{option3}"> </span></h3>
+<table width="100%">
+<p th:each="qstn ,iterator : ${questions}">
+	<tr><td th:text="${iterator.index+1}"></td><td th:text="${qstn.getQstn()}">Question</td></tr>
+		
+	<tr><h3><td><input type="radio"  name="${qstn.getId()}" value="${qstn.getOption1()}" ></td> 
+	 <td th:text="${qstn.getOption1()}">option1</td></h3></tr>
+	<tr><td><h3><input type="radio"  name="${qstn.getId()}" value="${qstn.getOption2()}" ></td>
+	 <td th:text="${qstn.getOption2()}">option2 </td></h3></tr>
+	<tr><td><h3><input type="radio"  name="${qstn.getId()}" value="${qstn.getOption3()}"></td>
+	<td th:text="${qstn.getOption3()}"> option3</td></h3></tr>
+	
+</p>
+	</table>
 	<br><h3><input type="submit" value="next"></h3>
-	</div>
 	</form>
+
+	</div>
 
 </body>
 </html>
