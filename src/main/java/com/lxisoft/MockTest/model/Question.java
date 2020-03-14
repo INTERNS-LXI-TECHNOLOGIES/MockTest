@@ -43,6 +43,14 @@ public class Question {
 	@Column(name = "level")
 	private String level;
 	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getQstn() {
 		return qstn;
 	}

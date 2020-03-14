@@ -1,5 +1,6 @@
 package com.lxisoft.MockTest.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.lxisoft.MockTest.model.Exam;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.model.SetTimerModel;
+import com.lxisoft.MockTest.model.UserAnswer;
 import com.lxisoft.MockTest.model.UserRegistration;
 import com.lxisoft.MockTest.service.QuestionService;
 import com.lxisoft.MockTest.service.UserService;
@@ -140,7 +142,9 @@ public class ExamController
 	public String userview(Model model) throws Exception
 	{
 		Exam exam=examService.findActiveExam();
-		System.out.println("active is----"+exam.getExam_name());
+		ArrayList<UserAnswer> ansList=new ArrayList<UserAnswer>();
+		model.addAttribute("ua",new UserAnswer());
+		model.addAttribute("ansList",ansList);
 		model.addAttribute("questions",exam.getQuestions());
 		model.addAttribute("exam",exam);
 		return "user_view";
@@ -190,6 +194,7 @@ public class ExamController
 	    }
 	    return "error";
 	}
+	
 	@RequestMapping ("/current_exams")
 	public String current_exams(Model model)
 	{
@@ -217,4 +222,21 @@ public class ExamController
 	}
 	
 }
+
+
+//@RequestMapping(value="/user_view")
+//public String userview(Model model,@RequestParam String option,@RequestParam String qCount,@RequestParam String qId) throws Exception
+//{
+//	if(option!=null && qCount!=null && qId!=null)
+//	{
+//		
+//	}
+//	Exam exam=examService.findActiveExam();
+//	for(Question qstn:exam.getQuestions())
+//	{
+//		model.addAttribute("qstn",qstn);
+//	}
+//	model.addAttribute("exam",exam);
+//	return "user_view";
+//}
 

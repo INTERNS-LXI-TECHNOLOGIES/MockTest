@@ -4,17 +4,31 @@
 <meta charset="ISO-8859-1">
 <title>mock test </title>
 </head>
-<body background="">
-<div align="center"><h1> Mocktest</h1></div>
-<form action="#" th:action="@{/submit}" th:object="${questions}">
-<div align="left">
-	<h2><span th:text="*{qstn}"> question </span></h2>
-	<h3><input type="radio"  name="option" value="*{option1}" th:field="*{option1}"  ><span th:text="*{option1}"> </span></h3>
-	<h3><input type="radio" name="option2" value="*{option2}" th:field="*{option2}"><span th:text="*{option2}"> </span></h3>
-	<h3><input type="radio" name="option3" value="*{option3}" th:field="*{option3}"><span th:text="*{option3}"> </span></h3>
-	<br><h3><input type="submit" value="next"></h3>
+<body>
+<div align="center">
+		<h1 th:text="${exam.getExam_name()} "> exam name</h1>
+		Time:- <span th:text="${exam.getTime_hr()} "></span>hr <span
+			th:text="${exam.getTime_min()} "></span>min<br> 
+			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
 	</div>
-	</form>
-
+	
+<form th:action="@{/user_view}">
+		<div th:if="${questions.empty}">
+            No Questions Available
+        </div>
+        
+		<div th:each="qstn ,stat : ${questions}" >
+			<!--  <span th:text="${iterator.index+1}" > Sl.No. </span> -->
+			<span th:text="${qstn.getQstn()}" th:value="${qstn.id}"> question </span><br>
+			<input type="radio"  th:name="${qstn.id}" th:value="${qstn.option1}" th:text="${qstn.option1}"/>
+			<input type="radio" th:name="${qstn.id}" th:value="${qstn.option1}" th:text="${qstn.option2}" />
+			<input type="radio" th:name="${qstn.id}" th:value="${qstn.option1}" th:text="${qstn.option3}"/>
+			
+		 </div>
+		 <input type="submit" value="next">
+</form>
 </body>
 </html>
+
+
+      

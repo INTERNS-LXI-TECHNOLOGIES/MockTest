@@ -14,7 +14,7 @@
 			th:if="!${exam.isActive()} "><button><a th:href="@{/activate_exam(eId=${exam.getId()})}">activate exam</a></button>
 		</span>
 		<h3>
-			<u>Questions in Exam - <span	th:text="${exam.getExam_name()} ">exam name</span></u>
+			<u>Questions in Exam - <span th:text="${exam.getExam_name()} ">exam name</span></u>
 		</h3>
 	</div>
 	<table width=100%>
