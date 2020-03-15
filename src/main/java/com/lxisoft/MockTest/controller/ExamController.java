@@ -142,9 +142,15 @@ public class ExamController
 	public String userview(Model model) throws Exception
 	{
 		Exam exam=examService.findActiveExam();
-		ArrayList<UserAnswer> ansList=new ArrayList<UserAnswer>();
-		model.addAttribute("ua",new UserAnswer());
-		model.addAttribute("ansList",ansList);
+		List<Question> questions=(List<Question>) exam.getQuestions();
+		String[] answers=new String[exam.getCount()];
+		int i=0;
+		for(Question qstn:questions)
+		{
+			answers[i]=qstn.getAnswer();
+			i++;
+		}
+		model.addAttribute("answers",answers);
 		model.addAttribute("questions",exam.getQuestions());
 		model.addAttribute("exam",exam);
 		return "user_view";
@@ -220,6 +226,14 @@ public class ExamController
 		examService.update(exam);
 		return "redirect:/selectExam?eId="+eId;
 	}
+	
+	@RequestMapping ("/user_marks")
+	public String user_marks(@RequestParam String mark) throws Exception
+	{
+		return "user_marks";
+	}
+	
+	
 	
 }
 
