@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "question")
+
 public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,7 +52,8 @@ public class Question {
 		this.id = id;
 	}
 
-	public String getQstn() {
+	
+	spublic String getQstn() {
 		return qstn;
 	}
 

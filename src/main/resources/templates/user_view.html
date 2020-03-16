@@ -13,28 +13,66 @@
 			th:text="${exam.getTime_min()} "></span>min<br> 
 			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
 	</div>
+
 	
-<form th:action="@{/submit}" th:object="${questions}">
+<form th:action="@{/user_marks}" th:object="${answers}">
+
 		<div th:if="${questions.empty}">
             No Questions Available
         </div>
-        
-		<div th:each="qstn ,iterator : ${questions}" >
-
-			 <span th:text="${iterator.index+1}" > Sl.No. </span>
-			
+		
+<p>...<span th:text="${answers.length}"></span>...</p>
+		<div th:each="qstn ,stat : ${questions}" >
+			 <span th:text="${stat.index+1}+') '" > Sl.No. </span>
 			<span th:text="${qstn.getQstn()}" th:value="${qstn.id}"> question </span><br>
-			<input type="radio"  th:name="${qstn.id}" th:value="${qstn.option1}" th:text="${qstn.option1}"/>
-			<input type="radio" th:name="${qstn.id}" th:value="${qstn.option2}" th:text="${qstn.option2}" />
+			<input type="radio"  th:name="${qstn.id}"  th:value="${qstn.option1}" th:text="${qstn.option1}"/>
+			<input type="radio" th:name="${qstn.id}"  th:value="${qstn.option2}" th:text="${qstn.option2}" />
 			<input type="radio" th:name="${qstn.id}" th:value="${qstn.option3}" th:text="${qstn.option3}"/>
-			<br><br>
-			
+			<br><br><br>
+
 		 </div>
-		 <input type="submit" value="next">
+		<br>
+
+<ul th:each="answer : ${answers}">
+    <li th:text="${answer}"></li>
+</ul>
+	 <input type="submit" value="submit" th:onClick="|getScore(this.form,${exam.count},3);|"><br><br>
+	Number of score out of <span th:text="${exam.count}"></span> = <input type=text name="mark"><br><br>
+	Score in percentage = <input type=text name="percentage">
 </form>
 
 </body>
+	
+<script>
+	function getScore(form,numQues,numChoi,answers) 
+	{
+		var answers = new Array(numQues);
+		answers[0] = "n";
+		answers[1] = "sem";
+		answers[2] = "morbi";
+		answers[3] = "llnjk";
+		var score = 0,currElt,currSelection;
+		for (i = 0; i < numQues; i++) 
+		{
+			currElt = i * numChoi;
+			answered = false;
+			for (j = 0; j < numChoi; j++) 
+			{
+				currSelection = form.elements[currElt + j];
+				if (currSelection.checked) 
+				{
+					answered = true;
+					if (currSelection.value == answers[i]) 
+					{
+						score++;
+						break;
+					}
+				}
+			}
+		}
+		form.percentage.value = Math.round(score / numQues * 100) + "%";
+		form.mark.value = score;
+	}
+</script>
+
 </html>
-
-
-      
