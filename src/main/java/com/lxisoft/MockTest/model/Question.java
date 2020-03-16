@@ -28,14 +28,14 @@ public class Question {
 	@Column(name = "level")
 	private String level;
 		 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "option_id", referencedColumnName = "id")
+	@OneToMany(mappedBy="question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<QstnOption> options;
 	
 	public long getId() {
 		return id;
 	}
 
+	
 	public Collection<QstnOption> getOptions() {
 		return options;
 	}
