@@ -10,7 +10,7 @@
    <h1>Question Creation </h1>
 </div>
 <div align="center">
-<form  th:object="${question}" >
+<form  th:object="${questions}" >
 
             	<table>
             	<tr><td>Level</td>
@@ -21,14 +21,14 @@
 					</select></td></tr>
         		<tr><td>Question</td> <td><input type="text" th:field="*{qstn}" />
         		 <td><font color="red"> <span  th:if="${#fields.hasErrors('qstn')}" th:errors="*{qstn}"></span></font></td></td>
-        		<tr><td>Option1</td><td><input type="text" th:field="*{option1}" /></td>
-        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('option1')}" th:errors="*{option1}"></span></font></td></tr>
-        		<tr><td>Option2</td><td><input type="text" th:field="*{option2}" /></td>
-        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('option2')}" th:errors="*{option2}"></span></font></td></tr>
-        		<tr><td>Option3</td><td><input type="text" th:field="*{option3}"/></td>
-        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('option3')}" th:errors="*{option3}"></span></font></td></tr>
-        		<tr><td>Answer</td><td><input type="text" th:field="*{answer}" /></td>
-        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('answer')}" th:errors="*{answer}"></span></font></td></tr>
+        		<tr><td>Option1</td><td><input type="text" th:field="${optionList.OptionName}" /></td>
+        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td></tr>
+        		<tr><td>Option2</td><td><input type="text" th:field="${optionList.OptionName}" /></td>
+        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td></tr>
+        		<tr><td>Option3</td><td><input type="text" th:field="${optionList.OptionName}"/></td>
+        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td></tr>
+        		<tr><td>Answer</td><td><input type="text" th:field="${optionList.isAnswer}" /></td>
+        		 <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.isAnswer')}" th:errors="${optionList.isAnswer}"></span></font></td></tr>
         		
         		<tr><td><input type="submit"  value="Add" onclick="alert_func()" formaction="/create_question"/></td></tr>
         		

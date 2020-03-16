@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.lxisoft.MockTest.model.Exam;
+import com.lxisoft.MockTest.model.Option;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.model.SetTimerModel;
 import com.lxisoft.MockTest.model.UserAnswer;
@@ -102,6 +103,10 @@ public class ExamController
 	public String question(Model model)
 	{
 		model.addAttribute("question",new Question());
+		List<Question> questions=questService.findAll();
+		//List<Option> optionList=(List<Option>) questions.getOptions();
+		model.addAttribute("questions",questions);
+		//model.addAttribute("optionList",optionList);
 		return "create_question";
 	}
 

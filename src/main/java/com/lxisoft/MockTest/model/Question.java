@@ -53,7 +53,7 @@ public class Question {
 	}
 
 	
-	spublic String getQstn() {
+	public String getQstn() {
 		return qstn;
 	}
 
