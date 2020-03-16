@@ -73,11 +73,6 @@ public class ExamController
 
 		return "userpage";
 	}
-	@RequestMapping("/Displaysets")
-	public String sampleView()
-	{
-		return "questionpapers";
-	}
 
 	@RequestMapping("/submit")
 	public String submit()
@@ -110,10 +105,10 @@ public class ExamController
 		return "create_question";
 	}
 
-	@RequestMapping ("/userpage")
+	@RequestMapping ("/user_startpage")
 	public String userpage()
 	{
-		return "userpage";
+		return "user_startpage";
 	}
 
 	@RequestMapping ("/login")
@@ -143,22 +138,18 @@ public class ExamController
 		return "redirect:/";
 	}
 
-	@RequestMapping(value="/user_view")
+	@RequestMapping(value="/user_exampage")
 	public String userview(Model model) throws Exception
 	{
 		Exam exam=examService.findActiveExam();
-		List<Question> questions=(List<Question>) exam.getQuestions();
-		String[] answers=new String[exam.getCount()];
-		int i=0;
-		for(Question qstn:questions)
-		{
-			answers[i]=qstn.getAnswer();
-			i++;
-		}
-		model.addAttribute("answers",answers);
-		model.addAttribute("questions",exam.getQuestions());
-		model.addAttribute("exam",exam);
-		return "user_view";
+		/*
+		 * List<Question> questions=(List<Question>) exam.getQuestions(); String[]
+		 * answers=new String[exam.getCount()]; int i=0; for(Question qstn:questions) {
+		 * answers[i]=qstn.getAnswer(); i++; } model.addAttribute("answers",answers);
+		 * model.addAttribute("questions",exam.getQuestions());
+		 * model.addAttribute("exam",exam);
+		 */
+		return "user_exampage";
 	}
 
 	@RequestMapping(value="/create_question")
