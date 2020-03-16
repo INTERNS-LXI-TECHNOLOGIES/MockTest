@@ -76,7 +76,7 @@ public class ExamController
 	@RequestMapping("/submit")
 	public String submit()
 	{
-
+		
 		return "submit";
 	}
 
@@ -137,17 +137,13 @@ public class ExamController
 	public String userview(Model model) throws Exception
 	{
 		Exam exam=examService.findActiveExam();
-		List<Question> questions=(List<Question>) exam.getQuestions();
-		String[] answers=new String[exam.getCount()];
-		int i=0;
-		for(Question qstn:questions)
-		{
-			answers[i]=qstn.getAnswer();
-			i++;
-		}
-		model.addAttribute("answers",answers);
-		model.addAttribute("questions",exam.getQuestions());
-		model.addAttribute("exam",exam);
+		/*
+		 * List<Question> questions=(List<Question>) exam.getQuestions(); String[]
+		 * answers=new String[exam.getCount()]; int i=0; for(Question qstn:questions) {
+		 * answers[i]=qstn.getAnswer(); i++; } model.addAttribute("answers",answers);
+		 * model.addAttribute("questions",exam.getQuestions());
+		 * model.addAttribute("exam",exam);
+		 */
 		return "user_exampage";
 	}
 

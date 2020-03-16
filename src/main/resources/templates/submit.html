@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
+
 you are successfully submitted
-  <p th:text="'answer: ' + ${questions}" />
+<div th:each="qstn ,iterator : ${questions}" >
+	<p th:text="${qstn.id}">
+</div>
 </body>
 </html>

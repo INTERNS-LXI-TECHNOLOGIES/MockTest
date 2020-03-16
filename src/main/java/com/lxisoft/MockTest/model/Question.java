@@ -1,6 +1,7 @@
 package com.lxisoft.MockTest.model;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,8 +28,8 @@ public class Question {
 	@Column(name = "level")
 	private String level;
 		 
-	@OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Collection<Option> options;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Option> options;
 	
 	public long getId() {
 		return id;
