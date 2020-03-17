@@ -24,14 +24,16 @@ import com.lxisoft.MockTest.model.Exam;
 import com.lxisoft.MockTest.model.QstnOption;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.model.SetTimerModel;
-import com.lxisoft.MockTest.model.UserAnswer;
 import com.lxisoft.MockTest.model.UserRegistration;
+import com.lxisoft.MockTest.service.OptionService;
 import com.lxisoft.MockTest.service.QuestionService;
 import com.lxisoft.MockTest.service.UserService;
 
 @Controller
 public class ExamController
 {
+	@Autowired
+	private OptionService optService;
 	@Autowired
 	private com.lxisoft.MockTest.service.ExamService examService;
 	@Autowired
@@ -155,26 +157,7 @@ public class ExamController
 	@RequestMapping(value="/create_question")
 	public String createExam( @Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
-		QstnOption option1=new QstnOption();
-		List<QstnOption> optionList=new ArrayList<QstnOption>();
-		option1.setOpt(opt1);
-		optionList.add(option1);
-		QstnOption option2=new QstnOption();
-		option2.setOpt(opt2);
-		optionList.add(option2);
-		QstnOption option3=new QstnOption();
-		option3.setOpt(opt3);
-		optionList.add(option3);
-//		for(QstnOption o:optionList)
-//		{
-//			System.out.println("jhdsgfjhfdsbhfds===="+o.getOpt());
-//		}
-		question.setOptions(optionList);
-		List<QstnOption> temp=(List<QstnOption>) question.getOptions();
-		for(QstnOption o:temp)
-		{
-			System.out.println("jhdsgfjhfdsbhfds===="+o.getOpt());
-		}
+		optService.setOptionList(question,opt1,opt2,opt3);
 		if (!bindingResult.hasErrors()) {
 		 questService.save(question);
 	      return "redirect:/";}
