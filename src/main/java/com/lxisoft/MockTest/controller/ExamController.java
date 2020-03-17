@@ -83,12 +83,12 @@ public class ExamController
 	@RequestMapping(value="/save")  
 	public String save(@Valid UserRegistration user,BindingResult bindingResult,@RequestParam String cpw)
 	{  
-		if (!bindingResult.hasErrors()) 
-		{
+		if (!bindingResult.hasErrors()) {
 			if(user.getPassword().equals(cpw))
 				service.saveService(user);  
 			else
 				return "registration";
+
 		}
 		return ((bindingResult.hasErrors()) ? "registration" : "redirect:/");
 	}  
@@ -153,7 +153,7 @@ public class ExamController
 		if (!bindingResult.hasErrors()) {
 		 questService.save(question);
 	      return "redirect:/";}
-	    else return"create_question";
+	    else return "create_question";
 
 	}
 
