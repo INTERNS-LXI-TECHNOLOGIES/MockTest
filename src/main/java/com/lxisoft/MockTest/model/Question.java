@@ -24,6 +24,18 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@Column(name = "qstn")
+	private String qstn;
+	
+	public String getQstn() {
+		return qstn;
+	}
+
+
+	public void setQstn(String qstn) {
+		this.qstn = qstn;
+	}
 
 	@Column(name = "level")
 	private String level;
