@@ -224,9 +224,7 @@ public class ExamController
 	{
 		return "user_marks";
 	}
-	
-	
-	
+
 }
 
 
