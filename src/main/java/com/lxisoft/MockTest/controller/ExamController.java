@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.lxisoft.MockTest.model.Exam;
+import com.lxisoft.MockTest.model.QstnOption;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.model.SetTimerModel;
 import com.lxisoft.MockTest.model.UserAnswer;
@@ -97,6 +98,10 @@ public class ExamController
 	public String question(Model model)
 	{
 		model.addAttribute("question",new Question());
+//		List<Question> questions=questService.findAll();
+//	List<QstnOption> optionList= ((List<QstnOption>) questions).getOptions();
+//		
+//		model.addAttribute("questions",questions);
 		return "create_question";
 	}
 
@@ -148,8 +153,28 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/create_question")
-	public String createExam( @Valid Question question ,BindingResult bindingResult)
+	public String createExam( @Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
+		QstnOption option1=new QstnOption();
+		List<QstnOption> optionList=new ArrayList<QstnOption>();
+		option1.setOpt(opt1);
+		optionList.add(option1);
+		QstnOption option2=new QstnOption();
+		option2.setOpt(opt2);
+		optionList.add(option2);
+		QstnOption option3=new QstnOption();
+		option3.setOpt(opt3);
+		optionList.add(option3);
+//		for(QstnOption o:optionList)
+//		{
+//			System.out.println("jhdsgfjhfdsbhfds===="+o.getOpt());
+//		}
+		question.setOptions(optionList);
+		List<QstnOption> temp=(List<QstnOption>) question.getOptions();
+		for(QstnOption o:temp)
+		{
+			System.out.println("jhdsgfjhfdsbhfds===="+o.getOpt());
+		}
 		if (!bindingResult.hasErrors()) {
 		 questService.save(question);
 	      return "redirect:/";}
