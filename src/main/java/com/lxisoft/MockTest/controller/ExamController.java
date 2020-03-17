@@ -90,16 +90,6 @@ public class ExamController
 		return ((bindingResult.hasErrors()) ? "registration" : "redirect:/");
 	}  
 
-	@RequestMapping("/question")
-	public String question(Model model)
-	{
-		model.addAttribute("question",new Question());
-//		List<Question> questions=questService.findAll();
-//	List<QstnOption> optionList= ((List<QstnOption>) questions).getOptions();
-//		
-//		model.addAttribute("questions",questions);
-		return "create_question";
-	}
 
 	@RequestMapping ("/user_startpage")
 	public String userpage()
@@ -148,7 +138,14 @@ public class ExamController
 		return "user_exampage";
 	}
 
-	@RequestMapping(value="/create_question")
+	@RequestMapping("/create_question")
+	public String question(Model model)
+	{
+		model.addAttribute("question",new Question());
+		return "create_question";
+	}
+
+	@RequestMapping(value="/add_question")
 	public String createExam( @Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
 		optService.setOptionList(question,opt1,opt2,opt3);
@@ -156,6 +153,16 @@ public class ExamController
 		 questService.save(question);
 	      return "redirect:/";}
 	    else return "create_question";
+
+	}
+	@RequestMapping(value="/addmore_question")
+	public String addmore( @Valid Question ques,Model model,BindingResult binding) 
+	{
+		if(!binding.hasErrors()) {
+		questService.save(ques);
+		model.addAttribute("question",new Question());
+		return "create_question";}
+		else return "create_question";
 
 	}
 
@@ -178,6 +185,7 @@ public class ExamController
 		else return"create_question";
 
 	}
+
 	@RequestMapping("/error")
 	public String handleError(HttpServletRequest request) {
 	    Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
@@ -221,14 +229,13 @@ public class ExamController
 		return "redirect:/selectExam?eId="+eId;
 	}
 	
+	
 	@RequestMapping ("/user_marks")
 	public String user_marks(@RequestParam String mark) throws Exception
 	{
 		return "user_marks";
 	}
-	
-	
-	
+
 }
 
 
