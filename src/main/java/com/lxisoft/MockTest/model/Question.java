@@ -27,7 +27,8 @@ public class Question {
 
 	@Column(name = "level")
 	private String level;
-		 
+		@Column(name="qstn")
+		private String qstn;
 	@OneToMany(mappedBy="question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<QstnOption> options;
 	
@@ -55,6 +56,16 @@ public class Question {
 	public void setLevel(String level) {
 		this.level = level;
 	}
+
+	public String getQstn() {
+		return qstn;
+	}
+
+	public void setQstn(String qstn) {
+		this.qstn = qstn;
+	}
+
+	
 
 }
 
