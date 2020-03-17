@@ -168,8 +168,9 @@ public class ExamController
 
 	}
 	@RequestMapping(value="/addmore")
-	public String addmore( @Valid Question ques,Model model,BindingResult binding) 
+	public String addmore( @Valid Question ques,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
+		optService.setOptionList(ques,opt1,opt2,opt3);
 		if(!binding.hasErrors()) {
 		questService.save(ques);
 		model.addAttribute("question",new Question());
