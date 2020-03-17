@@ -218,6 +218,7 @@ public class ExamController
 		return "redirect:/selectExam?eId="+eId;
 	}
 	
+	
 	@RequestMapping ("/user_marks")
 	public String user_marks(@RequestParam String mark) throws Exception
 	{
