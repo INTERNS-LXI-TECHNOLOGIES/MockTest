@@ -24,26 +24,16 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
-	@Column(name = "qstn")
-	private String qstn;
-	
-	public String getQstn() {
-		return qstn;
-	}
-
-
-	public void setQstn(String qstn) {
-		this.qstn = qstn;
-	}
 
 	@Column(name = "level")
 	private String level;
-		@Column(name="qstn")
-		private String qstn;
+	
+	@Column(name="qstn")
+	private String qstn;
+	
 	@OneToMany(mappedBy="question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<QstnOption> options;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -77,7 +67,7 @@ public class Question {
 		this.qstn = qstn;
 	}
 
-	
+
 
 }
 
