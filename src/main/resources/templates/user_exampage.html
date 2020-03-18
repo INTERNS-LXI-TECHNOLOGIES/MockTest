@@ -21,17 +21,17 @@
 		<div th:each="qstn ,stat : ${questions}" >
 			 <span th:text="${stat.index+1}+') '" > Sl.No. </span>
 			<span th:text="${qstn.getQstn()}" th:value="${qstn.id}"> question </span><br>
-			<input type="radio"  th:name="${qstn.id}"  th:value="${qstn.option1}" th:text="${qstn.option1}"/>
-			<input type="radio" th:name="${qstn.id}"  th:value="${qstn.option2}" th:text="${qstn.option2}" />
-			<input type="radio" th:name="${qstn.id}" th:value="${qstn.option3}" th:text="${qstn.option3}"/>
-			<input type="hidden" th:name="answer" id="a" th:value="${answers[stat.index]}">
+			 <span th:each="option : ${qstn.options}">
+            	
+			<input type="radio"  th:name="${qstn.id}"  th:value="${option.opt}" th:text="${option.opt}"/>
+		</span>
 			<br><br><br>
 		 </div>
 		 
 	 <input type="submit" value="submit" th:onClick="|getScore(this.form,${exam.count},3);|"><br><br>
 	Number of score out of <span th:text="${exam.count}"></span> = <input type=text name="mark"><br><br>
 	Score in percentage = <input type=text name="percentage">
-	Score hdkshadhh = <input type=text name="ans">
+	Score  = <input type=text name="ans">
 </form>
 <div th:each="ans ,stat : ${answers}" >
  		<span th:text="${stat.index+1}+') '" > Sl.No. </span>
