@@ -16,19 +16,19 @@
             <th> Option1 </th>
              <th> Option2 </th>
               <th> Option3 </th>
-             <th> Answer </th>
               <th> Level </th>
         </tr>
     </thead>
     <tbody>
-    <tr th:if="${questions.empty}">
-            <td colspan="7"> No Questions Available </td>
+    <tr th:if="${questions.empty}" align="center">
+            <td colspan="6"> No Questions Available </td>
         </tr>
         <tr th:each="qstn ,iterator : ${questions}" >
         <td th:text="${iterator.index+1}" > Sl.No. </td>
             <td th:text="${qstn.getQstn()}"> Question </td>
             <td th:each="option : ${qstn.options}">
-            	<div th:text="${option.opt}">option</div>
+            	<span th:text="${option.opt}">option</span>---
+            	<button th:text="${option.isAnswer()}">isanswer</button>
             </td>
             <td th:text="${qstn.getLevel()}"> Level </td>
         </tr>

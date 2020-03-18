@@ -151,11 +151,6 @@ public class ExamController
 	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
 		question=optService.setOptionList(question,opt1,opt2,opt3);
-		
-		for(QstnOption o:question.getOptions())
-		{
-			System.out.println("bcdhbhf----"+o.getOpt());
-		}
 		if (!bindingResult.hasErrors()) {
 		 questService.save(question);
 	      return "redirect:/";}
@@ -177,20 +172,7 @@ public class ExamController
 	@RequestMapping ("/viewall_qstn")
 	public String viewall_qstn(Model model) 
 	{
-		System.out.println("bcdhbhf----");
 		List<Question> questions=questService.findAll();
-		for(Question q:questions)
-		{
-			System.out.println("bcdhbhf----2222");
-			Collection<QstnOption> options=q.getOptions();
-			System.out.println("bcdhbhf----3333");
-			System.out.println("bcdhbhf----hhh--"+options);
-			for(QstnOption o:options)
-			{
-				System.out.println("bcdhbhf----4444");
-				System.out.println("bcdhbhf----"+o.getOpt());
-			}
-		}
 		model.addAttribute("questions",questions);	
 		return "viewall_qstn";
 
