@@ -20,7 +20,6 @@ public class QstnOption
 	@Column(name = "opt")
 	private String opt;
 	
-	private Question question;
 	
 	@Column(name = "isAnswer")
 	private boolean isAnswer;
