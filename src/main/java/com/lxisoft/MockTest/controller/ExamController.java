@@ -231,13 +231,12 @@ public class ExamController
 	@RequestMapping ("/set_Answer")
 	public String setAnswer(Model model,Question question,@RequestParam String opt_Id)
 	{
-		System.out.println("optid"+opt_Id);
-//		optService.setAnswer(qstn,option);
 		QstnOption qstn_optn=optService.findById(opt_Id);
-		
+		if(qstn_optn.isAnswer()==false)
 		qstn_optn.setAnswer(true);
+		else qstn_optn.setAnswer(false);
 		questService.update(question);
-		return "redirect:/";
+		return "redirect:/viewall_qstn?optId="+opt_Id;
 	}
 
 }
