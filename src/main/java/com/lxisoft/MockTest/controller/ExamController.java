@@ -131,13 +131,13 @@ public class ExamController
 	public String userview(Model model) throws Exception
 	{
 		Exam exam=examService.findActiveExam();
-		/*
-		 * List<Question> questions=(List<Question>) exam.getQuestions(); String[]
-		 * answers=new String[exam.getCount()]; int i=0; for(Question qstn:questions) {
-		 * answers[i]=qstn.getAnswer(); i++; } model.addAttribute("answers",answers);
-		 * model.addAttribute("questions",exam.getQuestions());
-		 * model.addAttribute("exam",exam);
-		 */
+		
+//		  List<Question> questions=(List<Question>) exam.getQuestions(); String[]
+//		  answers=new String[exam.getCount()]; int i=0; for(Question qstn:questions) {
+//		  answers[i]=qstn.getAnswer(); i++; } model.addAttribute("answers",answers);
+		  model.addAttribute("questions",exam.getQuestions());
+		  model.addAttribute("exam",exam);
+		 
 		return "user_exampage";
 	}
 
@@ -230,14 +230,15 @@ public class ExamController
 		return "user_marks";
 	}
 	@RequestMapping ("/set_Answer")
-	public String setAnswer(@ModelAttribute Question question,@RequestParam String opt_Id)
+	public String setAnswer(@RequestParam String opt_Id,@RequestParam String qstn_id)
 	{
+		Question question=questService.findById(qstn_id);
 		QstnOption qstn_optn=optService.findById(opt_Id);
 		if(qstn_optn.isAnswer()==false)
 		qstn_optn.setAnswer(true);
 		else qstn_optn.setAnswer(false);
 		questService.update(question);
-		return "redirect:/viewall_qstn?optId="+opt_Id;
+		return "redirect:/viewall_qstn";
 	}
 
 }

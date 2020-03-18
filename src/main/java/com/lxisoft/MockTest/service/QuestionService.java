@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lxisoft.MockTest.model.Exam;
+import com.lxisoft.MockTest.model.QstnOption;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.repository.QuestionRepository;
 
@@ -28,6 +29,18 @@ public class QuestionService
 
 	public void update(Question question) {
 		questRepo.save(question);
+		
+	}
+
+	public Question findById(String qstn_id) {
+		long id=Integer.parseInt(qstn_id);
+		Question quest=null;
+			Optional< Question> optional=questRepo.findById(id);
+			if(optional.isPresent())
+			{
+				quest=optional.get();
+			}
+		return quest;
 		
 	}
 
