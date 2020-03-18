@@ -39,10 +39,10 @@
 				<td th:each="option : ${qstn.options}">
             	<td th:text="${option.opt}">option</span>---
             	<td th:text="${option.isAnswer()}">isanswer </td>
-            <td th:text="${qstn.getLevel()}"> Level </td>
 				<td th:text="${qstn.getLevel()}">Level</td>
 			</tr>
 		</tbody>
 	</table>
+
 </body>
 </html>
