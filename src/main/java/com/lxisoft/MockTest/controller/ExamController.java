@@ -1,5 +1,6 @@
 package com.lxisoft.MockTest.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -149,7 +150,7 @@ public class ExamController
 	@RequestMapping(value="/add_question")
 	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
-		optService.setOptionList(question,opt1,opt2,opt3);
+		question=optService.setOptionList(question,opt1,opt2,opt3);
 		if (!bindingResult.hasErrors()) {
 		 questService.save(question);
 	      return "redirect:/";}
@@ -172,7 +173,6 @@ public class ExamController
 	public String viewall_qstn(Model model) 
 	{
 		List<Question> questions=questService.findAll();
-	
 		model.addAttribute("questions",questions);	
 		return "viewall_qstn";
 

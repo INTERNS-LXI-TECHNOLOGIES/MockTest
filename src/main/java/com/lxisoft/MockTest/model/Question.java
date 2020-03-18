@@ -32,7 +32,7 @@ public class Question {
 	private String qstn;
 	
 	@OneToMany( cascade = CascadeType.ALL)
-	 @JoinColumn(name = "question_id")
+	 @JoinColumn(name = "qstn_id", referencedColumnName = "id")
 	private Collection<QstnOption> options;
 
 	public long getId() {
