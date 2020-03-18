@@ -40,20 +40,6 @@ public class OptionService {
 	}
 
 
-//	public void setAnswer(Question qstn, String opt) {
-//		List<QstnOption> optionList=new ArrayList<QstnOption>();
-//		QstnOption option=new QstnOption();
-//		if(opt.equals(option.getOpt()))
-//		option.setOpt(opt);
-//		qstn.setOptions(optionList);
-//		System.out.println("jhjkhjk"+option.getId());
-//		System.out.println("pass"+opt);
-//		option.setAnswer(true);
-//		optionList.add(option);
-//		qstn.setOptions(optionList);
-//		
-//	}
-
 
 	
 

@@ -22,7 +22,7 @@ public class QstnOption
 	
 	
 	@Column(name = "isAnswer")
-	private boolean isAnswer;
+	private boolean isAnswer=false;
 	
 	public boolean isAnswer() {
 		return isAnswer;
