@@ -42,7 +42,7 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
          		.csrf().disable()
              	.authorizeRequests()
                  .antMatchers("/user_instruction").hasRole("USER")
-                 .antMatchers("/adminpage").hasRole("ADMIN")
+                 .antMatchers("/adminpage","/viewall_qstn","/create_question","/create_exam","/current_exams","/selectExam").hasRole("ADMIN")
                  .and().formLogin().loginPage("/login").and()
      			.logout().invalidateHttpSession(true).clearAuthentication(true)
      			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
