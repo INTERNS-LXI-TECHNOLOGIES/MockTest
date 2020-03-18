@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.lxisoft.MockTest.model.Exam;
@@ -229,7 +230,7 @@ public class ExamController
 		return "user_marks";
 	}
 	@RequestMapping ("/set_Answer")
-	public String setAnswer(Model model,Question question,@RequestParam String opt_Id)
+	public String setAnswer(@ModelAttribute Question question,@RequestParam String opt_Id)
 	{
 		QstnOption qstn_optn=optService.findById(opt_Id);
 		if(qstn_optn.isAnswer()==false)
