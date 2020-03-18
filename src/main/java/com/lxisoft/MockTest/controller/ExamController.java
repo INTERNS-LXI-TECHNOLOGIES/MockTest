@@ -146,7 +146,7 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/add_question")
-	public String createExam( @Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
+	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
 		optService.setOptionList(question,opt1,opt2,opt3);
 		if (!bindingResult.hasErrors()) {
@@ -156,8 +156,9 @@ public class ExamController
 
 	}
 	@RequestMapping(value="/addmore_question")
-	public String addmore( @Valid Question ques,Model model,BindingResult binding) 
+	public String addmore( @Valid Question ques,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
+		optService.setOptionList(ques,opt1,opt2,opt3);
 		if(!binding.hasErrors()) {
 		questService.save(ques);
 		model.addAttribute("question",new Question());
@@ -170,19 +171,9 @@ public class ExamController
 	public String viewall_qstn(Model model) 
 	{
 		List<Question> questions=questService.findAll();
+	
 		model.addAttribute("questions",questions);	
 		return "viewall_qstn";
-
-	}
-	@RequestMapping(value="/addmore")
-	public String addmore( @Valid Question ques,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
-	{
-		optService.setOptionList(ques,opt1,opt2,opt3);
-		if(!binding.hasErrors()) {
-		questService.save(ques);
-		model.addAttribute("question",new Question());
-		return "create_question";}
-		else return"create_question";
 
 	}
 
@@ -223,7 +214,8 @@ public class ExamController
 	public String activate_exam(@RequestParam String eId) throws Exception
 	{
 		Exam exam=examService.findById(eId);
-		examService.deactivate();
+		examService.deactivate(); 
+		
 		exam.setActive(true);
 		examService.update(exam);
 		return "redirect:/selectExam?eId="+eId;
