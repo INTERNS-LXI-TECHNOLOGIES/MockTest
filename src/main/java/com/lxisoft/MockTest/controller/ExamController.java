@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.lxisoft.MockTest.model.Exam;
+import com.lxisoft.MockTest.model.QstnOption;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.model.SetTimerModel;
 import com.lxisoft.MockTest.model.UserRegistration;
@@ -227,6 +228,14 @@ public class ExamController
 	{
 		return "user_marks";
 	}
+//	@RequestMapping ("/setAnswer")
+//	public String setAnswer(Model model, Question qstn,@RequestParam String option)
+//	{
+//		System.out.println("question"+qstn);
+//		optService.setAnswer(qstn,option);
+//
+//		return "create_question";
+//	}
 
 }
 

@@ -22,13 +22,25 @@
         		<tr><td>Question</td> <td><input type="text" th:field="*{qstn}" />
         		<!--  <td><font color="red"> <span  th:if="${#fields.hasErrors('questions.qstn')}" th:errors="${questions.qstn}"></span></font></td> --></tr>
         		<tr><td>Option1</td>    <td><input type="text" th:name="opt1" /></td>
-        		<!-- <td><button><a th:href="@{/create_question(eId=${questions.getId()})}">Set Answer</a></button> -->
+        
+        		<td><button><a th:href="@{/setAnswer?option=opt1}">Set Answer</a></button></td>
+        		
+        		
         		 <!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
         		
         		<tr><td>Option2</td><td><input type="text" th:name="opt2"  /></td>
+        		
+        		<td><button><a th:href="@{/setAnswer?option=opt2}">Set Answer</a></button></td>
+        		
+        		
         		 <!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
         		
         		<tr><td>Option3</td><td><input type="text" th:name="opt3" /></td>
+        		
+        		
+        		<td><button><a th:href="@{/setAnswer?option=opt3}">Set Answer</a></button></td>
+        		
+        		
         		<!--  <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
         		
         		<tr><td><input type="submit"  value="Add" onclick="alert_func()" formaction="/add_question"/></td></tr>

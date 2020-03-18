@@ -25,7 +25,7 @@ public class QstnOption
 	private Question question;
 	
 	@Column(name = "isAnswer")
-	private boolean isAnswer;
+	private boolean isAnswer=false;
 	
 	public boolean isAnswer() {
 		return isAnswer;
