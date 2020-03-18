@@ -27,10 +27,9 @@
         <tr th:each="qstn ,iterator : ${questions}" >
         <td th:text="${iterator.index+1}" > Sl.No. </td>
             <td th:text="${qstn.getQstn()}"> Question </td>
-            <td th:text="${qstn.getOption1()}"> Option1 </td>
-            <td th:text="${qstn.getOption2()}"> Option2 </td>
-            <td th:text="${qstn.getOption3()}"> Option3 </td>
-            <td th:text="${qstn.getAnswer()}"> Answer </td>
+            <td th:each="option : ${qstn.options}">
+            	<div th:text="${option.opt}">option</div>
+            </td>
             <td th:text="${qstn.getLevel()}"> Level </td>
         </tr>
     </tbody>

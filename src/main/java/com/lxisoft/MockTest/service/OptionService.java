@@ -11,7 +11,7 @@ import com.lxisoft.MockTest.model.Question;
 @Service
 public class OptionService {
 	
-	public void setOptionList(Question question,String ...opt) {
+	public Question setOptionList(Question question,String ...opt) {
 		List<QstnOption> optionList=new ArrayList<QstnOption>();
 		for(int i=0;i<opt.length;i++)
 		{
@@ -20,7 +20,7 @@ public class OptionService {
 			optionList.add(option);
 		}
 		question.setOptions(optionList);
-		
+		return question;
 	}
 
 }

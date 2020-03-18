@@ -1,5 +1,6 @@
 package com.lxisoft.MockTest.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.lxisoft.MockTest.model.Exam;
+import com.lxisoft.MockTest.model.QstnOption;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.model.SetTimerModel;
 import com.lxisoft.MockTest.model.UserRegistration;
@@ -148,7 +150,12 @@ public class ExamController
 	@RequestMapping(value="/add_question")
 	public String createExam( @Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
-		optService.setOptionList(question,opt1,opt2,opt3);
+		question=optService.setOptionList(question,opt1,opt2,opt3);
+		
+		for(QstnOption o:question.getOptions())
+		{
+			System.out.println("bcdhbhf----"+o.getOpt());
+		}
 		if (!bindingResult.hasErrors()) {
 		 questService.save(question);
 	      return "redirect:/";}
@@ -169,7 +176,21 @@ public class ExamController
 	@RequestMapping ("/viewall_qstn")
 	public String viewall_qstn(Model model) 
 	{
+		System.out.println("bcdhbhf----");
 		List<Question> questions=questService.findAll();
+		for(Question q:questions)
+		{
+			System.out.println("bcdhbhf----2222");
+			Collection<QstnOption> options=q.getOptions();
+			System.out.println("bcdhbhf----3333");
+			System.out.println("bcdhbhf----hhh--"+options);
+			for(QstnOption o:options)
+			{
+				System.out.println("bcdhbhf----4444");
+				System.out.println("bcdhbhf----"+o.getOpt());
+			}
+		}
+		
 		model.addAttribute("questions",questions);	
 		return "viewall_qstn";
 

@@ -20,9 +20,6 @@ public class QstnOption
 	@Column(name = "opt")
 	private String opt;
 	
-	@ManyToOne
-	private Question question;
-	
 	@Column(name = "isAnswer")
 	private boolean isAnswer;
 	

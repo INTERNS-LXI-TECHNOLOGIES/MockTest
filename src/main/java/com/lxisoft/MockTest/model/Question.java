@@ -31,7 +31,8 @@ public class Question {
 	@Column(name="qstn")
 	private String qstn;
 	
-	@OneToMany(mappedBy="question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany( cascade = CascadeType.ALL)
+	 @JoinColumn(name = "qstn_id", referencedColumnName = "id")
 	private Collection<QstnOption> options;
 
 	public long getId() {
