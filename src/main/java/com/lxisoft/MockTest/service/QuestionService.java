@@ -26,14 +26,10 @@ public class QuestionService
 		
 	}
 
-//	public Question findById(String qId) {
-//		long id=Integer.parseInt(qId);
-//	Question question=null;
-//		Optional<Question> optional=questRepo.findById(id);
-//		if(optional.isPresent())
-//		{
-//			question=optional.get();
-//		}
-//		return question;
-//	}
+	public void update(Question question) {
+		questRepo.save(question);
+		
+	}
+
+
 }

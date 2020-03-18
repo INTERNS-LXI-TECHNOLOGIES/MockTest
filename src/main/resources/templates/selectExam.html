@@ -30,18 +30,20 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:if="${questions.empty}">
-				<td colspan="7">No Questions Available</td>
-			</tr>
-			<tr th:each="qstn ,iterator : ${questions}">
-				<td th:text="${iterator.index+1}">Sl.No.</td>
-				<td th:text="${qstn.getQstn()}">Question</td>
-				<td th:each="option : ${qstn.options}">
-            	<td th:text="${option.opt}">option</span>---
-            	<td th:text="${option.isAnswer()}">isanswer </td>
-				<td th:text="${qstn.getLevel()}">Level</td>
-			</tr>
-		</tbody>
+			<tr th:if="${questions.empty}" align="center">
+            <td colspan="6"> No Questions Available </td>
+        </tr>
+        <tr th:each="qstn ,iterator : ${questions}" >
+        <td th:text="${iterator.index+1}" > Sl.No. </td>
+            <td th:text="${qstn.getQstn()}"> Question </td>
+            <td th:each="option : ${qstn.options}">
+            	<span th:text="${option.opt}">option</span>---
+            	<span th:text="${option.isAnswer()}">isanswer</span>
+            </td>
+            <td th:text="${qstn.getLevel()}"> Level </td>
+        </tr>
+    </tbody>
+
 	</table>
 
 </body>

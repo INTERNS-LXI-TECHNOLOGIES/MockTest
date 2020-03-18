@@ -28,8 +28,9 @@
             <td th:text="${qstn.getQstn()}"> Question </td>
             <td th:each="option : ${qstn.options}">
             	<span th:text="${option.opt}">option</span>---
-            	<button th:text="${option.isAnswer()}">isanswer</button>
-            </td>
+            	<span
+			th:if="!${option.isAnswer()} "><button><a th:href="@{/set_Answer(opt_Id=${option.getId()})}">Set_answer</a></button>
+		</span>
             <td th:text="${qstn.getLevel()}"> Level </td>
         </tr>
     </tbody>

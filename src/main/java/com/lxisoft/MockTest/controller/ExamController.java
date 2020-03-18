@@ -228,14 +228,17 @@ public class ExamController
 	{
 		return "user_marks";
 	}
-//	@RequestMapping ("/setAnswer")
-//	public String setAnswer(Model model, Question qstn,@RequestParam String option)
-//	{
-//		System.out.println("question"+qstn);
+	@RequestMapping ("/set_Answer")
+	public String setAnswer(Model model,Question question,@RequestParam String opt_Id)
+	{
+		System.out.println("optid"+opt_Id);
 //		optService.setAnswer(qstn,option);
-//
-//		return "create_question";
-//	}
+		QstnOption qstn_optn=optService.findById(opt_Id);
+		
+		qstn_optn.setAnswer(true);
+		questService.update(question);
+		return "redirect:/";
+	}
 
 }
 
