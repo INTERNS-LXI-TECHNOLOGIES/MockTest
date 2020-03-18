@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,8 +20,10 @@ public class QstnOption
 	@Column(name = "opt")
 	private String opt;
 	
+	private Question question;
+	
 	@Column(name = "isAnswer")
-	private boolean isAnswer=false;
+	private boolean isAnswer;
 	
 	public boolean isAnswer() {
 		return isAnswer;
