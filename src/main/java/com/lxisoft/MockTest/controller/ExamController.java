@@ -148,7 +148,7 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/add_question")
-	public String createExam( @Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
+	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
 		question=optService.setOptionList(question,opt1,opt2,opt3);
 		
@@ -163,8 +163,9 @@ public class ExamController
 
 	}
 	@RequestMapping(value="/addmore_question")
-	public String addmore( @Valid Question ques,Model model,BindingResult binding) 
+	public String addmore( @Valid Question ques,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
+		optService.setOptionList(ques,opt1,opt2,opt3);
 		if(!binding.hasErrors()) {
 		questService.save(ques);
 		model.addAttribute("question",new Question());
@@ -190,12 +191,11 @@ public class ExamController
 				System.out.println("bcdhbhf----"+o.getOpt());
 			}
 		}
-		
 		model.addAttribute("questions",questions);	
 		return "viewall_qstn";
 
 	}
-	
+
 	@RequestMapping("/error")
 	public String handleError(HttpServletRequest request) {
 	    Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
@@ -233,7 +233,8 @@ public class ExamController
 	public String activate_exam(@RequestParam String eId) throws Exception
 	{
 		Exam exam=examService.findById(eId);
-		examService.deactivate();
+		examService.deactivate(); 
+		
 		exam.setActive(true);
 		examService.update(exam);
 		return "redirect:/selectExam?eId="+eId;
