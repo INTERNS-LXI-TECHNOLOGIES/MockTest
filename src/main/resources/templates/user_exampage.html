@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	<input type="hidden" th:name="qstn_itr" th:value="${iterator.nextIndex()}">
-	
+	<input type="hidden" th:name="qstn_id" th:value="${iterator.next().id}">
 	<button type="submit">next</button>
 </form>
 	
