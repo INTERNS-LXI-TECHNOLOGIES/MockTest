@@ -14,18 +14,20 @@
 	
 	
 <form th:action="@{/user_view}">
-		<div th:if="${questions.empty}">
+		<!-- <div th:if="${questions.empty}">
             No Questions Available
         </div>
         
 		<div th:each="qstn ,stat : ${questions}" >
-			 <span th:text="${stat.index+1}+') '" > Sl.No. </span>
-			<span th:text="${qstn.getQstn()}" th:value="${qstn.id}"> question </span><br>
-			 <span th:each="option : ${qstn.options}">
+			 <span th:text="${stat.index+1}+') '" > Sl.No. </span> -->
+			 <div>
+				<span th:text="${question.getQstn()}" th:value="${question.id}"> question </span><br>
+			 <span th:each="option : ${question.options}">
             	
-			<input type="radio"  th:name="${qstn.id}"  th:value="${option.opt}" th:text="${option.opt}"/>
+			<input type="radio"  th:name="${question.id}"  th:value="${option.opt}" th:text="${option.opt}"/>
 		</span>
 			<br><br><br>
+		
 		 </div>
 		 
 	 <input type="submit" value="submit" th:onClick="|getScore(this.form,${exam.count},3);|"><br><br>
@@ -33,12 +35,19 @@
 	Score in percentage = <input type=text name="percentage">
 	Score  = <input type=text name="ans">
 </form>
+
+<form  th:action="@{/user_nextPage}" th:object="${iterator}">
+<div th:object="${exam}">
+<span th:if="${iterator.hasNext()}" ><p th:text="${iterator.next()}"></div>
+			<button type="submit">next</button></span>
+</form>
+	
+		<!-- <button><a th:href="@{/user_nextPage(lit=${iterator.next()})}">next</a></button> -->
 <div th:each="ans ,stat : ${answers}" >
  		<span th:text="${stat.index+1}+') '" > Sl.No. </span>
 		<span th:text="${ans}" > question </span><br>
 </div>
 </body>
-	
 <script>
 	function getScore(form,numQues,numChoi) 
 	{
@@ -77,5 +86,7 @@
 		form.mark.value = score;
 	}
 </script>
+	
+
 
 </html>

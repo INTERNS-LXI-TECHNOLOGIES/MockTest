@@ -1,7 +1,9 @@
 package com.lxisoft.MockTest.controller;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -127,19 +129,39 @@ public class ExamController
 		return "redirect:/";
 	}
 
-	@RequestMapping(value="/user_exampage")
+	@RequestMapping(value="/user_exam")
 	public String userview(Model model) throws Exception
 	{
 		Exam exam=examService.findActiveExam();
-		
-//		  List<Question> questions=(List<Question>) exam.getQuestions(); String[]
-//		  answers=new String[exam.getCount()]; int i=0; for(Question qstn:questions) {
-//		  answers[i]=qstn.getAnswer(); i++; } model.addAttribute("answers",answers);
-		  model.addAttribute("questions",exam.getQuestions());
+
+		List<Question>questions=(List<Question>)exam.getQuestions();
+		 ListIterator<Question> lit = questions.listIterator(); 
+		 if (lit.hasNext()) {
+//			 lit.next();
+//			 System.out.println(lit);
+			 
+		  model.addAttribute("question",lit.next());
 		  model.addAttribute("exam",exam);
-		 
-		return "user_exampage";
+		  model.addAttribute("iterator",lit);
+		  return "user_exampage";
+		  
+		 }
+		  
+		return "submit";
 	}
+
+//	@RequestMapping("/user_nextPage")
+//	public String userNextPage(Model model,Exam exam,ListIterator<Question> list ) throws Exception
+//	{
+//		List<Question>questions=(List<Question>)exam.getQuestions();
+//		ListIterator<Question> list=questions.listIterator()
+//		 model.addAttribute("question",lit);
+//		 model.addAttribute("exam",exam);
+//		 model.addAttribute("iterator",list);
+//		 System.out.println("fdfdgcg"+lit);
+//		
+//		return "user_exampage";
+//	}
 
 	@RequestMapping("/create_question")
 	public String question(Model model)
@@ -241,7 +263,7 @@ public class ExamController
 		return "redirect:/viewall_qstn";
 	}
 
-}
+
 
 
 //@RequestMapping(value="/user_view")
@@ -259,4 +281,5 @@ public class ExamController
 //	model.addAttribute("exam",exam);
 //	return "user_view";
 //}
+}
 
