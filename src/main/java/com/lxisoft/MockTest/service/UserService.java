@@ -37,5 +37,11 @@ public class UserService implements UserDetailsService
 		userRepo.findAll();
 		return null;
 	}
+
+	public UserRegistration findByUsername(String username) {
+		// TODO Auto-generated method stub
+		
+		return userRepo.findByUsername(username);
+	}
 	
 }
