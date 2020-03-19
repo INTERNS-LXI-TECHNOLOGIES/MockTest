@@ -11,19 +11,31 @@
 			th:text="${exam.getTime_min()} "></span>min<br> 
 			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
 	</div>
+<form  th:action="@{/user_nextPage}" th:object="${exam}" >
+<div align="right">
+<span th:if="${iterator.hasNext()}" >
+<button ><a th:href="@{/user_nextPage(index=${iterator.nextIndex()})}"> next </a></button></span></div></form>
 
-<form  th:action="@{/user_exam}" th:object="${iterator}">
-	<div>
-		<span th:if="${iterator.hasNext()}" th:text="${iterator.next().qstn}"></span>
-		<div th:each="option : ${iterator.next().options}">
-			<input type="radio"  th:name="option_id" th:value="${option.id}" th:text="${option.opt}"/>
-		</div>
-	</div>
-	<input type="hidden" th:name="qstn_itr" th:value="${iterator.nextIndex()}">
-	<input type="hidden" th:name="qstn_id" th:value="${iterator.next().id}">
-	<button type="submit">next</button>
+<form  th:action="@{/user_previousPage}" th:object="${exam}" >
+<div align="right">
+<span th:if="${iterator.hasPrevious()}" >
+<button ><a th:href="@{/user_previousPage(index=${iterator.previousIndex()})}"> previous </a></button>
+<p th:text="${iterator.previousIndex()}"></span></div>
+</form>
+<form  th:action="@{/user_exam}" th:object="${iterator}"><div>
+				<span th:text="${question.getQstn()}" th:value="${question.id}"> question </span><br>
+			 <span th:each="option : ${question.options}">
+            	
+			<input type="radio"  th:name="${option.id}"  th:value="${option.opt}" th:text="${option.opt}"/>
+		</span>
+		 </div>
+	<!-- <input type="hidden" th:name="qstn_itr" th:value="${iterator.nextIndex()}"> -->
+	<!-- <input type="hidden" th:name="qstn_id" th:value="${iterator.next().id}"> -->
+	<button type="submit">submit</button>
 </form>
 	
+
+
 		<!-- <button><a th:href="@{/user_nextPage(lit=${iterator.next()})}">next</a></button> -->
 <!-- <div th:each="ans ,stat : ${answers}" >
  		<span th:text="${stat.index+1}+') '" > Sl.No. </span>

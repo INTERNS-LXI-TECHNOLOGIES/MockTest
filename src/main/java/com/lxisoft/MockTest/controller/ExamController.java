@@ -135,10 +135,7 @@ public class ExamController
 		Exam exam=examService.findActiveExam();
 		List<Question> questions=(List<Question>)exam.getQuestions();
 		 ListIterator<Question> lit = questions.listIterator(); 
-		 if (lit.hasNext()) {
-//			 lit.next();
-//			 System.out.println(lit);
-			 
+		 if (lit.hasNext()) { 
 		  model.addAttribute("question",lit.next());
 		  model.addAttribute("exam",exam);
 		  model.addAttribute("iterator",lit);
@@ -149,19 +146,35 @@ public class ExamController
 		return "submit";
 	}
 
-//	@RequestMapping("/user_nextPage")
-//	public String userNextPage(Model model,Exam exam,ListIterator<Question> list ) throws Exception
-//	{
-//		List<Question>questions=(List<Question>)exam.getQuestions();
-//		ListIterator<Question> list=questions.listIterator()
-//		 model.addAttribute("question",lit);
-//		 model.addAttribute("exam",exam);
-//		 model.addAttribute("iterator",list);
-//		 System.out.println("fdfdgcg"+lit);
-//		
-//		return "user_exampage";
-//	}
+	@RequestMapping("/user_nextPage")
+	public String userNextPage(Model model,Exam exam,@RequestParam String index ) throws Exception
+	{
+		exam=examService.findActiveExam();
+		List<Question>questions=(List<Question>)exam.getQuestions();
+		int pos=Integer.parseInt(index);
+		 ListIterator<Question> lit = questions.listIterator(pos);
+		 if (lit.hasNext()) { 
+		 model.addAttribute("question",lit.next());
+		 model.addAttribute("exam",exam);
+		 model.addAttribute("iterator",lit);
+		 }
+		return "user_exampage";
+	}
 
+	@RequestMapping("/user_previousPage")
+	public String userpreviousPage(Model model,Exam exam,@RequestParam String index ) throws Exception
+	{
+		exam=examService.findActiveExam();
+		List<Question>questions=(List<Question>)exam.getQuestions();
+		int pos=Integer.parseInt(index);
+		 ListIterator<Question> lit = questions.listIterator(pos);
+		 if (lit.hasPrevious()) { 
+		 model.addAttribute("question",lit.previous());
+		 model.addAttribute("exam",exam);
+		 model.addAttribute("iterator",lit);
+		 }
+		return "user_exampage";
+	}
 	@RequestMapping("/create_question")
 	public String question(Model model)
 	{
