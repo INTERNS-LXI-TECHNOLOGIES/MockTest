@@ -11,82 +11,25 @@
 			th:text="${exam.getTime_min()} "></span>min<br> 
 			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
 	</div>
-	
-	
-<form th:action="@{/user_view}">
-		<!-- <div th:if="${questions.empty}">
-            No Questions Available
-        </div>
-        
-		<div th:each="qstn ,stat : ${questions}" >
-			 <span th:text="${stat.index+1}+') '" > Sl.No. </span> -->
-			 <div>
-				<span th:text="${question.getQstn()}" th:value="${question.id}"> question </span><br>
-			 <span th:each="option : ${question.options}">
-            	
-			<input type="radio"  th:name="${question.id}"  th:value="${option.opt}" th:text="${option.opt}"/>
-		</span>
-			<br><br><br>
-		
-		 </div>
-		 
-	 <input type="submit" value="submit" th:onClick="|getScore(this.form,${exam.count},3);|"><br><br>
-	Number of score out of <span th:text="${exam.count}"></span> = <input type=text name="mark"><br><br>
-	Score in percentage = <input type=text name="percentage">
-	Score  = <input type=text name="ans">
-</form>
 
-<form  th:action="@{/user_nextPage}" th:object="${iterator}">
-<div th:object="${exam}">
-<span th:if="${iterator.hasNext()}" ><p th:text="${iterator.next()}"></div>
-			<button type="submit">next</button></span>
+<form  th:action="@{/user_exam}" th:object="${iterator}">
+	<div>
+		<span th:if="${iterator.hasNext()}" th:text="${iterator.next().qstn}"></span>
+		<div th:each="option : ${iterator.next().options}">
+			<input type="radio"  th:name="option_id" th:value="${option.id}" th:text="${option.opt}"/>
+		</div>
+	</div>
+	<input type="hidden" th:name="qstn_itr" th:value="${iterator.nextIndex()}">
+	
+	<button type="submit">next</button>
 </form>
 	
 		<!-- <button><a th:href="@{/user_nextPage(lit=${iterator.next()})}">next</a></button> -->
-<div th:each="ans ,stat : ${answers}" >
+<!-- <div th:each="ans ,stat : ${answers}" >
  		<span th:text="${stat.index+1}+') '" > Sl.No. </span>
 		<span th:text="${ans}" > question </span><br>
-</div>
+</div> -->
 </body>
-<script>
-	function getScore(form,numQues,numChoi) 
-	{
-		/* var answers = new Array(numQues);
-		answers = "[[${answers}]]"; */
-		//var ans=answers[0];
-		/* answers=answers.toString();
-		form.ans.value = answers[0];
-		alert(answers); */
-		/* answers[0] = "n";
-		answers[1] = "sem";
-		answers[2] = "morbi";
-		answers[3] = "llnjk"; */
-		var x = document.getElementById(this).elements.namedItem(a);
-		
-		var score = 0,currElt,currSelection;
-		for (i = 0; i < numQues; i++) 
-		{
-			currElt = i * numChoi;
-			answered = false;
-			for (j = 0; j < numChoi; j++) 
-			{
-				currSelection = form.elements[currElt + j];
-				if (currSelection.checked) 
-				{
-					answered = true;
-					if (currSelection.value == answers[i]) 
-					{
-						score++;
-						break;
-					}
-				}
-			}
-		}
-		form.percentage.value = Math.round(score / numQues * 100) + "%";
-		form.mark.value = score;
-	}
-</script>
-	
 
 
 </html>

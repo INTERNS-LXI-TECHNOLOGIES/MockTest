@@ -133,8 +133,7 @@ public class ExamController
 	public String userview(Model model) throws Exception
 	{
 		Exam exam=examService.findActiveExam();
-
-		List<Question>questions=(List<Question>)exam.getQuestions();
+		List<Question> questions=(List<Question>)exam.getQuestions();
 		 ListIterator<Question> lit = questions.listIterator(); 
 		 if (lit.hasNext()) {
 //			 lit.next();
@@ -257,8 +256,9 @@ public class ExamController
 		Question question=questService.findById(qstn_id);
 		QstnOption qstn_optn=optService.findById(opt_Id);
 		if(qstn_optn.isAnswer()==false)
-		qstn_optn.setAnswer(true);
-		else qstn_optn.setAnswer(false);
+			qstn_optn.setAnswer(true);
+		else 
+			qstn_optn.setAnswer(false);
 		questService.update(question);
 		return "redirect:/viewall_qstn";
 	}
