@@ -36,10 +36,12 @@
 	Score  = <input type=text name="ans">
 </form>
 
-<form  th:action="@{/user_nextPage}" th:object="${iterator}">
+<form  th:action="@{/user_nextPage}" >
 <div th:object="${exam}">
-<span th:if="${iterator.hasNext()}" ><p th:text="${iterator.next()}"></div>
-			<button type="submit">next</button></span>
+<span th:if="${iterator.hasNext()}" >
+<button ><a th:href="@{/user_nextPage(index=${iterator.nextIndex()})}">next</button></span>
+<p th:text="${iterator.next()}"><p th:text="${iterator.nextIndex()}"></div> 
+			
 </form>
 	
 		<!-- <button><a th:href="@{/user_nextPage(lit=${iterator.next()})}">next</a></button> -->

@@ -150,18 +150,22 @@ public class ExamController
 		return "submit";
 	}
 
-//	@RequestMapping("/user_nextPage")
-//	public String userNextPage(Model model,Exam exam,ListIterator<Question> list ) throws Exception
-//	{
-//		List<Question>questions=(List<Question>)exam.getQuestions();
-//		ListIterator<Question> list=questions.listIterator()
-//		 model.addAttribute("question",lit);
-//		 model.addAttribute("exam",exam);
-//		 model.addAttribute("iterator",list);
-//		 System.out.println("fdfdgcg"+lit);
-//		
-//		return "user_exampage";
-//	}
+	@RequestMapping("/user_nextPage")
+	public String userNextPage(Model model,Exam exam,@RequestParam String index ) throws Exception
+	{
+		System.out.println("exam"+exam.getExam_name());
+		
+		List<Question>questions=(List<Question>)exam.getQuestions();
+		System.out.println("fquestion"+ ((Question) questions).getQstn());
+		int pos=Integer.parseInt(index);
+		 ListIterator<Question> lit = questions.listIterator(pos);
+		 model.addAttribute("question",lit.next());
+		 model.addAttribute("exam",exam);
+		 model.addAttribute("iterator",lit);
+//		 System.out.println("fdfdgcg"+list);
+		
+		return "user_exampage";
+	}
 
 	@RequestMapping("/create_question")
 	public String question(Model model)
