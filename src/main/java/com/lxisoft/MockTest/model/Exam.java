@@ -59,20 +59,15 @@ public class Exam
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	 
-//	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-//	 @JoinTable(name = "exam_qstns",joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
-//     inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
-//	private Collection<Question> questions;
 	
-//	 @OneToMany( fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-//	 @JoinColumn(name = "exam_id", referencedColumnName = "id")
-//	 private Collection<Question> questions;
-	
-	 @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
-	 @JoinTable(name = "exam_qstns",joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
-			 inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
+	 @OneToMany(cascade = CascadeType.ALL)
+	 @JoinColumn(name = "exam_id")
 	 private Collection<Question> questions;
+	
+//	 @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+//	 @JoinTable(name = "exam_qstns",joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
+//			 inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
+//	 private Collection<Question> questions;
 	 
 	public Collection<Question> getQuestions() {
 		return questions;
