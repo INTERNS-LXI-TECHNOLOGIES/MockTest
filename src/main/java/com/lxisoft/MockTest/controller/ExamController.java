@@ -133,13 +133,9 @@ public class ExamController
 	public String userview(Model model) throws Exception
 	{
 		Exam exam=examService.findActiveExam();
-
-		List<Question>questions=(List<Question>)exam.getQuestions();
+		List<Question> questions=(List<Question>)exam.getQuestions();
 		 ListIterator<Question> lit = questions.listIterator(); 
-		 if (lit.hasNext()) {
-//			 lit.next();
-//			 System.out.println(lit);
-			 
+		 if (lit.hasNext()) { 
 		  model.addAttribute("question",lit.next());
 		  model.addAttribute("exam",exam);
 		  model.addAttribute("iterator",lit);
@@ -153,20 +149,32 @@ public class ExamController
 	@RequestMapping("/user_nextPage")
 	public String userNextPage(Model model,Exam exam,@RequestParam String index ) throws Exception
 	{
-		System.out.println("exam"+exam.getExam_name());
-		
+		exam=examService.findActiveExam();
 		List<Question>questions=(List<Question>)exam.getQuestions();
-		System.out.println("fquestion"+ ((Question) questions).getQstn());
 		int pos=Integer.parseInt(index);
 		 ListIterator<Question> lit = questions.listIterator(pos);
+		 if (lit.hasNext()) { 
 		 model.addAttribute("question",lit.next());
 		 model.addAttribute("exam",exam);
 		 model.addAttribute("iterator",lit);
-//		 System.out.println("fdfdgcg"+list);
-		
+		 }
 		return "user_exampage";
 	}
 
+	@RequestMapping("/user_previousPage")
+	public String userpreviousPage(Model model,Exam exam,@RequestParam String index ) throws Exception
+	{
+		exam=examService.findActiveExam();
+		List<Question>questions=(List<Question>)exam.getQuestions();
+		int pos=Integer.parseInt(index);
+		 ListIterator<Question> lit = questions.listIterator(pos);
+		 if (lit.hasPrevious()) { 
+		 model.addAttribute("question",lit.previous());
+		 model.addAttribute("exam",exam);
+		 model.addAttribute("iterator",lit);
+		 }
+		return "user_exampage";
+	}
 	@RequestMapping("/create_question")
 	public String question(Model model)
 	{
@@ -261,8 +269,9 @@ public class ExamController
 		Question question=questService.findById(qstn_id);
 		QstnOption qstn_optn=optService.findById(opt_Id);
 		if(qstn_optn.isAnswer()==false)
-		qstn_optn.setAnswer(true);
-		else qstn_optn.setAnswer(false);
+			qstn_optn.setAnswer(true);
+		else 
+			qstn_optn.setAnswer(false);
 		questService.update(question);
 		return "redirect:/viewall_qstn";
 	}
