@@ -20,9 +20,8 @@ public class QstnOption
 	@Column(name = "opt")
 	private String opt;
 	
-	
 	@Column(name = "isAnswer")
-	private boolean isAnswer=false;
+	private boolean isAnswer;
 	
 	public boolean isAnswer() {
 		return isAnswer;
