@@ -134,13 +134,12 @@ public class ExamController
 	{
 		Exam exam=examService.findActiveExam();
 		List<Question> questions=(List<Question>)exam.getQuestions();
-		 ListIterator<Question> lit = questions.listIterator(); 
+		ListIterator<Question> lit = questions.listIterator(); 
 		 if (lit.hasNext()) { 
 		  model.addAttribute("question",lit.next());
 		  model.addAttribute("exam",exam);
 		  model.addAttribute("iterator",lit);
 		  return "user_exampage";
-		  
 		 }
 		  
 		return "submit";
