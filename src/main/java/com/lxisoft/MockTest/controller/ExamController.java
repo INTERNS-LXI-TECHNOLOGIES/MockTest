@@ -19,6 +19,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.lxisoft.MockTest.model.AttendedExam;
 import com.lxisoft.MockTest.model.Exam;
 import com.lxisoft.MockTest.model.QstnOption;
 import com.lxisoft.MockTest.model.Question;
@@ -76,8 +78,9 @@ public class ExamController
 	}
 
 	@RequestMapping("/submit")
-	public String submit()
+	public String submit(@RequestParam String count)
 	{
+		AttendedExam attended=new AttendedExam();
 		
 		return "submit";
 	}
@@ -145,7 +148,7 @@ public class ExamController
 		  
 		 }
 		  
-		return "submit";
+		return "redirect:/submit";
 	}
 
 	@RequestMapping("/user_nextPage")
@@ -167,7 +170,7 @@ public class ExamController
 		
 		 return "user_exampage";
 		 }
-		return "submit";
+		return "redirect:/submit?count="+count;
 	}
 
 	@RequestMapping("/user_previousPage")
@@ -272,12 +275,6 @@ public class ExamController
 		return "redirect:/selectExam?eId="+eId;
 	}
 	
-	
-	@RequestMapping ("/user_marks")
-	public String user_marks(@RequestParam String mark) throws Exception
-	{
-		return "user_marks";
-	}
 	@RequestMapping ("/set_Answer")
 	public String setAnswer(@RequestParam String opt_Id,@RequestParam String qstn_id)
 	{
