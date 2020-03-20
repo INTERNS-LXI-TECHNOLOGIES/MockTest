@@ -11,27 +11,31 @@
 			th:text="${exam.getTime_min()} "></span>min<br> 
 			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
 	</div>
-<form  th:action="@{/user_nextPage}" th:object="${exam}" >
-<div align="right">
-<span th:if="${iterator.hasNext()}" >
-<button ><a th:href="@{/user_nextPage(index=${iterator.nextIndex()})}"> next </a></button></span></div></form>
 
-<form  th:action="@{/user_previousPage}" th:object="${exam}" >
-<div align="right">
-<span th:if="${iterator.hasPrevious()}" >
-<button ><a th:href="@{/user_previousPage(index=${iterator.previousIndex()})}"> previous </a></button>
-<p th:text="${iterator.previousIndex()}"></span></div>
-</form>
-<form  th:action="@{/user_exam}" th:object="${iterator}"><div>
-				<span th:text="${question.getQstn()}" th:value="${question.id}"> question </span><br>
+<form  th:action="@{/submit}" th:object="${iterator}"><div>
+				<span th:text="${question.getQstn()}" th:value="${question.id}"> <br>question<br> </span>
 			 <span th:each="option : ${question.options}">
-            	
-			<input type="radio"  th:name="${option.id}"  th:value="${option.opt}" th:text="${option.opt}"/>
+            	<br>
+			<input type="radio"  th:name="option"  th:value="${option.opt}" th:text="${option.opt}"/><br>
 		</span>
 		 </div>
-	<!-- <input type="hidden" th:name="qstn_itr" th:value="${iterator.nextIndex()}"> -->
-	<!-- <input type="hidden" th:name="qstn_id" th:value="${iterator.next().id}"> -->
-	<button type="submit">submit</button>
+		 
+		 <div align="left">
+		<span th:if="${iterator.hasPrevious()}" ><br><br>
+		<button ><a th:href="@{/user_previousPage(index=${iterator.previousIndex()})}"> previous </a></button>
+		</span>
+		
+			<span th:if="${iterator.hasNext()}" >
+			<button ><a th:href="@{/user_nextPage(index=${iterator.nextIndex()})}"> next </a></button></span>
+		</div>
+		</span>
+		
+
+	<!-- <input type="hidden" th:name="qstn_id" th:value="${question.id}">
+	<input type="hidden" th:name="qstn_id" th:value="${option.opt}"> -->
+	<div align="center">
+	<span th:if="!${iterator.hasNext()}" >
+	<button type="submit">submit</button></span></div>
 </form>
 	
 
