@@ -100,8 +100,10 @@ public class ExamController
 
 
 	@RequestMapping ("/user_startpage")
-	public String userpage()
+	public String userpage(Model model) throws Exception
 	{
+		Exam exam=examService.findActiveExam();
+		model.addAttribute("exam",exam);
 		return "user_startpage";
 	}
 
