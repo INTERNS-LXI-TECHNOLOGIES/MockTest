@@ -150,7 +150,7 @@ public class ExamController
 		return "submit";
 	}
 
-	@RequestMapping("/user_nextPage")
+	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,Exam exam,@RequestParam String index,@RequestParam String optionid,@RequestParam String count) throws Exception
 	{
 		exam=examService.findActiveExam();
