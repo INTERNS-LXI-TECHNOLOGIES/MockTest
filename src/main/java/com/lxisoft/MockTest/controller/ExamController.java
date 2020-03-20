@@ -140,6 +140,7 @@ public class ExamController
 		  model.addAttribute("exam",exam);
 		  model.addAttribute("iterator",lit);
 		  return "user_exampage";
+		  
 		 }
 		  
 		return "submit";
