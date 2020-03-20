@@ -30,7 +30,7 @@ public class AttendedExam {
 	private boolean result;
 	
 	@Column
-	private int percentage;
+	private float percentage;
 	
 //	@OneToOne
 //	@JoinColumn(name="attended_id")
@@ -40,12 +40,12 @@ public class AttendedExam {
 //	@JoinColumn(name="attendedexam_id")
 //	private Exam exam;
 	
-	public int getPercentage() {
+	public float getPercentage() {
 		return percentage;
 	}
 
-	public void setPercentage(int percentage) {
-		this.percentage = percentage;
+	public void setPercentage(float percentage2) {
+		this.percentage = percentage2;
 	}
 
 	public long getId() {

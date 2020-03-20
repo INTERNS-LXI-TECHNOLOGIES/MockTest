@@ -179,7 +179,7 @@ public class ExamController
 		
 		 return "user_exampage";
 		 }
-		return "redirect:/submit?count="+count;
+		return "redirect:/submit?count="+marks;
 	}
 
 	@RequestMapping("/user_previousPage")

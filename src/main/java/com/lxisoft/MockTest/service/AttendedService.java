@@ -9,7 +9,8 @@ public class AttendedService {
 
 	public AttendedExam attend(int score,int total) {
 		AttendedExam attendedExam=new AttendedExam();
-		int percentage=score/total;
+		float percentage=score/total*100;
+		System.out.println(percentage);
 		attendedExam.setScore(score);
 		attendedExam.setTotal(total);
 		attendedExam.setPercentage(percentage);
