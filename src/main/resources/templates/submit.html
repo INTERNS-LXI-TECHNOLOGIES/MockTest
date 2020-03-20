@@ -2,13 +2,14 @@
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>user result</title>
 </head>
 <body>
+<div align="center"><h1>you are successfully completed!!!</h1>
+<h3>you scored:<span th:text="${count}"></span></h3>
 
-you are successfully submitted
-<div th:each="qstn ,iterator : ${questions}" >
-	<p th:text="${qstn.id}">
+<!-- <h2 th:if="${count>=2}"><p th:text="you pass the test"></p></h2>
+    <span th:unless="${count<2}" >you failed!</span> -->
 </div>
 </body>
 </html>

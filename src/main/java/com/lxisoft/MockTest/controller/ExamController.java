@@ -135,10 +135,12 @@ public class ExamController
 		Exam exam=examService.findActiveExam();
 		List<Question> questions=(List<Question>)exam.getQuestions();
 		 ListIterator<Question> lit = questions.listIterator(); 
+		 int count=0;
 		 if (lit.hasNext()) { 
 		  model.addAttribute("question",lit.next());
 		  model.addAttribute("exam",exam);
 		  model.addAttribute("iterator",lit);
+		  model.addAttribute("count",count);
 		  return "user_exampage";
 		  
 		 }
@@ -147,27 +149,40 @@ public class ExamController
 	}
 
 	@RequestMapping("/user_nextPage")
-	public String userNextPage(Model model,Exam exam,@RequestParam String index ) throws Exception
+	public String userNextPage(Model model,Exam exam,@RequestParam String index,@RequestParam String optionid,@RequestParam String count) throws Exception
 	{
 		exam=examService.findActiveExam();
 		List<Question>questions=(List<Question>)exam.getQuestions();
 		int pos=Integer.parseInt(index);
 		 ListIterator<Question> lit = questions.listIterator(pos);
+		 
+		 int marks=Integer.parseInt(count);
+			marks=optService.setResult(marks, optionid);
+		 System.out.println("result"+marks);
+		 model.addAttribute("count",marks);
 		 if (lit.hasNext()) { 
 		 model.addAttribute("question",lit.next());
 		 model.addAttribute("exam",exam);
 		 model.addAttribute("iterator",lit);
+		
+		 return "user_exampage";
 		 }
-		return "user_exampage";
+		return "submit";
 	}
 
 	@RequestMapping("/user_previousPage")
-	public String userpreviousPage(Model model,Exam exam,@RequestParam String index ) throws Exception
+	public String userpreviousPage(Model model,Exam exam,@RequestParam String index,@RequestParam String optionid,@RequestParam String count) throws Exception
 	{
 		exam=examService.findActiveExam();
 		List<Question>questions=(List<Question>)exam.getQuestions();
 		int pos=Integer.parseInt(index);
 		 ListIterator<Question> lit = questions.listIterator(pos);
+		 
+		 int marks=Integer.parseInt(count);
+			marks=optService.setResult(marks, optionid);
+			 System.out.println("result prerer"+marks);
+			 model.addAttribute("count",marks);
+			 
 		 if (lit.hasPrevious()) { 
 		 model.addAttribute("question",lit.previous());
 		 model.addAttribute("exam",exam);

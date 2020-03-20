@@ -11,40 +11,28 @@
 			th:text="${exam.getTime_min()} "></span>min<br> 
 			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
 	</div>
-
-<form  th:action="@{/submit}" th:object="${iterator}"><div>
-				<span th:text="${question.getQstn()}" th:value="${question.id}"> <br>question<br> </span>
-			 <span th:each="option : ${question.options}">
-            	<br>
-			<input type="radio"  th:name="option"  th:value="${option.opt}" th:text="${option.opt}"/><br>
-		</span>
-		 </div>
-		 
-		 <div align="left">
-		<span th:if="${iterator.hasPrevious()}" ><br><br>
-		<button ><a th:href="@{/user_previousPage(index=${iterator.previousIndex()})}"> previous </a></button>
-		</span>
-		
-			<span th:if="${iterator.hasNext()}" >
-			<button ><a th:href="@{/user_nextPage(index=${iterator.nextIndex()})}"> next </a></button></span>
-		</div>
-		</span>
-		
-
-	<!-- <input type="hidden" th:name="qstn_id" th:value="${question.id}">
-	<input type="hidden" th:name="qstn_id" th:value="${option.opt}"> -->
-	<div align="center">
-	<span th:if="!${iterator.hasNext()}" >
-	<button type="submit">submit</button></span></div>
-</form>
 	
 
+<form th:object="${iterator}"  th:action="@{/user_nextPage}">
 
-		<!-- <button><a th:href="@{/user_nextPage(lit=${iterator.next()})}">next</a></button> -->
-<!-- <div th:each="ans ,stat : ${answers}" >
- 		<span th:text="${stat.index+1}+') '" > Sl.No. </span>
-		<span th:text="${ans}" > question </span><br>
-</div> -->
+		<div>
+		
+			<span th:text="${question.getQstn()}" th:value="${question.id}"><br>question<br> </span>
+				 <span th:each="option : ${question.options}"><br><br>
+				<input type="radio" th:name="optionid" th:value="${option.getId()}"
+				th:text="${option.opt}" /></span>
+		</div>
+		<input type="hidden" th:name="index" th:value="${iterator.nextIndex()}">
+		<input type="hidden" th:name="count" th:value="${count}">
+	<input type="submit" th:value="${iterator.hasNext()}==true? next: submit" ></span>
+</form>
+
+<!-- <form  th:action="@{/user_previousPage}" th:object="${exam}" >
+<div align="left">
+<span th:if="${iterator.hasPrevious()}" >
+<button ><a th:href="@{/user_previousPage(index=${iterator.previousIndex()})}"> previous </a></button>
+</span></div>
+</form> -->
 </body>
 
 
