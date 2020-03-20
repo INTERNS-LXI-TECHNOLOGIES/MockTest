@@ -19,11 +19,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.lxisoft.MockTest.model.AttendedExam;
 import com.lxisoft.MockTest.model.Exam;
 import com.lxisoft.MockTest.model.QstnOption;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.model.SetTimerModel;
 import com.lxisoft.MockTest.model.UserRegistration;
+import com.lxisoft.MockTest.service.AttendedService;
 import com.lxisoft.MockTest.service.OptionService;
 import com.lxisoft.MockTest.service.QuestionService;
 import com.lxisoft.MockTest.service.UserService;
@@ -31,6 +34,8 @@ import com.lxisoft.MockTest.service.UserService;
 @Controller
 public class ExamController
 {
+	@Autowired
+	private AttendedService attendService;
 	@Autowired
 	private OptionService optService;
 	@Autowired
@@ -76,9 +81,14 @@ public class ExamController
 	}
 
 	@RequestMapping("/submit")
-	public String submit()
+	public String submit(@RequestParam String count,Model model) throws Exception
 	{
-		
+		int score=Integer.parseInt(count);
+		Exam exam=examService.findActiveExam();
+		int total=exam.getCount();
+		AttendedExam attendedExam=attendService.attend(score,total);
+		model.addAttribute("attendedExam",attendedExam);
+		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
 		return "submit";
 	}
 
@@ -147,7 +157,7 @@ public class ExamController
 		  
 		 }
 		  
-		return "submit";
+		return "redirect:/submit";
 	}
 
 	@RequestMapping(value="/user_nextPage")
@@ -169,7 +179,7 @@ public class ExamController
 		
 		 return "user_exampage";
 		 }
-		return "submit";
+		return "redirect:/submit?count="+count;
 	}
 
 	@RequestMapping("/user_previousPage")
@@ -274,12 +284,6 @@ public class ExamController
 		return "redirect:/selectExam?eId="+eId;
 	}
 	
-	
-	@RequestMapping ("/user_marks")
-	public String user_marks(@RequestParam String mark) throws Exception
-	{
-		return "user_marks";
-	}
 	@RequestMapping ("/set_Answer")
 	public String setAnswer(@RequestParam String opt_Id,@RequestParam String qstn_id)
 	{
