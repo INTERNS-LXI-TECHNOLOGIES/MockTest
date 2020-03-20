@@ -29,6 +29,9 @@ public class AttendedExam {
 	@Column
 	private boolean result;
 	
+	@Column
+	private int percentage;
+	
 //	@OneToOne
 //	@JoinColumn(name="attended_id")
 //	private UserRegistration user;
@@ -37,6 +40,14 @@ public class AttendedExam {
 //	@JoinColumn(name="attendedexam_id")
 //	private Exam exam;
 	
+	public int getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(int percentage) {
+		this.percentage = percentage;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -68,21 +79,4 @@ public class AttendedExam {
 	public void setResult(boolean result) {
 		this.result = result;
 	}
-
-//	public UserRegistration getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(UserRegistration user) {
-//		this.user = user;
-//	}
-//
-//	public Exam getExam() {
-//		return exam;
-//	}
-//
-//	public void setExam(Exam exam) {
-//		this.exam = exam;
-//	}
-//	
 }

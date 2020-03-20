@@ -26,6 +26,7 @@ import com.lxisoft.MockTest.model.QstnOption;
 import com.lxisoft.MockTest.model.Question;
 import com.lxisoft.MockTest.model.SetTimerModel;
 import com.lxisoft.MockTest.model.UserRegistration;
+import com.lxisoft.MockTest.service.AttendedService;
 import com.lxisoft.MockTest.service.OptionService;
 import com.lxisoft.MockTest.service.QuestionService;
 import com.lxisoft.MockTest.service.UserService;
@@ -33,6 +34,8 @@ import com.lxisoft.MockTest.service.UserService;
 @Controller
 public class ExamController
 {
+	@Autowired
+	private AttendedService attendService;
 	@Autowired
 	private OptionService optService;
 	@Autowired
@@ -78,10 +81,14 @@ public class ExamController
 	}
 
 	@RequestMapping("/submit")
-	public String submit(@RequestParam String count)
+	public String submit(@RequestParam String count,Model model) throws Exception
 	{
-		AttendedExam attended=new AttendedExam();
-		
+		int score=Integer.parseInt(count);
+		Exam exam=examService.findActiveExam();
+		int total=exam.getCount();
+		AttendedExam attendedExam=attendService.attend(score,total);
+		model.addAttribute("attendedExam",attendedExam);
+		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
 		return "submit";
 	}
 
