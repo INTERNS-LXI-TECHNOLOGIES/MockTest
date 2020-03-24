@@ -14,6 +14,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,6 +45,9 @@ public class AttendedExamResourceIT {
     private static final Float DEFAULT_PERCENTAGE = 1F;
     private static final Float UPDATED_PERCENTAGE = 2F;
 
+    private static final Instant DEFAULT_DATE_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
     @Autowired
     private AttendedExamRepository attendedExamRepository;
 
@@ -65,7 +70,8 @@ public class AttendedExamResourceIT {
             .score(DEFAULT_SCORE)
             .total(DEFAULT_TOTAL)
             .result(DEFAULT_RESULT)
-            .percentage(DEFAULT_PERCENTAGE);
+            .percentage(DEFAULT_PERCENTAGE)
+            .dateTime(DEFAULT_DATE_TIME);
         return attendedExam;
     }
     /**
@@ -79,7 +85,8 @@ public class AttendedExamResourceIT {
             .score(UPDATED_SCORE)
             .total(UPDATED_TOTAL)
             .result(UPDATED_RESULT)
-            .percentage(UPDATED_PERCENTAGE);
+            .percentage(UPDATED_PERCENTAGE)
+            .dateTime(UPDATED_DATE_TIME);
         return attendedExam;
     }
 
@@ -107,6 +114,7 @@ public class AttendedExamResourceIT {
         assertThat(testAttendedExam.getTotal()).isEqualTo(DEFAULT_TOTAL);
         assertThat(testAttendedExam.isResult()).isEqualTo(DEFAULT_RESULT);
         assertThat(testAttendedExam.getPercentage()).isEqualTo(DEFAULT_PERCENTAGE);
+        assertThat(testAttendedExam.getDateTime()).isEqualTo(DEFAULT_DATE_TIME);
     }
 
     @Test
@@ -143,7 +151,8 @@ public class AttendedExamResourceIT {
             .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)))
             .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL)))
             .andExpect(jsonPath("$.[*].result").value(hasItem(DEFAULT_RESULT.booleanValue())))
-            .andExpect(jsonPath("$.[*].percentage").value(hasItem(DEFAULT_PERCENTAGE.doubleValue())));
+            .andExpect(jsonPath("$.[*].percentage").value(hasItem(DEFAULT_PERCENTAGE.doubleValue())))
+            .andExpect(jsonPath("$.[*].dateTime").value(hasItem(DEFAULT_DATE_TIME.toString())));
     }
     
     @Test
@@ -160,7 +169,8 @@ public class AttendedExamResourceIT {
             .andExpect(jsonPath("$.score").value(DEFAULT_SCORE))
             .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL))
             .andExpect(jsonPath("$.result").value(DEFAULT_RESULT.booleanValue()))
-            .andExpect(jsonPath("$.percentage").value(DEFAULT_PERCENTAGE.doubleValue()));
+            .andExpect(jsonPath("$.percentage").value(DEFAULT_PERCENTAGE.doubleValue()))
+            .andExpect(jsonPath("$.dateTime").value(DEFAULT_DATE_TIME.toString()));
     }
 
     @Test
@@ -187,7 +197,8 @@ public class AttendedExamResourceIT {
             .score(UPDATED_SCORE)
             .total(UPDATED_TOTAL)
             .result(UPDATED_RESULT)
-            .percentage(UPDATED_PERCENTAGE);
+            .percentage(UPDATED_PERCENTAGE)
+            .dateTime(UPDATED_DATE_TIME);
 
         restAttendedExamMockMvc.perform(put("/api/attended-exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -202,6 +213,7 @@ public class AttendedExamResourceIT {
         assertThat(testAttendedExam.getTotal()).isEqualTo(UPDATED_TOTAL);
         assertThat(testAttendedExam.isResult()).isEqualTo(UPDATED_RESULT);
         assertThat(testAttendedExam.getPercentage()).isEqualTo(UPDATED_PERCENTAGE);
+        assertThat(testAttendedExam.getDateTime()).isEqualTo(UPDATED_DATE_TIME);
     }
 
     @Test

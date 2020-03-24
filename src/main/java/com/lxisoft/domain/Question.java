@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class Question implements Serializable {
 
     @OneToMany(mappedBy = "question")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<QstnOption> qstnOptions = new HashSet<>();
+    private Collection<QstnOption> qstnOptions;
 
     @OneToOne(mappedBy = "question")
     @JsonIgnore
@@ -74,9 +75,7 @@ public class Question implements Serializable {
         this.qstn = qstn;
     }
 
-    public Set<QstnOption> getQstnOptions() {
-        return qstnOptions;
-    }
+   
 
     public Question qstnOptions(Set<QstnOption> qstnOptions) {
         this.qstnOptions = qstnOptions;
@@ -95,11 +94,16 @@ public class Question implements Serializable {
         return this;
     }
 
-    public void setQstnOptions(Set<QstnOption> qstnOptions) {
-        this.qstnOptions = qstnOptions;
-    }
+   
+    public Collection<QstnOption> getQstnOptions() {
+		return qstnOptions;
+	}
 
-    public AttendedOptn getAttendedOptn() {
+	public void setQstnOptions(Collection<QstnOption> qstnOptions) {
+		this.qstnOptions = qstnOptions;
+	}
+
+	public AttendedOptn getAttendedOptn() {
         return attendedOptn;
     }
 

@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.time.Instant;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,13 +38,16 @@ public class AttendedExam implements Serializable {
     @Column(name = "percentage")
     private Float percentage;
 
-    @OneToMany(mappedBy = "attendedExam")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Exam> exams = new HashSet<>();
+    @Column(name = "date_time")
+    private Instant dateTime;
 
     @OneToMany(mappedBy = "attendedExam")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AttendedOptn> attendedOptns = new HashSet<>();
+    private Collection<Exam> exams;
+
+    @OneToMany(mappedBy = "attendedExam")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Collection<AttendedOptn> attendedOptns;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -105,13 +110,17 @@ public class AttendedExam implements Serializable {
         this.percentage = percentage;
     }
 
-    public Set<Exam> getExams() {
-        return exams;
+    public Instant getDateTime() {
+        return dateTime;
     }
 
-    public AttendedExam exams(Set<Exam> exams) {
-        this.exams = exams;
+    public AttendedExam dateTime(Instant dateTime) {
+        this.dateTime = dateTime;
         return this;
+    }
+
+    public void setDateTime(Instant dateTime) {
+        this.dateTime = dateTime;
     }
 
     public AttendedExam addExam(Exam exam) {
@@ -130,16 +139,27 @@ public class AttendedExam implements Serializable {
         this.exams = exams;
     }
 
-    public Set<AttendedOptn> getAttendedOptns() {
-        return attendedOptns;
-    }
+    public Collection<Exam> getExams() {
+		return exams;
+	}
 
-    public AttendedExam attendedOptns(Set<AttendedOptn> attendedOptns) {
-        this.attendedOptns = attendedOptns;
-        return this;
-    }
+	public void setExams(Collection<Exam> exams) {
+		this.exams = exams;
+	}
 
-    public AttendedExam addAttendedOptn(AttendedOptn attendedOptn) {
+	public Collection<AttendedOptn> getAttendedOptns() {
+		return attendedOptns;
+	}
+
+	public void setAttendedOptns(Collection<AttendedOptn> attendedOptns) {
+		this.attendedOptns = attendedOptns;
+	}
+
+	public Boolean getResult() {
+		return result;
+	}
+
+	public AttendedExam addAttendedOptn(AttendedOptn attendedOptn) {
         this.attendedOptns.add(attendedOptn);
         attendedOptn.setAttendedExam(this);
         return this;
@@ -180,6 +200,7 @@ public class AttendedExam implements Serializable {
             ", total=" + getTotal() +
             ", result='" + isResult() + "'" +
             ", percentage=" + getPercentage() +
+            ", dateTime='" + getDateTime() + "'" +
             "}";
     }
 }

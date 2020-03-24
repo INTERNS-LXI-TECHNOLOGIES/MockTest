@@ -48,7 +48,6 @@ public class CacheConfiguration {
             createCache(cm, com.lxisoft.domain.Question.class.getName());
             createCache(cm, com.lxisoft.domain.Question.class.getName() + ".qstnOptions");
             createCache(cm, com.lxisoft.domain.QstnOption.class.getName());
-            createCache(cm, com.lxisoft.domain.Role.class.getName());
             createCache(cm, com.lxisoft.domain.AttendedOptn.class.getName());
             createCache(cm, com.lxisoft.domain.Exam.class.getName());
             createCache(cm, com.lxisoft.domain.AttendedExam.class.getName());

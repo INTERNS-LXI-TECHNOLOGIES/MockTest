@@ -10,9 +10,6 @@ entity QstnOption {
 	isAnswer Boolean
 }
 
-entity Role{
-	name String
-}
 
 entity AttendedOptn{
 }
@@ -20,14 +17,15 @@ entity AttendedOptn{
 entity Exam{
 	name String,
     count Integer,
-    level String	
+    level String,
 }
 
 entity AttendedExam {
 	score Integer,
     total Integer,
     result Boolean,
-    percentage Float
+    percentage Float,
+    dateTime Instant
 }
 
 relationship OneToMany {

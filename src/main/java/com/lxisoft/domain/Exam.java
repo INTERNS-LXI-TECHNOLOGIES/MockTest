@@ -7,6 +7,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -32,7 +33,18 @@ public class Exam implements Serializable {
     @Column(name = "level")
     private String level;
 
-    @ManyToOne
+    @Column
+    private LocalTime time;
+    
+    public LocalTime getTime() {
+		return time;
+	}
+
+	public void setTime(LocalTime time) {
+		this.time = time;
+	}
+
+	@ManyToOne
     @JsonIgnoreProperties("exams")
     private AttendedExam attendedExam;
 
