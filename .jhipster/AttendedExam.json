@@ -1,0 +1,46 @@
+{
+    "name": "AttendedExam",
+    "fields": [
+        {
+            "fieldName": "score",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "total",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "result",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "percentage",
+            "fieldType": "Float"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "exam",
+            "otherEntityRelationshipName": "attendedExam",
+            "relationshipName": "exam"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "attendedOptn",
+            "otherEntityRelationshipName": "attendedExam",
+            "relationshipName": "attendedOptn"
+        }
+    ],
+    "changelogDate": "20200323145600",
+    "entityTableName": "attended_exam",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

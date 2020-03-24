@@ -1,0 +1,41 @@
+entity Question {
+	level String
+    qstn String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity QstnOption {
+	option String,
+	isAnswer Boolean
+}
+
+entity Role{
+	name String
+}
+
+entity AttendedOptn{
+}
+
+entity Exam{
+	name String,
+    count Integer,
+    level String	
+}
+
+entity AttendedExam {
+	score Integer,
+    total Integer,
+    result Boolean,
+    percentage Float
+}
+
+relationship OneToMany {
+	Question to QstnOption,
+    AttendedExam to Exam,
+     AttendedExam to AttendedOptn
+}
+
+relationship OneToOne {
+	AttendedOptn to Question
+}
