@@ -30,6 +30,7 @@ public class ControllerResource {
 
     private final Logger log = LoggerFactory.getLogger(ControllerResource.class);
     
+    
 //    @Autowired
 //	private AttendedService attendService;
 //	@Autowired
