@@ -47,7 +47,7 @@ public class QstnOption implements Serializable {
     public String getOption() {
         return option;
     }
-
+    
     public QstnOption option(String option) {
         this.option = option;
         return this;

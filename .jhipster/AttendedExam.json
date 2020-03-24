@@ -16,6 +16,10 @@
         {
             "fieldName": "percentage",
             "fieldType": "Float"
+        },
+        {
+            "fieldName": "dateTime",
+            "fieldType": "Instant"
         }
     ],
     "relationships": [

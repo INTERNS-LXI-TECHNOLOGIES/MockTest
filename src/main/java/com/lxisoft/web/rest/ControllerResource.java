@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lxisoft.domain.User;
+
 
 /**
  * ControllerResource controller
@@ -56,12 +56,12 @@ public class ControllerResource {
 	
 	}
 
-	@RequestMapping("/register")
-	public String register(Model model)
-	{
-		model.addAttribute("userRegistration", new User());
-		return "registration";
-	}
+//	@RequestMapping("/register")
+//	public String register(Model model)
+//	{
+//		model.addAttribute("userRegistration", new UserRegistration());
+//		return "registration";
+//	}
 
 //	@RequestMapping("/timer")
 //	public String setTimer(Model model, SetTimerModel timer1)

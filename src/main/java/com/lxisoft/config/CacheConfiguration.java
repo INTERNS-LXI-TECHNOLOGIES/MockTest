@@ -34,6 +34,7 @@ public class CacheConfiguration {
         return hibernateProperties -> hibernateProperties.put(ConfigSettings.CACHE_MANAGER, cacheManager);
     }
 
+    
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
@@ -44,6 +45,17 @@ public class CacheConfiguration {
             createCache(cm, com.lxisoft.domain.User.class.getName() + ".authorities");
             createCache(cm, com.lxisoft.domain.PersistentToken.class.getName());
             createCache(cm, com.lxisoft.domain.User.class.getName() + ".persistentTokens");
+            createCache(cm, com.lxisoft.domain.Question.class.getName());
+            createCache(cm, com.lxisoft.domain.Question.class.getName() + ".qstnOptions");
+            createCache(cm, com.lxisoft.domain.QstnOption.class.getName());
+            createCache(cm, com.lxisoft.domain.AttendedOptn.class.getName());
+            createCache(cm, com.lxisoft.domain.Exam.class.getName());
+            createCache(cm, com.lxisoft.domain.AttendedExam.class.getName());
+            createCache(cm, com.lxisoft.domain.AttendedExam.class.getName() + ".users");
+            createCache(cm, com.lxisoft.domain.AttendedExam.class.getName() + ".exams");
+            createCache(cm, com.lxisoft.domain.AttendedExam.class.getName() + ".attendedOPtns");
+            createCache(cm, com.lxisoft.domain.AttendedOptn.class.getName());
+            createCache(cm, com.lxisoft.domain.AttendedExam.class.getName() + ".attendedOptns");
             // jhipster-needle-ehcache-add-entry
         };
     }
