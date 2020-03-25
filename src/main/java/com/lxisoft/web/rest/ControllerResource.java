@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.User;
 import com.lxisoft.service.OptionService;
@@ -133,7 +134,7 @@ public class ControllerResource {
 	@RequestMapping ("/create_exam")
 	public String create_exam(Model model)
 	{
-//		model.addAttribute("exam",new Exam());	 
+		model.addAttribute("exam",new Exam());	 
 		return "create_exam";
 	}
 //
