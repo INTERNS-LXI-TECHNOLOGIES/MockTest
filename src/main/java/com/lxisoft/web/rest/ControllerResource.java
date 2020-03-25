@@ -137,13 +137,14 @@ public class ControllerResource {
 		model.addAttribute("exam",new Exam());	 
 		return "create_exam";
 	}
-//
-//	@RequestMapping ("/save_exam")
-//	public String save_exam(Exam exam) throws Exception
-//	{
-//		examService.save_exam(exam);
-//		return "redirect:/";
-//	}
+
+	@RequestMapping ("/save_exam")
+	public String save_exam(Exam exam) throws Exception
+	{
+		System.out.println("exam time--"+exam.getTime());
+		//examService.save_exam(exam);
+		return "redirect:/";
+	}
 
 //	@RequestMapping(value="/user_exam")
 //	public String userview(Model model) throws Exception
@@ -209,18 +210,13 @@ public class ControllerResource {
 	@RequestMapping("/create_question")
 	public String question(Model model)
 	{
-		Question question=new Question();
-		questService.save(question);
-		System.out.println("dvdb-id1111---"+question.getId());
-		model.addAttribute("question",question);
+		model.addAttribute("question",new Question());
 		return "create_question";
 	}
 
 	@RequestMapping(value="/add_question")
 	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
-		System.out.println("dvdb----"+question.getQstn());
-		System.out.println("dvdb-id---"+question.getId());
 		question=optService.setOptionList(question,opt1,opt2,opt3);
 		if (!bindingResult.hasErrors()) {
 		 questService.save(question);
