@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lxisoft.domain.Question;
+import com.lxisoft.domain.User;
+import com.lxisoft.service.OptionService;
+import com.lxisoft.service.QuestionService;
+
 
 
 /**
@@ -33,14 +38,14 @@ public class ControllerResource {
     
 //    @Autowired
 //	private AttendedService attendService;
-//	@Autowired
-//	private OptionService optService;
+	@Autowired
+	private OptionService optService;
 //	@Autowired
 //	private com.lxisoft.MockTest.service.ExamService examService;
 //	@Autowired
 //	private UserService service;
-//	@Autowired
-//	private QuestionService questService;
+	@Autowired
+	private QuestionService questService;
 
 	@RequestMapping(value="/")
 	public String index()
@@ -57,12 +62,12 @@ public class ControllerResource {
 	
 	}
 
-//	@RequestMapping("/register")
-//	public String register(Model model)
-//	{
-//		model.addAttribute("userRegistration", new UserRegistration());
-//		return "registration";
-//	}
+	@RequestMapping("/register")
+	public String register(Model model)
+	{
+		model.addAttribute("userRegistration", new User());
+		return "registration";
+	}
 
 //	@RequestMapping("/timer")
 //	public String setTimer(Model model, SetTimerModel timer1)
@@ -89,10 +94,10 @@ public class ControllerResource {
 //		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
 //		return "submit";
 //	}
-//
-//	@RequestMapping(value="/save")  
-//	public String save(@Valid UserRegistration user,BindingResult bindingResult,@RequestParam String cpw)
-//	{  
+	
+	@RequestMapping(value="/save")  
+	public String save(@Valid User user,BindingResult bindingResult,@RequestParam String cpw)
+	{  
 //		if (!bindingResult.hasErrors()) {
 //			if(user.getPassword().equals(cpw))
 //				service.saveService(user);  
@@ -100,8 +105,8 @@ public class ControllerResource {
 //				return "registration";
 //
 //		}
-//		return ((bindingResult.hasErrors()) ? "registration" : "redirect:/");
-//	}  
+		return ((bindingResult.hasErrors()) ? "registration" : "redirect:/");
+	}  
 
 
 //	@RequestMapping ("/user_startpage")
@@ -203,20 +208,20 @@ public class ControllerResource {
 	@RequestMapping("/create_question")
 	public String question(Model model)
 	{
-//		model.addAttribute("question",new Question());
+		model.addAttribute("question",new Question());
 		return "create_question";
 	}
 
-//	@RequestMapping(value="/add_question")
-//	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
-//	{
-//		question=optService.setOptionList(question,opt1,opt2,opt3);
-//		if (!bindingResult.hasErrors()) {
-//		 questService.save(question);
-//	      return "redirect:/";}
-//	    else return "create_question";
-//
-//	}
+	@RequestMapping(value="/add_question")
+	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
+	{
+		question=optService.setOptionList(question,opt1,opt2,opt3);
+		if (!bindingResult.hasErrors()) {
+		 questService.save(question);
+	      return "redirect:/";}
+	    else return "create_question";
+
+	}
 //	@RequestMapping(value="/addmore_question")
 //	public String addmore( @Valid Question ques,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 //	{
