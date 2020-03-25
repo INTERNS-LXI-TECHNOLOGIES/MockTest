@@ -208,13 +208,18 @@ public class ControllerResource {
 	@RequestMapping("/create_question")
 	public String question(Model model)
 	{
-		model.addAttribute("question",new Question());
+		Question question=new Question();
+		questService.save(question);
+		System.out.println("dvdb-id1111---"+question.getId());
+		model.addAttribute("question",question);
 		return "create_question";
 	}
 
 	@RequestMapping(value="/add_question")
 	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
+		System.out.println("dvdb----"+question.getQstn());
+		System.out.println("dvdb-id---"+question.getId());
 		question=optService.setOptionList(question,opt1,opt2,opt3);
 		if (!bindingResult.hasErrors()) {
 		 questService.save(question);
@@ -267,7 +272,7 @@ public class ControllerResource {
 //		return "current_exams";
 //	}
 //	
-//	@RequestMapping ("/selectExam")
+//	@RequestMapping ("/activateExam")
 //	public String selectExam(Model model,@RequestParam String eId) throws Exception
 //	{
 //		Exam exam=examService.findById(eId);
@@ -284,7 +289,7 @@ public class ControllerResource {
 //		
 //		exam.setActive(true);
 //		examService.update(exam);
-//		return "redirect:/selectExam?eId="+eId;
+//		return "redirect:/activateExam?eId="+eId;
 //	}
 //	
 //	@RequestMapping ("/set_Answer")
@@ -301,6 +306,9 @@ public class ControllerResource {
 //	}
 
 
+	
+	
+	
 
 
 //@RequestMapping(value="/user_view")
