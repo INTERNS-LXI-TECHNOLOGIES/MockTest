@@ -6,9 +6,12 @@
 <title>All Questions</title>
 </head>
 <body>
+<form>
 <div align="center">
+<input type="submit" value="Back to Home" formaction="/">
 <h3><u>All Question in Database</u></h3>
 </div>
+</form>
 <table width=100%>
     <thead>
         <tr>
@@ -27,10 +30,10 @@
         <tr th:each="qstn ,iterator : ${questions}" >
         <td th:text="${iterator.index+1}" > Sl.No. </td>
             <td th:text="${qstn.getQstn()}"> Question </td>
-            <td th:each="option : ${qstn.options}">
-            	<span th:text="${option.opt}">option</span>---
-            	<button><a th:href="@{/set_Answer(opt_Id=${option.getId()},qstn_id=${qstn.getId()})}">Set <span th:text="!${option.isAnswer()}"></span></a></button>
-		
+           <!--  <td th:each="q_option : ${qstn.qstnOptions}">
+            	<span th:text="${q_option.option}">option</span>---
+            	<button><a th:href="@{/set_Answer(opt_Id=${q_option.getId()},qstn_id=${qstn.getId()})}">Set <span th:text="!${q_option.isIsAnswer()}"></span></a></button>
+		 -->
             <td th:text="${qstn.getLevel()}"> Level </td>
         </tr>
     </tbody>

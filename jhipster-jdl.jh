@@ -32,6 +32,7 @@ relationship OneToMany {
 	Question to QstnOption,
     AttendedExam to Exam,
      AttendedExam to AttendedOptn
+	Exam to Question
 }
 
 relationship OneToOne {

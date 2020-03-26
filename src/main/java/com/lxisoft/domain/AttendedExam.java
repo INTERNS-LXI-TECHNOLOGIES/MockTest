@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.time.Instant;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,11 +42,11 @@ public class AttendedExam implements Serializable {
 
     @OneToMany(mappedBy = "attendedExam")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Collection<Exam> exams;
+    private Set<Exam> exams = new HashSet<>();
 
     @OneToMany(mappedBy = "attendedExam")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Collection<AttendedOptn> attendedOptns;
+    private Set<AttendedOptn> attendedOptns = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -123,6 +122,15 @@ public class AttendedExam implements Serializable {
         this.dateTime = dateTime;
     }
 
+    public Set<Exam> getExams() {
+        return exams;
+    }
+
+    public AttendedExam exams(Set<Exam> exams) {
+        this.exams = exams;
+        return this;
+    }
+
     public AttendedExam addExam(Exam exam) {
         this.exams.add(exam);
         exam.setAttendedExam(this);
@@ -139,27 +147,16 @@ public class AttendedExam implements Serializable {
         this.exams = exams;
     }
 
-    public Collection<Exam> getExams() {
-		return exams;
-	}
+    public Set<AttendedOptn> getAttendedOptns() {
+        return attendedOptns;
+    }
 
-	public void setExams(Collection<Exam> exams) {
-		this.exams = exams;
-	}
+    public AttendedExam attendedOptns(Set<AttendedOptn> attendedOptns) {
+        this.attendedOptns = attendedOptns;
+        return this;
+    }
 
-	public Collection<AttendedOptn> getAttendedOptns() {
-		return attendedOptns;
-	}
-
-	public void setAttendedOptns(Collection<AttendedOptn> attendedOptns) {
-		this.attendedOptns = attendedOptns;
-	}
-
-	public Boolean getResult() {
-		return result;
-	}
-
-	public AttendedExam addAttendedOptn(AttendedOptn attendedOptn) {
+    public AttendedExam addAttendedOptn(AttendedOptn attendedOptn) {
         this.attendedOptns.add(attendedOptn);
         attendedOptn.setAttendedExam(this);
         return this;
