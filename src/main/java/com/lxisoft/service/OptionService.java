@@ -35,9 +35,12 @@ public class OptionService {
 			option.setOption(opt[i]);
 			save(option);
 			optionList.add(option);
+//			question=question.addQstnOption(option);
 		}
 //		System.out.println(optionList);
 		question.setQstnOptions(optionList);
+//		question=question.qstnOptions(optionList);
+		
 		return question;
 	}
 	private void save(QstnOption option) {

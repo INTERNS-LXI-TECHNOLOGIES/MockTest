@@ -145,7 +145,11 @@ public class ExamController
 	@RequestMapping ("/save_exam")
 	public String save_exam(Exam exam) throws Exception
 	{
+
 		examService.save_exam(exam);
+//		System.out.println("exam time--"+exam.getTime());
+		//examService.save_exam(exam);
+
 		return "redirect:/";
 	}
 
@@ -273,7 +277,7 @@ public class ExamController
 //		return "current_exams";
 //	}
 //	
-//	@RequestMapping ("/selectExam")
+//	@RequestMapping ("/activateExam")
 //	public String selectExam(Model model,@RequestParam String eId) throws Exception
 //	{
 //		Exam exam=examService.findById(eId);
@@ -290,7 +294,7 @@ public class ExamController
 //		
 //		exam.setActive(true);
 //		examService.update(exam);
-//		return "redirect:/selectExam?eId="+eId;
+//		return "redirect:/activateExam?eId="+eId;
 //	}
 //	
 //	@RequestMapping ("/set_Answer")
@@ -307,6 +311,9 @@ public class ExamController
 //	}
 
 
+	
+	
+	
 
 
 //@RequestMapping(value="/user_view")

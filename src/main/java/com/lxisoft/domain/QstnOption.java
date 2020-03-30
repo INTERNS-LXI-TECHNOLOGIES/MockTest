@@ -29,7 +29,7 @@ public class QstnOption implements Serializable {
     private String option;
 
     @Column(name = "is_answer")
-    private Boolean isAnswer;
+    private Boolean isAnswer=false;
 
     @ManyToOne
     @JsonIgnoreProperties("qstnOptions")
