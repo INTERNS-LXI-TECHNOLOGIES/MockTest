@@ -23,6 +23,7 @@ public class OptionService {
 
     @Autowired
 	private QstnOptionRepository optRepo;
+    @Transactional
 	public Question setOptionList(Question question,String ...opt) {
 
 		 Set<QstnOption> optionList = new HashSet<QstnOption>(); 

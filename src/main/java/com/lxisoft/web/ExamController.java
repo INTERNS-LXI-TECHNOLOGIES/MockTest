@@ -1,4 +1,5 @@
-package com.lxisoft.web.rest;
+package com.lxisoft.web;
+
 
 import java.util.List;
 import java.util.ListIterator;
@@ -30,16 +31,17 @@ import com.lxisoft.service.QuestionService;
 
 
 
+
 /**
- * ControllerResource controller
+ * Mocktest Exam controller
  */
 @Controller
-public class ControllerResource {
-
-    private final Logger log = LoggerFactory.getLogger(ControllerResource.class);
+public class ExamController 
+{
+	private final Logger log = LoggerFactory.getLogger(ExamController.class);
     
     
-//    @Autowired
+//  @Autowired
 //	private AttendedService attendService;
 	@Autowired
 	private OptionService optService;
@@ -226,17 +228,17 @@ public class ControllerResource {
 	    else return "create_question";
 
 	}
-//	@RequestMapping(value="/addmore_question")
-//	public String addmore( @Valid Question ques,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
-//	{
-//		optService.setOptionList(ques,opt1,opt2,opt3);
-//		if(!binding.hasErrors()) {
-//		questService.save(ques);
-//		model.addAttribute("question",new Question());
-//		return "create_question";}
-//		else return "create_question";
-//
-//	}
+	@RequestMapping(value="/addmore_question")
+	public String addmore( @Valid Question ques,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
+	{
+		optService.setOptionList(ques,opt1,opt2,opt3);
+		if(!binding.hasErrors()) {
+		questService.save(ques);
+		model.addAttribute("question",new Question());
+		return "create_question";}
+		else return "create_question";
+
+	}
 
 	@RequestMapping ("/viewall_qstn")
 	public String viewall_qstn(Model model) 
@@ -322,5 +324,6 @@ public class ControllerResource {
 //	model.addAttribute("exam",exam);
 //	return "user_view";
 //}
+
 
 }

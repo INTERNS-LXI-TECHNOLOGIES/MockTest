@@ -22,7 +22,8 @@ public class QuestionService {
         @Autowired
     	private QuestionRepository questRepo;
 
-    	public List<Question> findAll() {
+        @Transactional(readOnly = true)
+        public List<Question> findAll() {
     		List<Question> question=questRepo.findAll();
     		return question;
     	}
