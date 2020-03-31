@@ -1,7 +1,9 @@
 package com.lxisoft.service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
+import com.lxisoft.repository.QstnOptionRepository;
 import com.lxisoft.repository.QuestionRepository;
 
 @Service
@@ -18,7 +22,9 @@ public class QuestionService {
 
     private final Logger log = LoggerFactory.getLogger(QuestionService.class);
   
-        
+    @Autowired
+	private OptionService optService;
+	    
         @Autowired
     	private QuestionRepository questRepo;
 
@@ -28,8 +34,12 @@ public class QuestionService {
     		return question;
     	}
 
-    	public void save(Question question) {
+    	public void save(Question question, Set<QstnOption> options) {
     		questRepo.save(question);
+    	 Long id=question.getId();
+    	 System.out.println("id"+id);
+    	 optService.update(question, options);
+    		
     		
     	}
 

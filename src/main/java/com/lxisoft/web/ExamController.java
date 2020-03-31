@@ -3,6 +3,7 @@ package com.lxisoft.web;
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lxisoft.domain.Exam;
+import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.User;
 import com.lxisoft.service.ExamService;
@@ -226,8 +228,10 @@ public class ExamController
 	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
 		question=optService.setOptionList(question,opt1,opt2,opt3);
+		Set<QstnOption> options=question.getQstnOptions();
 		if (!bindingResult.hasErrors()) {
-		 questService.save(question);
+		 questService.save(question,options);
+		
 	      return "redirect:/";}
 	    else return "create_question";
 
@@ -235,9 +239,10 @@ public class ExamController
 	@RequestMapping(value="/addmore_question")
 	public String addmore( @Valid Question ques,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
-		optService.setOptionList(ques,opt1,opt2,opt3);
+		ques=optService.setOptionList(ques,opt1,opt2,opt3);
+	
 		if(!binding.hasErrors()) {
-		questService.save(ques);
+//		questService.save(ques);
 		model.addAttribute("question",new Question());
 		return "create_question";}
 		else return "create_question";
