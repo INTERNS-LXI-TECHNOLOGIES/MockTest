@@ -23,6 +23,13 @@
             "otherEntityRelationshipName": "question",
             "relationshipName": "attendedOptn",
             "ownerSide": false
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "exam",
+            "otherEntityRelationshipName": "question",
+            "relationshipName": "exam",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20200323145100",
