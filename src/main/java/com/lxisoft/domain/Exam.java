@@ -7,8 +7,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Exam.
@@ -33,18 +34,11 @@ public class Exam implements Serializable {
     @Column(name = "level")
     private String level;
 
-//    @Column
-//    private LocalTime time;
-//    
-//    public LocalTime getTime() {
-//		return time;
-//	}
-//
-//	public void setTime(LocalTime time) {
-//		this.time = time;
-//	}
+    @OneToMany(mappedBy = "exam")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Question> questions = new HashSet<>();
 
-	@ManyToOne
+    @ManyToOne
     @JsonIgnoreProperties("exams")
     private AttendedExam attendedExam;
 
@@ -94,6 +88,31 @@ public class Exam implements Serializable {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public Set<Question> getQuestions() {
+        return questions;
+    }
+
+    public Exam questions(Set<Question> questions) {
+        this.questions = questions;
+        return this;
+    }
+
+    public Exam addQuestion(Question question) {
+        this.questions.add(question);
+        question.setExam(this);
+        return this;
+    }
+
+    public Exam removeQuestion(Question question) {
+        this.questions.remove(question);
+        question.setExam(null);
+        return this;
+    }
+
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
     }
 
     public AttendedExam getAttendedExam() {

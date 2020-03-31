@@ -27,7 +27,7 @@
     <tr th:if="${questions.empty}" align="center">
             <td colspan="6"> No Questions Available </td>
         </tr>
-        <tr th:each="qstn ,iterator : ${questions}" >
+        <tr th:each="qstn ,iterator : ${questions}" align="center">
         <td th:text="${iterator.index+1}" > Sl.No. </td>
             <td th:text="${qstn.getQstn()}"> Question </td>
             <td th:each="q_option : ${qstn.qstnOptions}">

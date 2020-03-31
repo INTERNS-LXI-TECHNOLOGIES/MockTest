@@ -28,22 +28,12 @@ public class QuestionService {
         @Autowired
     	private QuestionRepository questRepo;
 
-        @Transactional(readOnly = true)
         public List<Question> findAll() {
     		List<Question> question=questRepo.findAll();
     		return question;
     	}
 
-    	public void save(Question question, Set<QstnOption> options) {
-    		questRepo.save(question);
-    	 Long id=question.getId();
-    	 System.out.println("id"+id);
-    	 optService.update(question, options);
-    		
-    		
-    	}
-
-    	public void update(Question question) {
+    	public void saveOrUpdate(Question question) {
     		questRepo.save(question);
     		
     	}

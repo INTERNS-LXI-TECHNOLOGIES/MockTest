@@ -27,6 +27,8 @@ public class ExamService {
     ExamRepository examRepo;
 	@Autowired
 	QuestionRepository qstnRepo;
+	@Autowired
+	QuestionService qstService;
 	
 	public List<Exam> findAll() {
 		return examRepo.findAll();
@@ -50,7 +52,7 @@ public class ExamService {
 	{
 //		List<Question> finalQstns=new ArrayList<Question>();
 		Set<Question> finalQstns = new HashSet<Question>(); 
-		List<Question> qstns=qstnRepo.findAll();
+		List<Question> qstns=qstService.findAll();
 		Collections.shuffle(qstns);
 		int neededCount=exam.getCount(),qstncount=0,c=0;
 		String level=exam.getLevel();
@@ -59,22 +61,22 @@ public class ExamService {
 			if(qstn.getLevel().equals(level))
 				qstncount++;
 		}
-//		if(qstncount>=neededCount)
-//		{
-//			for(Question qstn:qstns)
-//			{
-//				if(qstn.getLevel().equals(level) && (c<neededCount))
-//				{
-//					c++;
-//					finalQstns.add(qstn);
-//				}
-//			}
-//		}
-//		else
-//			throw new Exception("less no. of questions available in database!!");
-//		
-//		exam.setQuestions(finalQstns);
-//		examRepo.save(exam);
+		if(qstncount>=neededCount)
+		{
+			for(Question qstn:qstns)
+			{
+				if(qstn.getLevel().equals(level) && (c<neededCount))
+				{
+					c++;
+					finalQstns.add(qstn);
+				}
+			}
+		}
+		else
+			throw new Exception("less no. of questions available in database!!");
+		
+		exam.setQuestions(finalQstns);
+		examRepo.save(exam);
 	}
 	
 //	public void deactivate() {

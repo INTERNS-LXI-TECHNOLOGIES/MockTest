@@ -136,25 +136,6 @@ public class ExamController
 		return "logoutpage";
 	}
 
-
-	@RequestMapping ("/create_exam")
-	public String create_exam(Model model)
-	{
-		model.addAttribute("exam",new Exam());	 
-		return "create_exam";
-	}
-
-	@RequestMapping ("/save_exam")
-	public String save_exam(Exam exam) throws Exception
-	{
-
-		examService.save_exam(exam);
-//		System.out.println("exam time--"+exam.getTime());
-		//examService.save_exam(exam);
-
-		return "redirect:/";
-	}
-
 //	@RequestMapping(value="/user_exam")
 //	public String userview(Model model) throws Exception
 //	{
@@ -216,6 +197,7 @@ public class ExamController
 //		 }
 //		return "user_exampage";
 //	}
+	
 	@RequestMapping("/create_question")
 	public String question(Model model)
 	{
@@ -227,25 +209,22 @@ public class ExamController
 	@RequestMapping(value="/add_question")
 	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{
-		question=optService.setOptionList(question,opt1,opt2,opt3);
-		Set<QstnOption> options=question.getQstnOptions();
+		questService.saveOrUpdate(question);
 		if (!bindingResult.hasErrors()) {
-		 questService.save(question,options);
-		
+		 optService.saveQstnOptn(question,opt1,opt2,opt3);
 	      return "redirect:/";}
 	    else return "create_question";
 
 	}
 	@RequestMapping(value="/addmore_question")
-	public String addmore( @Valid Question ques,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
+	public String addmore( @Valid Question quest,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
-		ques=optService.setOptionList(ques,opt1,opt2,opt3);
-	
+		questService.saveOrUpdate(quest);
 		if(!binding.hasErrors()) {
-//		questService.save(ques);
-		model.addAttribute("question",new Question());
-		return "create_question";}
-		else return "create_question";
+			 optService.saveQstnOptn(quest,opt1,opt2,opt3);
+			model.addAttribute("question",new Question());
+		}
+		return "create_question";
 
 	}
 
@@ -256,6 +235,24 @@ public class ExamController
 		model.addAttribute("questions",questions);	
 		return "viewall_qstn";
 
+	}
+
+	@RequestMapping ("/create_exam")
+	public String create_exam(Model model)
+	{
+		model.addAttribute("exam",new Exam());	 
+		return "create_exam";
+	}
+
+	@RequestMapping ("/save_exam")
+	public String save_exam(Exam exam) throws Exception
+	{
+
+		examService.save_exam(exam);
+		//System.out.println("exam time--"+exam.getTime());
+		//examService.save_exam(exam);
+
+		return "redirect:/";
 	}
 
 //	@RequestMapping("/error")
@@ -316,9 +313,11 @@ public class ExamController
 //	}
 
 
-	
-	
-	
+
+
+}
+
+
 
 
 //@RequestMapping(value="/user_view")
@@ -337,5 +336,3 @@ public class ExamController
 //	return "user_view";
 //}
 
-
-}

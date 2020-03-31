@@ -26,35 +26,37 @@ public class OptionService {
 
     @Autowired
 	private QstnOptionRepository optRepo;
-    @Transactional
-	public Question setOptionList(Question question,String ...opt) {
-
-		 Set<QstnOption> optionList = new HashSet<QstnOption>(); 
-		for(int i=0;i<opt.length;i++)
-		{
-
-			QstnOption option=new QstnOption();
-			option.setOption(opt[i]);
-			optionList.add(option);
-		}
-		question.setQstnOptions(optionList);
-		return question;
-	}
+    
+//    @Transactional
+//	public Question setOptionList(Question question,String ...opt) {
+//
+//		 Set<QstnOption> optionList = new HashSet<QstnOption>(); 
+//		for(int i=0;i<opt.length;i++)
+//		{
+//
+//			QstnOption option=new QstnOption();
+//			option.setOption(opt[i]);
+//			optionList.add(option);
+//		}
+//		question.setQstnOptions(optionList);
+//		return question;
+//	}
     
 	public void save(QstnOption option) 
 	{
 		optRepo.save(option);
 		
 	}
-	public void update( Question question, Set<QstnOption> options) 
+	
+	public void saveQstnOptn( Question question,String ...options) 
 	{
-			for(QstnOption opt:options)
-			{
-				opt.setQuestion(question);
-				save(opt);
-			}
-			
-		
+		for(int i=0;i<options.length;i++)
+		{
+			QstnOption optn=new QstnOption();
+			optn.setOption(options[i]);
+			optn.setQuestion(question);
+			save(optn);
+		}
 	}
 
 	public QstnOption findById(String opt_Id) {
