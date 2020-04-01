@@ -35,7 +35,7 @@ public class Exam implements Serializable {
     private String level;
 
     @Column(name = "is_active")
-    private Boolean isActive=false;
+    private Boolean isActive;
 
     @OneToMany(mappedBy = "exam",fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
