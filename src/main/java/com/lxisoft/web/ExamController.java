@@ -208,8 +208,8 @@ public class ExamController
 
 	@RequestMapping(value="/add_question")
 	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
-	{
-		questService.saveOrUpdate(question);
+	{ 
+		questService.save(question);
 		if (!bindingResult.hasErrors()) {
 		 optService.saveQstnOptn(question,opt1,opt2,opt3);
 	      return "redirect:/";}
@@ -219,7 +219,7 @@ public class ExamController
 	@RequestMapping(value="/addmore_question")
 	public String addmore( @Valid Question quest,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
-		questService.saveOrUpdate(quest);
+		questService.save(quest);
 		if(!binding.hasErrors()) {
 			 optService.saveQstnOptn(quest,opt1,opt2,opt3);
 			model.addAttribute("question",new Question());
@@ -249,68 +249,60 @@ public class ExamController
 	{
 
 		examService.save_exam(exam);
+		Set<Question> question=exam.getQuestions();
+		System.out.println("\n\n\nque"+question+"\n\n");
+		for(Question quest:question)
+		{
+			 questService.saveOrUpdate(quest,exam);
+		}
 		//System.out.println("exam time--"+exam.getTime());
 		//examService.save_exam(exam);
 
 		return "redirect:/";
 	}
 
-//	@RequestMapping("/error")
-//	public String handleError(HttpServletRequest request) {
-//	    Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-//	     
-//	    if (status != null) {
-//	        Integer statusCode = Integer.valueOf(status.toString());
-//	     
-//	        if(statusCode == HttpStatus.NOT_FOUND.value()) {
-//	            return "error-404";
-//	        }
-//	        else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-//	            return "error-500";
-//	        }
-//	    }
-//	    return "error";
-//	}
-//	
-//	@RequestMapping ("/current_exams")
-//	public String current_exams(Model model)
-//	{
-//		model.addAttribute("exams",examService.findAll());
-//		return "current_exams";
-//	}
-//	
-//	@RequestMapping ("/activateExam")
-//	public String selectExam(Model model,@RequestParam String eId) throws Exception
-//	{
-//		Exam exam=examService.findById(eId);
-//		model.addAttribute("questions",exam.getQuestions());
-//		model.addAttribute("exam",exam);
-//		return "selectExam";
-//	}
-//	
-//	@RequestMapping ("/activate_exam")
-//	public String activate_exam(@RequestParam String eId) throws Exception
-//	{
-//		Exam exam=examService.findById(eId);
+	
+	@RequestMapping ("/current_exams")
+	public String current_exams(Model model)
+	{
+		model.addAttribute("exams",examService.findAll());
+		return "current_exams";
+	}
+	
+	@RequestMapping ("/selectExam")
+	public String selectExam(Model model,@RequestParam String eId) throws Exception
+	{
+		Exam exam=examService.findById(eId);
+		model.addAttribute("questions",exam.getQuestions());
+		//System.out.println("examd  que  fddfdf"+exam.getQuestions());
+		model.addAttribute("exam",exam);
+		return "activateExam";
+	}
+	
+	@RequestMapping ("/activate_exam")
+	public String activate_exam(@RequestParam String eId) throws Exception
+	{
+		Exam exam=examService.findById(eId);
 //		examService.deactivate(); 
-//		
-//		exam.setActive(true);
-//		examService.update(exam);
-//		return "redirect:/activateExam?eId="+eId;
-//	}
-//	
-//	@RequestMapping ("/set_Answer")
-//	public String setAnswer(@RequestParam String opt_Id,@RequestParam String qstn_id)
-//	{
-//		Question question=questService.findById(qstn_id);
-//		QstnOption qstn_optn=optService.findById(opt_Id);
-//		if(qstn_optn.isAnswer()==false)
-//			qstn_optn.setAnswer(true);
-//		else 
-//			qstn_optn.setAnswer(false);
-//		questService.update(question);
-//		return "redirect:/viewall_qstn";
-//	}
+		
+		exam.setIsActive(true);
+		examService.update(exam);
+		return "redirect:/selectExam?eId="+eId;
+	}
+	
+	@RequestMapping ("/set_Answer")
+	public String setAnswer(@RequestParam String opt_Id,@RequestParam String qstn_id)
+	{
+		Question question=questService.findById(qstn_id);
+		QstnOption qstn_optn=optService.findById(opt_Id);
+		if(qstn_optn.isIsAnswer()==false)
+			qstn_optn.setIsAnswer(true);
+		else 
+			qstn_optn.setIsAnswer(false);
+		questService.save(question);
+		optService.save(qstn_optn);
+		return "redirect:/viewall_qstn";
+	}
 
 
 

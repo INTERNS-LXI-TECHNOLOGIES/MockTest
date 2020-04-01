@@ -5,39 +5,44 @@
 <title>Exam Questions</title>
 </head>
 <body>
-	<div align="center">
+	<!-- <div align="center">
 		Time:- <span th:text="${exam.getTime_hr()} "></span>hr <span
-			th:text="${exam.getTime_min()} "></span>min<br> 
+			th:text="${exam.getTime_min()} "></span>min<br>  -->
 			Level:- <span th:text="${exam.getLevel()} ">level</span><br> 
-			Active:- <span	th:text="${exam.isActive()} ">active</span>&nbsp;&nbsp; 
+			Active:- <span	th:text="${exam.isIsActive()} ">active</span>&nbsp;&nbsp; 
 		<span
-			th:if="!${exam.isActive()} "><button><a th:href="@{/activate_exam(eId=${exam.getId()})}">activate exam</a></button>
+			th:if="!${exam.isIsActive()} "><button><a th:href="@{/activate_exam(eId=${exam.getId()})}">activate exam</a></button>
 		</span>
-		<h3>
-			<u>Questions in Exam - <span th:text="${exam.getExam_name()} ">exam name</span></u>
-		</h3>
+		<form>
+			<div class="container" align="center">
+			<input type="submit" value="Back to Home" formaction="/">
+			<input type="submit" value="Current Exams " formaction="/current_exams">
+				<h3><u>Questions in Exam - <span th:text="${exam.getName()} ">exam name</span></u></h3>
+			</div>
+		</form>
+		
 	</div>
 	<table width=100%>
-		<thead>
-			<tr>
-				<th>Sl.No.</th>
-				<th>Question</th>
-				<th>Option1</th>
-				<th>Option2</th>
-				<th>Option3</th>
-				<th>Level</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:if="${questions.empty}" align="center">
+    <thead>
+        <tr>
+            <th> Sl.No. </th>
+            <th> Question </th>
+            <th> Option1 </th>
+             <th> Option2 </th>
+              <th> Option3 </th>
+              <th> Level </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${questions.empty}" align="center">
             <td colspan="6"> No Questions Available </td>
         </tr>
-        <tr th:each="qstn ,iterator : ${questions}" >
+        <tr th:each="qstn ,iterator : ${questions}" align="center">
         <td th:text="${iterator.index+1}" > Sl.No. </td>
             <td th:text="${qstn.getQstn()}"> Question </td>
-            <td th:each="option : ${qstn.options}">
-            	<span th:text="${option.opt}">option</span>---
-            	<span th:text="${option.isAnswer()}">isanswer</span>
+            <td th:each="q_option : ${qstn.qstnOptions}">
+            	<span th:text="${q_option.option}">option</span>---
+            	<span th:text="${q_option.isIsAnswer()}">isanswer</span>
             </td>
             <td th:text="${qstn.getLevel()}"> Level </td>
         </tr>

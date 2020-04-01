@@ -17,7 +17,8 @@ entity AttendedOptn{
 entity Exam{
 	name String,
     count Integer,
-    level String
+    level String,
+    isActive Boolean
 }
 
 entity AttendedExam {

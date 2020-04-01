@@ -34,7 +34,10 @@ public class Exam implements Serializable {
     @Column(name = "level")
     private String level;
 
-    @OneToMany(mappedBy = "exam")
+    @Column(name = "is_active")
+    private Boolean isActive=false;
+
+    @OneToMany(mappedBy = "exam",fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Question> questions = new HashSet<>();
 
@@ -88,6 +91,19 @@ public class Exam implements Serializable {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public Boolean isIsActive() {
+        return isActive;
+    }
+
+    public Exam isActive(Boolean isActive) {
+        this.isActive = isActive;
+        return this;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     public Set<Question> getQuestions() {
@@ -152,6 +168,7 @@ public class Exam implements Serializable {
             ", name='" + getName() + "'" +
             ", count=" + getCount() +
             ", level='" + getLevel() + "'" +
+            ", isActive='" + isIsActive() + "'" +
             "}";
     }
 }

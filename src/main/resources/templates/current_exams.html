@@ -18,18 +18,20 @@ span {
 </style>
 </head>
 <body>
+	<form>
 	<div class="container" align="center">
+	<input type="submit" value="Back to Home" formaction="/">
 		<h3>Current exams in database</h3>
-	</div>
+	</div></form>
 	<div class="container" align="center">
 		<table>
 			<tr th:if="${exams.empty}">
 				<td colspan="1">No Exams Available</td>
 			</tr>
 			<tr class="border border-dark" th:each="exam: ${exams}">
-				<td><a th:href="@{/selectExam(eId=${exam.getId()})}"><span></span><h6 th:text="${exam.getExam_name()}">exam</h6>
+				<td><a th:href="@{/selectExam(eId=${exam.getId()})}"><span></span><h6 th:text="${exam.getName()}">exam</h6>
 				<h6 th:text="${exam.getLevel()}">level</h6>
-				is active:-<h6 th:text="${exam.isActive()}">isActive</h6></span></a>
+				is active:-<h6 th:text="${exam.isIsActive()}">isActive</h6></span></a>
 				</td>
 			</tr>
 		</table>

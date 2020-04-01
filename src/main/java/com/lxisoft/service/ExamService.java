@@ -87,10 +87,10 @@ public class ExamService {
 //			examRepo.save(e);
 //		}
 //	}
-//	
-//	public void update(Exam exam) {
-//		examRepo.save(exam);
-//	}
+	
+	public void update(Exam exam) {
+		examRepo.save(exam);
+	}
 	
 //	public Exam findActiveExam() throws Exception {
 //		Exam exam=null;

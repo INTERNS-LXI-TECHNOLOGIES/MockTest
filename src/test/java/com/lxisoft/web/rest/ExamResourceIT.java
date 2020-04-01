@@ -40,6 +40,9 @@ public class ExamResourceIT {
     private static final String DEFAULT_LEVEL = "AAAAAAAAAA";
     private static final String UPDATED_LEVEL = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_IS_ACTIVE = false;
+    private static final Boolean UPDATED_IS_ACTIVE = true;
+
     @Autowired
     private ExamRepository examRepository;
 
@@ -61,7 +64,8 @@ public class ExamResourceIT {
         Exam exam = new Exam()
             .name(DEFAULT_NAME)
             .count(DEFAULT_COUNT)
-            .level(DEFAULT_LEVEL);
+            .level(DEFAULT_LEVEL)
+            .isActive(DEFAULT_IS_ACTIVE);
         return exam;
     }
     /**
@@ -74,7 +78,8 @@ public class ExamResourceIT {
         Exam exam = new Exam()
             .name(UPDATED_NAME)
             .count(UPDATED_COUNT)
-            .level(UPDATED_LEVEL);
+            .level(UPDATED_LEVEL)
+            .isActive(UPDATED_IS_ACTIVE);
         return exam;
     }
 
@@ -101,6 +106,7 @@ public class ExamResourceIT {
         assertThat(testExam.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testExam.getCount()).isEqualTo(DEFAULT_COUNT);
         assertThat(testExam.getLevel()).isEqualTo(DEFAULT_LEVEL);
+        assertThat(testExam.isIsActive()).isEqualTo(DEFAULT_IS_ACTIVE);
     }
 
     @Test
@@ -136,7 +142,8 @@ public class ExamResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(exam.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].count").value(hasItem(DEFAULT_COUNT)))
-            .andExpect(jsonPath("$.[*].level").value(hasItem(DEFAULT_LEVEL)));
+            .andExpect(jsonPath("$.[*].level").value(hasItem(DEFAULT_LEVEL)))
+            .andExpect(jsonPath("$.[*].isActive").value(hasItem(DEFAULT_IS_ACTIVE.booleanValue())));
     }
     
     @Test
@@ -152,7 +159,8 @@ public class ExamResourceIT {
             .andExpect(jsonPath("$.id").value(exam.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.count").value(DEFAULT_COUNT))
-            .andExpect(jsonPath("$.level").value(DEFAULT_LEVEL));
+            .andExpect(jsonPath("$.level").value(DEFAULT_LEVEL))
+            .andExpect(jsonPath("$.isActive").value(DEFAULT_IS_ACTIVE.booleanValue()));
     }
 
     @Test
@@ -178,7 +186,8 @@ public class ExamResourceIT {
         updatedExam
             .name(UPDATED_NAME)
             .count(UPDATED_COUNT)
-            .level(UPDATED_LEVEL);
+            .level(UPDATED_LEVEL)
+            .isActive(UPDATED_IS_ACTIVE);
 
         restExamMockMvc.perform(put("/api/exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -192,6 +201,7 @@ public class ExamResourceIT {
         assertThat(testExam.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testExam.getCount()).isEqualTo(UPDATED_COUNT);
         assertThat(testExam.getLevel()).isEqualTo(UPDATED_LEVEL);
+        assertThat(testExam.isIsActive()).isEqualTo(UPDATED_IS_ACTIVE);
     }
 
     @Test
