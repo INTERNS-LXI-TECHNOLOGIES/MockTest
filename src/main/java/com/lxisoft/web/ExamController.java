@@ -116,13 +116,13 @@ public class ExamController
 	}  
 
 
-//	@RequestMapping ("/user_startpage")
-//	public String userpage(Model model) throws Exception
-//	{
-//		Exam exam=examService.findActiveExam();
-//		model.addAttribute("exam",exam);
-//		return "user_startpage";
-//	}
+	@RequestMapping ("/user_startpage")
+	public String userpage(Model model) throws Exception
+	{
+		Set<Exam> active_exams=examService.findActiveExam();
+//		model.addAttribute("exam_list",active_exams);
+		return "user_startpage";
+	}
 
 	@RequestMapping ("/login")
 	public String login()
@@ -136,10 +136,10 @@ public class ExamController
 		return "logoutpage";
 	}
 
-//	@RequestMapping(value="/user_exam")
-//	public String userview(Model model) throws Exception
-//	{
-//		Exam exam=examService.findActiveExam();
+	@RequestMapping(value="/user_exam")
+	public String userview(Model model) throws Exception
+	{
+		Set<Exam> active_exams=examService.findActiveExam();
 //		List<Question> questions=(List<Question>)exam.getQuestions();
 //		 ListIterator<Question> lit = questions.listIterator(); 
 //		 int count=0;
@@ -149,11 +149,11 @@ public class ExamController
 //		  model.addAttribute("iterator",lit);
 //		  model.addAttribute("count",count);
 //		  return "user_exampage";
-//		  
+		  
 //		 }
-//		  
-//		return "redirect:/submit";
-//	}
+		  
+		return "redirect:/submit";
+	}
 //
 //	@RequestMapping(value="/user_nextPage")
 //	public String userNextPage(Model model,Exam exam,@RequestParam String index,@RequestParam String optionid,@RequestParam String count) throws Exception
@@ -250,7 +250,6 @@ public class ExamController
 
 		examService.save_exam(exam);
 		Set<Question> question=exam.getQuestions();
-		System.out.println("\n\n\nque"+question+"\n\n");
 		for(Question quest:question)
 		{
 			 questService.saveOrUpdate(quest,exam);
@@ -273,9 +272,9 @@ public class ExamController
 	public String selectExam(Model model,@RequestParam String eId) throws Exception
 	{
 		Exam exam=examService.findById(eId);
-		model.addAttribute("questions",exam.getQuestions());
-		//System.out.println("examd  que  fddfdf"+exam.getQuestions());
 		model.addAttribute("exam",exam);
+		model.addAttribute("questions",exam.getQuestions());
+		
 		return "activateExam";
 	}
 	

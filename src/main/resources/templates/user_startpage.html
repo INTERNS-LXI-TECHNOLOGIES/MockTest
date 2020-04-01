@@ -23,11 +23,19 @@ document.getElementById("demo").innerHTML = days + "d "
 </head>
 <body>
 <div align="center">
-Time:- <span th:text="${exam.getTime_hr()} "></span>hr <span
-			th:text="${exam.getTime_min()} "></span>min<br> 
+<!-- Time:- <span th:text="${exam.getTime_hr()} "></span>hr <span
+			th:text="${exam.getTime_min()} "></span>min<br> --> 
+			
+			
+			 <!-- <span th:each="exam ,iterator : ${exam_list}" >
+						<select name="active_exam" >
+							<option th:value="${exam.getName()}"></option>
+						</select>
+					</span> -->
+			
 <p><a th:href="@{/user_exam}"><button>Start Now</button></a> 
 
 
-</span></div>
+</div>
 </body>  
 </html>
