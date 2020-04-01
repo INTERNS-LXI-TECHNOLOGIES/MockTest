@@ -12,14 +12,24 @@
         {
             "fieldName": "level",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "isActive",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "time",
+            "fieldType": "String"
         }
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-many",
             "otherEntityName": "question",
             "otherEntityRelationshipName": "exam",
-            "relationshipName": "question"
+            "relationshipName": "question",
+            "otherEntityField": "id",
+            "ownerSide": true
         },
         {
             "relationshipType": "many-to-one",

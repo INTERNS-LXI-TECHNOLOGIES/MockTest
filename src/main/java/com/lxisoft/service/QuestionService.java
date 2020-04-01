@@ -36,7 +36,7 @@ public class QuestionService {
     	}
 
     	public void saveOrUpdate(Question question, Exam exam) {
-    		question.setExam(exam);
+    		//question.setExam(exam);
     		questRepo.save(question);
     		
     	}

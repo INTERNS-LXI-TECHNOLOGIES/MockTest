@@ -6,19 +6,26 @@ import com.lxisoft.repository.ExamRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -26,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link ExamResource} REST controller.
  */
 @SpringBootTest(classes = MockTestApp.class)
-
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 public class ExamResourceIT {
@@ -43,8 +50,14 @@ public class ExamResourceIT {
     private static final Boolean DEFAULT_IS_ACTIVE = false;
     private static final Boolean UPDATED_IS_ACTIVE = true;
 
+    private static final String DEFAULT_TIME = "AAAAAAAAAA";
+    private static final String UPDATED_TIME = "BBBBBBBBBB";
+
     @Autowired
     private ExamRepository examRepository;
+
+    @Mock
+    private ExamRepository examRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -65,7 +78,8 @@ public class ExamResourceIT {
             .name(DEFAULT_NAME)
             .count(DEFAULT_COUNT)
             .level(DEFAULT_LEVEL)
-            .isActive(DEFAULT_IS_ACTIVE);
+            .isActive(DEFAULT_IS_ACTIVE)
+            .time(DEFAULT_TIME);
         return exam;
     }
     /**
@@ -79,7 +93,8 @@ public class ExamResourceIT {
             .name(UPDATED_NAME)
             .count(UPDATED_COUNT)
             .level(UPDATED_LEVEL)
-            .isActive(UPDATED_IS_ACTIVE);
+            .isActive(UPDATED_IS_ACTIVE)
+            .time(UPDATED_TIME);
         return exam;
     }
 
@@ -107,6 +122,7 @@ public class ExamResourceIT {
         assertThat(testExam.getCount()).isEqualTo(DEFAULT_COUNT);
         assertThat(testExam.getLevel()).isEqualTo(DEFAULT_LEVEL);
         assertThat(testExam.isIsActive()).isEqualTo(DEFAULT_IS_ACTIVE);
+        assertThat(testExam.getTime()).isEqualTo(DEFAULT_TIME);
     }
 
     @Test
@@ -143,9 +159,32 @@ public class ExamResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].count").value(hasItem(DEFAULT_COUNT)))
             .andExpect(jsonPath("$.[*].level").value(hasItem(DEFAULT_LEVEL)))
-            .andExpect(jsonPath("$.[*].isActive").value(hasItem(DEFAULT_IS_ACTIVE.booleanValue())));
+            .andExpect(jsonPath("$.[*].isActive").value(hasItem(DEFAULT_IS_ACTIVE.booleanValue())))
+            .andExpect(jsonPath("$.[*].time").value(hasItem(DEFAULT_TIME)));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllExamsWithEagerRelationshipsIsEnabled() throws Exception {
+        ExamResource examResource = new ExamResource(examRepositoryMock);
+        when(examRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restExamMockMvc.perform(get("/api/exams?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(examRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllExamsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        ExamResource examResource = new ExamResource(examRepositoryMock);
+        when(examRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restExamMockMvc.perform(get("/api/exams?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(examRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getExam() throws Exception {
@@ -160,7 +199,8 @@ public class ExamResourceIT {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.count").value(DEFAULT_COUNT))
             .andExpect(jsonPath("$.level").value(DEFAULT_LEVEL))
-            .andExpect(jsonPath("$.isActive").value(DEFAULT_IS_ACTIVE.booleanValue()));
+            .andExpect(jsonPath("$.isActive").value(DEFAULT_IS_ACTIVE.booleanValue()))
+            .andExpect(jsonPath("$.time").value(DEFAULT_TIME));
     }
 
     @Test
@@ -187,7 +227,8 @@ public class ExamResourceIT {
             .name(UPDATED_NAME)
             .count(UPDATED_COUNT)
             .level(UPDATED_LEVEL)
-            .isActive(UPDATED_IS_ACTIVE);
+            .isActive(UPDATED_IS_ACTIVE)
+            .time(UPDATED_TIME);
 
         restExamMockMvc.perform(put("/api/exams").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -202,6 +243,7 @@ public class ExamResourceIT {
         assertThat(testExam.getCount()).isEqualTo(UPDATED_COUNT);
         assertThat(testExam.getLevel()).isEqualTo(UPDATED_LEVEL);
         assertThat(testExam.isIsActive()).isEqualTo(UPDATED_IS_ACTIVE);
+        assertThat(testExam.getTime()).isEqualTo(UPDATED_TIME);
     }
 
     @Test

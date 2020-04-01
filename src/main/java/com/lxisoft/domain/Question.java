@@ -1,7 +1,6 @@
 package com.lxisoft.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -40,9 +39,10 @@ public class Question implements Serializable {
     @JsonIgnore
     private AttendedOptn attendedOptn;
 
-    @ManyToOne
-    @JsonIgnoreProperties("questions")
-    private Exam exam;
+    @ManyToMany(mappedBy = "questions")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JsonIgnore
+    private Set<Exam> exams = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -117,17 +117,29 @@ public class Question implements Serializable {
         this.attendedOptn = attendedOptn;
     }
 
-    public Exam getExam() {
-        return exam;
+    public Set<Exam> getExams() {
+        return exams;
     }
 
-    public Question exam(Exam exam) {
-        this.exam = exam;
+    public Question exams(Set<Exam> exams) {
+        this.exams = exams;
         return this;
     }
 
-    public void setExam(Exam exam) {
-        this.exam = exam;
+    public Question addExam(Exam exam) {
+        this.exams.add(exam);
+        exam.getQuestions().add(this);
+        return this;
+    }
+
+    public Question removeExam(Exam exam) {
+        this.exams.remove(exam);
+        exam.getQuestions().remove(this);
+        return this;
+    }
+
+    public void setExams(Set<Exam> exams) {
+        this.exams = exams;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

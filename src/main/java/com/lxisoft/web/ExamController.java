@@ -1,6 +1,7 @@
 package com.lxisoft.web;
 
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
@@ -245,19 +246,18 @@ public class ExamController
 	}
 
 	@RequestMapping ("/save_exam")
-	public String save_exam(Exam exam) throws Exception
+	public String save_exam(Exam exam,@RequestParam String time) throws Exception
 	{
-
+//		LocalTime examTime=LocalTime.parse(time);
+		exam.setTime(time);
 		examService.save_exam(exam);
-		Set<Question> question=exam.getQuestions();
-		System.out.println("\n\n\nque"+question+"\n\n");
-		for(Question quest:question)
-		{
-			 questService.saveOrUpdate(quest,exam);
-		}
-		//System.out.println("exam time--"+exam.getTime());
-		//examService.save_exam(exam);
-
+//		System.out.println("time-----------------"+examTime+"\n\n");
+//		Set<Question> question=exam.getQuestions();
+//		System.out.println("\n\n\nque"+question+"\n\n");
+//		for(Question quest:question)
+//		{
+//			 questService.saveOrUpdate(quest,exam);
+//		}
 		return "redirect:/";
 	}
 

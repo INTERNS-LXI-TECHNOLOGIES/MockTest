@@ -82,12 +82,13 @@ public class ExamResource {
     /**
      * {@code GET  /exams} : get all the exams.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of exams in body.
      */
     @GetMapping("/exams")
-    public List<Exam> getAllExams() {
+    public List<Exam> getAllExams(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Exams");
-        return examRepository.findAll();
+        return examRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -99,7 +100,7 @@ public class ExamResource {
     @GetMapping("/exams/{id}")
     public ResponseEntity<Exam> getExam(@PathVariable Long id) {
         log.debug("REST request to get Exam : {}", id);
-        Optional<Exam> exam = examRepository.findById(id);
+        Optional<Exam> exam = examRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(exam);
     }
 

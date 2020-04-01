@@ -35,10 +35,16 @@ public class Exam implements Serializable {
     private String level;
 
     @Column(name = "is_active")
-    private Boolean isActive=false;
+    private Boolean isActive;
 
-    @OneToMany(mappedBy = "exam",fetch = FetchType.EAGER)
+    @Column(name = "time")
+    private String time;
+
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "exam_question",
+               joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
     private Set<Question> questions = new HashSet<>();
 
     @ManyToOne
@@ -106,6 +112,19 @@ public class Exam implements Serializable {
         this.isActive = isActive;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public Exam time(String time) {
+        this.time = time;
+        return this;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public Set<Question> getQuestions() {
         return questions;
     }
@@ -117,13 +136,13 @@ public class Exam implements Serializable {
 
     public Exam addQuestion(Question question) {
         this.questions.add(question);
-        question.setExam(this);
+        question.getExams().add(this);
         return this;
     }
 
     public Exam removeQuestion(Question question) {
         this.questions.remove(question);
-        question.setExam(null);
+        question.getExams().remove(this);
         return this;
     }
 
@@ -169,6 +188,7 @@ public class Exam implements Serializable {
             ", count=" + getCount() +
             ", level='" + getLevel() + "'" +
             ", isActive='" + isIsActive() + "'" +
+            ", time='" + getTime() + "'" +
             "}";
     }
 }
