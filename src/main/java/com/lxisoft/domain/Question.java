@@ -34,7 +34,7 @@ public class Question implements Serializable {
     private String qstn;
 
     @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<QstnOption> qstnOptions = new HashSet<>();
 
