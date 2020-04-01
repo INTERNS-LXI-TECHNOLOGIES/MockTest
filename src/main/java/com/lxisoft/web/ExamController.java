@@ -1,8 +1,10 @@
 package com.lxisoft.web;
 
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
@@ -268,9 +270,10 @@ public class ExamController
 	}
 
 	@RequestMapping ("/save_exam")
-	public String save_exam(Exam exam) throws Exception
+	public String save_exam(Exam exam,@RequestParam String time) throws Exception
 	{
-
+//		LocalTime examTime=LocalTime.parse(time);
+		exam.setTime(time);
 		examService.save_exam(exam);
 		Set<Question> question=exam.getQuestions();
 		for(Question quest:question)
@@ -280,6 +283,13 @@ public class ExamController
 		//System.out.println("exam time--"+exam.getTime());
 		//examService.save_exam(exam);
 
+//		System.out.println("time-----------------"+examTime+"\n\n");
+//		Set<Question> question=exam.getQuestions();
+//		System.out.println("\n\n\nque"+question+"\n\n");
+//		for(Question quest:question)
+//		{
+//			 questService.saveOrUpdate(quest,exam);
+//		}
 		return "redirect:/";
 	}
 
@@ -295,6 +305,7 @@ public class ExamController
 	public String selectExam(Model model,@RequestParam String eId) throws Exception
 	{
 		Exam exam=examService.findById(eId);
+		model.addAttribute("questions",exam.getQuestions());
 		model.addAttribute("exam",exam);
 		model.addAttribute("questions",exam.getQuestions());
 		

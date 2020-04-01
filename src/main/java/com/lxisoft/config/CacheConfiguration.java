@@ -58,6 +58,7 @@ public class CacheConfiguration {
             createCache(cm, com.lxisoft.domain.AttendedExam.class.getName() + ".attendedOptns");
             createCache(cm, com.lxisoft.domain.Question.class.getName() + ".options");
             createCache(cm, com.lxisoft.domain.Exam.class.getName() + ".questions");
+            createCache(cm, com.lxisoft.domain.Question.class.getName() + ".exams");
             // jhipster-needle-ehcache-add-entry
         };
     }
