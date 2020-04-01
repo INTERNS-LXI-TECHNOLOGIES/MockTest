@@ -12,6 +12,10 @@
         {
             "fieldName": "level",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "isActive",
+            "fieldType": "Boolean"
         }
     ],
     "relationships": [
