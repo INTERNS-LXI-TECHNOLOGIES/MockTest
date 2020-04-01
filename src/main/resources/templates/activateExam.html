@@ -5,14 +5,14 @@
 <title>Exam Questions</title>
 </head>
 <body>
-	<!-- <div align="center">
-		Time:- <span th:text="${exam.getTime_hr()} "></span>hr <span
-			th:text="${exam.getTime_min()} "></span>min<br>  -->
-			Level:- <span th:text="${exam.getLevel()} ">level</span><br> 
-			Active:- <span	th:text="${exam.isIsActive()} ">active</span>&nbsp;&nbsp; 
+	<div align="center">
+		Time:- <span th:text="${exam.time} "></span>&nbsp;hr <br>
+			Level:- <span th:text="${exam.level} ">level</span><br> 
+			Active:- <span	th:text="${exam.isActive} ">active</span>&nbsp;&nbsp; 
 		<span
-			th:if="!${exam.isIsActive()} "><button><a th:href="@{/activate_exam(eId=${exam.getId()})}">activate exam</a></button>
+			th:if="!${exam.isActive} "><button><a th:href="@{/activate_exam(eId=${exam.getId()})}">activate exam</a></button>
 		</span>
+		</div><br>
 		<form>
 			<div class="container" align="center">
 			<input type="submit" value="Back to Home" formaction="/">

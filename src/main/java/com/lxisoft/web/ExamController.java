@@ -274,7 +274,7 @@ public class ExamController
 	{
 		Exam exam=examService.findById(eId);
 		model.addAttribute("questions",exam.getQuestions());
-		//System.out.println("examd  que  fddfdf"+exam.getQuestions());
+		System.out.println("examd  que  fddfdf"+exam.getQuestions());
 		model.addAttribute("exam",exam);
 		return "activateExam";
 	}
