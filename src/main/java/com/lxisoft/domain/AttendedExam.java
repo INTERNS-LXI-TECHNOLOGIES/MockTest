@@ -1,5 +1,6 @@
 package com.lxisoft.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -42,11 +43,11 @@ public class AttendedExam implements Serializable {
 
     @OneToMany(mappedBy = "attendedExam")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Exam> exams = new HashSet<>();
-
-    @OneToMany(mappedBy = "attendedExam")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AttendedOptn> attendedOptns = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties("attendedExams")
+    private Exam exam;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -122,31 +123,6 @@ public class AttendedExam implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public Set<Exam> getExams() {
-        return exams;
-    }
-
-    public AttendedExam exams(Set<Exam> exams) {
-        this.exams = exams;
-        return this;
-    }
-
-    public AttendedExam addExam(Exam exam) {
-        this.exams.add(exam);
-        exam.setAttendedExam(this);
-        return this;
-    }
-
-    public AttendedExam removeExam(Exam exam) {
-        this.exams.remove(exam);
-        exam.setAttendedExam(null);
-        return this;
-    }
-
-    public void setExams(Set<Exam> exams) {
-        this.exams = exams;
-    }
-
     public Set<AttendedOptn> getAttendedOptns() {
         return attendedOptns;
     }
@@ -170,6 +146,19 @@ public class AttendedExam implements Serializable {
 
     public void setAttendedOptns(Set<AttendedOptn> attendedOptns) {
         this.attendedOptns = attendedOptns;
+    }
+
+    public Exam getExam() {
+        return exam;
+    }
+
+    public AttendedExam exam(Exam exam) {
+        this.exam = exam;
+        return this;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

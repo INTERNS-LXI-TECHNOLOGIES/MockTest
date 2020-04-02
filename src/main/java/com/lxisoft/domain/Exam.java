@@ -1,6 +1,5 @@
 package com.lxisoft.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -35,21 +34,21 @@ public class Exam implements Serializable {
     private String level;
 
     @Column(name = "is_active")
-    private Boolean isActive=false;
+    private Boolean isActive;
 
     @Column(name = "time")
     private String time;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "exam")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<AttendedExam> attendedExams = new HashSet<>();
+
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "exam_question",
                joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"))
     private Set<Question> questions = new HashSet<>();
-
-    @ManyToOne
-    @JsonIgnoreProperties("exams")
-    private AttendedExam attendedExam;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -125,6 +124,31 @@ public class Exam implements Serializable {
         this.time = time;
     }
 
+    public Set<AttendedExam> getAttendedExams() {
+        return attendedExams;
+    }
+
+    public Exam attendedExams(Set<AttendedExam> attendedExams) {
+        this.attendedExams = attendedExams;
+        return this;
+    }
+
+    public Exam addAttendedExam(AttendedExam attendedExam) {
+        this.attendedExams.add(attendedExam);
+        attendedExam.setExam(this);
+        return this;
+    }
+
+    public Exam removeAttendedExam(AttendedExam attendedExam) {
+        this.attendedExams.remove(attendedExam);
+        attendedExam.setExam(null);
+        return this;
+    }
+
+    public void setAttendedExams(Set<AttendedExam> attendedExams) {
+        this.attendedExams = attendedExams;
+    }
+
     public Set<Question> getQuestions() {
         return questions;
     }
@@ -148,19 +172,6 @@ public class Exam implements Serializable {
 
     public void setQuestions(Set<Question> questions) {
         this.questions = questions;
-    }
-
-    public AttendedExam getAttendedExam() {
-        return attendedExam;
-    }
-
-    public Exam attendedExam(AttendedExam attendedExam) {
-        this.attendedExam = attendedExam;
-        return this;
-    }
-
-    public void setAttendedExam(AttendedExam attendedExam) {
-        this.attendedExam = attendedExam;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

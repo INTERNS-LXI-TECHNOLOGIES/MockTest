@@ -31,6 +31,9 @@
             <column name="date_time" type="datetime">
                 <constraints nullable="true" />
             </column>
+            <column name="exam_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="attended_exam" columnName="date_time" columnDataType="datetime"/>
