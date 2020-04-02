@@ -293,7 +293,7 @@ private AttendedExamService attendExamService;
 	{
 		Exam exam=examService.findById(eId);
 		model.addAttribute("questions",exam.getQuestions());
-		System.out.println("examd  que  fddfdf"+exam.getQuestions());
+//		System.out.println("examd  que  fddfdf"+exam.getQuestions());
 		model.addAttribute("exam",exam);
 		return "activateExam";
 	}
@@ -302,9 +302,13 @@ private AttendedExamService attendExamService;
 	public String activate_exam(@RequestParam String eId) throws Exception
 	{
 		Exam exam=examService.findById(eId);
-//		examService.deactivate(); 
-		
-		exam.setIsActive(true);
+		if(exam.isIsActive()==true)
+		{
+		exam.setIsActive(false);
+		}
+		else {
+			exam.setIsActive(true);
+		}
 		examService.update(exam);
 		return "redirect:/selectExam?eId="+eId;
 	}

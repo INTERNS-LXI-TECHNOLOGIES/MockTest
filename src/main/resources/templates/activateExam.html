@@ -9,9 +9,11 @@
 		Time:- <span th:text="${exam.time} "></span>&nbsp;hr <br>
 			Level:- <span th:text="${exam.level} ">level</span><br> 
 			Active:- <span	th:text="${exam.isActive} ">active</span>&nbsp;&nbsp; 
-		<span
+			
+			<button><a th:href="@{/activate_exam(eId=${exam.getId()})}">Set <span th:text="!${exam.isIsActive()} "></span></a></button>
+		<!-- <span
 			th:if="!${exam.isActive} "><button><a th:href="@{/activate_exam(eId=${exam.getId()})}">activate exam</a></button>
-		</span>
+		</span> -->
 		</div><br>
 		<form>
 			<div class="container" align="center">
@@ -30,8 +32,9 @@
             <th> Option1 </th>
              <th> Option2 </th>
               <th> Option3 </th>
-              <th> Level </th>
-        </tr>
+              <th> Answer </th>
+       
+  </tr>
     </thead>
     <tbody>
     <tr th:if="${questions.empty}" align="center">
@@ -44,7 +47,12 @@
             	<span th:text="${q_option.option}">option</span>---
             	<span th:text="${q_option.isIsAnswer()}">isanswer</span>
             </td>
-            <td th:text="${qstn.getLevel()}"> Level </td>
+            <td th:each="qstn : ${questions}">
+            	<span th:each="q_option : ${qstn.qstnOptions}">
+            			<span th:if="${q_option.isIsAnswer() == true}">
+           						 <span th:text="${q_option.option}"> ans</span></span></span></td>
+           
+           <!--  <td th:text="${qstn.getLevel()}"> Level </td> -->
         </tr>
     </tbody>
 

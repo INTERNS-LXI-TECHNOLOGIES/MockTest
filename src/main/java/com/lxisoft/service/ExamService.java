@@ -79,15 +79,6 @@ public class ExamService {
 		examRepo.save(exam);
 	}
 	
-//	public void deactivate() {
-//		List<Exam> examList=examRepo.findAll();
-//		for(Exam e: examList)
-//		{
-//			e.setActive(false);
-//			examRepo.save(e);
-//		}
-//	}
-	
 	public void update(Exam exam) {
 		examRepo.save(exam);
 	}
