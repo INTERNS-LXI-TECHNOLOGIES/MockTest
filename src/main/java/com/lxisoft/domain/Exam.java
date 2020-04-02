@@ -35,12 +35,12 @@ public class Exam implements Serializable {
     private String level;
 
     @Column(name = "is_active")
-    private Boolean isActive;
+    private Boolean isActive=false;
 
     @Column(name = "time")
     private String time;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "exam_question",
                joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),
