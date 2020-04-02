@@ -59,7 +59,6 @@ public class CacheConfiguration {
             createCache(cm, com.lxisoft.domain.Question.class.getName() + ".options");
             createCache(cm, com.lxisoft.domain.Exam.class.getName() + ".questions");
             createCache(cm, com.lxisoft.domain.Question.class.getName() + ".exams");
-            createCache(cm, com.lxisoft.domain.Exam.class.getName() + ".attendedExams");
             // jhipster-needle-ehcache-add-entry
         };
     }

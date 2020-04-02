@@ -32,8 +32,8 @@ entity AttendedExam {
 
 relationship OneToMany {
 	Question to QstnOption,
-    Exam to AttendedExam,
-    AttendedExam to AttendedOptn
+    AttendedExam to Exam,
+     AttendedExam to AttendedOptn
 }
 
 relationship OneToOne {

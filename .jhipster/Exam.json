@@ -16,21 +16,13 @@
         {
             "fieldName": "isActive",
             "fieldType": "Boolean"
-
         },
         {
             "fieldName": "time",
             "fieldType": "String"
-
         }
     ],
     "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "attendedExam",
-            "otherEntityRelationshipName": "exam",
-            "relationshipName": "attendedExam"
-        },
         {
             "relationshipType": "many-to-many",
             "otherEntityName": "question",
@@ -38,6 +30,13 @@
             "relationshipName": "question",
             "otherEntityField": "id",
             "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "attendedExam",
+            "otherEntityRelationshipName": "exam",
+            "relationshipName": "attendedExam",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20200323145500",

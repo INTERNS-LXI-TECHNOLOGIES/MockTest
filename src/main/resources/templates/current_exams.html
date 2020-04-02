@@ -29,14 +29,9 @@ span {
 				<td colspan="1">No Exams Available</td>
 			</tr>
 			<tr class="border border-dark" th:each="exam: ${exams}">
-				<td>
-				<span>
-					<a th:href="@{/selectExam(eId=${exam.id})}">
-						<h2 th:text="${exam.name}">exam</h2>
-							<h4 th:text="${exam.level}">level</h4>
-							is active:-<p th:text="${exam.isActive}">isActive</p>
-						
-					</a></span>
+				<td><a th:href="@{/selectExam(eId=${exam.getId()})}"><span></span><h6 th:text="${exam.getName()}">exam</h6>
+				<h6 th:text="${exam.getLevel()}">level</h6>
+				is active:-<h6 th:text="${exam.isIsActive()}">isActive</h6></span></a>
 				</td>
 			</tr>
 		</table>
