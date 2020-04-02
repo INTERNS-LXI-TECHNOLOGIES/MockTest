@@ -34,7 +34,7 @@ public class Exam implements Serializable {
     private String level;
 
     @Column(name = "is_active")
-    private Boolean isActive;
+    private Boolean isActive=false;
 
     @Column(name = "time")
     private String time;

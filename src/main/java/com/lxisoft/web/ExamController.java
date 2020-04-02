@@ -304,7 +304,7 @@ private AttendedExamService attendExamService;
 		Exam exam=examService.findById(eId);
 		if(exam.isIsActive()==true)
 		{
-		exam.setIsActive(false);
+			exam.setIsActive(false);
 		}
 		else {
 			exam.setIsActive(true);
