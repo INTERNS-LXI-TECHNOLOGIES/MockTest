@@ -16,10 +16,12 @@
         {
             "fieldName": "isActive",
             "fieldType": "Boolean"
+
         },
         {
             "fieldName": "time",
             "fieldType": "String"
+
         }
     ],
     "relationships": [

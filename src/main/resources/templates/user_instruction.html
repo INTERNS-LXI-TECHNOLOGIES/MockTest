@@ -12,10 +12,11 @@
 <h4>No other electronic devices are allowed for assistance.<br>
  Paper is provided for rough working.<br> This and all exam scripts are collected at the end
   –under no circumstances can anything leave the exam room.</h4>
-  <form action="/user_startpage" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('You must agree to the Terms and Conditions'); return false; }">
+  <form action="/user_exam" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('You must agree to the Terms and Conditions'); return false; }">
 
 <input type="checkbox" name="checkbox" value="check" id="agree" /> I have read the instructions and agree to the Terms and Conditions
 <br><br>
+<input type="hidden" th:name="eId" th:value="${exam.getId()}">
 <input type="submit" name="submit" value="submit" />
 
 </form>

@@ -1,8 +1,10 @@
 package com.lxisoft.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -92,15 +94,19 @@ public class ExamService {
 		examRepo.save(exam);
 	}
 	
-//	public Exam findActiveExam() throws Exception {
-//		Exam exam=null;
-//		Optional<Exam> optional=examRepo.findByIsActive(true);
-//		if(optional.isPresent())
-//		{
-//			exam=optional.get();
-//		}
-//		else
-//			throw new Exception("something wrong in active exams");
-//		return exam;
-//	}
+	public Set<Exam> findActiveExams() throws Exception
+	{
+		List<Exam> exam_list=findAll();
+		Set<Exam> final_list = new HashSet<Exam>();
+		for(Exam e:exam_list)
+		{
+			System.out.println("exam sevice inside for");
+			if(e.isIsActive()==true)
+			{
+				System.out.println("exam sevice inside for   ex name"+e.getName());
+				final_list.add(e);
+			}
+		}
+		return final_list;
+	}
 }
