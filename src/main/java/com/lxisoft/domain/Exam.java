@@ -43,7 +43,7 @@ public class Exam implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AttendedExam> attendedExams = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "exam_question",
                joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),

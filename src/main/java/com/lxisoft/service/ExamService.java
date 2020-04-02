@@ -91,16 +91,19 @@ public class ExamService {
 	public void update(Exam exam) {
 		examRepo.save(exam);
 	}
-	
-//	public Exam findActiveExam() throws Exception {
-//		Exam exam=null;
-//		Optional<Exam> optional=examRepo.findByIsActive(true);
-//		if(optional.isPresent())
-//		{
-//			exam=optional.get();
-//		}
-//		else
-//			throw new Exception("something wrong in active exams");
-//		return exam;
-//	}
+	public Set<Exam> findActiveExams() throws Exception
+	{
+		List<Exam> exam_list=findAll();
+		Set<Exam> final_list = new HashSet<Exam>();
+		for(Exam e:exam_list)
+		{
+//			System.out.println("exam sevice inside for");
+			if(e.isIsActive()==true)
+			{
+//				System.out.println("exam sevice inside for   ex name"+e.getName());
+				final_list.add(e);
+			}
+		}
+		return final_list;
+	}
 }
