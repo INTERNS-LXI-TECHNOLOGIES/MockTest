@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+    <meta charset="utf-8">
 <title>Exam Questions</title>
 </head>
 <body>
@@ -23,8 +24,9 @@
 			</div>
 		</form>
 		
-	</div>
-	<table width=100%>
+	
+	 <div class="table-responsive">  
+	<table class="table table-hover" width=100% border=5px>
     <thead>
         <tr>
             <th> Sl.No. </th>
@@ -43,20 +45,17 @@
         <tr th:each="qstn ,iterator : ${questions}" align="center">
         <td th:text="${iterator.index+1}" > Sl.No. </td>
             <td th:text="${qstn.getQstn()}"> Question </td>
-            <td th:each="q_option : ${qstn.qstnOptions}">
-            	<span th:text="${q_option.option}">option</span>---
-            	<span th:text="${q_option.isIsAnswer()}">isanswer</span>
-            </td>
-            <td th:each="qstn : ${questions}">
-            	<span th:each="q_option : ${qstn.qstnOptions}">
-            			<span th:if="${q_option.isIsAnswer() == true}">
-           						 <span th:text="${q_option.option}"> ans</span></span></span></td>
+            <span th:each="q_option : ${qstn.qstnOptions}">
+            	<td th:text="${q_option.option}">option</td>
+            <span th:if="${q_option.isIsAnswer() == true}">
+           	<td th:text="${q_option.option}"></td></span>
+           </span>
            
-           <!--  <td th:text="${qstn.getLevel()}"> Level </td> -->
         </tr>
     </tbody>
 
 	</table>
+	</div>
 
 </body>
 </html>
