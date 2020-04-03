@@ -16,7 +16,6 @@
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200323145100_added_entity_Question.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200323145200_added_entity_QstnOption.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20200323145300_added_entity_Role.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200323145400_added_entity_AttendedOPtn.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200323145500_added_entity_Exam.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200323145600_added_entity_AttendedExam.xml" relativeToChangelogFile="false"/>
