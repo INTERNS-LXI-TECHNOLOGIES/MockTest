@@ -172,7 +172,7 @@ private AttendedExamService attendExamService;
 		return "redirect:/submit";
 	}
 	@RequestMapping(value="/user_nextPage")
-	public String userNextPage(Model model,@RequestParam String eId,@RequestParam String index,@RequestParam String optionid,@RequestParam String count) throws Exception
+	public String userNextPage(Model model,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
 	{
 		Exam exam=examService.findById(eId);
 		Set<Question> questions=exam.getQuestions();

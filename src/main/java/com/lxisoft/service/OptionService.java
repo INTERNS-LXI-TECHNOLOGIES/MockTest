@@ -71,10 +71,17 @@ public class OptionService {
 	}
 
 	public int setResult(int count, String optionid) {
+		System.out.println("hi babe"+optionid);
 		QstnOption option=findById(optionid);
+		System.out.println("hi babess"+option);
+		if(option==null)
+		{
+			return count;
+		}
+		else {
 		if(option.isIsAnswer()==true)
 		count++;
-		return count;
+		return count;}
 	}
 
 }
