@@ -5,12 +5,25 @@
 <title>All Questions</title>
 </head>
 <body>
-<form>
 <div align="center">
+<form th:action="@{/filter}">
+	<select name="level">
+	<option type="text" value="--select--" >--select--</option>
+	<option type="text" name="Beginner" >Beginner</option>
+	<option type="text" name="Intermediate">Intermediate </option>
+	<option type="text" name="Expert" >Expert </option>
+	</select>
+	<input type="submit" value="filter">
+</form>
+<form>
+<br>
 <input type="submit" value="Back to Home" formaction="/">
 <h3><u>All Question in Database</u></h3>
-</div>
+
 </form>
+</div>
+
+
 <table width=100% border=5px>
     <thead>
         <tr>
@@ -20,23 +33,32 @@
              <th> Option2 </th>
               <th> Option3 </th>
              
-              <th> Level </th>
+              <th colspan="3"> Answer </th>
         </tr>
     </thead>
     <tbody>
     <tr th:if="${questions.empty}" align="center">
             <td colspan="6"> No Questions Available </td>
         </tr>
+         </tr>
         <tr th:each="qstn ,iterator : ${questions}" align="center">
         <td th:text="${iterator.index+1}" > Sl.No. </td>
             <td th:text="${qstn.getQstn()}"> Question </td>
             <td th:each="q_option : ${qstn.qstnOptions}">
             	<span th:text="${q_option.option}">option</span><br>
-            <a th:href="@{/set_Answer(opt_Id=${q_option.getId()},qstn_id=${qstn.getId()})}">Set <span th:text="!${q_option.isIsAnswer()}"></span></a>
-		
-            <td th:text="${qstn.getLevel()}"> Level </td>
+            	<a th:href="@{/set_Answer(opt_Id=${q_option.getId()},qstn_id=${qstn.getId()})}">
+            	Set <span th:text="!${q_option.isIsAnswer()}"></span></a></td></span>
+            	
+            <span th:each="q_option : ${qstn.qstnOptions}">
+            <span th:if="${q_option.isIsAnswer() == true}">
+           	<td th:text="${q_option.option}">,</td></span>
+           </span>
+           
         </tr>
     </tbody>
-</table>
+
+	</table>
+	</div>
+
 </body>
 </html>

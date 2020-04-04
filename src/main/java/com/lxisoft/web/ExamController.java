@@ -247,16 +247,6 @@ private AttendedExamService attendExamService;
 		return "create_question";
 
 	}
-
-	@RequestMapping ("/viewall_qstn")
-	public String viewall_qstn(Model model) 
-	{
-		List<Question> questions=questService.findAll();
-		model.addAttribute("questions",questions);	
-		return "viewall_qstn";
-
-	}
-
 	@RequestMapping ("/create_exam")
 	public String create_exam(Model model)
 	{
@@ -327,7 +317,32 @@ private AttendedExamService attendExamService;
 		return "redirect:/viewall_qstn";
 	}
 
+	@RequestMapping ("/viewall_qstn")
+	public String viewall_qstn(Model model) 
+	{
+		List<Question> questions=questService.findAll();
+		model.addAttribute("questions",questions);	
+		return "viewall_qstn";
 
+	}
+
+		@RequestMapping("/filter")
+		public String questionFilter(Model model,@RequestParam String level)
+		{
+			if(!level.equalsIgnoreCase("--select--"))
+			{
+				 log.info("question list");
+				List<Question> questions=questService.findByLevel(level);
+				
+			model.addAttribute("questions",questions);	
+			 log.debug("{}", questions);
+			 return "viewall_qstn";
+			}
+			
+				return "redirect:/viewall_qstn";
+			
+			
+		}
 
 
 }

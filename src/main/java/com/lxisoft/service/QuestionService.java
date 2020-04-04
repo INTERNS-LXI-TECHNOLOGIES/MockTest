@@ -1,5 +1,7 @@
 package com.lxisoft.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -57,5 +59,21 @@ public class QuestionService {
 		{
 			
 			questRepo.save(question);
+		}
+
+		public List<Question> findByLevel(String level) {
+			List<Question> finalQstns=new ArrayList<Question>(); 
+			List<Question> qstns=findAll();
+			for(Question quest:qstns)
+				if(quest.getLevel().equalsIgnoreCase(level))
+				{
+					finalQstns.add(quest);
+					log.info(quest.getLevel()+"level creating");
+				}
+				else {
+					log.info(quest.getLevel()+"level not creating");
+				}
+				
+			return finalQstns;
 		}
 }

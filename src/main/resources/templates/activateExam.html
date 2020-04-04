@@ -46,7 +46,8 @@
         <td th:text="${iterator.index+1}" > Sl.No. </td>
             <td th:text="${qstn.getQstn()}"> Question </td>
             <span th:each="q_option : ${qstn.qstnOptions}">
-            	<td th:text="${q_option.option}">option</td>
+            	<td th:text="${q_option.option}">option</td></span>
+            	    <span th:each="q_option : ${qstn.qstnOptions}">
             <span th:if="${q_option.isIsAnswer() == true}">
            	<td th:text="${q_option.option}"></td></span>
            </span>
