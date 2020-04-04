@@ -1,0 +1,41 @@
+	.button {
+			  background-color: #e7e7e7; /* Green */
+			  color: black;
+			  padding: 5px 20px;
+			  text-align: center;
+			  border-radius: 8px;
+			  display: inline-block;
+			  font-size: 12px;
+			  margin: 4px 2px;
+			  cursor: pointer;
+			  transition-duration: 0.4s;
+			}
+			
+			.button1 {
+			  background-color: #e7e7e7; 
+			  color: black; 
+			 border: 2px solid #4CAF50;
+			}
+			.button:hover {
+ 			 background-color: #4CAF50; /* Grey */
+  			color: white;
+			}
+			/* .button2:hover {
+ 			 background-color:#e7e7e7 ; /* Grey */
+  			color: black;
+			} */
+			.button2 {
+			  background-color: #e7e7e7; 
+			  color: black; 
+			 border: 2px solid #4CAF50;
+			}
+			.input{
+			 background-color: #e7e7e7; /* Green */
+			  color: black;
+			  padding: 5px 20px;
+			  text-align: center;
+			  border-radius: 8px;
+			  display: inline-block;
+			  font-size: 12px;
+			  margin: 4px 2px;
+			}

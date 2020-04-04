@@ -341,9 +341,15 @@ private AttendedExamService attendExamService;
 			
 				return "redirect:/viewall_qstn";
 			
-			
 		}
-
+		@RequestMapping("/searchQstn")
+		public String searchQuestion(Model model,@RequestParam String searchQstn)
+		{
+//			List<Question> questions=questService.findAll();
+			List<Question> questions=questService.findByQstn(searchQstn);
+			model.addAttribute("questions",questions);	
+			return "viewall_qstn";
+		}
 
 }
 

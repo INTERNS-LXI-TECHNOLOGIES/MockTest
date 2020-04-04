@@ -70,10 +70,18 @@ public class QuestionService {
 					finalQstns.add(quest);
 					log.info(quest.getLevel()+"level creating");
 				}
-				else {
-					log.info(quest.getLevel()+"level not creating");
+			return finalQstns;
+		}
+
+		public List<Question> findByQstn(String searchQstn) {
+			List<Question> finalQstns=new ArrayList<Question>(); 
+			List<Question> qstns=findAll();
+			for(Question quest:qstns)
+				if(quest.getQstn().contains(searchQstn))
+				{
+					finalQstns.add(quest);
+					log.info("quest get");
 				}
-				
 			return finalQstns;
 		}
 }
