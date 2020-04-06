@@ -33,6 +33,7 @@ import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
+import com.lxisoft.repository.UserRepository;
 import com.lxisoft.service.AttendedExamService;
 import com.lxisoft.service.ExamService;
 import com.lxisoft.service.OptionService;
@@ -54,8 +55,8 @@ public class ExamController
 	private OptionService optService;
 	@Autowired
 	private ExamService examService;
-//	@Autowired
-//	private UserService service;
+	@Autowired
+	private UserRepository userRepo;
 	@Autowired
 	private QuestionService questService;
 	@Autowired
@@ -266,7 +267,6 @@ public class ExamController
 	{
 		Exam exam=examService.findById(eId);
 		model.addAttribute("questions",exam.getQuestions());
-//		System.out.println("examd  que  fddfdf"+exam.getQuestions());
 		model.addAttribute("exam",exam);
 		return "activateExam";
 	}
@@ -316,13 +316,11 @@ public class ExamController
 			{
 				 log.info("question list");
 				List<Question> questions=questService.findByLevel(level);
-				
-			model.addAttribute("questions",questions);	
-			 log.debug("{}", questions);
-			 return "viewall_qstn";
+				model.addAttribute("questions",questions);	
+				 log.debug("{}", questions);
+				 return "viewall_qstn";
 			}
-			
-				return "redirect:/viewall_qstn";
+			return "redirect:/viewall_qstn";
 			
 		}
 		
@@ -346,14 +344,17 @@ public class ExamController
 		public String exam_info(Model model)
 		{
 			model.addAttribute("exams",examService.findAll());
-//			List<AttendedExam> attendList=attendExamService.findAll();
 			return "exam_info";
 		}
 		
-		@RequestMapping("/exam_performance")
-		public String examPerformance()
+		@RequestMapping("/exam_attended")
+		public String exam_attended(@RequestParam String eId, Model model) throws Exception
 		{
-			return "exam_performance";
+			Exam exam=examService.findById(eId);
+			model.addAttribute("users",userRepo.findAll());
+			model.addAttribute("exam",exam);
+			model.addAttribute("attendList",attendExamService.findAllByExam(exam));
+			return "exam_attended";
 		}
 
 }

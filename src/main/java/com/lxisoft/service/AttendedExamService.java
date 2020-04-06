@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lxisoft.domain.AttendedExam;
+import com.lxisoft.domain.Exam;
 import com.lxisoft.repository.AttendedExamRepository;
 
 @Service
@@ -45,6 +46,11 @@ public class AttendedExamService {
 	public List<AttendedExam> findAll()
 	{
 		return attendedRepo.findAll();
+	}
+	
+	public List<AttendedExam> findAllByExam(Exam exam)
+	{
+		return attendedRepo.findAllByExam(exam);
 	}
 
 }

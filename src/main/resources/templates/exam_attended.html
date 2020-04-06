@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>attended exam details</title>
+</head>
+<body>
+	<form>
+		<div align="center">
+		<input type="submit" value="Back to Home" formaction="/">
+			<h3>attended exam details of exam: <span th:text="${exam.name}">exam</span></h3>
+			exam still active: <span th:text="${exam.isActive}">state</span>
+		</div>
+	</form>
+	<br>
+	<div align="center">
+		<table width="100%">
+		<thead>
+			<tr>
+	            <th> Sl.No. </th>
+	            <!-- <th> user </th> -->
+	            <th> date&time </th>
+	             <th> score </th>
+	              <th> total </th>
+	              <th>result</th>
+	              <th>percentage</th>
+	        </tr>
+		</thead>
+			<tr th:if="${attendList.empty}" align="center">
+				<td colspan="6">No Exams Available</td>
+			</tr>
+			<tr align="center" th:each="attended,iterator: ${attendList}">
+				<td th:text="${iterator.index+1}" > Sl.No. </td>
+				<!-- <td th:each="user:${users}" th:if="${attended.userExtra.id==user.id}" >
+					<span th:text="${user.login}"></span>
+				</td> -->
+				<td th:text="${attended.dateTime}">date&time</td>
+				<td th:text="${attended.score}">score</td>
+				<td th:text="${attended.total}">total</td>
+				<td th:text="${attended.result}">result</td>
+				<td th:text="${attended.percentage}">percentage</td>
+			</tr>
+		</table>
+
+	</div>
+
+</body>
+</html>
