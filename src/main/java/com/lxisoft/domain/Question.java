@@ -35,10 +35,6 @@ public class Question implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<QstnOption> qstnOptions = new HashSet<>();
 
-    @OneToOne(mappedBy = "question")
-    @JsonIgnore
-    private AttendedOptn attendedOptn;
-
     @ManyToMany(mappedBy = "questions")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
@@ -102,19 +98,6 @@ public class Question implements Serializable {
 
     public void setQstnOptions(Set<QstnOption> qstnOptions) {
         this.qstnOptions = qstnOptions;
-    }
-
-    public AttendedOptn getAttendedOptn() {
-        return attendedOptn;
-    }
-
-    public Question attendedOptn(AttendedOptn attendedOptn) {
-        this.attendedOptn = attendedOptn;
-        return this;
-    }
-
-    public void setAttendedOptn(AttendedOptn attendedOptn) {
-        this.attendedOptn = attendedOptn;
     }
 
     public Set<Exam> getExams() {

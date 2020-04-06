@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A AttendedExam.
@@ -40,10 +38,6 @@ public class AttendedExam implements Serializable {
 
     @Column(name = "date_time")
     private Instant dateTime;
-
-    @OneToMany(mappedBy = "attendedExam")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AttendedOptn> attendedOptns = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("attendedExams")
@@ -121,31 +115,6 @@ public class AttendedExam implements Serializable {
 
     public void setDateTime(Instant dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public Set<AttendedOptn> getAttendedOptns() {
-        return attendedOptns;
-    }
-
-    public AttendedExam attendedOptns(Set<AttendedOptn> attendedOptns) {
-        this.attendedOptns = attendedOptns;
-        return this;
-    }
-
-    public AttendedExam addAttendedOptn(AttendedOptn attendedOptn) {
-        this.attendedOptns.add(attendedOptn);
-        attendedOptn.setAttendedExam(this);
-        return this;
-    }
-
-    public AttendedExam removeAttendedOptn(AttendedOptn attendedOptn) {
-        this.attendedOptns.remove(attendedOptn);
-        attendedOptn.setAttendedExam(null);
-        return this;
-    }
-
-    public void setAttendedOptns(Set<AttendedOptn> attendedOptns) {
-        this.attendedOptns = attendedOptns;
     }
 
     public Exam getExam() {

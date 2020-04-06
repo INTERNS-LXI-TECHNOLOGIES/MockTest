@@ -12,7 +12,7 @@
         Added the entity QstnOption.
     -->
     <changeSet id="20200323145200-1" author="jhipster">
-        <createTable tableName="qstn_option" remarks="not an ignored comment">
+        <createTable tableName="qstn_option">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>

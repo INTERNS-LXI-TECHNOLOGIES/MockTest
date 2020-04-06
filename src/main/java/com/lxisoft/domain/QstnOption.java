@@ -1,7 +1,6 @@
 package com.lxisoft.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -11,9 +10,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * not an ignored comment
+ * A QstnOption.
  */
-@ApiModel(description = "not an ignored comment")
 @Entity
 @Table(name = "qstn_option")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

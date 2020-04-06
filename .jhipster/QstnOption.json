@@ -20,7 +20,6 @@
         }
     ],
     "changelogDate": "20200323145200",
-    "javadoc": "not an ignored comment",
     "entityTableName": "qstn_option",
     "dto": "no",
     "pagination": "no",
