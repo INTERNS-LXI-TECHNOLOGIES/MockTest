@@ -48,18 +48,18 @@ public class CacheConfiguration {
             createCache(cm, com.lxisoft.domain.Question.class.getName());
             createCache(cm, com.lxisoft.domain.Question.class.getName() + ".qstnOptions");
             createCache(cm, com.lxisoft.domain.QstnOption.class.getName());
-            createCache(cm, com.lxisoft.domain.AttendedOptn.class.getName());
             createCache(cm, com.lxisoft.domain.Exam.class.getName());
             createCache(cm, com.lxisoft.domain.AttendedExam.class.getName());
             createCache(cm, com.lxisoft.domain.AttendedExam.class.getName() + ".users");
             createCache(cm, com.lxisoft.domain.AttendedExam.class.getName() + ".exams");
             createCache(cm, com.lxisoft.domain.AttendedExam.class.getName() + ".attendedOPtns");
-            createCache(cm, com.lxisoft.domain.AttendedOptn.class.getName());
             createCache(cm, com.lxisoft.domain.AttendedExam.class.getName() + ".attendedOptns");
             createCache(cm, com.lxisoft.domain.Question.class.getName() + ".options");
             createCache(cm, com.lxisoft.domain.Exam.class.getName() + ".questions");
             createCache(cm, com.lxisoft.domain.Question.class.getName() + ".exams");
             createCache(cm, com.lxisoft.domain.Exam.class.getName() + ".attendedExams");
+            createCache(cm, com.lxisoft.domain.UserExtra.class.getName());
+            createCache(cm, com.lxisoft.domain.UserExtra.class.getName() + ".attendedExams");
             // jhipster-needle-ehcache-add-entry
         };
     }

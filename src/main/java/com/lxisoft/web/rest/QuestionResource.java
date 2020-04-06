@@ -17,8 +17,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing {@link com.lxisoft.domain.Question}.
@@ -84,18 +82,10 @@ public class QuestionResource {
     /**
      * {@code GET  /questions} : get all the questions.
      *
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of questions in body.
      */
     @GetMapping("/questions")
-    public List<Question> getAllQuestions(@RequestParam(required = false) String filter) {
-        if ("attendedoptn-is-null".equals(filter)) {
-            log.debug("REST request to get all Questions where attendedOptn is null");
-            return StreamSupport
-                .stream(questionRepository.findAll().spliterator(), false)
-                .filter(question -> question.getAttendedOptn() == null)
-                .collect(Collectors.toList());
-        }
+    public List<Question> getAllQuestions() {
         log.debug("REST request to get all Questions");
         return questionRepository.findAll();
     }

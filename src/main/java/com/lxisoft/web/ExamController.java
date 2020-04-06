@@ -1,7 +1,9 @@
 package com.lxisoft.web;
 
 
+import java.time.Instant;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -30,10 +32,12 @@ import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.User;
+import com.lxisoft.domain.UserExtra;
 import com.lxisoft.service.AttendedExamService;
 import com.lxisoft.service.ExamService;
 import com.lxisoft.service.OptionService;
 import com.lxisoft.service.QuestionService;
+import com.lxisoft.service.UserExtraService;
 
 
 
@@ -47,8 +51,8 @@ public class ExamController
 	private final Logger log = LoggerFactory.getLogger(ExamController.class);
     
     
-@Autowired
-private AttendedExamService attendExamService;
+	@Autowired
+	private AttendedExamService attendExamService;
 	@Autowired
 	private OptionService optService;
 	@Autowired
@@ -57,7 +61,9 @@ private AttendedExamService attendExamService;
 //	private UserService service;
 	@Autowired
 	private QuestionService questService;
-
+	@Autowired
+	private	UserExtraService extraService;
+	
 	@RequestMapping(value="/")
 	public String index()
 	{
@@ -93,17 +99,6 @@ private AttendedExamService attendExamService;
 
 		return "userpage";
 	}
-	@RequestMapping("/submit")
-	public String submit(@RequestParam String count,@RequestParam String eId,Model model) throws Exception
-	{
-		int score=Integer.parseInt(count);
-		Exam exam=examService.findById(eId);
-		int total=exam.getCount();
-		AttendedExam attendedExam=attendExamService.attend(score,total);
-		model.addAttribute("attendedExam",attendedExam);
-		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
-		return "submit";
-	}
 	
 	@RequestMapping(value="/save")  
 	public String save(@Valid User user,BindingResult bindingResult,@RequestParam String cpw)
@@ -119,13 +114,6 @@ private AttendedExamService attendExamService;
 	}  
 
 
-	@RequestMapping ("/user_startpage")
-	public String userpage(Model model) throws Exception
-	{
-		Set<Exam> active_exams=examService.findActiveExams();
-		model.addAttribute("exam_list",active_exams);
-		return "user_startpage";
-	}
 
 //	@RequestMapping ("/loginpage")
 //	public String login()
@@ -137,6 +125,14 @@ private AttendedExamService attendExamService;
 	public String logout()
 	{
 		return "logoutpage";
+	}
+	
+	@RequestMapping ("/user_startpage")
+	public String userpage(Model model) throws Exception
+	{
+		Set<Exam> active_exams=examService.findActiveExams();
+		model.addAttribute("exam_list",active_exams);
+		return "user_startpage";
 	}
 	
 	@RequestMapping(value="/user_instruction")
@@ -151,7 +147,6 @@ private AttendedExamService attendExamService;
 	public String userview(Model model,@RequestParam String eId) throws Exception
 	{
 		Exam exam=examService.findById(eId);
-
 		Set<Question> questions=exam.getQuestions();
 		List<Question> list = new ArrayList<Question>();
 		for(Question quest:questions) 
@@ -160,64 +155,69 @@ private AttendedExamService attendExamService;
 		}
 		 ListIterator<Question> lit = list.listIterator(); 
 		 int count=0;
-	 if (lit.hasNext()) { 
-		  model.addAttribute("question",lit.next());
-		  model.addAttribute("exam",exam);
-		  model.addAttribute("iterator",lit);
-		  model.addAttribute("count",count);
-		  return "user_exampage";
-		  
+		 if (lit.hasNext()) { 
+			
+			  model.addAttribute("question",lit.next());
+			  model.addAttribute("exam",exam);
+			  model.addAttribute("iterator",lit);
+			  model.addAttribute("count",count);
+			  AttendedExam attendedExam=new AttendedExam();
+			  model.addAttribute("attendedExam",attendedExam);
+			  return "user_exampage";
 		 }
 		  
 		return "redirect:/submit";
 	}
+	
 	@RequestMapping(value="/user_nextPage")
-	public String userNextPage(Model model,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
+	public String userNextPage(Model model,@ModelAttribute AttendedExam attendedExam,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
 	{
+		log.debug("time attended is "+attendedExam.getDateTime());
 		Exam exam=examService.findById(eId);
 		Set<Question> questions=exam.getQuestions();
 		List<Question>list= new ArrayList<Question>();
 		int pos=Integer.parseInt(index);
 		for(Question quest:questions) 
 		{
-				list.add(quest);
+			list.add(quest);
 		}
-		 ListIterator<Question> lit = list.listIterator(pos);
+		ListIterator<Question> lit = list.listIterator(pos);
 		 
-		 int marks=Integer.parseInt(count);
-			marks=optService.setResult(marks, optionid);
-		 System.out.println("result"+marks);
-		 model.addAttribute("count",marks);
-		 if (lit.hasNext()) { 
-		 model.addAttribute("question",lit.next());
-		 model.addAttribute("exam",exam);
-		 model.addAttribute("iterator",lit);
-		
-		 return "user_exampage";
+		int marks=Integer.parseInt(count);
+		marks=optService.setResult(marks, optionid);
+		System.out.println("result"+marks);
+		model.addAttribute("count",marks);
+		if (lit.hasNext()) { 
+			 model.addAttribute("question",lit.next());
+			 model.addAttribute("exam",exam);
+			 model.addAttribute("iterator",lit);
+			 model.addAttribute("attendedExam",attendedExam);
+			 return "user_exampage";
 		 }
+		model.addAttribute("attendedExam",attendedExam);
 		return "redirect:/submit?count="+marks+"&eId="+eId;
 	}
-//	@RequestMapping("/user_previousPage")
-//	public String userpreviousPage(Model model,Exam exam,@RequestParam String index,@RequestParam String optionid,@RequestParam String count) throws Exception
-//	{
-//		exam=examService.findActiveExam();
-//		List<Question>questions=(List<Question>)exam.getQuestions();
-//		int pos=Integer.parseInt(index);
-//		 ListIterator<Question> lit = questions.listIterator(pos);
-//		 
-//		 int marks=Integer.parseInt(count);
-//			marks=optService.setResult(marks, optionid);
-//			 System.out.println("result prerer"+marks);
-//			 model.addAttribute("count",marks);
-//			 
-//		 if (lit.hasPrevious()) { 
-//		 model.addAttribute("question",lit.previous());
-//		 model.addAttribute("exam",exam);
-//		 model.addAttribute("iterator",lit);
-//		 }
-//		return "user_exampage";
-//	}
-	
+		
+	@RequestMapping("/submit")
+	public String submit(@ModelAttribute AttendedExam attendedExam,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
+	{
+		int score=Integer.parseInt(count);
+		Exam exam=examService.findById(eId);
+		int total=exam.getCount();
+		 UserExtra userExtra=extraService.currentUserExtra();
+		  ZonedDateTime dateTime=ZonedDateTime.now();
+		  log.debug("time attended is-- "+dateTime);
+		  attendedExam.setDateTime(dateTime);
+		  attendedExam.setUserExtra(userExtra);
+		  log.debug("attended exam's user id is :"+attendedExam.getUserExtra());
+		attendedExam.setExam(exam);
+		attendedExam=attendExamService.attend(attendedExam,score,total);
+		attendExamService.save(attendedExam);
+		model.addAttribute("attendedExam",attendedExam);
+		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
+		return "submit";
+	}
+
 	@RequestMapping("/create_question")
 	public String question(Model model)
 	{
@@ -257,7 +257,7 @@ private AttendedExamService attendExamService;
 	@RequestMapping ("/save_exam")
 	public String save_exam(Exam exam,@RequestParam String time) throws Exception
 	{
-//		LocalTime examTime=LocalTime.parse(time);
+		exam.setIsActive(false);
 		exam.setTime(time);
 		examService.save_exam(exam);
 //		System.out.println("time-----------------"+examTime+"\n\n");

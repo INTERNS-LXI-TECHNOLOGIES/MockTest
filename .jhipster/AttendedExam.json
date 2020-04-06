@@ -19,21 +19,22 @@
         },
         {
             "fieldName": "dateTime",
-            "fieldType": "Instant"
+            "fieldType": "ZonedDateTime"
         }
     ],
     "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "attendedOptn",
-            "otherEntityRelationshipName": "attendedExam",
-            "relationshipName": "attendedOptn"
-        },
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "exam",
             "otherEntityRelationshipName": "attendedExam",
             "relationshipName": "exam",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "userExtra",
+            "otherEntityRelationshipName": "attendedExam",
+            "relationshipName": "userExtra",
             "otherEntityField": "id"
         }
     ],
