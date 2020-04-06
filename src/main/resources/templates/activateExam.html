@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
-    <meta charset="utf-8">
-<title>Exam Questions</title>
+   
+<title>Selected Exam Questions</title>
 </head>
-<body>
+<body bgcolor="FloralWhite">
+<div class="header">
+	<h2>MockTest Application</h2>
 	<div align="center">
 		Time:- <span th:text="${exam.time} "></span>&nbsp;hr <br>
 			Level:- <span th:text="${exam.level} ">level</span><br> 
 			Active:- <span	th:text="${exam.isActive} ">active</span>&nbsp;&nbsp; 
+	<button class="button button1"><a th:href="@{/activate_exam(eId=${exam.getId()})}">Set <span th:text="!${exam.isIsActive()} "></span></a></button>
+	<div class="topnav">
+		<a class="active" >Lxi Technologies</a>
+  		<a  th:href="@{/}">Home</a>
+  		<a  th:href="@{/current_exams}">Current Exams</a>
+	<a class="logout" th:href="@{/logoutpage}">logout</a></form></div></div>
 			
-			<button><a th:href="@{/activate_exam(eId=${exam.getId()})}">Set <span th:text="!${exam.isIsActive()} "></span></a></button>
+			
 		<!-- <span
 			th:if="!${exam.isActive} "><button><a th:href="@{/activate_exam(eId=${exam.getId()})}">activate exam</a></button>
 		</span> -->
-		</div><br>
-		<form>
-			<div class="container" align="center">
-			<input type="submit" value="Back to Home" formaction="/"><br><br>
-			<input type="submit" value="Back to Current Exams " formaction="/current_exams">
-				<h3><u>Questions in Exam - <span th:text="${exam.getName()} ">exam name</span></u></h3>
-			</div>
-		</form>
+
+		<div align="center">
+
+<h3><u>Questions in Exam - <span th:text="${exam.getName()} ">exam name</span></u></h3>
+</div>
+			
+				
+			
+		
 		
 	
 	 <div class="table-responsive">  

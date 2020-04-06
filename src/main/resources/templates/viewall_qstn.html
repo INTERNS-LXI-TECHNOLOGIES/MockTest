@@ -17,7 +17,7 @@
 
 <form th:action="@{/filter}">
 	<span th:each="qstn: ${questions}"></span>
-	<select name="level" class="select button2">
+	<select name="level" class="select1 button2">
 	<option type="text" value="--select--" >--select--</option>
 	<option type="text" name="Beginner" >Beginner</option>
 	<option type="text" name="Intermediate">Intermediate </option>
@@ -29,7 +29,7 @@
 
 <a class="logout" th:href="@{/logoutpage}">logout</a></form></div></div>
 
-<div aligh="center">
+<div align="center">
 <h3><u>All Question in Database</u></h3>
 
 </div>

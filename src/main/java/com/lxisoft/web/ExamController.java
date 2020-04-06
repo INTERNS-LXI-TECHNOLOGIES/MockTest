@@ -73,7 +73,7 @@ public class ExamController
 		if(isAdmin)
 			return "adminpage";
 		else if(isUser)
-			return "redirect:/user_startpage";
+			return "redirect:/user_dashboard";
 		else 
 			return "redirect:/login";
 	
@@ -133,6 +133,13 @@ public class ExamController
 		Set<Exam> active_exams=examService.findActiveExams();
 		model.addAttribute("exam_list",active_exams);
 		return "user_startpage";
+	}
+	@RequestMapping ("/user_dashboard")
+	public String userdashboard(Model model)
+	{
+		
+		
+		return "user_dashboard";
 	}
 	
 	@RequestMapping(value="/user_instruction")
