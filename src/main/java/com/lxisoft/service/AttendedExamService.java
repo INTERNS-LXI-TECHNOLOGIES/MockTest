@@ -1,5 +1,7 @@
 package com.lxisoft.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,11 @@ public class AttendedExamService {
 		// TODO Auto-generated method stub
 		attendedRepo.save(attendedExam);
 		log.debug("exam attended saved in database- "+attendedExam);
+	}
+	
+	public List<AttendedExam> findAll()
+	{
+		return attendedRepo.findAll();
 	}
 
 }

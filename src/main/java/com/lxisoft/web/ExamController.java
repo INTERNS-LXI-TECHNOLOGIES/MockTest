@@ -39,9 +39,6 @@ import com.lxisoft.service.OptionService;
 import com.lxisoft.service.QuestionService;
 import com.lxisoft.service.UserExtraService;
 
-
-
-
 /**
  * Mocktest Exam controller
  */
@@ -145,7 +142,7 @@ public class ExamController
 		List<Question> list = new ArrayList<Question>();
 		for(Question quest:questions) 
 		{
-				list.add(quest);
+			list.add(quest);
 		}
 		 ListIterator<Question> lit = list.listIterator(); 
 		 int count=0;
@@ -159,14 +156,12 @@ public class ExamController
 			  model.addAttribute("attendedExam",attendedExam);
 			  return "user_exampage";
 		 }
-		  
 		return "redirect:/submit";
 	}
 	
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@ModelAttribute AttendedExam attendedExam,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
 	{
-		log.debug("time attended is "+attendedExam.getDateTime());
 		Exam exam=examService.findById(eId);
 		Set<Question> questions=exam.getQuestions();
 		List<Question>list= new ArrayList<Question>();
@@ -204,6 +199,7 @@ public class ExamController
 		  attendedExam.setDateTime(dateTime);
 		  attendedExam.setUserExtra(userExtra);
 		  log.debug("attended exam's user id is :"+attendedExam.getUserExtra());
+		  log.debug("time attended is "+attendedExam.getDateTime());
 		attendedExam.setExam(exam);
 		attendedExam=attendExamService.attend(attendedExam,score,total);
 		attendExamService.save(attendedExam);
@@ -254,13 +250,6 @@ public class ExamController
 		exam.setIsActive(false);
 		exam.setTime(time);
 		examService.save_exam(exam);
-//		System.out.println("time-----------------"+examTime+"\n\n");
-//		Set<Question> question=exam.getQuestions();
-//		System.out.println("\n\n\nque"+question+"\n\n");
-//		for(Question quest:question)
-//		{
-//			 questService.saveOrUpdate(quest,exam);
-//		}
 		return "redirect:/";
 	}
 
@@ -336,6 +325,7 @@ public class ExamController
 				return "redirect:/viewall_qstn";
 			
 		}
+		
 		@RequestMapping("/searchQstn")
 		public String searchQuestion(Model model,@RequestParam String searchQstn)
 		{
@@ -343,6 +333,27 @@ public class ExamController
 			List<Question> questions=questService.findByQstn(searchQstn);
 			model.addAttribute("questions",questions);	
 			return "viewall_qstn";
+		}
+		
+		@RequestMapping("/user_info")
+		public String user_info()
+		{
+			/////
+			return "user_info";
+		}
+		
+		@RequestMapping("/exam_info")
+		public String exam_info(Model model)
+		{
+			model.addAttribute("exams",examService.findAll());
+//			List<AttendedExam> attendList=attendExamService.findAll();
+			return "exam_info";
+		}
+		
+		@RequestMapping("/exam_performance")
+		public String examPerformance()
+		{
+			return "exam_performance";
 		}
 
 }
