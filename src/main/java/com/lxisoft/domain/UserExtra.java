@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A UserExtra.
@@ -23,8 +25,12 @@ public class UserExtra implements Serializable {
 
     @OneToOne
     @MapsId
-    @JoinColumn(name="id")
+    @JoinColumn(name = "id")
     private User user;
+
+    @OneToMany(mappedBy = "userExtra")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<AttendedExam> attendedExams = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -46,6 +52,31 @@ public class UserExtra implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<AttendedExam> getAttendedExams() {
+        return attendedExams;
+    }
+
+    public UserExtra attendedExams(Set<AttendedExam> attendedExams) {
+        this.attendedExams = attendedExams;
+        return this;
+    }
+
+    public UserExtra addAttendedExam(AttendedExam attendedExam) {
+        this.attendedExams.add(attendedExam);
+        attendedExam.setUserExtra(this);
+        return this;
+    }
+
+    public UserExtra removeAttendedExam(AttendedExam attendedExam) {
+        this.attendedExams.remove(attendedExam);
+        attendedExam.setUserExtra(null);
+        return this;
+    }
+
+    public void setAttendedExams(Set<AttendedExam> attendedExams) {
+        this.attendedExams = attendedExams;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

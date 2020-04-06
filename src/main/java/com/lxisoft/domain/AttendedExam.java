@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.time.Instant;
+import java.time.ZonedDateTime;
 
 /**
  * A AttendedExam.
@@ -37,11 +37,15 @@ public class AttendedExam implements Serializable {
     private Float percentage;
 
     @Column(name = "date_time")
-    private Instant dateTime;
+    private ZonedDateTime dateTime;
 
     @ManyToOne
     @JsonIgnoreProperties("attendedExams")
     private Exam exam;
+
+    @ManyToOne
+    @JsonIgnoreProperties("attendedExams")
+    private UserExtra userExtra;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -104,16 +108,16 @@ public class AttendedExam implements Serializable {
         this.percentage = percentage;
     }
 
-    public Instant getDateTime() {
+    public ZonedDateTime getDateTime() {
         return dateTime;
     }
 
-    public AttendedExam dateTime(Instant dateTime) {
+    public AttendedExam dateTime(ZonedDateTime dateTime) {
         this.dateTime = dateTime;
         return this;
     }
 
-    public void setDateTime(Instant dateTime) {
+    public void setDateTime(ZonedDateTime dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -128,6 +132,19 @@ public class AttendedExam implements Serializable {
 
     public void setExam(Exam exam) {
         this.exam = exam;
+    }
+
+    public UserExtra getUserExtra() {
+        return userExtra;
+    }
+
+    public AttendedExam userExtra(UserExtra userExtra) {
+        this.userExtra = userExtra;
+        return this;
+    }
+
+    public void setUserExtra(UserExtra userExtra) {
+        this.userExtra = userExtra;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

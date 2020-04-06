@@ -9,6 +9,12 @@
             "relationshipName": "user",
             "otherEntityField": "id",
             "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "attendedExam",
+            "otherEntityRelationshipName": "userExtra",
+            "relationshipName": "attendedExam"
         }
     ],
     "changelogDate": "20200406061800",

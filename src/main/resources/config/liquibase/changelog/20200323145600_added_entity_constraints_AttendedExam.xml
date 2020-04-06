@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="exam"/>
 
+        <addForeignKeyConstraint baseColumnNames="user_extra_id"
+                                 baseTableName="attended_exam"
+                                 constraintName="fk_attended_exam_user_extra_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_extra"/>
+
     </changeSet>
 </databaseChangeLog>

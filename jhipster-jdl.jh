@@ -25,12 +25,13 @@ entity AttendedExam {
     total Integer,
     result Boolean,
     percentage Float,
-    dateTime Instant
+    dateTime ZonedDateTime
 }
 
 relationship OneToMany {
 	Question to QstnOption,
-    Exam to AttendedExam
+    Exam to AttendedExam,
+    UserExtra to AttendedExam
 }
 
 relationship OneToOne {
