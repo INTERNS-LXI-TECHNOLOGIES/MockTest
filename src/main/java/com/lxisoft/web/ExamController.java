@@ -72,6 +72,12 @@ private AttendedExamService attendExamService;
 			return "redirect:/login";
 	
 	}
+	@RequestMapping("/login")
+	public String indexpage()
+	{
+		
+		return "index";
+	}
 
 	@RequestMapping("/register")
 	public String register(Model model)
@@ -80,12 +86,6 @@ private AttendedExamService attendExamService;
 		return "registration";
 	}
 
-//	@RequestMapping("/timer")
-//	public String setTimer(Model model, SetTimerModel timer1)
-//	{
-//		model.addAttribute("timer",timer1);
-//		return "setTimer";
-//	}
 	
 	@RequestMapping("/setTime")
 	public String setTime()
@@ -127,11 +127,11 @@ private AttendedExamService attendExamService;
 		return "user_startpage";
 	}
 
-	@RequestMapping ("/login")
-	public String login()
-	{
-		return "login";
-	}
+//	@RequestMapping ("/loginpage")
+//	public String login()
+//	{
+//		return "login";
+//	}
 
 	@RequestMapping ("/logoutpage")
 	public String logout()
@@ -350,24 +350,16 @@ private AttendedExamService attendExamService;
 			model.addAttribute("questions",questions);	
 			return "viewall_qstn";
 		}
+		
+//		@RequestMapping("/deleteQuestion")
+//		public String deleteQuestion(Model model,@RequestParam String qId)
+//		{
+//			
+//			questService.deleteQuestion(qId);
+//		List<Question> questions=questService.findAll();
+//		model.addAttribute("questions",questions);	
+//		return "viewall_qstn";
+//		
+//		}
 
 }
-
-
-
-
-//@RequestMapping(value="/user_view")
-//public String userview(Model model,@RequestParam String option,@RequestParam String qCount,@RequestParam String qId) throws Exception
-//{
-//	if(option!=null && qCount!=null && qId!=null)
-//	{
-//		
-//	}
-//	Exam exam=examService.findActiveExam();
-//	for(Question qstn:exam.getQuestions())
-//	{
-//		model.addAttribute("qstn",qstn);
-//	}
-//	model.addAttribute("exam",exam);
-//	return "user_view";
-//}
