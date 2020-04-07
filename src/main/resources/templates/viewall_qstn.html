@@ -15,7 +15,7 @@
   		<a  th:href="@{/create_question}">Add Question</a>
   		
 
-<form th:action="@{/filter}">
+<form th:action="@{/filter}" autocomplete="off">
 	<span th:each="qstn: ${questions}"></span>
 	<select name="level" class="select1 button2">
 	<option type="text" value="--select--" >--select--</option>
@@ -24,7 +24,7 @@
 	<option type="text" name="Expert" >Expert </option>
 	</select>
 	<input type="submit" class="button button1" value="filter"> 
-	<input type="text" class="input button2" id="search" th:name="searchQstn"/> 
+	<input type="text" class="input button2" id="myInput" th:name="searchQstn"/> 
 	<input type="submit" class="button button1" value="Search here" formaction="/searchQstn">
 
 <a class="logout" th:href="@{/logoutpage}">logout</a></form></div></div>
@@ -70,22 +70,6 @@
 
 	</table>
 	</div>
-	
-<!--  <script>
 
-
-    $(document).ready(function() {
-
-      $('#search').autocomplete({
-          serviceUrl: '/searchQstn',
-          paramName: 'searchQstn',
-          minChars: 1,
-          autoSelectFirst: true,
-      });
-
-    });
- -->
-
-  </script>
 </body>
 </html>
