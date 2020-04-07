@@ -22,9 +22,9 @@
 </div>
 
 <div class="container">
-<form  th:object="${question}" >
 
-		<form  th:action="@{/save_exam}" th:object="${exam}" method="post">
+
+		<form  th:action="@{/save_exam}" th:object="${exam}" >
 			
 					<label for="name">Enter name of this exam:</label>
 					<input type="text" th:field="*{name}"  class="input button2 lengthbtn"  /><br>

@@ -49,7 +49,7 @@ public class ExamService {
 	}
 
 	public void save_exam(Exam exam) throws Exception
-	{
+	{System.out.println("exam sevice inside for");
 //		List<Question> finalQstns=new ArrayList<Question>();
 		Set<Question> finalQstns = new HashSet<Question>(); 
 		List<Question> qstns=qstService.findAll();
