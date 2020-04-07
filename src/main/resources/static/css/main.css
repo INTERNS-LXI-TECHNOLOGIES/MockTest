@@ -1,6 +1,6 @@
 .container {
   border-radius: 5px;
-  background-color:white;
+  background-color:#d7baf7;
   padding: 20px;
 }
 .lengthbtn
@@ -33,10 +33,10 @@ body {
 .button1 {
   background-color: #e7e7e7; 
   color: black; 
- border: 2px solid #2196F3;
+ border: 2px solid #9447eb;
 }
 .button:hover {
-	 background-color: #2196F3; 
+	 background-color: #9447eb; 
 		color: white;
 }
 /* .button2:hover {
@@ -46,7 +46,7 @@ body {
 .button2 {
   background-color: #e7e7e7; 
   color: black; 
- border: 2px solid #2196F3;
+ border: 2px solid #9447eb;
 }
 .select1{
  background-color: #e7e7e7; /* Green */
@@ -58,7 +58,7 @@ body {
   font-size: 12px;
     cursor: pointer;
   margin: 4px 2px;
-  border: 2px solid #2196F3;
+  border: 2px solid #9447eb;
 }
 .select{
  background-color: #e7e7e7; /* Green */
@@ -70,7 +70,7 @@ width:99%;
   font-size: 12px;
     cursor: pointer;
   margin: 4px 2px;
-  border: 2px solid #2196F3;
+  border: 2px solid #9447eb;
 }
 .input{
  background-color: #e7e7e7; /* Green */
@@ -81,7 +81,7 @@ width:99%;
   display: inline-block;
   font-size: 12px;
    margin: 4px 2px;
-   border: 2px solid #2196F3;
+   border: 2px solid #9447eb;
 }
 
 header {
@@ -108,13 +108,13 @@ header {
 /* top navigation bar */
 .topnav {
   overflow: hidden;
-  background-color: #787878;
+  background-color: #9447eb;
 }
 
 .topnav a {
   float: left;
   display: block;
-  color: black;
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -122,12 +122,12 @@ header {
 }
 
 .topnav a:hover {
-  background-color: #ddd;
+  background-color: #dabcf6;
   color: black;
 }
 
 .topnav a.active {
-  background-color: #2196F3;
+  background-color: #c9a3f5;
   color: white;
 }
 

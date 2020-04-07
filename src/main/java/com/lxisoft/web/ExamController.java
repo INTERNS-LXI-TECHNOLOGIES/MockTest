@@ -204,6 +204,26 @@ public class ExamController
 		return "redirect:/submit?count="+marks+"&eId="+eId;
 	}
 		
+//	@RequestMapping("/user_previousPage")
+//	public String userpreviousPage(Model model,Exam exam,@RequestParam String index,@RequestParam String optionid,@RequestParam String count) throws Exception
+//	{
+//		exam=examService.findActiveExam();
+//		List<Question>questions=(List<Question>)exam.getQuestions();
+//		int pos=Integer.parseInt(index);
+//		 ListIterator<Question> lit = questions.listIterator(pos);
+//		 
+//		 int marks=Integer.parseInt(count);
+//			marks=optService.setResult(marks, optionid);
+//			 System.out.println("result prerer"+marks);
+//			 model.addAttribute("count",marks);
+//			 
+//		 if (lit.hasPrevious()) { 
+//		 model.addAttribute("question",lit.previous());
+//		 model.addAttribute("exam",exam);
+//		 model.addAttribute("iterator",lit);
+//		 }
+//		return "user_exampage";
+//	}
 	@RequestMapping("/submit")
 	public String submit(@ModelAttribute AttendedExam attendedExam,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
 	{
