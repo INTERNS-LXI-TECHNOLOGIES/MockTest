@@ -3,6 +3,7 @@
 <head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
 </head>
+
 <body bgcolor="FloralWhite">
 <div class="header">
 	<h2>MockTest Application</h2>
@@ -30,8 +31,13 @@
 		</div>
 		<br><br><br>
 		<div align="center">
-		<a th:href="@{/user_startpage}"><button class="button button1">user exampage</button></a> 
+		<a th:href="@{/user_startpage}"><button class="button button1">Test the exam</button></a> &nbsp;&nbsp;
+		<a th:href="@{/exam_info}"><button class="button button1">exam analysis</button></a> 
 		</div>
-	</div>
+		<br><br><br>
+	<div align="center">
+	<a th:href="@{/user_info}"><button class="button button1">user info</button></a> </div>
+
+
 </body>
 </html>

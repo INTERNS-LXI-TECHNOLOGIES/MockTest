@@ -1,9 +1,12 @@
 package com.lxisoft.service;
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lxisoft.domain.AttendedExam;
+
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.UserExtra;
+
+import com.lxisoft.domain.Exam;
+
 import com.lxisoft.repository.AttendedExamRepository;
 
 @Service
@@ -46,13 +53,18 @@ public class AttendedExamService {
 		attendedRepo.save(attendedExam);
 		log.debug("exam attended saved in database- "+attendedExam);
 	}
-
-
-
-
-	private List<AttendedExam> findAll() {
-		List<AttendedExam> exams=attendedRepo.findAll();
-		return exams;
+	
+	public List<AttendedExam> findAll()
+	{
+		return attendedRepo.findAll();
 	}
+	
+	public List<AttendedExam> findAllByExam(Exam exam)
+	{
+		return attendedRepo.findAllByExam(exam);
+	}
+
+
+
 
 }
