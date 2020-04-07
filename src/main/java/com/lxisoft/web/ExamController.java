@@ -137,8 +137,11 @@ public class ExamController
 	@RequestMapping ("/user_dashboard")
 	public String userdashboard(Model model)
 	{
+		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
+		UserExtra userExtra=extraService.currentUserExtra();
 		
-		
+		Set<AttendedExam> attended_examList=userExtra.getAttendedExams();
+		model.addAttribute("AttendedExamList",attended_examList);
 		return "user_dashboard";
 	}
 	
