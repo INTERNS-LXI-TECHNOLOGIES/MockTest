@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lxisoft.domain.AttendedExam;
+import com.lxisoft.domain.AttendedOption;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
@@ -35,6 +36,7 @@ import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
 import com.lxisoft.repository.UserRepository;
 import com.lxisoft.service.AttendedExamService;
+import com.lxisoft.service.AttendedOptionService;
 import com.lxisoft.service.ExamService;
 import com.lxisoft.service.OptionService;
 import com.lxisoft.service.QuestionService;
@@ -61,6 +63,8 @@ public class ExamController
 	private QuestionService questService;
 	@Autowired
 	private	UserExtraService extraService;
+	@Autowired
+	private AttendedOptionService attendOptSer;
 	
 	@RequestMapping(value="/")
 	public String index()
@@ -155,6 +159,7 @@ public class ExamController
 			  model.addAttribute("count",count);
 			  AttendedExam attendedExam=new AttendedExam();
 			  model.addAttribute("attendedExam",attendedExam);
+			  ////// exam attend time here...
 			  return "user_exampage";
 		 }
 		return "redirect:/submit";
@@ -163,49 +168,46 @@ public class ExamController
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@ModelAttribute AttendedExam attendedExam,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
 	{
-		Exam exam=examService.findById(eId);
-		Set<Question> questions=exam.getQuestions();
-		List<Question>list= new ArrayList<Question>();
-		int pos=Integer.parseInt(index);
-		for(Question quest:questions) 
-		{
+		Exam exam = examService.findById(eId);
+		Set<Question> questions = exam.getQuestions();
+		List<Question> list = new ArrayList<Question>();
+		int pos = Integer.parseInt(index);
+		for (Question quest : questions) {
 			list.add(quest);
 		}
 		ListIterator<Question> lit = list.listIterator(pos);
-		 
-		int marks=Integer.parseInt(count);
-		marks=optService.setResult(marks, optionid);
-		System.out.println("result"+marks);
-		model.addAttribute("count",marks);
-		if (lit.hasNext()) { 
-			 model.addAttribute("question",lit.next());
-			 model.addAttribute("exam",exam);
-			 model.addAttribute("iterator",lit);
-			 model.addAttribute("attendedExam",attendedExam);
-			 return "user_exampage";
-		 }
-		model.addAttribute("attendedExam",attendedExam);
-		return "redirect:/submit?count="+marks+"&eId="+eId;
+		int marks = Integer.parseInt(count);
+		marks = optService.setResult(marks, optionid);
+		model.addAttribute("count", marks);
+		////////     attendOptSer.attendOption(optionid,lit.previous());
+		if (lit.hasNext()) {
+			model.addAttribute("question", lit.next());
+			model.addAttribute("exam", exam);
+			model.addAttribute("iterator", lit);
+			model.addAttribute("attendedExam", attendedExam);
+			return "user_exampage";
+		}
+		model.addAttribute("attendedExam", attendedExam);
+		return "redirect:/submit?count=" + marks + "&eId=" + eId;
 	}
 		
 	@RequestMapping("/submit")
 	public String submit(@ModelAttribute AttendedExam attendedExam,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
 	{
-		int score=Integer.parseInt(count);
-		Exam exam=examService.findById(eId);
-		int total=exam.getCount();
-		 UserExtra userExtra=extraService.currentUserExtra();
-		  ZonedDateTime dateTime=ZonedDateTime.now();
-		  log.debug("time attended is-- "+dateTime);
-		  attendedExam.setDateTime(dateTime);
-		  attendedExam.setUserExtra(userExtra);
-		  log.debug("attended exam's user id is :"+attendedExam.getUserExtra());
-		  log.debug("time attended is "+attendedExam.getDateTime());
+		int score = Integer.parseInt(count);
+		Exam exam = examService.findById(eId);
+		int total = exam.getCount();
+		UserExtra userExtra = extraService.currentUserExtra();
+		ZonedDateTime dateTime = ZonedDateTime.now();
+		attendedExam.setDateTime(dateTime);
+		attendedExam.setUserExtra(userExtra);
+		log.debug("attended exam's user id is :" + attendedExam.getUserExtra());
+		log.debug("time attended is " + attendedExam.getDateTime());
 		attendedExam.setExam(exam);
-		attendedExam=attendExamService.attend(attendedExam,score,total);
+		attendedExam = attendExamService.attend(attendedExam, score, total);
 		attendExamService.save(attendedExam);
-		model.addAttribute("attendedExam",attendedExam);
-		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
+		model.addAttribute("attendedExam", attendedExam);
+		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
 		return "submit";
 	}
 

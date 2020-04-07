@@ -24,6 +24,12 @@
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "attendedOption",
+            "otherEntityRelationshipName": "attendedExam",
+            "relationshipName": "attendedOption"
+        },
+        {
             "relationshipType": "many-to-one",
             "otherEntityName": "exam",
             "otherEntityRelationshipName": "attendedExam",

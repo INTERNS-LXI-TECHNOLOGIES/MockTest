@@ -18,6 +18,12 @@
             "relationshipName": "qstnOption"
         },
         {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "attendedOption",
+            "otherEntityRelationshipName": "question",
+            "relationshipName": "attendedOption"
+        },
+        {
             "relationshipType": "many-to-many",
             "otherEntityName": "exam",
             "otherEntityRelationshipName": "question",

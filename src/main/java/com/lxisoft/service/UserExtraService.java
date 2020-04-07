@@ -32,7 +32,7 @@ public class UserExtraService {
 		User currentUser=optUser.get();
 		log.debug("user currently logged is :"+currentUser);
 		
-		Optional<UserExtra> optExtra=extraRepo.findById((long) 4);
+		Optional<UserExtra> optExtra=extraRepo.findById(currentUser.getId());
 		UserExtra userExtra=optExtra.get();
 		// userExtra will already be saved while creating new user. so currentUser -> userExtra obtained
 		return userExtra;
