@@ -1,94 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
 <title>create exam</title>
-<link href="main.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<style type="text/css">
-				.button {
-			  background-color: #e7e7e7; /* Green */
-			  color: black;
-			  padding: 5px 20px;
-			  text-align: center;
-			  border-radius: 8px;
-			  display: inline-block;
-			  font-size: 12px;
-			  margin: 4px 2px;
-			  cursor: pointer;
-			  transition-duration: 0.4s;
-			}
-			
-			.button1 {
-			  background-color: #e7e7e7; 
-			  color: black; 
-			 border: 2px solid #4CAF50;
-			}
-			.button:hover {
- 			 background-color: #4CAF50; /* Grey */
-  			color: white;
-			}
-			/* .button2:hover {
- 			 background-color:#e7e7e7 ; /* Grey */
-  			color: black;
-			} */
-			.button2 {
-			  background-color: #e7e7e7; 
-			  color: black; 
-			 border: 2px solid #4CAF50;
-			}
-			.input{
-			 background-color: #e7e7e7; /* Green */
-			  color: black;
-			  padding: 5px 20px;
-			  text-align: center;
-			  border-radius: 8px;
-			  display: inline-block;
-			  font-size: 12px;
-			  margin: 4px 2px;
-			}
-</style>
 </head>
-<body>
+<body bgcolor="FloralWhite">
+<div class="header">
+	<h2>MockTest Application</h2>
+	<div class="topnav">
+		<a class="active" >Lxi Technologies</a>
+  		
+  		<a  th:href="@{/}">Home</a>
+  		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
+  </div>
+
+
+
 
 <div align="center">
-   <h2>Create exam </h2>
+   <h3>Exam Creation </h3>
 </div>
-<div align="center">
-		<form action="#" th:action="@{/save_exam}" th:object="${exam}" method="get">
-			<table>
-				<tr>
-					<td>Enter name of this exam:</td>
-					<td><input type="text" th:field="*{name}"  class="input button2"  /></td>
-				</tr>
-				<tr>
-					<td>Enter no. of questions needed:</td>
-					<td><input type="text" th:field="*{count}"  class="input button2"  /></td>
-				</tr>
-				<tr>
-					<td>Level:</td>
-					<td><select name="level" th:field="*{level}"  class="input button2"  >
-							<option th:value="beginner">beginner</option>
-							<option th:value="intermediate">intermediate</option>
-							<option th:value="expert">expert</option>
-					</select></td>
-				</tr>
 
-				<!-- <tr>
-					<td>Time:</td>
-					<td>hour<input type="number" th:field="*{time_hr}" /> min<input
-						type="number" th:field="*{time_min}" /></td>
-				</tr> -->
+<div class="container">
+
+
+		<form  th:action="@{/save_exam}" th:object="${exam}" >
+			
+					<label for="name">Enter name of this exam:</label>
+					<input type="text" th:field="*{name}"  class="input button2 lengthbtn"  /><br>
 				
-				<tr>
-					<td>Time:
-					<input type="time"  name="time"  class="input button2" /></td>
-				</tr>
+					<label for="num">Enter no. of questions needed:</label>
+					<input type="text" th:field="*{count}"  class="input button2 lengthbtn"  /><br>
+					
+					<label for="level">Level:</label>
+					<select name="level" th:field="*{level}"  class="select button2 lengthbtn"  >
+							<option th:value="beginner">Beginner Level</option>
+							<option th:value="intermediate">Intermediate Level</option>
+							<option th:value="expert">Expert Level</option>
+					</select><br>
 				
-			</table><br><br><br>
+					<!-- Time:
+					hour<input type="number" th:field="*{time_hr}" /> min<input type="number" th:field="*{time_min}" /> -->
+					
+					<label for="time">Time:</label>
+					<input type="time"  name="time"  class="input button2 lengthbtn" />
+			
+				
+			
 			<div align="center"><input type="submit" value="Submit"  class="button button1" onclick="alert_creation()" />
-			<input type="submit" value="Back to Home"  class="button button1"formaction="/"></div>
+			</div>
 		</form>
 	</div>
 </body>

@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
-<title>login</title> <link rel="stylesheet" type="text/css" href="styles.css">
+<title>login</title> 
 </head>
 <body bgcolor="FloralWhite">
-<div class="container" align="center">
-   <h1>Welcome to MockTest Application</h1><br>
+<div class="header">
+	<h2>MockTest Application</h2>
+	<div class="topnav">
+		<a class="active" >Lxi Technologies</a>
+  		<a  th:href="@{/}">Home</a>
+  		</div>
+  	</div>
+<!-- <div class="container" align="center">
+   <h1>Welcome to MockTest Application</h1><br> -->
    <h2>Please login here!</h2>
 </div>
 <div align="center">
@@ -22,5 +29,7 @@
 <div align="center">
 <a th:href="@{/register}">new user register here</a>
 </div>
+
+
 </body>
 </html>

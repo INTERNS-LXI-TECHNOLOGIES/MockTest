@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
 <title>exam analysis</title>
 
 </head>
-<body>
-	<form>
-		<div align="center">
-		<input type="submit" value="Back to Home" formaction="/">
-			<h3>Current exams in database</h3>
-		</div>
-	</form>
+<body bgcolor="FloralWhite">
+<div class="header">
+	<h2>MockTest Application</h2>
+	<div class="topnav">
+		<a class="active" >Lxi Technologies</a>
+  		
+  		<a  th:href="@{/}">Home</a>
+  		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
+  </div>
+
+<div align="center">
+   <h3>Current exams in database</h3>
+</div>
+<div align="center">
+	<div class="container">
 	
-	<div align="center">
-		<table >
-			<tr th:if="${exams.empty}" align="center">
-				<td colspan="1">No Exams Available</td>
-			</tr>
-			<tr align="center" th:each="exam: ${exams}">
-				<td>
+		
+			<span th:if="${exams.empty}" >
+				No Exams Available
+			</span>
+			<span  th:each="exam: ${exams}">
+				 <button class="button button1 lengthbtn">
 					<span>
 						<a th:href="@{/exam_attended(eId=${exam.id})}">
 							<h3 th:text="${exam.name}">exam</h3>
 						</a>
 					</span>
-				</td>
-			</tr>
-		</table>
+				</button>
 
 	</div>
 </body>

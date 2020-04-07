@@ -84,4 +84,9 @@ public class QuestionService {
 				}
 			return finalQstns;
 		}
+
+		public void deleteQuestion(String qId) {
+			long id=Integer.parseInt(qId);
+			questRepo.deleteById(id);
+		}
 }

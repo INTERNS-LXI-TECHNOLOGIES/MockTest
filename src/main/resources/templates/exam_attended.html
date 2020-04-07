@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
 <title>attended exam details</title>
 </head>
-<body>
-	<form>
-		<div align="center">
-		<input type="submit" value="Back to Home" formaction="/">
-			<h3>attended exam details of exam: <span th:text="${exam.name}">exam</span></h3>
+<body bgcolor="FloralWhite">
+<div class="header">
+	<h2>MockTest Application</h2>
+	<div class="topnav">
+		<a class="active" >Lxi Technologies</a>
+  		
+  		<a  th:href="@{/}">Home</a>
+  		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
+  </div>
+
+<div align="center">
+ <h3>attended exam details of exam: <span th:text="${exam.name}">exam</span></h3>
 			exam still active: <span th:text="${exam.isActive}">state</span>
-		</div>
-	</form>
-	<br>
-	<div align="center">
-		<table width="100%">
+</div>
+<div align="center">
+	<div class="container">
+	
+		<table width="100%" border=5px>
 		<thead>
 			<tr>
 	            <th> Sl.No. </th>
@@ -43,6 +50,6 @@
 		</table>
 
 	</div>
-
+</div>
 </body>
 </html>

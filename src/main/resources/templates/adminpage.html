@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
 </head>
-<body>
+
+<body bgcolor="FloralWhite">
+<div class="header">
+	<h2>MockTest Application</h2>
+	<div class="topnav">
+		<a class="active" >Lxi Technologies</a>
+  		
+  		<!-- <a th:href="@{/register}">Register</a></div> -->
+  		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
+  </div>
+  <div align="center">
+		
+			<h3>Welcome Admin</h3>
+		</div>
+  	<div class="container">
+		
+		
+		<div align="center">
+			<a th:href="@{/create_question}"><button class="button button1">Create Question</button></a> &nbsp;&nbsp;
+			<a th:href="@{/viewall_qstn}"><button class="button button1">All questions</button></a>
+		</div>
+		<br><br><br>
+		<div align="center">
+			<a th:href="@{/create_exam}"><button class="button button1">Create Exam</button></a> &nbsp;&nbsp;
+			<a th:href="@{/current_exams}"><button class="button button1">Current Exams</button></a>
+		</div>
+		<br><br><br>
+		<div align="center">
+		<a th:href="@{/user_startpage}"><button class="button button1">Test the exam</button></a> &nbsp;&nbsp;
+		<a th:href="@{/exam_info}"><button class="button button1">exam analysis</button></a> 
+		</div>
+		<br><br><br>
 	<div align="center">
-		<h1>HELLO ADMIN</h1>
-	</div>
-	<div align="right">
-		<a th:href="@{/logoutpage}"><button>logout</button></a>
-	</div>
-	<div align="center">
-		<a th:href="@{/create_question}"><button>Create Question</button></a> &nbsp;&nbsp;
-		<a th:href="@{/viewall_qstn}"><button>All questions</button></a>
-	</div>
-	<br><br><br>
-	<div align="center">
-		<a th:href="@{/create_exam}"><button>Create Exam</button></a> &nbsp;&nbsp;
-		<a th:href="@{/current_exams}"><button>Current Exams</button></a>
-	</div>
-	<br><br><br>
-	<div align="center">
-	<a th:href="@{/user_startpage}"><button>test the exam</button></a> &nbsp;&nbsp;
-	</div>
-	<br><br><br>
-	<div align="center">
-	<a th:href="@{/exam_info}"><button>exam analysis</button></a> &nbsp;&nbsp;
-	</div>
-	<br><br><br>
-	<div align="center">
-	<a th:href="@{/user_info}"><button>user info</button></a> 
-	</div>
+	<a th:href="@{/user_info}"><button class="button button1">user info</button></a> </div>
+
+
 </body>
 </html>

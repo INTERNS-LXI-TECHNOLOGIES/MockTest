@@ -1,76 +1,37 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
-<head>
+<head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
 <title>All Questions</title>
-<link href="main.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<style type="text/css">
-				.button {
-			  background-color: #e7e7e7; /* Green */
-			  color: black;
-			  padding: 5px 20px;
-			  text-align: center;
-			  border-radius: 8px;
-			  display: inline-block;
-			  font-size: 12px;
-			  margin: 4px 2px;
-			  cursor: pointer;
-			  transition-duration: 0.4s;
-			}
-			
-			.button1 {
-			  background-color: #e7e7e7; 
-			  color: black; 
-			 border: 2px solid #4CAF50;
-			}
-			.button:hover {
- 			 background-color: #4CAF50; /* Grey */
-  			color: white;
-			}
-			/* .button2:hover {
- 			 background-color:#e7e7e7 ; /* Grey */
-  			color: black;
-			} */
-			.button2 {
-			  background-color: #e7e7e7; 
-			  color: black; 
-			 border: 2px solid #4CAF50;
-			}
-			.input{
-			 background-color: #e7e7e7; /* Green */
-			  color: black;
-			  padding: 5px 20px;
-			  text-align: center;
-			  border-radius: 8px;
-			  display: inline-block;
-			  font-size: 12px;
-			  margin: 4px 2px;
-			}
-</style>
+
 </head>
-<body>
-<div align="center">
-<form th:action="@{/filter}">
+
+<body bgcolor="FloralWhite">
+<div class="header">
+	<h2>MockTest Application</h2>
+	<div class="topnav">
+		<a class="active" >Lxi Technologies</a>
+  		<a  th:href="@{/}">Home</a>
+  		<a  th:href="@{/create_question}">Add Question</a>
+  		
+
+<form th:action="@{/filter}" autocomplete="off">
 	<span th:each="qstn: ${questions}"></span>
-	<select name="level" class="button button2">
+	<select name="level" class="select1 button2">
 	<option type="text" value="--select--" >--select--</option>
 	<option type="text" name="Beginner" >Beginner</option>
 	<option type="text" name="Intermediate">Intermediate </option>
 	<option type="text" name="Expert" >Expert </option>
 	</select>
-	<input type="submit" class="button button1" value="filter">
-	<input type="text" class="input button2" th:name="searchQstn"/> 
+	<input type="submit" class="button button1" value="filter"> 
+	<input type="text" class="input button2" id="myInput" th:name="searchQstn"/> 
 	<input type="submit" class="button button1" value="Search here" formaction="/searchQstn">
-</form>
-<form>
-<br>
 
-<input type="submit"  class="button button1" value="Back to Home" formaction="/">
+<a class="logout" th:href="@{/logoutpage}">logout</a></form></div></div>
+
+<div align="center">
 <h3><u>All Question in Database</u></h3>
 
-</form>
 </div>
 
 
@@ -90,7 +51,7 @@
     <tr th:if="${questions.empty}" align="center">
             <td colspan="6"> No Questions Available </td>
         </tr>
-         </tr>
+        
         <tr th:each="qstn ,iterator : ${questions}" align="center">
         <td th:text="${iterator.index+1}" > Sl.No. </td>
             <td th:text="${qstn.getQstn()}"> Question </td>
@@ -102,8 +63,8 @@
             <span th:each="q_option : ${qstn.qstnOptions}">
             <span th:if="${q_option.isIsAnswer() == true}">
            	<td th:text="${q_option.option}">,</td></span>
+           <!-- 	<td><a th:href="@{/deleteQuestion(qId=${qstn.getId()},opt_Id=${q_option.getId()})}">Delete</a></td> -->
            </span>
-           
         </tr>
     </tbody>
 

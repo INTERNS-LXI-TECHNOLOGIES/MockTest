@@ -75,10 +75,16 @@ public class ExamController
 		if(isAdmin)
 			return "adminpage";
 		else if(isUser)
-			return "redirect:/user_startpage";
+			return "redirect:/user_dashboard";
 		else 
 			return "redirect:/login";
 	
+	}
+	@RequestMapping("/login")
+	public String indexpage()
+	{
+		
+		return "index";
 	}
 
 	@RequestMapping("/register")
@@ -111,11 +117,11 @@ public class ExamController
 
 
 
-	@RequestMapping ("/login")
-	public String login()
-	{
-		return "login";
-	}
+//	@RequestMapping ("/loginpage")
+//	public String login()
+//	{
+//		return "login";
+//	}
 
 	@RequestMapping ("/logoutpage")
 	public String logout()
@@ -129,6 +135,16 @@ public class ExamController
 		Set<Exam> active_exams=examService.findActiveExams();
 		model.addAttribute("exam_list",active_exams);
 		return "user_startpage";
+	}
+	@RequestMapping ("/user_dashboard")
+	public String userdashboard(Model model)
+	{
+		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
+		UserExtra userExtra=extraService.currentUserExtra();
+		
+		Set<AttendedExam> attended_examList=userExtra.getAttendedExams();
+		model.addAttribute("AttendedExamList",attended_examList);
+		return "user_dashboard";
 	}
 	
 	@RequestMapping(value="/user_instruction")
@@ -335,6 +351,17 @@ public class ExamController
 			return "viewall_qstn";
 		}
 		
+//		@RequestMapping("/deleteQuestion")
+//		public String deleteQuestion(Model model,@RequestParam String qId)
+//		{
+//			
+//			questService.deleteQuestion(qId);
+//		List<Question> questions=questService.findAll();
+//		model.addAttribute("questions",questions);	
+//		return "viewall_qstn";
+//		
+//		}
+		
 		@RequestMapping("/user_info")
 		public String user_info()
 		{
@@ -359,52 +386,5 @@ public class ExamController
 			return "exam_attended";
 		}
 
+
 }
-
-
-
-
-//@RequestMapping("/timer")
-//public String setTimer(Model model, SetTimerModel timer1)
-//{
-//	model.addAttribute("timer",timer1);
-//	return "setTimer";
-//}
-
-//@RequestMapping("/user_previousPage")
-//public String userpreviousPage(Model model,Exam exam,@RequestParam String index,@RequestParam String optionid,@RequestParam String count) throws Exception
-//{
-//	exam=examService.findActiveExam();
-//	List<Question>questions=(List<Question>)exam.getQuestions();
-//	int pos=Integer.parseInt(index);
-//	 ListIterator<Question> lit = questions.listIterator(pos);
-//	 
-//	 int marks=Integer.parseInt(count);
-//		marks=optService.setResult(marks, optionid);
-//		 System.out.println("result prerer"+marks);
-//		 model.addAttribute("count",marks);
-//		 
-//	 if (lit.hasPrevious()) { 
-//	 model.addAttribute("question",lit.previous());
-//	 model.addAttribute("exam",exam);
-//	 model.addAttribute("iterator",lit);
-//	 }
-//	return "user_exampage";
-//}
-
-
-//@RequestMapping(value="/user_view")
-//public String userview(Model model,@RequestParam String option,@RequestParam String qCount,@RequestParam String qId) throws Exception
-//{
-//	if(option!=null && qCount!=null && qId!=null)
-//	{
-//		
-//	}
-//	Exam exam=examService.findActiveExam();
-//	for(Question qstn:exam.getQuestions())
-//	{
-//		model.addAttribute("qstn",qstn);
-//	}
-//	model.addAttribute("exam",exam);
-//	return "user_view";
-//}

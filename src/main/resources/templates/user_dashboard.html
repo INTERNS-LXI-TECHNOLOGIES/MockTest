@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="fragments/head :: headerFragment">
+<meta charset="ISO-8859-1">
+</head>
+<body bgcolor="FloralWhite">
+<div class="header">
+	<h2>MockTest Application</h2>
+	<div class="topnav">
+		<a class="active" >Lxi Technologies</a>
+  		
+  		<a th:href="@{/user_startpage}">Active Exams</a>
+  		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
+  </div>
+  <div align="center">
+		
+			<h3>Welcome <span th:text="${username}"></h3>
+		</div>
+  	<div class="container">
+  	<div class="profilecontainer">
+	  	<h3>Your Profile</h3>
+	  	First Name:&nbsp;&nbsp;<span th:text="${username}"></span><br>
+	  
+	  	Last Name:<br>
+	  	Email:
+	  	</div>
+	  	<div class=examcontainer>
+	  		<span th:if="${AttendedExamList.empty}">
+         				   You are not attended any exams </span>
+         				   
+         				   <h3>Your Attended Exam Details</h3>
+         				   
+         				   <table width=100% border=5px>
+							    <thead>
+							        <tr>
+							            <th> Sl.No. </th>
+							            <th> Date and Time</th>
+							            <th> Exam Name </th>
+							            <th>	Level </th>
+							            <th> Your Score </th>
+							             <th> Total Score </th>
+							              <th> Percentage </th>
+							              <th> Result </th>
+							          </tr>
+                                  </thead>
+                                  <tbody>
+             					<tr th:each="atndexam ,iterator : ${AttendedExamList}" align="center">
+       							 <td th:text="${iterator.index+1}" > Sl.No. </td>
+          						  <td th:text="${atndexam.getDateTime()}"> DateTime </td>
+          						   <td th:text="${atndexam.getExam().getName()}"> ExamName </td>
+         							<td th:text="${atndexam.getExam().getLevel()}"> Level </td>
+         							 <td th:text="${atndexam.getScore()}"> Score </td>
+         							  <td th:text="${atndexam.getTotal()}"> Total </td>
+         							   <td th:text="${atndexam.getPercentage()}"> Percentage </td>
+         							    <td th:if="${atndexam.isResult()==true}"> 
+         							     <span th:text="Pass"> </span>
+         							     <td th:if="${atndexam.isResult()==false}"> 
+         							     <span th:text="fail"> </span>
+         				  
+         				  <!--  <button class="button button1">
+         				   <span th:text="${atndexam.getExam().getName()}"><br></span></button> -->
+         				  </form>
+	  		</div>
+  	</div>
+  	
+  	</body>
+  	</html>

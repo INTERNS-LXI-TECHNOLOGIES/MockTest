@@ -28,7 +28,7 @@ public class UserExtra implements Serializable {
     @JoinColumn(name = "id")
     private User user;
 
-    @OneToMany(mappedBy = "userExtra")
+    @OneToMany(mappedBy = "userExtra",fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AttendedExam> attendedExams = new HashSet<>();
 
