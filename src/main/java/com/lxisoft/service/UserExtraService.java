@@ -72,8 +72,12 @@ public class UserExtraService {
 		authorities.add(new Authority("ROLE_USER"));		
 		user.setAuthorities(authorities);
 		user.setActivated(true);
-//		extraRepo.save(user);
+		UserExtra user_extra=new UserExtra();
+		user_extra.setId(user.getId());
+		
 		userRepo.save(user);
+		user_extra.setId(user.getId());
+		extraRepo.save(user_extra);
 		
 	}
 

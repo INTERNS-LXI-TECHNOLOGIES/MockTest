@@ -24,8 +24,16 @@ public class AttendedOptionService {
 	public void attendOption(String optionid, Question question, AttendedExam attendedExam) {
 		QstnOption qstnOption=optService.findById(optionid);
 		AttendedOption attendedOpt=new AttendedOption();
+		if(qstnOption==null)
+		{
+			attendedOpt.setAttendedOpt("null");
+			attendedOpt.setAttendedAnswer(false);
+		}
+		else {
+		
 		attendedOpt.setAttendedOpt(qstnOption.getOption());
 		attendedOpt.setAttendedAnswer(qstnOption.isIsAnswer());
+		}
 		attendedOpt.setAttendedExam(attendedExam);
 		attendedOpt.setQuestion(question);
 		log.debug("an attended option save: "+attendedOpt);
