@@ -1,7 +1,11 @@
 package com.lxisoft.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,14 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import javax.servlet.http.HttpServletRequest;
 
+import com.lxisoft.domain.Authority;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
 import com.lxisoft.repository.UserExtraRepository;
 import com.lxisoft.repository.UserRepository;
 import com.lxisoft.web.ExamController;
+
+import io.github.jhipster.security.RandomUtil;
 
 @Service
 public class UserExtraService {
@@ -56,6 +66,14 @@ public class UserExtraService {
 			
 		
 			return userExtra;
+	}
+
+	public void save(@Valid User user) {
+//		String pass = user.getPassword();
+		BCryptPasswordEncoder encode=new BCryptPasswordEncoder(); 
+		user.setPassword(encode.encode(user.getPassword()));
+		userRepo.save(user);
+		
 	}
 
 	

@@ -39,6 +39,8 @@ import com.lxisoft.service.ExamService;
 import com.lxisoft.service.OptionService;
 import com.lxisoft.service.QuestionService;
 import com.lxisoft.service.UserExtraService;
+import com.lxisoft.service.UserService;
+import com.lxisoft.service.dto.UserDTO;
 
 /**
  * Mocktest Exam controller
@@ -56,7 +58,7 @@ public class ExamController
 	@Autowired
 	private ExamService examService;
 	@Autowired
-	private UserRepository userRepo;
+	private UserService userService;
 	@Autowired
 	private QuestionService questService;
 	@Autowired
@@ -86,7 +88,7 @@ public class ExamController
 	@RequestMapping("/register")
 	public String register(Model model)
 	{
-		model.addAttribute("userRegistration", new User());
+		model.addAttribute("user", new User());
 		return "registration";
 	}
 
@@ -99,16 +101,15 @@ public class ExamController
 	}
 	
 	@RequestMapping(value="/save")  
-	public String save(@Valid User user,BindingResult bindingResult,@RequestParam String cpw)
+	public String save(@Valid User user,BindingResult bindingResult)
 	{  
-//		if (!bindingResult.hasErrors()) {
-//			if(user.getPassword().equals(cpw))
-//				service.saveService(user);  
-//			else
-//				return "registration";
-//
-//		}
-		return ((bindingResult.hasErrors()) ? "registration" : "redirect:/");
+		if (!bindingResult.hasErrors()) {
+			extraService.save(user);  
+			return  "redirect:/";}
+			else
+				return "registration";
+
+
 	}  
 
 
@@ -392,7 +393,7 @@ public class ExamController
 		public String exam_attended(@RequestParam String eId, Model model) throws Exception
 		{
 			Exam exam=examService.findById(eId);
-			model.addAttribute("users",userRepo.findAll());
+			model.addAttribute("users",extraService.findAll());
 			model.addAttribute("exam",exam);
 			model.addAttribute("attendList",attendExamService.findAllByExam(exam));
 			return "exam_attended";

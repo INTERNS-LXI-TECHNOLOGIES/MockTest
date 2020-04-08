@@ -24,7 +24,7 @@
 <div class="container">
 
 
-<form  th:action="@{/save}" th:object="${userRegistration}" >
+<form  th:action="@{/save}" th:object="${user}" >
 
             	<label>First Name</label>
             	<input type="text" th:field="*{firstName}" placeholder="Enter your FirstName" class="input button2 lengthbtn"/>
@@ -36,6 +36,10 @@
         		<label>E-Mail</label>
         		<input type="text" th:field="*{email}" placeholder="Enter your E-mail" class="input button2 lengthbtn"/>
         		<font color="red"><span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></font>
+        		
+        		<label>UserName</label>
+        		<input type="text" th:field="*{login}" placeholder="Enter your UserName" class="input button2 lengthbtn"/>
+        		<font color="red"><span  th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span></font>
         		
         		<label>Password</label>
         		<input type="password" th:field="*{password}"  placeholder="Enter your Password"class="input button2 lengthbtn" />

@@ -71,8 +71,8 @@ public class AttendedExamService {
 		long id=Integer.parseInt(aExamId);
 		
 		Optional<AttendedExam> optional=attendedRepo.findById(id);
-		AttendedExam exam=optional.get();
-		return exam;
+		AttendedExam atndexam=optional.get();
+		return atndexam;
 	}
 
 
