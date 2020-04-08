@@ -68,6 +68,11 @@ public class UserExtraService {
 	public void save(@Valid User user) {
 		BCryptPasswordEncoder encode=new BCryptPasswordEncoder(); 
 		user.setPassword(encode.encode(user.getPassword()));
+		Set<Authority> authorities = new HashSet<>();
+		authorities.add(new Authority("ROLE_USER"));		
+		user.setAuthorities(authorities);
+		user.setActivated(true);
+//		extraRepo.save(user);
 		userRepo.save(user);
 		
 	}

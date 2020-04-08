@@ -48,11 +48,17 @@
         		<!-- <label>Confirm Password</label></td><td><input type="password" name="cpw" />
         		<font color="red"><span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></font> -->
         		
-        		<div align="center"><button type="submit" class="button button1 ">Sign up</button></div>
+        		<div align="center"><button type="submit" class="button button1 " onclick="alert_creation()">Sign up</button></div>
         		 			
 </form> 
 
 
 </div>
+<script >
+function alert_creation()
+{
+	alert("You are Successfully Registered!");
+}
+</script>
 </body>
 </html>

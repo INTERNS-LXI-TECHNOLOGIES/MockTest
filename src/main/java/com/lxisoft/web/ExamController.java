@@ -108,7 +108,8 @@ public class ExamController
 	{  
 		if (!bindingResult.hasErrors()) {
 			extraService.save(user);  
-			return  "redirect:/";}
+			return  "redirect:/";
+			}
 			else
 				return "registration";
 

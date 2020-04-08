@@ -1,6 +1,9 @@
 package com.lxisoft.repository;
 
+import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
+
+import javax.validation.Valid;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -11,4 +14,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface UserExtraRepository extends JpaRepository<UserExtra, Long> {
+
+	
 }
