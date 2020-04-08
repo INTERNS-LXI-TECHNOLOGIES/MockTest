@@ -65,12 +65,13 @@ public class AttendedExamService {
 		return attendedRepo.findAllByExam(exam);
 	}
 
-	public AttendedExam findById(String aExamId)
-	{
+	public AttendedExam findById(String aExamId) {
+		
 		long id=Integer.parseInt(aExamId);
-		 Optional<AttendedExam> attendedExam =attendedRepo.findById(id);
-		 return attendedExam.get();
+		
+		Optional<AttendedExam> optional=attendedRepo.findById(id);
+		AttendedExam exam=optional.get();
+		return exam;
 	}
-	
 
 }

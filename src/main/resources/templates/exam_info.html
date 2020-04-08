@@ -21,19 +21,24 @@
 <div align="center">
 	<div class="container">
 	
+	
 		
 			<span th:if="${exams.empty}" >
 				No Exams Available
 			</span>
+			
 			<span  th:each="exam: ${exams}">
-				 <button class="button button1 lengthbtn">
+				
 					<span>
-						<a th:href="@{/exam_attended(eId=${exam.id})}">
+						<a th:href="@{/exam_attended(eId=${exam.id})}" class="button button1 lengthbtn" >
 							<h3 th:text="${exam.name}">exam</h3>
-						</a>
-					</span>
-				</button>
+						</a></span>
+					
+				</span>
 
+	
+ </div>
+ 
 	</div>
 </body>
 </html>

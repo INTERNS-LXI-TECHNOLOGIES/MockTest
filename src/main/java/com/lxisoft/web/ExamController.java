@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lxisoft.domain.AttendedExam;
-import com.lxisoft.domain.AttendedOption;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
@@ -167,23 +166,26 @@ public class ExamController
 		}
 		 ListIterator<Question> lit = list.listIterator(); 
 		 int count=0;
+		 AttendedExam attendedExam=new AttendedExam();
+		  ZonedDateTime dateTime = ZonedDateTime.now();
+		  attendedExam.setDateTime(dateTime);
+		  attendExamService.save(attendedExam);
+		  model.addAttribute("aExamId",attendedExam.getId());
+		  log.debug("attended exam is :" + attendedExam);
 		 if (lit.hasNext()) { 
-			
 			  model.addAttribute("question",lit.next());
 			  model.addAttribute("exam",exam);
 			  model.addAttribute("iterator",lit);
 			  model.addAttribute("count",count);
-			  AttendedExam attendedExam=new AttendedExam();
-			  model.addAttribute("attendedExam",attendedExam);
-			  ////// exam attend time here...
 			  return "user_exampage";
 		 }
 		return "redirect:/submit";
 	}
 	
 	@RequestMapping(value="/user_nextPage")
-	public String userNextPage(Model model,@ModelAttribute AttendedExam attendedExam,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
+	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
 	{
+		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		Exam exam = examService.findById(eId);
 		Set<Question> questions = exam.getQuestions();
 		List<Question> list = new ArrayList<Question>();
@@ -195,27 +197,27 @@ public class ExamController
 		int marks = Integer.parseInt(count);
 		marks = optService.setResult(marks, optionid);
 		model.addAttribute("count", marks);
-		////////     attendOptSer.attendOption(optionid,lit.previous());
+		model.addAttribute("aExamId",aExamId);
+		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
 		if (lit.hasNext()) {
 			model.addAttribute("question", lit.next());
 			model.addAttribute("exam", exam);
 			model.addAttribute("iterator", lit);
-			model.addAttribute("attendedExam", attendedExam);
+//			model.addAttribute("attendedExam", attendedExam);
 			return "user_exampage";
 		}
-		model.addAttribute("attendedExam", attendedExam);
-		return "redirect:/submit?count=" + marks + "&eId=" + eId;
+//		model.addAttribute("attendedExam", attendedExam);
+		return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
 	}
 		
 	@RequestMapping("/submit")
-	public String submit(@ModelAttribute AttendedExam attendedExam,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
+	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
 	{
+		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		int score = Integer.parseInt(count);
 		Exam exam = examService.findById(eId);
 		int total = exam.getCount();
 		UserExtra userExtra = extraService.currentUserExtra();
-		ZonedDateTime dateTime = ZonedDateTime.now();
-		attendedExam.setDateTime(dateTime);
 		attendedExam.setUserExtra(userExtra);
 		log.debug("attended exam's user id is :" + attendedExam.getUserExtra());
 		log.debug("time attended is " + attendedExam.getDateTime());
@@ -226,6 +228,7 @@ public class ExamController
 		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
 		return "submit";
 	}
+
 
 	@RequestMapping("/create_question")
 	public String question(Model model)
@@ -363,10 +366,21 @@ public class ExamController
 //		}
 		
 		@RequestMapping("/user_info")
-		public String user_info()
+		public String user_info(Model model)
 		{
-			/////
+			model.addAttribute("users",extraService.findAll());
 			return "user_info";
+		}
+		@RequestMapping("/user_details")
+		public String userDetails(Model model,@RequestParam String id) throws Exception
+		{
+			
+		/* model.addAttribute("users",extraService.findAll()); */
+			UserExtra user=extraService.findById(id);
+			model.addAttribute("user",user);
+			Set<AttendedExam> attended_examList=user.getAttendedExams();
+			model.addAttribute("AttendedExamList",attended_examList);
+			return "user_details";
 		}
 		
 		@RequestMapping("/exam_info")
@@ -375,6 +389,7 @@ public class ExamController
 			model.addAttribute("exams",examService.findAll());
 			return "exam_info";
 		}
+
 		
 		@RequestMapping("/exam_attended")
 		public String exam_attended(@RequestParam String eId, Model model) throws Exception
