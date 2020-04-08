@@ -1,6 +1,6 @@
 .container {
   border-radius: 5px;
-  background-color:#d7baf7;
+  background-color:white;
   padding: 20px;
 }
 .lengthbtn
@@ -33,11 +33,27 @@ body {
 .button1 {
   background-color: #e7e7e7; 
   color: black; 
- border: 2px solid #9447eb;
+ border: 2px solid #00ccff;
 }
 .button:hover {
-	 background-color: #9447eb; 
+	 background-color: #00ccff; 
 		color: white;
+}
+.log {
+		  background-color: #e7e7e7; 
+  color: black;
+  padding: 5px 20px;
+  text-align: center;
+  border-radius: 8px;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+.log:hover {
+	 background-color:  white; 
+		color: #00ccff;
 }
 /* .button2:hover {
 	 background-color:#e7e7e7 ; /* Grey */
@@ -46,7 +62,7 @@ body {
 .button2 {
   background-color: #e7e7e7; 
   color: black; 
- border: 2px solid #9447eb;
+ border: 2px solid #00ccff;
 }
 .select1{
  background-color: #e7e7e7; /* Green */
@@ -58,7 +74,7 @@ body {
   font-size: 12px;
     cursor: pointer;
   margin: 4px 2px;
-  border: 2px solid #9447eb;
+  border: 2px solid #00ccff;
 }
 .select{
  background-color: #e7e7e7; /* Green */
@@ -70,7 +86,7 @@ width:99%;
   font-size: 12px;
     cursor: pointer;
   margin: 4px 2px;
-  border: 2px solid #9447eb;
+  border: 2px solid #00ccff;
 }
 .input{
  background-color: #e7e7e7; /* Green */
@@ -81,7 +97,7 @@ width:99%;
   display: inline-block;
   font-size: 12px;
    margin: 4px 2px;
-   border: 2px solid #9447eb;
+   border: 2px solid #00ccff;
 }
 
 header {
@@ -108,7 +124,7 @@ header {
 /* top navigation bar */
 .topnav {
   overflow: hidden;
-  background-color: #9447eb;
+  background-color: #00ccff;
 }
 
 .topnav a {
@@ -122,13 +138,15 @@ header {
 }
 
 .topnav a:hover {
-  background-color: #dabcf6;
-  color: black;
+  background-color: #ddd;
+  color:white ;
 }
-
+.logoutbtn :hover {
+	 background-color: #ddd;
+}
 .topnav a.active {
-  background-color: #c9a3f5;
-  color: white;
+  background-color: white;
+  color: #00ccff;
 }
 
 .topnav .logout{ float:right;}
