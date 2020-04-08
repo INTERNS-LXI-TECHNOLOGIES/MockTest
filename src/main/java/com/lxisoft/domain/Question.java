@@ -35,6 +35,10 @@ public class Question implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<QstnOption> qstnOptions = new HashSet<>();
 
+    @OneToMany(mappedBy = "question")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<AttendedOption> attendedOptions = new HashSet<>();
+
     @ManyToMany(mappedBy = "questions")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
@@ -98,6 +102,31 @@ public class Question implements Serializable {
 
     public void setQstnOptions(Set<QstnOption> qstnOptions) {
         this.qstnOptions = qstnOptions;
+    }
+
+    public Set<AttendedOption> getAttendedOptions() {
+        return attendedOptions;
+    }
+
+    public Question attendedOptions(Set<AttendedOption> attendedOptions) {
+        this.attendedOptions = attendedOptions;
+        return this;
+    }
+
+    public Question addAttendedOption(AttendedOption attendedOption) {
+        this.attendedOptions.add(attendedOption);
+        attendedOption.setQuestion(this);
+        return this;
+    }
+
+    public Question removeAttendedOption(AttendedOption attendedOption) {
+        this.attendedOptions.remove(attendedOption);
+        attendedOption.setQuestion(null);
+        return this;
+    }
+
+    public void setAttendedOptions(Set<AttendedOption> attendedOptions) {
+        this.attendedOptions = attendedOptions;
     }
 
     public Set<Exam> getExams() {

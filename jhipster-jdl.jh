@@ -8,11 +8,15 @@ entity QstnOption {
 	isAnswer Boolean
 }
 
+entity AttendedOption{
+	attendedOpt String,
+	attendedAnswer Boolean
+}
 
 entity UserExtra{
 }
 
-entity Exam{
+entity Exam{ 
 	name String,
     count Integer,
     level String,
@@ -31,7 +35,9 @@ entity AttendedExam {
 relationship OneToMany {
 	Question to QstnOption,
     Exam to AttendedExam,
-    UserExtra to AttendedExam
+    UserExtra to AttendedExam,
+    AttendedExam to AttendedOption,
+    Question to AttendedOption
 }
 
 relationship OneToOne {

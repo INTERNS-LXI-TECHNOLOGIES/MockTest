@@ -65,7 +65,6 @@ public class AttendedExamService {
 		return attendedRepo.findAllByExam(exam);
 	}
 
-
 	public AttendedExam findById(String aExamId) {
 		
 		long id=Integer.parseInt(aExamId);
@@ -74,8 +73,5 @@ public class AttendedExamService {
 		AttendedExam atndexam=optional.get();
 		return atndexam;
 	}
-
-
-
 
 }

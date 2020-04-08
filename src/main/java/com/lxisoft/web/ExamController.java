@@ -35,6 +35,7 @@ import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
 import com.lxisoft.repository.UserRepository;
 import com.lxisoft.service.AttendedExamService;
+import com.lxisoft.service.AttendedOptionService;
 import com.lxisoft.service.ExamService;
 import com.lxisoft.service.OptionService;
 import com.lxisoft.service.QuestionService;
@@ -63,6 +64,8 @@ public class ExamController
 	private QuestionService questService;
 	@Autowired
 	private	UserExtraService extraService;
+	@Autowired
+	private AttendedOptionService attendOptSer;
 	
 	@RequestMapping(value="/")
 	public String index()
@@ -175,7 +178,6 @@ public class ExamController
 			  model.addAttribute("exam",exam);
 			  model.addAttribute("iterator",lit);
 			  model.addAttribute("count",count);
-			  ////// exam attend time here...
 			  return "user_exampage";
 		 }
 		return "redirect:/submit";
@@ -184,6 +186,7 @@ public class ExamController
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
 	{
+		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		Exam exam = examService.findById(eId);
 		Set<Question> questions = exam.getQuestions();
 		List<Question> list = new ArrayList<Question>();
@@ -196,7 +199,7 @@ public class ExamController
 		marks = optService.setResult(marks, optionid);
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
-		////////     attendOptSer.attendOption(optionid,lit.previous());
+		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
 		if (lit.hasNext()) {
 			model.addAttribute("question", lit.next());
 			model.addAttribute("exam", exam);

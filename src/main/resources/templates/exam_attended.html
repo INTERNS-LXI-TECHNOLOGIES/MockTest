@@ -25,12 +25,12 @@
 		<thead>
 			<tr>
 	            <th> Sl.No. </th>
-	            <!-- <th> user </th> -->
-	            <th> date&time </th>
+	            <th> user </th>
 	             <th> score </th>
 	              <th> total </th>
 	              <th>result</th>
 	              <th>percentage</th>
+	              <th> date&time </th>
 	        </tr>
 		</thead>
 			<tr th:if="${attendList.empty}" align="center">
@@ -38,14 +38,14 @@
 			</tr>
 			<tr align="center" th:each="attended,iterator: ${attendList}">
 				<td th:text="${iterator.index+1}" > Sl.No. </td>
-				<!-- <td th:each="user:${users}" th:if="${attended.userExtra.id==user.id}" >
-					<span th:text="${user.login}"></span>
-				</td> -->
-				<td th:text="${attended.dateTime}">date&time</td>
+				<td>
+					<span th:each="user:${users}" th:text="${(attended.userExtra.id==user.id)}? ${user.login}:null">user</span>
+				</td>
 				<td th:text="${attended.score}">score</td>
 				<td th:text="${attended.total}">total</td>
 				<td th:text="${attended.result}">result</td>
 				<td th:text="${attended.percentage}">percentage</td>
+				<td th:text="${attended.dateTime}">date&time</td>
 			</tr>
 		</table>
 

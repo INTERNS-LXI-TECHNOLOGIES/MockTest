@@ -43,7 +43,6 @@ public class UserExtraService {
 		Optional<User> optUser=userRepo.findOneByLogin(login);
 		User currentUser=optUser.get();
 		log.debug("user currently logged is :"+currentUser);
-		
 		Optional<UserExtra> optExtra=extraRepo.findById((long) currentUser.getId());
 		UserExtra userExtra=optExtra.get();
 		// userExtra will already be saved while creating new user. so currentUser -> userExtra obtained
@@ -59,8 +58,6 @@ public class UserExtraService {
 			long id=Integer.parseInt(uid);
 			Optional<User>user=userRepo.findById(id);
 			User currentUser=user.get();
-			
-		
 			Optional<UserExtra> optExtra=extraRepo.findById((long) currentUser.getId());
 			UserExtra userExtra=optExtra.get();
 			
