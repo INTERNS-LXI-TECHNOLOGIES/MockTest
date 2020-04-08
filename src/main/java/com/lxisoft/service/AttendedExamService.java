@@ -4,6 +4,7 @@ package com.lxisoft.service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -64,7 +65,12 @@ public class AttendedExamService {
 		return attendedRepo.findAllByExam(exam);
 	}
 
-
-
+	public AttendedExam findById(String aExamId)
+	{
+		long id=Integer.parseInt(aExamId);
+		 Optional<AttendedExam> attendedExam =attendedRepo.findById(id);
+		 return attendedExam.get();
+	}
+	
 
 }
