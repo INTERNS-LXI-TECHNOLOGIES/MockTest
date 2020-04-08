@@ -18,13 +18,23 @@
   <!--  <h3>Current exams in database</h3> -->
 </div>
 <div align="center">
+	
+	<h3>Current Users</h3>
 	<div class="container">
 	
-	<a th:href="@{/all_users}"><button class="button button1 lengthbtn">All users</button></a> 
-	<a th:href="@{/exam_performance}"><button class="button button1 lengthbtn">User wise performance</button></a> 
-	
-	<a th:href="@{/user_performance}"><button class="button button1 lengthbtn">Exam wise performance</button></a> 
-	<a th:href="@{/exam_performance}"><button class="button button1 lengthbtn">User wise performance</button></a> 
+	<span th:if="${users.empty}" >
+				No Current users are there..!
+			</span>
+			
+	<span  th:each="user: ${users}">
+				
+					<span>
+						<a th:href="@{/user_details(id=${user.id})}" class="button button1 lengthbtn" >
+							<h3 th:text="${user.firstName}">username</h3>
+						</a></span>
+					
+				</span>
+	</div></div>
 	
 </body>
 </html>
