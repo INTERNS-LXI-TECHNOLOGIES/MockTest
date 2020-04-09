@@ -36,19 +36,18 @@
 							    <thead>
 							        <tr>
 							            <th> Sl.No. </th>
-							            <th> Date and Time</th>
 							            <th> Exam Name </th>
 							            <th>	Level </th>
 							            <th> Your Score </th>
 							             <th> Total Score </th>
 							              <th> Percentage </th>
 							              <th> Result </th>
+							              <th> Date and Time</th>
 							          </tr>
                                   </thead>
                                   <tbody>
              					<tr th:each="atndexam ,iterator : ${AttendedExamList}" align="center">
        							 <td th:text="${iterator.index+1}" > Sl.No. </td>
-          						  <td th:text="${atndexam.getDateTime()}"> DateTime </td>
           						   <td th:text="${atndexam.getExam().getName()}"> ExamName </td>
          							<td th:text="${atndexam.getExam().getLevel()}"> Level </td>
          							 <td th:text="${atndexam.getScore()}"> Score </td>
@@ -58,8 +57,8 @@
          							     <span th:text="Pass"> </span>
          							     <td th:if="${atndexam.isResult()==false}"> 
          							     <span th:text="fail"> </span>
-         				  
-         				  </td>
+      				  					</td>
+      				  					<td th:text="${atndexam.getDateTime()}"> DateTime </td>
          				  </tr>
          				  </tbody>
          				  </table>
