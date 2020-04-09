@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lxisoft.domain.AttendedExam;
 
 import com.lxisoft.domain.Question;
+import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
 
 import com.lxisoft.domain.Exam;
@@ -63,6 +64,11 @@ public class AttendedExamService {
 	public List<AttendedExam> findAllByExam(Exam exam)
 	{
 		return attendedRepo.findAllByExam(exam);
+	}
+	
+	public List<AttendedExam> findAllByUserExtra(UserExtra user)
+	{
+		return attendedRepo.findAllByUserExtra(user);
 	}
 
 	public AttendedExam findById(String aExamId) {

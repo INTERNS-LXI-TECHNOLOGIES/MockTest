@@ -135,8 +135,9 @@ public class ExamController
 		UserExtra userExtra=extraService.currentUserExtra();
 		log.debug("email of user "+userExtra.getUser().getEmail());
 		model.addAttribute("user",userExtra);
-		Set<AttendedExam> attended_examList=userExtra.getAttendedExams();
-		model.addAttribute("AttendedExamList",attended_examList);
+//		Set<AttendedExam> attended_examList=userExtra.getAttendedExams();
+//		model.addAttribute("AttendedExamList",attended_examList);
+		model.addAttribute("AttendedExamList",attendExamService.findAllByUserExtra(userExtra));
 		return "user_dashboard";
 	}
 	
@@ -377,8 +378,9 @@ public class ExamController
 			
 			UserExtra user=extraService.findById(id);
 			model.addAttribute("user",user);
-			Set<AttendedExam> attended_examList=user.getAttendedExams();
-			model.addAttribute("AttendedExamList",attended_examList);
+//			Set<AttendedExam> attended_examList=user.getAttendedExams();
+//			model.addAttribute("AttendedExamList",attended_examList);
+			model.addAttribute("AttendedExamList",attendExamService.findAllByUserExtra(user));
 			return "user_details";
 		}
 		
@@ -389,6 +391,15 @@ public class ExamController
 			return "exam_info";
 		}
 		
+
+		@RequestMapping("/exam_history")
+		public String exam_history(Model model,@RequestParam String aExamId)
+		{
+			AttendedExam attendedExam=attendExamService.findById(aExamId);
+			model.addAttribute("attendedExam", attendedExam);
+			return "exam_history";
+		}
+
 		
 		@RequestMapping("/exam_attended")
 		public String exam_attended(@RequestParam String eId, Model model) throws Exception

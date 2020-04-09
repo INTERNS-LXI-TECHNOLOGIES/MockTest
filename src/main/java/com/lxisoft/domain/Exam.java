@@ -39,7 +39,7 @@ public class Exam implements Serializable {
     @Column(name = "time")
     private String time;
 
-    @OneToMany(mappedBy = "exam")
+    @OneToMany(mappedBy = "exam",fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AttendedExam> attendedExams = new HashSet<>();
 
