@@ -33,10 +33,10 @@ body {
 .button1 {
   background-color: #e7e7e7; 
   color: black; 
- border: 2px solid #00ccff;
+ border: 2px solid #2196F3;
 }
 .button:hover {
-	 background-color: #00ccff; 
+	 background-color: #2196F3; 
 		color: white;
 }
 .log {
@@ -62,7 +62,7 @@ body {
 .button2 {
   background-color: #e7e7e7; 
   color: black; 
- border: 2px solid #00ccff;
+ border: 2px solid #2196F3;
 }
 .select1{
  background-color: #e7e7e7; /* Green */
@@ -74,7 +74,7 @@ body {
   font-size: 12px;
     cursor: pointer;
   margin: 4px 2px;
-  border: 2px solid #00ccff;
+  border: 2px solid #2196F3;
 }
 .select{
  background-color: #e7e7e7; /* Green */
@@ -86,7 +86,7 @@ width:99%;
   font-size: 12px;
     cursor: pointer;
   margin: 4px 2px;
-  border: 2px solid #00ccff;
+  border: 2px solid #2196F3;
 }
 .input{
  background-color: #e7e7e7; /* Green */
@@ -97,7 +97,7 @@ width:99%;
   display: inline-block;
   font-size: 12px;
    margin: 4px 2px;
-   border: 2px solid #00ccff;
+   border: 2px solid #2196F3;
 }
 
 header {
@@ -124,7 +124,7 @@ header {
 /* top navigation bar */
 .topnav {
   overflow: hidden;
-  background-color: #00ccff;
+  background-color: #787878;
 }
 
 .topnav a {
@@ -139,14 +139,14 @@ header {
 
 .topnav a:hover {
   background-color: #ddd;
-  color:white ;
+  color:black;
 }
 .logoutbtn :hover {
 	 background-color: #ddd;
 }
 .topnav a.active {
-  background-color: white;
-  color: #00ccff;
+  background-color: #2196F3;
+  color:white ;
 }
 
 .topnav .logout{ float:right;}
