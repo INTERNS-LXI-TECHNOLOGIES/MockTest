@@ -84,7 +84,6 @@ public class ExamController
 	@RequestMapping("/login")
 	public String indexpage()
 	{
-		
 		return "index";
 	}
 
@@ -112,17 +111,8 @@ public class ExamController
 			}
 			else
 				return "registration";
-
-
 	}  
 
-
-
-//	@RequestMapping ("/loginpage")
-//	public String login()
-//	{
-//		return "login";
-//	}
 
 	@RequestMapping ("/logoutpage")
 	public String logout()
@@ -137,12 +127,14 @@ public class ExamController
 		model.addAttribute("exam_list",active_exams);
 		return "user_startpage";
 	}
+	
 	@RequestMapping ("/user_dashboard")
 	public String userdashboard(Model model)
 	{
 		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
 		UserExtra userExtra=extraService.currentUserExtra();
-		
+		log.debug("email of user "+userExtra.getUser().getEmail());
+		model.addAttribute("user",userExtra);
 		Set<AttendedExam> attended_examList=userExtra.getAttendedExams();
 		model.addAttribute("AttendedExamList",attended_examList);
 		return "user_dashboard";
@@ -166,14 +158,14 @@ public class ExamController
 		{
 			list.add(quest);
 		}
-		 ListIterator<Question> lit = list.listIterator(); 
-		 int count=0;
-		 AttendedExam attendedExam=new AttendedExam();
-		  ZonedDateTime dateTime = ZonedDateTime.now();
-		  attendedExam.setDateTime(dateTime);
-		  attendExamService.save(attendedExam);
-		  model.addAttribute("aExamId",attendedExam.getId());
-		  log.debug("attended exam is :" + attendedExam);
+			  ListIterator<Question> lit = list.listIterator(); 
+			  int count=0;
+			  AttendedExam attendedExam=new AttendedExam();
+			  ZonedDateTime dateTime = ZonedDateTime.now();
+			  attendedExam.setDateTime(dateTime);
+			  attendExamService.save(attendedExam);
+			  model.addAttribute("aExamId",attendedExam.getId());
+			  log.debug("attended exam is :" + attendedExam);
 		 if (lit.hasNext()) { 
 			  model.addAttribute("question",lit.next());
 			  model.addAttribute("exam",exam);
@@ -192,7 +184,8 @@ public class ExamController
 		Set<Question> questions = exam.getQuestions();
 		List<Question> list = new ArrayList<Question>();
 		int pos = Integer.parseInt(index);
-		for (Question quest : questions) {
+		for (Question quest : questions) 
+		{
 			list.add(quest);
 		}
 		ListIterator<Question> lit = list.listIterator(pos);
@@ -201,14 +194,13 @@ public class ExamController
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
 		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
-		if (lit.hasNext()) {
+		if (lit.hasNext()) 
+		{
 			model.addAttribute("question", lit.next());
 			model.addAttribute("exam", exam);
 			model.addAttribute("iterator", lit);
-//			model.addAttribute("attendedExam", attendedExam);
 			return "user_exampage";
 		}
-//		model.addAttribute("attendedExam", attendedExam);
 		return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
 	}
 		
@@ -350,22 +342,10 @@ public class ExamController
 		@RequestMapping("/searchQstn")
 		public String searchQuestion(Model model,@RequestParam String searchQstn)
 		{
-//			List<Question> questions=questService.findAll();
 			List<Question> questions=questService.findByQstn(searchQstn);
 			model.addAttribute("questions",questions);	
 			return "viewall_qstn";
 		}
-		
-//		@RequestMapping("/deleteQuestion")
-//		public String deleteQuestion(Model model,@RequestParam String qId)
-//		{
-//			
-//			questService.deleteQuestion(qId);
-//		List<Question> questions=questService.findAll();
-//		model.addAttribute("questions",questions);	
-//		return "viewall_qstn";
-//		
-//		}
 		
 		@RequestMapping("/user_info")
 		public String user_info(Model model)
@@ -377,7 +357,6 @@ public class ExamController
 		public String userDetails(Model model,@RequestParam String id) throws Exception
 		{
 			
-		/* model.addAttribute("users",extraService.findAll()); */
 			UserExtra user=extraService.findById(id);
 			model.addAttribute("user",user);
 			Set<AttendedExam> attended_examList=user.getAttendedExams();

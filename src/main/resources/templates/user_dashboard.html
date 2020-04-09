@@ -19,10 +19,9 @@
   	<div class="container">
   	<div class="profilecontainer">
 	  	<h3>Your Profile</h3>
-	  	First Name:&nbsp;&nbsp;<span th:text="${username}"></span><br>
-	  
-	  	Last Name:<br>
-	  	Email:
+	  	First Name:&nbsp;&nbsp;<span th:text="${user.getUser().getFirstName()}"></span><br>
+	  	Last Name:&nbsp;&nbsp;<span th:text="${user.getUser().getLastName()}"></span><br>
+	  	Email&nbsp;&nbsp;:&nbsp;&nbsp;<span th:text="${user.getUser().getEmail()}"></span><br><br>
 	  	</div>
 	  	<div class=examcontainer>
 	  		<span th:if="${AttendedExamList.empty}">

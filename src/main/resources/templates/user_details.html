@@ -16,14 +16,13 @@
   </div>
   <div align="center">
 		
-			<h3>user details: <!-- <span th:text="${user}"></h3> -->
+			<h3>User Details Of <span th:text="${user.getUser().getFirstName()}"></h3>
 		</div>
   	
   	<div class="profilecontainer">
-  		First Name:<!-- &nbsp;&nbsp;<span th:text="${username}"></span> --><br>
-	  
-	  	Last Name:<br>
-	  	Email:
+  		First Name:&nbsp;&nbsp;<span th:text="${user.getUser().getFirstName()}"></span><br>
+	  	Last Name:&nbsp;&nbsp;<span th:text="${user.getUser().getLastName()}"></span><br>
+	  	Email&nbsp;&nbsp;:&nbsp;&nbsp;<span th:text="${user.getUser().getEmail()}"></span><br><br>
 	  	</div>
 	  	<div class=examcontainer>
 	  		<span th:if="${AttendedExamList.empty}">

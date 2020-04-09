@@ -50,7 +50,6 @@ public class UserExtraService {
 	}
 
 	public  List<User> findAll() {
-		
 		return userRepo.findAll() ;
 	}
 
@@ -60,8 +59,6 @@ public class UserExtraService {
 			User currentUser=user.get();
 			Optional<UserExtra> optExtra=extraRepo.findById(currentUser.getId());
 			UserExtra userExtra=optExtra.get();
-			
-		
 			return userExtra;
 	}
 
@@ -72,23 +69,12 @@ public class UserExtraService {
 		authorities.add(new Authority("ROLE_USER"));		
 		user.setAuthorities(authorities);
 		user.setActivated(true);
-		
 		UserExtra user_extra=new UserExtra();
-		
 		user_extra.setUser(user);
-		
 		log.debug("user  is :"+user_extra.getUser());
 		extraRepo.save(user_extra);
 		userRepo.save(user);
-		
-		
-//		extraRepo.findOneById(user_extar.getId()).map(user -> {
-//		    UserDetails userDetails = user.getUserDetails();
-//		    if (userDetails == null)
-//		        userDetails = new UserDetails(user); 
-//		     userDetails.setEmail(email);
-//		     userDetailsRepository.save(userDetails);
-//		});
+
 		
 
 	}

@@ -27,21 +27,6 @@ public class OptionService {
     @Autowired
 	private QstnOptionRepository optRepo;
     
-//    @Transactional
-//	public Question setOptionList(Question question,String ...opt) {
-//
-//		 Set<QstnOption> optionList = new HashSet<QstnOption>(); 
-//		for(int i=0;i<opt.length;i++)
-//		{
-//
-//			QstnOption option=new QstnOption();
-//			option.setOption(opt[i]);
-//			optionList.add(option);
-//		}
-//		question.setQstnOptions(optionList);
-//		return question;
-//	}
-    
 	public void save(QstnOption option) 
 	{
 		optRepo.save(option);
