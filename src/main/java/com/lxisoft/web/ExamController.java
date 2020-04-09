@@ -359,8 +359,9 @@ public class ExamController
 			
 			UserExtra user=extraService.findById(id);
 			model.addAttribute("user",user);
-			Set<AttendedExam> attended_examList=user.getAttendedExams();
-			model.addAttribute("AttendedExamList",attended_examList);
+//			Set<AttendedExam> attended_examList=user.getAttendedExams();
+//			model.addAttribute("AttendedExamList",attended_examList);
+			model.addAttribute("AttendedExamList",attendExamService.findAllByUserExtra(user));
 			return "user_details";
 		}
 		
