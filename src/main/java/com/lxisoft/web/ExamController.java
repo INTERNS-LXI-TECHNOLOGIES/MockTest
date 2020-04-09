@@ -370,7 +370,14 @@ public class ExamController
 			model.addAttribute("exams",examService.findAll());
 			return "exam_info";
 		}
-
+		
+		@RequestMapping("/exam_history")
+		public String exam_history(Model model,@RequestParam String aExamId)
+		{
+			AttendedExam attendedExam=attendExamService.findById(aExamId);
+			model.addAttribute("attendedExam", attendedExam);
+			return "exam_history";
+		}
 		
 		@RequestMapping("/exam_attended")
 		public String exam_attended(@RequestParam String eId, Model model) throws Exception

@@ -29,7 +29,7 @@ public class QstnOption implements Serializable {
     @Column(name = "is_answer")
     private Boolean isAnswer=false;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("qstnOptions")
     private Question question;
 

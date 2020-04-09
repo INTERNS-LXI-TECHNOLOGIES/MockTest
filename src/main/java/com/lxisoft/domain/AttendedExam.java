@@ -41,15 +41,15 @@ public class AttendedExam implements Serializable {
     @Column(name = "date_time")
     private ZonedDateTime dateTime;
 
-    @OneToMany(mappedBy = "attendedExam")
+    @OneToMany(mappedBy = "attendedExam",fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AttendedOption> attendedOptions = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("attendedExams")
     private Exam exam;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("attendedExams")
     private UserExtra userExtra;
 
