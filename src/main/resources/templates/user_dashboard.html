@@ -14,7 +14,7 @@
   </div>
   <div align="center">
 		
-			<h3>Welcome <span th:text="${username}"></h3>
+			<h3>Welcome <span th:text="${username}"></span></h3>
 		</div>
   	<div class="container">
   	<div class="profilecontainer">
@@ -27,6 +27,7 @@
 	  		<span th:if="${AttendedExamList.empty}">
          				   You are not attended any exams </span>
          				   
+         				   <span th:if="!${AttendedExamList.empty}">
          				   <h3>Your Attended Exam Details</h3>
          				   
          				   <table width=100% border=5px>
@@ -55,10 +56,13 @@
          							     <span th:text="Pass"> </span>
          							     <td th:if="${atndexam.isResult()==false}"> 
          							     <span th:text="fail"> </span>
+         				  </td>
+         				  </tr>
+         				  </tbody>
+         				  </table>
+         				  </span>
          				  
-         				  <!--  <button class="button button1">
-         				   <span th:text="${atndexam.getExam().getName()}"><br></span></button> -->
-         				  </form>
+         				
 	  		</div>
   	</div>
   	
