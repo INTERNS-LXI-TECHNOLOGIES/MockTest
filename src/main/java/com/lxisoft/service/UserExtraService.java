@@ -72,13 +72,25 @@ public class UserExtraService {
 		authorities.add(new Authority("ROLE_USER"));		
 		user.setAuthorities(authorities);
 		user.setActivated(true);
+		
 		UserExtra user_extra=new UserExtra();
-		user_extra.setId(user.getId());
 		
-		userRepo.save(user);
-		user_extra.setId(user.getId());
+		user_extra.setUser(user);
+		
+		log.debug("user  is :"+user_extra.getUser());
 		extraRepo.save(user_extra);
+		userRepo.save(user);
 		
+		
+//		extraRepo.findOneById(user_extar.getId()).map(user -> {
+//		    UserDetails userDetails = user.getUserDetails();
+//		    if (userDetails == null)
+//		        userDetails = new UserDetails(user); 
+//		     userDetails.setEmail(email);
+//		     userDetailsRepository.save(userDetails);
+//		});
+		
+
 	}
 
 	
