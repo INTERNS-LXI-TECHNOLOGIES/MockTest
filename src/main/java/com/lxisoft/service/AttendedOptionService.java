@@ -1,5 +1,7 @@
 package com.lxisoft.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +24,26 @@ public class AttendedOptionService {
 	private final Logger log = LoggerFactory.getLogger(AttendedOptionService.class);
 
 	public void attendOption(String optionid, Question question, AttendedExam attendedExam) {
-		QstnOption qstnOption=optService.findById(optionid);
 		AttendedOption attendedOpt=new AttendedOption();
-		attendedOpt.setAttendedOpt(qstnOption.getOption());
-		attendedOpt.setAttendedAnswer(qstnOption.isIsAnswer());
+		if(optionid.equals("0"))
+		{
+			attendedOpt.setAttendedOpt(null);
+			attendedOpt.setAttendedAnswer(null);
+		}
+		else
+		{
+			QstnOption qstnOption=optService.findById(optionid);
+			attendedOpt.setAttendedOpt(qstnOption.getOption());
+			attendedOpt.setAttendedAnswer(qstnOption.isIsAnswer());
+		}
 		attendedOpt.setAttendedExam(attendedExam);
 		attendedOpt.setQuestion(question);
 		log.debug("an attended option save: "+attendedOpt);
 		attendOptRepo.save(attendedOpt);
 	}
 	
-	 
+	public List<AttendedOption> attendOptions(AttendedExam attendedExam)
+	{
+		return null;
+	}
 }
