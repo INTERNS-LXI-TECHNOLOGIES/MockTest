@@ -121,12 +121,12 @@ public class ExamController
 		return "logoutpage";
 	}
 	
-	@RequestMapping ("/user_startpage")
+	@RequestMapping ("/activeExams")
 	public String userpage(Model model) throws Exception
 	{
 		Set<Exam> active_exams=examService.findActiveExams();
 		model.addAttribute("exam_list",active_exams);
-		return "user_startpage";
+		return "user_active_exams";
 	}
 	
 	@RequestMapping ("/user_dashboard")
@@ -137,8 +137,18 @@ public class ExamController
 		log.debug("email of user "+userExtra.getUser().getEmail());
 		model.addAttribute("user",userExtra);
 //		Set<AttendedExam> attended_examList=userExtra.getAttendedExams();
+//		model.addAttribute("AttendedExamList",attended_examList);
 		model.addAttribute("AttendedExamList",attendExamService.findAllByUserExtra(userExtra));
 		return "user_dashboard";
+	}
+	
+	@RequestMapping("/active_examInfo")
+	public String active_exam_info(Model model,@RequestParam String eId) throws Exception
+	{
+		Exam exam=examService.findById(eId);
+		model.addAttribute("exam",exam);
+		model.addAttribute("exams",examService.findAll());
+		return "selected_exam_info";
 	}
 	
 	@RequestMapping(value="/user_instruction")
@@ -147,6 +157,15 @@ public class ExamController
 		Exam exam=examService.findById(eId);
 		model.addAttribute("exam",exam);
 		return"user_instruction";
+	}
+	@RequestMapping("/attended_exam_results")
+	public String attended_exam_results(@RequestParam String eId, Model model) throws Exception
+	{
+		Exam exam=examService.findById(eId);
+		model.addAttribute("users",extraService.findAll());
+		model.addAttribute("exam",exam);
+		model.addAttribute("attendList",attendExamService.findAllByExam(exam));
+		return "attended_exams_results";
 	}
 
 	@RequestMapping(value="/user_exam")
@@ -373,6 +392,7 @@ public class ExamController
 			return "exam_info";
 		}
 		
+
 		@RequestMapping("/exam_history")
 		public String exam_history(Model model,@RequestParam String aExamId)
 		{
@@ -383,6 +403,7 @@ public class ExamController
 			model.addAttribute("attendedExam", attendedExam);
 			return "exam_history";
 		}
+
 		
 		@RequestMapping("/exam_attended")
 		public String exam_attended(@RequestParam String eId, Model model) throws Exception
@@ -393,6 +414,7 @@ public class ExamController
 			model.addAttribute("attendList",attendExamService.findAllByExam(exam));
 			return "exam_attended";
 		}
+		
 
 
 }

@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
-<title>exam history</title>
+<title>Exam history</title>
 </head>
-<body>
-<form>
-	<div align="center">
-	<input type="submit" value="Back to Home" formaction="/">
-	</div>
-</form>
+<body bgcolor="FloralWhite">
+<div class="header">
+	<h2>MockTest Application</h2>
+	<div class="topnav">
+		<a class="active" >Lxi Technologies</a>
+  		
+  		<a  th:href="@{/}">Home</a>
+  		
+  		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
+  </div>
+
 <div  align="center">
 <h3>Exam: <span th:text="${attendedExam.exam.name}">exam name</span></h3>
-mark: <span th:text="${attendedExam.score}">score</span> out of <span th:text="${attendedExam.total}">total</span><br>
-percentage: <span th:text="${attendedExam.percentage}">score</span><br>
-result: <span th:text="${attendedExam.result}==true? passed:failed">result</span>
+<h4>Mark: <span th:text="${attendedExam.score}">score</span> out of <span th:text="${attendedExam.total}">total</span></h4>
+<h4>Percentage: <span th:text="${attendedExam.percentage}">score</span></h4>
+<h4>Result: <span th:text="${attendedExam.result}==true? passed:failed">result</span></h4>
 </div>
+<div class="container">
 <table width=100% th:each="qstn ,stat : ${attendedExam.exam.questions}">
     <tbody>
     <tr th:if="${attendedExam.exam.questions.empty}" align="center">
@@ -35,8 +41,8 @@ result: <span th:text="${attendedExam.result}==true? passed:failed">result</span
             </td>
           </tr>
            <tr>
-           		<td th:style="${attendedOptions[__stat.index__].attendedAnswer==true} ?'color:#0fe300':'color:red'">
-           			&nbsp;&nbsp;ans:- <span th:text="${attendedOptions[__stat.index__].attendedOpt}"></span> 
+           		<td th:style="${attendedExam.attendedOptions[__stat.index__].attendedAnswer==true} ?'color:#0fe300':'color:red'">
+           			&nbsp;&nbsp;Your Answer:- <span th:text="${attendedExam.attendedOptions[__stat.index__].attendedOpt}"></span> 
            		</td>
            </tr>
            <tr>
