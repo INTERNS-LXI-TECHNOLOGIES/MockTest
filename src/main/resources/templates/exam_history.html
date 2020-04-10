@@ -41,8 +41,8 @@
             </td>
           </tr>
            <tr>
-           		<td th:style="${attendedExam.attendedOptions[__stat.index__].attendedAnswer==true} ?'color:#0fe300':'color:red'">
-           			&nbsp;&nbsp;Your Answer:- <span th:text="${attendedExam.attendedOptions[__stat.index__].attendedOpt}"></span> 
+           		<td th:style="${attendedOptions[__stat.index__].attendedAnswer==true} ?'color:#0fe300':'color:red'">
+           			&nbsp;&nbsp;Your Answer:- <span th:text="${attendedOptions[__stat.index__].attendedOpt}"></span> 
            		</td>
            </tr>
            <tr>
