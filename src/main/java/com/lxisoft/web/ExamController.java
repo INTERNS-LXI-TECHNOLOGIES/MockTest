@@ -396,6 +396,8 @@ public class ExamController
 		public String exam_history(Model model,@RequestParam String aExamId)
 		{
 			AttendedExam attendedExam=attendExamService.findById(aExamId);
+			log.debug("examid"+aExamId);
+			log.debug("atnd exam"+attendedExam);
 			model.addAttribute("attendedExam", attendedExam);
 			return "exam_history";
 		}

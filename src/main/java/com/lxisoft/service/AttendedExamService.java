@@ -78,6 +78,7 @@ public class AttendedExamService {
 		Optional<AttendedExam> optional=attendedRepo.findById(id);
 		AttendedExam atndexam=optional.get();
 		return atndexam;
+		
 	}
 
 }
