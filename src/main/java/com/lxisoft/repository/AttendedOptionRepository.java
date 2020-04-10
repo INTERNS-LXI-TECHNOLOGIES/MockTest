@@ -1,6 +1,9 @@
 package com.lxisoft.repository;
 
+import com.lxisoft.domain.AttendedExam;
 import com.lxisoft.domain.AttendedOption;
+
+import java.util.List;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -11,4 +14,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface AttendedOptionRepository extends JpaRepository<AttendedOption, Long> {
+
+	List<AttendedOption> findAllByAttendedExam(AttendedExam attendedExam);
 }

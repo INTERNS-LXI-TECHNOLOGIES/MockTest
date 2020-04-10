@@ -47,4 +47,8 @@ public class AttendedOptionService {
 	{
 		return null;
 	}
+
+	public List<AttendedOption> findAllByAttendedExam(AttendedExam attendedExam) {
+		return attendOptRepo.findAllByAttendedExam(attendedExam);
+	}
 }

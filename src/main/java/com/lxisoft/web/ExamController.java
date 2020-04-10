@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lxisoft.domain.AttendedExam;
+import com.lxisoft.domain.AttendedOption;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
@@ -135,8 +136,8 @@ public class ExamController
 		UserExtra userExtra=extraService.currentUserExtra();
 		log.debug("email of user "+userExtra.getUser().getEmail());
 		model.addAttribute("user",userExtra);
-		Set<AttendedExam> attended_examList=userExtra.getAttendedExams();
-		model.addAttribute("AttendedExamList",attended_examList);
+//		Set<AttendedExam> attended_examList=userExtra.getAttendedExams();
+		model.addAttribute("AttendedExamList",attendExamService.findAllByUserExtra(userExtra));
 		return "user_dashboard";
 	}
 	
@@ -376,6 +377,9 @@ public class ExamController
 		public String exam_history(Model model,@RequestParam String aExamId)
 		{
 			AttendedExam attendedExam=attendExamService.findById(aExamId);
+			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+			log.debug("atteneded options are:- "+attendedOptions);
+			model.addAttribute("attendedOptions", attendedOptions);
 			model.addAttribute("attendedExam", attendedExam);
 			return "exam_history";
 		}
