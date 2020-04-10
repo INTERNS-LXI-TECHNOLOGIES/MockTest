@@ -43,7 +43,7 @@
 				</td>
 				<td th:text="${attended.score}">score</td>
 				<td th:text="${attended.total}">total</td>
-				<td th:text="${attended.result}">result</td>
+				<td th:text="${attended.result==true}? Pass:Fail">result</td>
 				<td th:text="${attended.percentage}">percentage</td>
 				<td th:text="${attended.dateTime}">date&time</td>
 			</tr>
