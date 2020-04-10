@@ -397,7 +397,6 @@ public class ExamController
 		public String exam_history(Model model,@RequestParam String aExamId)
 		{
 			AttendedExam attendedExam=attendExamService.findById(aExamId);
-			log.debug("examid"+aExamId);
 			log.debug("atnd exam"+attendedExam);
 			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 			log.debug("atteneded options are:- "+attendedOptions);
