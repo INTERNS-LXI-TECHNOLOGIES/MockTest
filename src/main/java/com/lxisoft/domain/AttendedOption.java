@@ -29,11 +29,11 @@ public class AttendedOption implements Serializable {
     @Column(name = "attended_answer")
     private Boolean attendedAnswer;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JsonIgnoreProperties("attendedOptions")
     private AttendedExam attendedExam;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JsonIgnoreProperties("attendedOptions")
     private Question question;
 

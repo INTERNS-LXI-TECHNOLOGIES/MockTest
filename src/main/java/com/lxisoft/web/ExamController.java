@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lxisoft.domain.AttendedExam;
+import com.lxisoft.domain.AttendedOption;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
@@ -398,6 +399,9 @@ public class ExamController
 			AttendedExam attendedExam=attendExamService.findById(aExamId);
 			log.debug("examid"+aExamId);
 			log.debug("atnd exam"+attendedExam);
+			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+			log.debug("atteneded options are:- "+attendedOptions);
+			model.addAttribute("attendedOptions", attendedOptions);
 			model.addAttribute("attendedExam", attendedExam);
 			return "exam_history";
 		}
