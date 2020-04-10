@@ -32,7 +32,8 @@
   			<a th:href="@{/}" class="bubble"><span th:text="${stat.index+1}" >  </span>&nbsp;</a>
   			 <span th:each="qstn_option : ${qstn.qstnOptions}">
   			<!-- <span th:style="${qstn_option.id==0} ?'color:green':'color:#ffff99'"></span> -->
-  			</span></span>
+  			<span th:style="${qstn_option.id==0} ?'color:#ffff99':'color:green'">
+  			</span></span></span>
   			<div><input type="submit" class="button button1" value="submit"></div>
   			</form>
   	</div>
