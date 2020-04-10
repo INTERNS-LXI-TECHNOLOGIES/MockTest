@@ -53,7 +53,7 @@
          							 <td th:text="${atndexam.getScore()}"> Score </td>
          							  <td th:text="${atndexam.getTotal()}"> Total </td>
          							   <td th:text="${atndexam.getPercentage()}"> Percentage </td>
-         							    <td th:if="${atndexam.isResult()==true}? Pass:Fail"> 
+         							    <td th:text="${atndexam.isResult()==true}? Pass:Fail"> </td>
          				  				<td th:text="${atndexam.getDateTime()}"> DateTime </td>
          				  </tr>
          				  </tbody>

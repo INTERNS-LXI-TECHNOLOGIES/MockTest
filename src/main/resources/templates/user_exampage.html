@@ -29,11 +29,11 @@
 		<input type="hidden" th:name="eId" th:value="${exam.getId()}">
   			
   			<span th:each="qstn ,stat : ${exam.questions}">
-  			<a th:href="@{/}" class="bubble"><span th:text="${stat.index+1}" >  </span>&nbsp;</a>
-  			 <span th:each="qstn_option : ${qstn.qstnOptions}">
-  			<!-- <span th:style="${qstn_option.id==0} ?'color:green':'color:#ffff99'"></span> -->
+  			<a th:href="@{/viewqstn(qid=${qstn.id})}" class="bubble"><span th:text="${stat.index+1}" >  </span>&nbsp;</a>
+  			 <!-- <span th:each="qstn_option : ${qstn.qstnOptions}">	
   			<span th:style="${qstn_option.id==0} ?'color:#ffff99':'color:green'">
-  			</span></span></span>
+  			</span></span> -->
+  			</span>
   			<div><input type="submit" class="button button1" value="submit"></div>
   			</form>
   	</div>

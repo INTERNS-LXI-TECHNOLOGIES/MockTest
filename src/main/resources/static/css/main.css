@@ -50,7 +50,10 @@
   border-radius: 50%;
    border: 2px solid black;
 }
-
+.bubble:hover {
+	 background-color:  #2196F3; 
+		color: white;
+}
 
 
 body {
