@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
@@ -80,8 +81,8 @@ public class ExamController
 			return "redirect:/user_dashboard";
 		else 
 			return "redirect:/login";
-	
 	}
+	
 	@RequestMapping("/login")
 	public String indexpage()
 	{
@@ -96,12 +97,12 @@ public class ExamController
 	}
 
 	
-	@RequestMapping("/setTime")
-	public String setTime()
-	{
-
-		return "userpage";
-	}
+//	@RequestMapping("/setTime")
+//	public String setTime()
+//	{
+//
+//		return "userpage";
+//	}
 	
 	@RequestMapping(value="/save")  
 	public String save(@Valid User user,BindingResult bindingResult)
@@ -110,8 +111,8 @@ public class ExamController
 			extraService.save(user);  
 			return  "redirect:/";
 			}
-			else
-				return "registration";
+		else
+			return "registration";
 	}  
 
 
@@ -127,19 +128,6 @@ public class ExamController
 		Set<Exam> active_exams=examService.findActiveExams();
 		model.addAttribute("exam_list",active_exams);
 		return "user_active_exams";
-	}
-	
-	@RequestMapping ("/user_dashboard")
-	public String userdashboard(Model model)
-	{
-		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
-		UserExtra userExtra=extraService.currentUserExtra();
-		log.debug("email of user "+userExtra.getUser().getEmail());
-		model.addAttribute("user",userExtra);
-//		Set<AttendedExam> attended_examList=userExtra.getAttendedExams();
-//		model.addAttribute("AttendedExamList",attended_examList);
-		model.addAttribute("AttendedExamList",attendExamService.findAllByUserExtra(userExtra));
-		return "user_dashboard";
 	}
 	
 	@RequestMapping("/active_examInfo")
@@ -158,6 +146,7 @@ public class ExamController
 		model.addAttribute("exam",exam);
 		return"user_instruction";
 	}
+	
 	@RequestMapping("/attended_exam_results")
 	public String attended_exam_results(@RequestParam String eId, Model model) throws Exception
 	{
@@ -240,10 +229,9 @@ public class ExamController
 		int total = exam.getCount();
 		UserExtra userExtra = extraService.currentUserExtra();
 		attendedExam.setUserExtra(userExtra);
-		log.debug("attended exam's user id is :" + attendedExam.getUserExtra());
-		log.debug("time attended is " + attendedExam.getDateTime());
 		attendedExam.setExam(exam);
 		attendedExam = attendExamService.attend(attendedExam, score, total);
+		log.debug("attended exam ready to save:- " + attendedExam);
 		attendExamService.save(attendedExam);
 		model.addAttribute("attendedExam", attendedExam);
 		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
@@ -397,6 +385,19 @@ public class ExamController
 			return "viewall_qstn";
 		}
 		
+		@RequestMapping ("/user_dashboard")
+		public String userdashboard(Model model)
+		{
+			model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
+			UserExtra userExtra=extraService.currentUserExtra();
+			log.debug("email of user "+userExtra.getUser().getEmail());
+			model.addAttribute("user",userExtra);
+			List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
+			Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
+			model.addAttribute("AttendedExamList",attendExamList);
+			return "user_dashboard";
+		}
+		
 		@RequestMapping("/user_info")
 		public String user_info(Model model)
 		{
@@ -406,12 +407,11 @@ public class ExamController
 		@RequestMapping("/user_details")
 		public String userDetails(Model model,@RequestParam String id) throws Exception
 		{
-			
 			UserExtra user=extraService.findById(id);
 			model.addAttribute("user",user);
-//			Set<AttendedExam> attended_examList=user.getAttendedExams();
-//			model.addAttribute("AttendedExamList",attended_examList);
-			model.addAttribute("AttendedExamList",attendExamService.findAllByUserExtra(user));
+			List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(user);
+			Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
+			model.addAttribute("AttendedExamList",attendExamList);
 			return "user_details";
 		}
 		
@@ -437,12 +437,24 @@ public class ExamController
 
 		
 		@RequestMapping("/exam_attended")
-		public String exam_attended(@RequestParam String eId, Model model) throws Exception
+		public String exam_attended(@RequestParam String eId,@RequestParam(name="sort",required=false,defaultValue="date") String sort, Model model) throws Exception
 		{
 			Exam exam=examService.findById(eId);
 			model.addAttribute("users",extraService.findAll());
 			model.addAttribute("exam",exam);
-			model.addAttribute("attendList",attendExamService.findAllByExam(exam));
+			List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
+			if(sort.equals("date"))
+				model.addAttribute("attendList",attendList);
+			else if(sort.equals("percent"))
+			{
+				Collections.sort(attendList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
+				model.addAttribute("attendList",attendList);
+			}
+			else if(sort.equals("user"))
+			{
+				Collections.sort(attendList,(a,a2)->{return (int)(a2.getUserExtra().getId()-a.getUserExtra().getId());});
+				model.addAttribute("attendList",attendList);
+			}
 			return "exam_attended";
 		}
 		
