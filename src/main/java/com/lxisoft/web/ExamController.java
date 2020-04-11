@@ -173,6 +173,7 @@ public class ExamController
 	{
 		Exam exam=examService.findById(eId);
 		Set<Question> questions=exam.getQuestions();
+		
 		List<Question> list = new ArrayList<Question>();
 		for(Question quest:questions) 
 		{
@@ -184,6 +185,7 @@ public class ExamController
 			  ZonedDateTime dateTime = ZonedDateTime.now();
 			  attendedExam.setDateTime(dateTime);
 			  attendExamService.save(attendedExam);
+			 
 			  model.addAttribute("aExamId",attendedExam.getId());
 			  log.debug("attended exam is :" + attendedExam);
 		 if (lit.hasNext()) { 
@@ -200,6 +202,8 @@ public class ExamController
 	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
+		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+		  model.addAttribute("attendedOptions", attendedOptions);
 		Exam exam = examService.findById(eId);
 		Set<Question> questions = exam.getQuestions();
 		List<Question> list = new ArrayList<Question>();
@@ -246,11 +250,27 @@ public class ExamController
 		return "submit";
 	}
 	@RequestMapping("/viewqstn")
-	public String viewquestion(Model model,@RequestParam String qid)
+	public String viewquestion(Model model,@RequestParam String qid,@RequestParam String aExamId,@ModelAttribute Exam exam,@RequestParam String count) throws Exception 
 	{
 		log.debug("question id "+qid);
-		return  "redirect:/";
-//		return "user_exampage";
+		Question quest=questService.findById(qid);
+		Set<Question> questions=exam.getQuestions();
+		List<Question> list = new ArrayList<Question>();
+		for(Question question:questions) 
+		{
+			list.add(question);
+		}
+			  ListIterator<Question> lit = list.listIterator(); 
+//		AttendedExam attendedExam=attendExamService.findById(aExamId);
+//		Exam exam = examService.findById(eId);
+			  model.addAttribute("iterator", lit);
+		model.addAttribute("question", quest);
+		int marks = Integer.parseInt(count);
+		model.addAttribute("aExamId",aExamId);
+		model.addAttribute("count", marks);
+		model.addAttribute("exam", exam);
+//		return  "redirect:/";
+		return "user_exampage";
 	}
 
 	@RequestMapping("/create_question")
