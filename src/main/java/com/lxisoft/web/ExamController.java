@@ -366,14 +366,17 @@ public class ExamController
 		}
 		
 		@RequestMapping ("/user_dashboard")
-		public String userdashboard(Model model)
+		public String userdashboard(Model model,@RequestParam(name="sort",required=false,defaultValue="date") String sort)
 		{
 			model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
 			UserExtra userExtra=extraService.currentUserExtra();
 			log.debug("email of user "+userExtra.getUser().getEmail());
 			model.addAttribute("user",userExtra);
 			List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
-			Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
+			if(sort.equals("percent"))
+			{
+				Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
+			}
 			model.addAttribute("AttendedExamList",attendExamList);
 			return "user_dashboard";
 		}
@@ -384,13 +387,17 @@ public class ExamController
 			model.addAttribute("users",extraService.findAll());
 			return "user_info";
 		}
+		
 		@RequestMapping("/user_details")
-		public String userDetails(Model model,@RequestParam String id) throws Exception
+		public String userDetails(Model model,@RequestParam String id,@RequestParam(name="sort",required=false,defaultValue="date") String sort) throws Exception
 		{
 			UserExtra user=extraService.findById(id);
 			model.addAttribute("user",user);
 			List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(user);
-			Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
+			if(sort.equals("percent"))
+			{
+				Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
+			}
 			model.addAttribute("AttendedExamList",attendExamList);
 			return "user_details";
 		}
@@ -423,18 +430,15 @@ public class ExamController
 			model.addAttribute("users",extraService.findAll());
 			model.addAttribute("exam",exam);
 			List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
-			if(sort.equals("date"))
-				model.addAttribute("attendList",attendList);
-			else if(sort.equals("percent"))
+			if(sort.equals("percent"))
 			{
 				Collections.sort(attendList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
-				model.addAttribute("attendList",attendList);
 			}
 			else if(sort.equals("user"))
 			{
 				Collections.sort(attendList,(a,a2)->{return (int)(a2.getUserExtra().getId()-a.getUserExtra().getId());});
-				model.addAttribute("attendList",attendList);
 			}
+			model.addAttribute("attendList",attendList);
 			return "exam_attended";
 		}
 		

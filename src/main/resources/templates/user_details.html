@@ -26,12 +26,22 @@
 	  	</div>
 	  	<div class=examcontainer>
 	  		<span th:if="${AttendedExamList.empty}">
-         				<h4>  This  User not attended any exams </h4>
-         				 </span>
-         				   
-         				   <span th:if="!${AttendedExamList.empty}">
-         				   <h3>User Attended Exam Details</h3>
-         				   <span>*click on the exam to see the corresponding exam attended for further analysis</span>
+    				<h4>  This  User not attended any exams </h4>
+    				 </span>
+    				   
+    				   <span th:if="!${AttendedExamList.empty}">
+    				   <h3>User Attended Exam Details</h3>
+    				   <div align="center">
+					  	<form action="/user_details">
+							sort by<select name="sort">
+									<option value="date">date attended</option>
+									<option value="percent">percentage</option>
+								</select>
+								<input type="hidden" name="id" th:value="${user.id}">
+								<input type="submit">
+								</form>
+					  	</div>
+					  	<span>*click on the exam to see the corresponding exam attended for further analysis</span>
          				   <table width=100% border=5px>
 							    <thead>
 							        <tr>
