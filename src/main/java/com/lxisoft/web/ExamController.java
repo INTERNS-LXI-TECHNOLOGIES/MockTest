@@ -203,6 +203,9 @@ public class ExamController
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
 		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
+		List<AttendedOption> option=attendOptSer.findAllByAttendedExam(attendedExam);
+		log.debug("atnd opt : "+option);
+		model.addAttribute("attendedOptions", option);
 		if (lit.hasNext()) 
 		{
 			model.addAttribute("question", lit.next());
@@ -230,7 +233,13 @@ public class ExamController
 		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
 		return "submit";
 	}
-
+	@RequestMapping("/viewqstn")
+	public String viewquestion(Model model,@RequestParam String qid)
+	{
+		log.debug("question id "+qid);
+		return  "redirect:/";
+//		return "user_exampage";
+	}
 
 	@RequestMapping("/create_question")
 	public String question(Model model)
@@ -276,7 +285,8 @@ public class ExamController
 		examService.save_exam(exam);
 		return "redirect:/";
 	}
-
+	
+	
 	
 	@RequestMapping ("/current_exams")
 	public String current_exams(Model model)

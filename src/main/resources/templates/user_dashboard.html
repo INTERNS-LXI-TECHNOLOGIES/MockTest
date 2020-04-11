@@ -29,7 +29,7 @@
          				   
          				   <span th:if="!${AttendedExamList.empty}">
          				   <h3>Your Attended Exam Details</h3>
-         				   
+         				   *click on the exam to see the corresponding exam attended for further analysis
          				   <table width=100% border=5px>
 							    <thead>
 							        <tr>
@@ -53,11 +53,7 @@
          							 <td th:text="${atndexam.getScore()}"> Score </td>
          							  <td th:text="${atndexam.getTotal()}"> Total </td>
          							   <td th:text="${atndexam.getPercentage()}"> Percentage </td>
-         							    <td th:if="${atndexam.isResult()==true}"> 
-         							     <span th:text="Pass"> </span>
-         							     <td th:if="${atndexam.isResult()==false}"> 
-         							     <span th:text="fail"> </span>
-         				  				</td>
+         							    <td th:text="${atndexam.isResult()==true}? Pass:Fail"> </td>
          				  				<td th:text="${atndexam.getDateTime()}"> DateTime </td>
          				  </tr>
          				  </tbody>

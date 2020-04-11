@@ -11,6 +11,49 @@
   
   background: #f1f1f1;
 }
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: yellow;
+  border-radius: 50%;
+  display: inline-block;
+}
+.bubble-container {
+  border-radius: 5px;
+  background-color:FloralWhite;
+  padding: 20px;
+ 
+  float: right;
+ 
+}
+.que-container {
+  border-radius: 5px;
+  background-color:white;
+  padding: 20px;
+   width:97%;
+   height:97%;
+    
+
+}
+.bubble {
+  background-color: #ffff99;
+  border: none;
+  color: black;
+  padding: 13px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 2px 2px;
+  cursor: pointer;
+  height:10px; width:10px;
+  border-radius: 50%;
+   border: 2px solid black;
+}
+.bubble:hover {
+	 background-color:  #2196F3; 
+		color: white;
+}
 
 
 body {
@@ -55,10 +98,7 @@ body {
 	 background-color:  white; 
 		color: #00ccff;
 }
-/* .button2:hover {
-	 background-color:#e7e7e7 ; /* Grey */
-		color: black;
-} */
+
 .button2 {
   background-color: #e7e7e7; 
   color: black; 
@@ -154,19 +194,7 @@ header {
   .topnav .login-container {
     float: none;
   }
- /* .topnav a {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .topnav input[type=text] {
-    border: 1px solid #ccc;  
-  }
-}
-*/
+ 
 
 /* Add styles to the form container */
 .form-container {
@@ -247,11 +275,3 @@ input[type=text], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-.dot {
-  height: 25px;
-  width: 25px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-}
-
