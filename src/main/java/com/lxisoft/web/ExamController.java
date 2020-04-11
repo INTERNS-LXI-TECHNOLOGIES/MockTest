@@ -222,10 +222,9 @@ public class ExamController
 		int total = exam.getCount();
 		UserExtra userExtra = extraService.currentUserExtra();
 		attendedExam.setUserExtra(userExtra);
-		log.debug("attended exam's user id is :" + attendedExam.getUserExtra());
-		log.debug("time attended is " + attendedExam.getDateTime());
 		attendedExam.setExam(exam);
 		attendedExam = attendExamService.attend(attendedExam, score, total);
+		log.debug("attended exam ready to save:- " + attendedExam);
 		attendExamService.save(attendedExam);
 		model.addAttribute("attendedExam", attendedExam);
 		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
