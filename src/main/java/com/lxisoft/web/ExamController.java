@@ -172,7 +172,7 @@ public class ExamController
 			 
 			  model.addAttribute("aExamId",attendedExam.getId());
 			  log.debug("attended exam is :" + attendedExam);
-			  
+//			  model.addAttribute("attendedExam", attendedExam);
 		 if (lit.hasNext()) { 
 			  model.addAttribute("question",lit.next());
 			  model.addAttribute("exam",exam);
@@ -236,11 +236,12 @@ public class ExamController
 	}
 	
 	@RequestMapping("/viewqstn")
-	public String viewquestion(Model model,@RequestParam String qid,@RequestParam String aExamId,@ModelAttribute Exam exam,@RequestParam String count) throws Exception 
+	public String viewquestion(Model model,@RequestParam String qid,@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId) throws Exception 
 	{
 		log.debug("question id "+qid);
 		Question quest=questService.findById(qid);
-		
+		Exam exam = examService.findById(eId);
+
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
 			  ListIterator<Question> lit = list.listIterator(); 
 
@@ -250,6 +251,8 @@ public class ExamController
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("count", marks);
 		model.addAttribute("exam", exam);
+		log.debug("exam name" +exam);
+
 
 		return "user_exampage";
 	}
