@@ -161,15 +161,10 @@ public class ExamController
 	public String userview(Model model,@RequestParam String eId) throws Exception
 	{
 		Exam exam=examService.findById(eId);
-		Set<Question> questions=exam.getQuestions();
-		
-		List<Question> list = new ArrayList<Question>();
-		for(Question quest:questions) 
-		{
-			list.add(quest);
-		}
+		List<Question> list=questService.getAllQuestionsFromExam(exam);
 			  ListIterator<Question> lit = list.listIterator(); 
 			  int count=0;
+			  
 			  AttendedExam attendedExam=new AttendedExam();
 			  ZonedDateTime dateTime = ZonedDateTime.now();
 			  attendedExam.setDateTime(dateTime);
@@ -177,6 +172,7 @@ public class ExamController
 			 
 			  model.addAttribute("aExamId",attendedExam.getId());
 			  log.debug("attended exam is :" + attendedExam);
+			  
 		 if (lit.hasNext()) { 
 			  model.addAttribute("question",lit.next());
 			  model.addAttribute("exam",exam);
@@ -192,24 +188,21 @@ public class ExamController
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-		  model.addAttribute("attendedOptions", attendedOptions);
+		model.addAttribute("attendedOptions", attendedOptions);
+		
 		Exam exam = examService.findById(eId);
-		Set<Question> questions = exam.getQuestions();
-		List<Question> list = new ArrayList<Question>();
+		List<Question> list=questService.getAllQuestionsFromExam(exam);
 		int pos = Integer.parseInt(index);
-		for (Question quest : questions) 
-		{
-			list.add(quest);
-		}
 		ListIterator<Question> lit = list.listIterator(pos);
+		
 		int marks = Integer.parseInt(count);
 		marks = optService.setResult(marks, optionid);
+		
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
+		
 		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
-		List<AttendedOption> option=attendOptSer.findAllByAttendedExam(attendedExam);
-		log.debug("atnd opt : "+option);
-		model.addAttribute("attendedOptions", option);
+		
 		if (lit.hasNext()) 
 		{
 			model.addAttribute("question", lit.next());
@@ -224,40 +217,40 @@ public class ExamController
 	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
+		
 		int score = Integer.parseInt(count);
 		Exam exam = examService.findById(eId);
 		int total = exam.getCount();
+		
 		UserExtra userExtra = extraService.currentUserExtra();
 		attendedExam.setUserExtra(userExtra);
 		attendedExam.setExam(exam);
 		attendedExam = attendExamService.attend(attendedExam, score, total);
 		log.debug("attended exam ready to save:- " + attendedExam);
 		attendExamService.save(attendedExam);
+		
 		model.addAttribute("attendedExam", attendedExam);
 		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
+		
 		return "submit";
 	}
+	
 	@RequestMapping("/viewqstn")
 	public String viewquestion(Model model,@RequestParam String qid,@RequestParam String aExamId,@ModelAttribute Exam exam,@RequestParam String count) throws Exception 
 	{
 		log.debug("question id "+qid);
 		Question quest=questService.findById(qid);
-		Set<Question> questions=exam.getQuestions();
-		List<Question> list = new ArrayList<Question>();
-		for(Question question:questions) 
-		{
-			list.add(question);
-		}
+		
+		List<Question> list=questService.getAllQuestionsFromExam(exam);
 			  ListIterator<Question> lit = list.listIterator(); 
-//		AttendedExam attendedExam=attendExamService.findById(aExamId);
-//		Exam exam = examService.findById(eId);
-			  model.addAttribute("iterator", lit);
+
+		model.addAttribute("iterator", lit);
 		model.addAttribute("question", quest);
 		int marks = Integer.parseInt(count);
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("count", marks);
 		model.addAttribute("exam", exam);
-//		return  "redirect:/";
+
 		return "user_exampage";
 	}
 
@@ -279,6 +272,7 @@ public class ExamController
 	    else return "create_question";
 
 	}
+	
 	@RequestMapping(value="/addmore_question")
 	public String addmore( @Valid Question quest,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
@@ -290,6 +284,7 @@ public class ExamController
 		return "create_question";
 
 	}
+	
 	@RequestMapping ("/create_exam")
 	public String create_exam(Model model)
 	{

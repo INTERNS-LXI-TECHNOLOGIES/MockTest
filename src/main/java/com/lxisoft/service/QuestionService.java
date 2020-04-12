@@ -89,4 +89,14 @@ public class QuestionService {
 			long id=Integer.parseInt(qId);
 			questRepo.deleteById(id);
 		}
+
+		public List<Question> getAllQuestionsFromExam(Exam exam) {
+			Set<Question> questions=exam.getQuestions();
+			List<Question> list = new ArrayList<Question>();
+			for(Question quest:questions) 
+			{
+				list.add(quest);
+			}
+			return list;
+		}
 }

@@ -33,12 +33,12 @@
     				   <h3>User Attended Exam Details</h3>
     				   <div align="center">
 					  	<form action="/user_details">
-							sort by<select name="sort">
+							<select name="sort" class="select1 button2">
 									<option value="date">date attended</option>
 									<option value="percent">percentage</option>
 								</select>
 								<input type="hidden" name="id" th:value="${user.id}">
-								<input type="submit">
+								<input type="submit" value="sort" class="button button1 ">
 								</form>
 					  	</div>
 					  	<span>*click on the exam to see the corresponding exam attended for further analysis</span>
