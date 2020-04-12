@@ -31,7 +31,8 @@
 	              <th> total </th>
 	              <th>result</th>
 	              <th>percentage</th>
-	              <th> date&time </th>
+	               <th> Date </th>
+					<th>Time</th>
 	        </tr>
 		</thead>
 			<tr th:if="${attendList.empty}" align="center">
@@ -49,7 +50,8 @@
          							     <td th:if="${attended.isResult()==false}"> 
          							     <span th:text="fail"> </span>
 				<td th:text="${attended.percentage}">percentage</td>
-				<td th:text="${attended.dateTime}">date&time</td>
+				<td th:text="${atndexam.getDateTime().toLocalDate()}"> Date </td>
+         		<td th:text="${atndexam.getDateTime().toLocalTime()}"> Time </td>
 			</tr>
 		</table>
 

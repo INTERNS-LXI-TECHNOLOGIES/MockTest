@@ -40,11 +40,12 @@
 	              <th> total </th>
 	              <th>result</th>
 	              <th>percentage</th>
-	              <th> date&time </th>
+	               <th> Date </th>
+					 <th>Time</th>
 	        </tr>
 		</thead>
 			<tr th:if="${attendList.empty}" align="center">
-				<td colspan="6">No Exams Available</td>
+				<td colspan="7">No Exams Available</td>
 			</tr>
 			<tr align="center" th:each="attended,iterator: ${attendList}">
 				<td th:text="${iterator.index+1}" > Sl.No. </td>
@@ -55,7 +56,8 @@
 				<td th:text="${attended.total}">total</td>
 				<td th:text="${attended.result==true}? Pass:Fail">result</td>
 				<td th:text="${attended.percentage}">percentage</td>
-				<td th:text="${attended.dateTime}">date&time</td>
+				<td th:text="${attended.getDateTime().toLocalDate()}"> Date </td>
+         		<td th:text="${attended.getDateTime().toLocalTime()}"> Time </td>
 			</tr>
 		</table>
 
