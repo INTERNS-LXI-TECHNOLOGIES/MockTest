@@ -10,6 +10,7 @@
 		<a class="active" >Lxi Technologies</a>
   		
   		<a th:href="@{/activeExams}">Active Exams</a>
+  		
   		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>
   <div align="center">
@@ -31,11 +32,11 @@
        				   <h3>Your Attended Exam Details</h3>
        				   <div align="center">
 					  	<form action="/user_dashboard">
-							sort by<select name="sort">
-									<option value="date">date attended</option>
-									<option value="percent">percentage</option>
+							<select name="sort" class="select1 button2">
+									<option value="date">Date attended</option>
+									<option value="percent">Percentage</option>
 								</select>
-								<input type="submit">
+								<input type="submit" value="sort"  class="button button1 " >
 								</form>
 					  	</div>
 					  	 *click on the exam to see the corresponding exam attended for further analysis

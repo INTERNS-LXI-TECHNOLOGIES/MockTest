@@ -17,29 +17,35 @@
   		<a  th:href="@{/}">Home</a>
   		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>
-
-<div class="container">
-
-<div class="bubble-container">
-  			<form  th:action="@{/user_nextPage}">
   			
-  			<input type="hidden" th:name="index" th:value="${exam.count}">
-		<input type="hidden" th:name="count" th:value="${count}">
-		<input type="hidden" th:name="aExamId" th:value="${aExamId}">
-		<input type="hidden" th:name="eId" th:value="${exam.getId()}">
   			
-  			<span th:each="qstn ,stat : ${exam.questions}">
-  			<a th:href="@{/viewqstn(qid=${qstn.id})}" class="bubble"><span th:text="${stat.index+1}" >  </span>&nbsp;</a>
-  			 <!-- <span th:each="qstn_option : ${qstn.qstnOptions}">	
-  			<span th:style="${qstn_option.id==0} ?'color:#ffff99':'color:green'">
-  			</span></span> -->
-  			</span>
-  			<div><input type="submit" class="button button1" value="submit"></div>
-  			</form>
+  			<!-- <span th:style="${attendedOptions[__stat.index__].id==0} ?'color:#ffff99':'color:green'"></span> -->
+  			
+  		
+  			
+ <!--  			<script>
+  			function go(que) {
+	
+	  window.history.go(id);
+	}</script> -->
   	</div>
-
+<div class="container">
 <form th:object="${iterator}"  th:action="@{/user_nextPage}">
 
+
+<div class="bubble-container">
+<span th:each="qstn ,stat : ${exam.questions}">
+  			<a th:href="@{/viewqstn(qid=${qstn.id},count=${count-1},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()-1})}" 
+  			
+  			class="bubble"><span th:text="${stat.index+1}" >  </span>&nbsp;</a>
+  			
+  			</span>
+  			<!-- <div><input type="submit" class="button button1" value="submit"></div> -->
+  					<div><a th:href="@{/submit(aExamId=${aExamId},count=${count+1},eId=${exam.getId()})}" 
+  					class="button button1">submit</a></div>
+  			</div>
+  			
+  			
 		<div>
 			 
 			<span th:text="${question.getQstn()}" th:value="${question.id}"><br>question<br> </span>
@@ -70,7 +76,9 @@
 <script>
 function goBack() {
   window.history.back();
+  
 }
+
 </script>
 
 
