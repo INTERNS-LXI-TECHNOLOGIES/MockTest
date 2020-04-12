@@ -236,14 +236,14 @@ public class ExamController
 	}
 	
 	@RequestMapping("/viewqstn")
-	public String viewquestion(Model model,@RequestParam String qid,@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId) throws Exception 
+	public String viewquestion(Model model,@RequestParam String qid,@RequestParam String aExamId,@RequestParam String index,@RequestParam String count,@RequestParam String eId) throws Exception 
 	{
 		log.debug("question id "+qid);
 		Question quest=questService.findById(qid);
 		Exam exam = examService.findById(eId);
-
+		int pos = Integer.parseInt(index);
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
-			  ListIterator<Question> lit = list.listIterator(); 
+			  ListIterator<Question> lit = list.listIterator(pos); 
 
 		model.addAttribute("iterator", lit);
 		model.addAttribute("question", quest);

@@ -35,7 +35,7 @@
 
 <div class="bubble-container">
 <span th:each="qstn ,stat : ${exam.questions}">
-  			<a th:href="@{/viewqstn(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()})}" 
+  			<a th:href="@{/viewqstn(qid=${qstn.id},count=${count-1},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()-1})}" 
   			
   			class="bubble"><span th:text="${stat.index+1}" >  </span>&nbsp;</a>
   			
