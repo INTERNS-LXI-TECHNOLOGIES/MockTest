@@ -184,11 +184,13 @@ public class ExamController
 	}
 	
 	@RequestMapping(value="/user_nextPage")
-	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
+	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		model.addAttribute("attendedOptions", attendedOptions);
+		
+		Question quest=questService.findById(qid);
 		
 		Exam exam = examService.findById(eId);
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
@@ -200,63 +202,83 @@ public class ExamController
 		
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
+		model.addAttribute("exam", exam);
+		model.addAttribute("iterator", lit);
 		
 		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
 		
-		if (lit.hasNext()) 
+		if(quest!=null)
 		{
-			model.addAttribute("question", lit.next());
-			model.addAttribute("exam", exam);
-			model.addAttribute("iterator", lit);
+			model.addAttribute("question", quest);
 			return "user_exampage";
 		}
-		return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
+		else if (lit.hasNext()) 
+		{
+			
+			model.addAttribute("question", lit.next());
+			
+			return "user_exampage";
+		}
+		else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
 	}
 		
+//	@RequestMapping("/viewqstn")
+//	public String viewquestion(Model model,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String qid,@RequestParam String aExamId,@RequestParam String index,@RequestParam String count,@RequestParam String eId) throws Exception 
+//	{
+//		AttendedExam attendedExam=attendExamService.findById(aExamId);
+//		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+//		model.addAttribute("attendedOptions", attendedOptions);
+//		
+//		log.debug("question id "+qid);
+//		Question quest=questService.findById(qid);
+//		
+//		Exam exam = examService.findById(eId);
+//		List<Question> list=questService.getAllQuestionsFromExam(exam);
+//		int pos = Integer.parseInt(index);
+//			  ListIterator<Question> lit = list.listIterator(pos); 
+//
+//			  log.debug("option id         " +optionid);
+//			  log.debug("question        " +list.get(pos-1));
+//			  log.debug("atnd exam       "+attendedExam);
+//			  
+//			  int marks = Integer.parseInt(count);
+//				marks = optService.setResult(marks, optionid);
+//				
+//		 attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
+//		model.addAttribute("iterator", lit);
+//		model.addAttribute("question", quest);
+//		model.addAttribute("aExamId",aExamId);
+//		model.addAttribute("count", marks);
+//		model.addAttribute("exam", exam);
+//		log.debug("exam name" +exam);
+//
+//
+//		return "user_exampage";
+//	}
+
+
 	@RequestMapping("/submit")
-	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
-	{
-		AttendedExam attendedExam=attendExamService.findById(aExamId);
-		
-		int score = Integer.parseInt(count);
-		Exam exam = examService.findById(eId);
-		int total = exam.getCount();
-		
-		UserExtra userExtra = extraService.currentUserExtra();
-		attendedExam.setUserExtra(userExtra);
-		attendedExam.setExam(exam);
-		attendedExam = attendExamService.attend(attendedExam, score, total);
-		log.debug("attended exam ready to save:- " + attendedExam);
-		attendExamService.save(attendedExam);
-		
-		model.addAttribute("attendedExam", attendedExam);
-		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
-		
-		return "submit";
-	}
+public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
+{
+	AttendedExam attendedExam=attendExamService.findById(aExamId);
 	
-	@RequestMapping("/viewqstn")
-	public String viewquestion(Model model,@RequestParam String qid,@RequestParam String aExamId,@RequestParam String index,@RequestParam String count,@RequestParam String eId) throws Exception 
-	{
-		log.debug("question id "+qid);
-		Question quest=questService.findById(qid);
-		Exam exam = examService.findById(eId);
-		int pos = Integer.parseInt(index);
-		List<Question> list=questService.getAllQuestionsFromExam(exam);
-			  ListIterator<Question> lit = list.listIterator(pos); 
-
-		model.addAttribute("iterator", lit);
-		model.addAttribute("question", quest);
-		int marks = Integer.parseInt(count);
-		model.addAttribute("aExamId",aExamId);
-		model.addAttribute("count", marks);
-		model.addAttribute("exam", exam);
-		log.debug("exam name" +exam);
-
-
-		return "user_exampage";
-	}
-
+	int score = Integer.parseInt(count);
+	Exam exam = examService.findById(eId);
+	int total = exam.getCount();
+	
+	
+	UserExtra userExtra = extraService.currentUserExtra();
+	attendedExam.setUserExtra(userExtra);
+	attendedExam.setExam(exam);
+	attendedExam = attendExamService.attend(attendedExam, score, total);
+	log.debug("attended exam ready to save:- " + attendedExam);
+	attendExamService.save(attendedExam);
+	
+	model.addAttribute("attendedExam", attendedExam);
+	model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
+	
+	return "submit";
+}
 	@RequestMapping("/create_question")
 	public String question(Model model)
 	{

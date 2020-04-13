@@ -50,8 +50,8 @@
          							     <td th:if="${attended.isResult()==false}"> 
          							     <span th:text="fail"> </span>
 				<td th:text="${attended.percentage}">percentage</td>
-				<td th:text="${atndexam.getDateTime().toLocalDate()}"> Date </td>
-         		<td th:text="${atndexam.getDateTime().toLocalTime()}"> Time </td>
+				<td th:text="${attended.getDateTime().toLocalDate()}"> Date </td>
+         		<td th:text="${attended.getDateTime().toLocalTime()}"> Time </td>
 			</tr>
 		</table>
 
