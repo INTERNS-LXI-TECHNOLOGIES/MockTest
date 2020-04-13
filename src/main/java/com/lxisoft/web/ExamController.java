@@ -97,13 +97,6 @@ public class ExamController
 	}
 
 	
-//	@RequestMapping("/setTime")
-//	public String setTime()
-//	{
-//
-//		return "userpage";
-//	}
-	
 	@RequestMapping(value="/save")  
 	public String save(@Valid User user,BindingResult bindingResult)
 	{  
@@ -318,9 +311,10 @@ public String submit(@RequestParam String aExamId,@RequestParam String count,@Re
 	}
 
 	@RequestMapping ("/save_exam")
-	public String save_exam(Exam exam,@RequestParam String time) throws Exception
+	public String save_exam(Exam exam,@RequestParam String hour,@RequestParam String minute) throws Exception
 	{
 		exam.setIsActive(false);
+		String time=hour+":"+minute;
 		exam.setTime(time);
 		examService.save_exam(exam);
 		return "redirect:/";
