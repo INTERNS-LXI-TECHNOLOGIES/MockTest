@@ -288,6 +288,13 @@ public class ExamController
 
 	}
 	
+	@RequestMapping(value = "/question_file")
+	public String question_file(Model model)
+	{
+		//model.addAttribute("question",new Question());
+		return "/";
+	}
+	
 	@RequestMapping ("/create_exam")
 	public String create_exam(Model model)
 	{
