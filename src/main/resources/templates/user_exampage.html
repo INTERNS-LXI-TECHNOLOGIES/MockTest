@@ -30,9 +30,10 @@
 <span th:each="qstn ,stat : ${exam.questions}">
   	<a th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()+1})}" 
   			class="bubble">
-  			<span th:if="!${attendedOptions==null}" 
-  			th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'color:red':'color:blue'" th:text="a" >
-  			(for checking use 0 instead of [stat.index]) not null </span>
+  			<span th:if="!${attendedOptions==null}" th:each="option,iStat : ${attendedOptions}">
+	  			<span th:style="${attendedOptions[__iStat.index__].attendedOpt==null}?'color:red':'color:blue'" th:text="${stat.index+1}" >
+	  			 not null </span>
+	  		</span>
 			<span th:if="${attendedOptions==null}" th:text="${stat.index+1}" > null </span>&nbsp;
 	</a>
  </span>
