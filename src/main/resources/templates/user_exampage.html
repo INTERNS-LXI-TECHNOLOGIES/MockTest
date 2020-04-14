@@ -20,11 +20,13 @@
 
   	</div>
 <div class="container">
-
-<p id="timerValue"></p>
+<div align="right">
+<p  id="timerValue"></p></div>
 <form id="myForm" th:object="${iterator}"  th:action="@{/user_nextPage}">
 
-<input type="hidden" id="timer"  name="timerValue" value="0"/>
+<input type="hidden" id="timer"  name="timerValue" value="${timerValue}"/>
+
+<span th:text="${timerValue}"></span>
 
 <div class="bubble-container">
 <span th:each="qstn ,stat : ${exam.questions}">
@@ -78,8 +80,13 @@
 let mseconds = hourToMiliSeconds([[${exam.getTime()}]]);
 
 function timer() {
+	 var timerValue=[[${timerValue}]];
 	mseconds = mseconds - 1000;
+	 
   if(mseconds > 0) {
+	 
+		 
+	//mseconds=mseconds-timerValue;
     document.getElementById('timerValue').innerHTML = millisToMinutesAndSeconds(mseconds);
 		document.getElementById('timer').value = mseconds;
     window.setTimeout("timer()" , 1000);
