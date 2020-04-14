@@ -38,13 +38,15 @@
 							<option th:value="intermediate">Intermediate Level</option>
 							<option th:value="expert">Expert Level</option>
 					</select><br>
-				
-					<!-- Time:
-					hour<input type="number" th:field="*{time_hr}" /> min<input type="number" th:field="*{time_min}" /> -->
-					
+				 	
 					<label for="time">Time:</label>
-					<input type="time"  name="time"  class="input button2 lengthbtn" />
-			
+					<!-- <input type="time"  name="time"  class="input button2 lengthbtn" /> -->
+					<select name="hour"  >
+    				<option th:each="i : ${#numbers.sequence(0, 12)}" th:value="${i}" th:text="${i}" ></option>
+					</select>
+					<select	name="minute" >
+    				<option th:each="i : ${#numbers.sequence(0, 60)}" th:value="${i}" th:text="${i}" th:selected="${i}"></option>
+					</select>
 				
 			
 			<div align="center"><input type="submit" value="Submit"  class="button button1" onclick="alert_creation()" />

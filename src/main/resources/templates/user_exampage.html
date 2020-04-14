@@ -17,38 +17,38 @@
   		<a  th:href="@{/}">Home</a>
   		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>
-  			
-  			
-  			<!-- <span th:style="${attendedOptions[__stat.index__].id==0} ?'color:#ffff99':'color:green'"></span> -->
-  			
-  		
-  			
- <!--  			<script>
-  			function go(que) {
-	
-	  window.history.go(id);
-	}</script> -->
+
   	</div>
 <div class="container">
-<form th:object="${iterator}"  th:action="@{/user_nextPage}">
 
+<p id="timerValue"></p>
+<form id="myForm" th:object="${iterator}"  th:action="@{/user_nextPage}">
+
+<input type="hidden" id="timer"  name="timerValue" value="0"/>
 
 <div class="bubble-container">
 <span th:each="qstn ,stat : ${exam.questions}">
-  			<a th:href="@{/viewqstn(qid=${qstn.id},count=${count-1},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()-1})}" 
+  			<a th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()+1})}" 
   			
   			class="bubble"><span th:text="${stat.index+1}" >  </span>&nbsp;</a>
-  			
+  			<!-- <span th:style="${qstn.qstnOptions[__stat.index__].id==0} ?'color:#ffff99':'color:green'"></span>  -->
   			</span>
-  			<!-- <div><input type="submit" class="button button1" value="submit"></div> -->
-  					<div><a th:href="@{/submit(aExamId=${aExamId},count=${count+1},eId=${exam.getId()})}" 
-  					class="button button1">submit</a></div>
+  			
+  					<!-- <div><a th:href="@{/submit(aExamId=${aExamId},count=${count+1},eId=${exam.getId()})}"  -->
+  					
+  					<!-- <div><a th:href="@{/user_nextPage(count=${count},index=${iterator.nextIndex()},aExamId=${aExamId},eId=${exam.getId()})}"  -->
+  					
+  					<div><input type="submit" value="submit" class="button button1"></div>
+  					 
+  					 
   			</div>
   			
   			
 		<div>
 			 
-			<span th:text="${question.getQstn()}" th:value="${question.id}"><br>question<br> </span>
+			<!--  <span th:each="qstn ,stat : ${exam.questions}"> <span th:text="${stat.index+1}+')'">
+			 -->
+			<span th:text="${question.getQstn()}" th:value="${question.id}"><br>question<br> </span></span>
 				 <span th:each="qstn_option : ${question.qstnOptions}"><br><br>
 				<input type="radio" th:name="optionid" onclick="checkradio(this.value)" th:value="${qstn_option.getId()}"
 				th:text="${qstn_option.option}" /></span>
@@ -73,14 +73,42 @@
 </form> -->
 
 
-<script>
-function goBack() {
-  window.history.back();
-  
+<script th:inline="javascript">
+
+let mseconds = hourToMiliSeconds([[${exam.getTime()}]]);
+
+function timer() {
+	mseconds = mseconds - 1000;
+  if(mseconds > 0) {
+    document.getElementById('timerValue').innerHTML = millisToMinutesAndSeconds(mseconds);
+		document.getElementById('timer').value = mseconds;
+    window.setTimeout("timer()" , 1000);
+  } else {
+		alert('Timed OUt');
+		document.getElementById('myForm').submit();
+	}
 }
 
-</script>
+function hourToMiliSeconds(hour) {
+	let msecond = 0;
+	let time = hour.split(':');
+	msecond = (time[0] * (60000 * 60)) + (time[1] * 60000);
+	return msecond;
+}
 
+function millisToMinutesAndSeconds(millis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
+
+function goBack() {
+  window.history.back();
+
+}
+
+timer();
+</script>
 
 </body>
 
