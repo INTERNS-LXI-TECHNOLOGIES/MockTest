@@ -43,10 +43,10 @@ public class AttendedOptionService {
 		attendOptRepo.save(attendedOpt);
 	}
 	
-	public List<AttendedOption> attendOptions(AttendedExam attendedExam)
-	{
-		return null;
-	}
+//	public List<AttendedOption> attendOptions(AttendedExam attendedExam)
+//	{
+//		return null;
+//	}
 
 	public List<AttendedOption> findAllByAttendedExam(AttendedExam attendedExam) {
 		return attendOptRepo.findAllByAttendedExam(attendedExam);

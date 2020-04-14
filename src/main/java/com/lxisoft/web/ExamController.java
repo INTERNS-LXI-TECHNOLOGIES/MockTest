@@ -157,16 +157,14 @@ public class ExamController
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
 			  ListIterator<Question> lit = list.listIterator(); 
 			  int count=0;
-			  
 			  AttendedExam attendedExam=new AttendedExam();
 			  ZonedDateTime dateTime = ZonedDateTime.now();
 			  attendedExam.setDateTime(dateTime);
 			  attendExamService.save(attendedExam);
-			 
 			  model.addAttribute("aExamId",attendedExam.getId());
 			  log.debug("attended exam is :" + attendedExam);
-//			  model.addAttribute("attendedExam", attendedExam);
 		 if (lit.hasNext()) { 
+			 model.addAttribute("attendedOptions",null);
 			  model.addAttribute("question",lit.next());
 			  model.addAttribute("exam",exam);
 			  model.addAttribute("iterator",lit);
@@ -180,9 +178,6 @@ public class ExamController
 	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
-		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-		model.addAttribute("attendedOptions", attendedOptions);
-		
 		Question quest=questService.findById(qid);
 		
 		Exam exam = examService.findById(eId);
@@ -192,13 +187,13 @@ public class ExamController
 		
 		int marks = Integer.parseInt(count);
 		marks = optService.setResult(marks, optionid);
-		
+		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("exam", exam);
 		model.addAttribute("iterator", lit);
-		
-		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
+		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+		model.addAttribute("attendedOptions", attendedOptions);
 		
 		if(quest!=null)
 		{

@@ -28,22 +28,24 @@
 
 <div class="bubble-container">
 <span th:each="qstn ,stat : ${exam.questions}">
-  			<a th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()+1})}" 
-  			
-  			class="bubble"><span th:text="${stat.index+1}" >  </span>&nbsp;</a>
-  			<!-- <span th:style="${qstn.qstnOptions[__stat.index__].id==0} ?'color:#ffff99':'color:green'"></span>  -->
-  			</span>
-  			
-  					<!-- <div><a th:href="@{/submit(aExamId=${aExamId},count=${count+1},eId=${exam.getId()})}"  -->
-  					
-  					<!-- <div><a th:href="@{/user_nextPage(count=${count},index=${iterator.nextIndex()},aExamId=${aExamId},eId=${exam.getId()})}"  -->
-  					
-  					<div><input type="submit" value="submit" class="button button1"></div>
-  					 
-  					 
-  			</div>
-  			
-  			
+  	<a th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()+1})}" 
+  			class="bubble">
+  			<span th:if="!${attendedOptions==null}" 
+  			th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'color:red':'color:blue'" th:text="a" >
+  			(for checking use 0 instead of [stat.index]) not null </span>
+			<span th:if="${attendedOptions==null}" th:text="${stat.index+1}" > null </span>&nbsp;
+	</a>
+ </span>
+			<!-- <span th:style="${attendedOptions==null} ?'color:red':'color:green'" ></span> --> 
+				<!-- <div><a th:href="@{/submit(aExamId=${aExamId},count=${count+1},eId=${exam.getId()})}"  -->
+				<!-- <span th:style="${qstn.qstnOptions[__stat.index__].id==0} ?'color:#ffff99':'color:green'"></span>  -->
+				<!-- <div><a th:href="@{/user_nextPage(count=${count},index=${iterator.nextIndex()},aExamId=${aExamId},eId=${exam.getId()})}"  -->
+
+		<div>
+			<input type="submit" value="submit" class="button button1">
+		</div>
+</div>
+
 		<div>
 			 
 			<!--  <span th:each="qstn ,stat : ${exam.questions}"> <span th:text="${stat.index+1}+')'">
