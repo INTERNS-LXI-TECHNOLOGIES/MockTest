@@ -5,7 +5,10 @@
 <title>mock test  </title>
 </head>
 <body bgcolor="FloralWhite">
+
 <div class="header">
+<div align="right">
+<p id="timerValue"></p></div>
 <div align="center">
 	<h1 th:text="${exam.getName()} "> exam name</h1>
 	<!-- Time:- <span th:text="${exam.getTime_hr()} "></span>hr <span
@@ -20,11 +23,10 @@
 
   	</div>
 <div class="container">
-<div align="right">
-<p  id="timerValue"></p></div>
+
 <form id="myForm" th:object="${iterator}"  th:action="@{/user_nextPage}">
 
-<input type="hidden" id="timer"  name="timerValue" value="${timerValue}"/>
+<input type="hidden" id="timer"  name="timerValue" value="0"/>
 
 <span th:text="${timerValue}"></span>
 
@@ -76,17 +78,23 @@
 
 
 <script th:inline="javascript">
+let urlstring = window.location.search;
+let urlp=new URLSearchParams(urlstring);
+let ms=urlp.get('timerValue');
+let mseconds=0;
+if(ms==null)
+	{
+	 mseconds = hourToMiliSeconds([[${exam.getTime()}]]);
+	}
+	else
+	{
+		mseconds=ms;
+	}
 
-let mseconds = hourToMiliSeconds([[${exam.getTime()}]]);
 
 function timer() {
-	 var timerValue=[[${timerValue}]];
 	mseconds = mseconds - 1000;
-	 
   if(mseconds > 0) {
-	 
-		 
-	//mseconds=mseconds-timerValue;
     document.getElementById('timerValue').innerHTML = millisToMinutesAndSeconds(mseconds);
 		document.getElementById('timer').value = mseconds;
     window.setTimeout("timer()" , 1000);
@@ -115,7 +123,9 @@ function goBack() {
 }
 
 timer();
+
 </script>
+
 
 </body>
 

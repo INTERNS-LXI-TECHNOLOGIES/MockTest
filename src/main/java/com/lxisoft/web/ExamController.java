@@ -165,7 +165,7 @@ public class ExamController
 			 
 			  model.addAttribute("aExamId",attendedExam.getId());
 			  log.debug("attended exam is :" + attendedExam);
-			  model.addAttribute("timerValue","0");
+			  
 //			  model.addAttribute("attendedExam", attendedExam);
 		 if (lit.hasNext()) { 
 			  model.addAttribute("question",lit.next());
@@ -180,8 +180,7 @@ public class ExamController
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,
-			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count,
-			@RequestParam String timerValue) throws Exception
+			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
 	
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
@@ -199,7 +198,7 @@ public class ExamController
 		marks = optService.setResult(marks, optionid);
 		
 
-		model.addAttribute("timerValue",timerValue);
+		
 		
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
