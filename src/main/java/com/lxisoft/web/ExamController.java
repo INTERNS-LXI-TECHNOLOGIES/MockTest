@@ -157,17 +157,17 @@ public class ExamController
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
 			  ListIterator<Question> lit = list.listIterator(); 
 			  int count=0;
-			  
 			  AttendedExam attendedExam=new AttendedExam();
 			  ZonedDateTime dateTime = ZonedDateTime.now();
 			  attendedExam.setDateTime(dateTime);
 			  attendExamService.save(attendedExam);
-			 
 			  model.addAttribute("aExamId",attendedExam.getId());
 			  log.debug("attended exam is :" + attendedExam);
-			  
+
 //			  model.addAttribute("attendedExam", attendedExam);
+
 		 if (lit.hasNext()) { 
+			 model.addAttribute("attendedOptions",null);
 			  model.addAttribute("question",lit.next());
 			  model.addAttribute("exam",exam);
 			  model.addAttribute("iterator",lit);
@@ -184,9 +184,6 @@ public class ExamController
 	
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
-		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-		model.addAttribute("attendedOptions", attendedOptions);
-		
 		Question quest=questService.findById(qid);
 		
 		Exam exam = examService.findById(eId);
@@ -198,14 +195,14 @@ public class ExamController
 		marks = optService.setResult(marks, optionid);
 		
 
-		
-		
+		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
+
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("exam", exam);
 		model.addAttribute("iterator", lit);
-		
-		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
+		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+		model.addAttribute("attendedOptions", attendedOptions);
 		
 		if(quest!=null)
 		{
@@ -308,6 +305,13 @@ public String submit(@RequestParam String aExamId,@RequestParam String count,@Re
 		}
 		return "create_question";
 
+	}
+	
+	@RequestMapping(value = "/question_file")
+	public String question_file(Model model)
+	{
+		//model.addAttribute("question",new Question());
+		return "redirect:/";
 	}
 	
 	@RequestMapping ("/create_exam")
