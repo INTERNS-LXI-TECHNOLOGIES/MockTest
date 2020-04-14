@@ -292,7 +292,7 @@ public class ExamController
 	public String question_file(Model model)
 	{
 		//model.addAttribute("question",new Question());
-		return "/";
+		return "redirect:/";
 	}
 	
 	@RequestMapping ("/create_exam")
