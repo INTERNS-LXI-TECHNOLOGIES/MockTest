@@ -32,7 +32,7 @@
 
 <div class="bubble-container">
 <span th:each="qstn ,stat : ${exam.questions}">
-  	<a th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()})}" 
+  	<a th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()-1})}" 
   			class="bubble">
   			<span th:if="${attendedOptions==null}" th:text="${stat.index+1}"  > null </span>&nbsp;
   			<span th:if="!${attendedOptions==null}" th:each="option,iStat : ${attendedOptions}">
