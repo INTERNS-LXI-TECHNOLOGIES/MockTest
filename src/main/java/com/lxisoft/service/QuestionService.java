@@ -1,5 +1,9 @@
 package com.lxisoft.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -14,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.QstnOption;
@@ -27,8 +32,9 @@ public class QuestionService {
 
     private final Logger log = LoggerFactory.getLogger(QuestionService.class);
   
-   
-	    
+	    		
+	    @Autowired
+		private OptionService optService;
         @Autowired
     	private QuestionRepository questRepo;
 
@@ -98,5 +104,19 @@ public class QuestionService {
 				list.add(quest);
 			}
 			return list;
+		}
+
+		public void saveFile(MultipartFile file) throws IOException {
+			BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
+			String line;
+			while((line=br.readLine())!=null)
+			{
+				String[] data=line.split(",");
+				Question qstn=new Question();
+				qstn.setQstn(data[0]);
+				qstn.setLevel(data[1]);
+				save(qstn);
+				optService.saveQstnOptn(qstn,data[2],data[3],data[4]);
+			}
 		}
 }

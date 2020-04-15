@@ -1,6 +1,8 @@
 package com.lxisoft.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.opencsv.bean.CsvBindByName;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -22,7 +24,7 @@ public class QstnOption implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @Column(name = "jhi_option")
     private String option;
 

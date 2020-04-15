@@ -1,7 +1,11 @@
 package com.lxisoft.web;
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.time.Instant;
+import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -44,6 +48,8 @@ import com.lxisoft.service.QuestionService;
 import com.lxisoft.service.UserExtraService;
 import com.lxisoft.service.UserService;
 import com.lxisoft.service.dto.UserDTO;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 /**
  * Mocktest Exam controller
@@ -255,27 +261,28 @@ public class ExamController
 
 
 	@RequestMapping("/submit")
-public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
-{
-	AttendedExam attendedExam=attendExamService.findById(aExamId);
+	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
+	{
+		AttendedExam attendedExam=attendExamService.findById(aExamId);
+		
+		int score = Integer.parseInt(count);
+		Exam exam = examService.findById(eId);
+		int total = exam.getCount();
+		
+		
+		UserExtra userExtra = extraService.currentUserExtra();
+		attendedExam.setUserExtra(userExtra);
+		attendedExam.setExam(exam);
+		attendedExam = attendExamService.attend(attendedExam, score, total);
+		log.debug("attended exam ready to save:- " + attendedExam);
+		attendExamService.save(attendedExam);
+		
+		model.addAttribute("attendedExam", attendedExam);
+		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
+		
+		return "submit";
+	}
 	
-	int score = Integer.parseInt(count);
-	Exam exam = examService.findById(eId);
-	int total = exam.getCount();
-	
-	
-	UserExtra userExtra = extraService.currentUserExtra();
-	attendedExam.setUserExtra(userExtra);
-	attendedExam.setExam(exam);
-	attendedExam = attendExamService.attend(attendedExam, score, total);
-	log.debug("attended exam ready to save:- " + attendedExam);
-	attendExamService.save(attendedExam);
-	
-	model.addAttribute("attendedExam", attendedExam);
-	model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
-	
-	return "submit";
-}
 	@RequestMapping("/create_question")
 	public String question(Model model)
 	{
@@ -308,9 +315,21 @@ public String submit(@RequestParam String aExamId,@RequestParam String count,@Re
 	}
 	
 	@RequestMapping(value = "/question_file")
-	public String question_file(Model model)
+	public String question_file(@RequestParam("file") MultipartFile file, Model model) throws Exception
 	{
-		//model.addAttribute("question",new Question());
+		if (file.isEmpty()) {
+            throw new Exception("no file found!!!!!");
+        } 
+		else 
+		{
+            try 
+            {
+            	questService.saveFile(file);
+            } 
+            catch (Exception ex) {
+                log.debug("exception occured -"+ex);
+            }
+        }
 		return "redirect:/";
 	}
 	
@@ -490,3 +509,39 @@ public String submit(@RequestParam String aExamId,@RequestParam String count,@Re
 
 
 }
+
+//@RequestMapping(value = "/question_file")
+//public String question_file(@RequestParam("file") MultipartFile file, Model model) throws Exception
+//{
+//	if (file.isEmpty()) {
+//        throw new Exception("no file found!!!!!");
+//    } 
+//	else 
+//	{
+//        try 
+//        {
+//        	Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+//        	CsvToBean<Question> csvToQstn = new CsvToBeanBuilder<Question>(reader)
+//                    .withType(Question.class)
+//                    .withIgnoreLeadingWhiteSpace(true)
+//                    .build();
+//            List<Question> questions = csvToQstn.parse();
+//            questService.save(questions.get(0));
+//            
+//            Reader readeropt = new BufferedReader(new InputStreamReader(file.getInputStream()));
+//            CsvToBean<QstnOption> csvToOptn = new CsvToBeanBuilder<QstnOption>(readeropt)
+//                    .withType(QstnOption.class)
+//                    .withIgnoreLeadingWhiteSpace(true)
+//                    .build();
+//            List<QstnOption> options = csvToOptn.parse();
+//            log.debug("option of csv:= "+options);
+//            optService.save(options.get(0));
+//            optService.save(options.get(1));
+//            optService.save(options.get(2));
+//        } 
+//        catch (Exception ex) {
+//            log.debug("exception occured -"+ex);
+//        }
+//    }
+//	return "redirect:/";
+//}

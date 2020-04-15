@@ -35,9 +35,9 @@
   	<a th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()-1})}" 
   			class="bubble">
   			<span th:if="${attendedOptions==null}" th:text="${stat.index+1}"  > null </span>&nbsp;
-  			<span th:if="!${attendedOptions==null}" th:each="option,iStat : ${attendedOptions}">
+  			<span th:if="!${attendedOptions==null}" th:each="option,iStat : ${attendedOptions}" th:text="${stat.index+1}" >
   			
-	  			<span th:style="${attendedOptions[__iStat.index__].attendedOpt==null}?'color:red':'color:blue'" th:text="${stat.index+1}" >
+	  			<span th:style="${attendedOptions[__iStat.index__].attendedOpt==null}?'color:red':'color:blue'" >
 	  			 not null </span>
 	  		</span>
 			
