@@ -3,6 +3,9 @@
 <head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
 <title>mock test  </title>
+
+
+
 </head>
 <body bgcolor="FloralWhite">
 
@@ -31,18 +34,29 @@
 <span th:text="${timerValue}"></span>
 
 <div class="bubble-container">
-<span th:each="qstn ,stat : ${exam.questions}">
+<!-- <span th:each="qstn ,stat : ${exam.questions}">
+
+	
+	
   	<a th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()-1})}" 
-  			class="bubble">
-  			<span th:if="${attendedOptions==null}" th:text="${stat.index+1}"  > null </span>&nbsp;
-  			<span th:if="!${attendedOptions==null}" th:each="option,iStat : ${attendedOptions}">
+  			  id="bubble"  >
   			
-	  			<span th:style="${attendedOptions[__iStat.index__].attendedOpt==null}?'color:red':'color:blue'" th:text="${stat.index+1}" >
-	  			 not null </span>
+  			
+  				</a>
+ </span> -->
+ 
+ 
+ <span th:each="qstn ,stat : ${exam.questions}">
+ <span class="bubble" th:if="${attendedOptions==null}"  th:text="${stat.index+1}" 
+ <span  >  </span>
+  			<span th:if="!${attendedOptions==null}" th:each="option,stat : ${attendedOptions}">
+	  			<a th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()-1})}" 
+	  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:red':'background:blue'"  th:text="${stat.index+1}"  >
+	  		
+	  			 </a> </span>
 	  		</span>
 			
-	</a>
- </span>
+
 			<!-- <span th:style="${attendedOptions==null} ?'color:red':'color:green'" ></span> --> 
 				<!-- <div><a th:href="@{/submit(aExamId=${aExamId},count=${count+1},eId=${exam.getId()})}"  -->
 				<!-- <span th:style="${qstn.qstnOptions[__stat.index__].id==0} ?'color:#ffff99':'color:green'"></span>  -->
@@ -59,7 +73,7 @@
 			 -->
 			<span th:text="${question.getQstn()}" th:value="${question.id}"><br>question<br> </span></span>
 				 <span th:each="qstn_option : ${question.qstnOptions}"><br><br>
-				<input type="radio" th:name="optionid" onclick="checkradio(this.value)" th:value="${qstn_option.getId()}"
+				<input type="radio" th:name="optionid"  id="option"  th:value="${qstn_option.getId()}"
 				th:text="${qstn_option.option}" /></span>
 		</div>
 		<br><br><br>
@@ -67,7 +81,7 @@
 		<input type="hidden" th:name="count" th:value="${count}">
 		<input type="hidden" th:name="aExamId" th:value="${aExamId}">
 		<input type="hidden" th:name="eId" th:value="${exam.getId()}">
-	<input type="submit" class="button button1" th:value="${iterator.hasNext()}==true? next: submit" ></span>
+	<input type="submit" onclick="check()" class="button button1" th:value="${iterator.hasNext()}==true? next: submit" ></span>
 	<button class="button button1" onclick="goBack()">Go Back</button>
 	
 </form>
@@ -128,6 +142,20 @@ function goBack() {
 }
 
 timer();
+function check() {
+	var bubble = document.getElementById("bubble");
+	var checkRadio = document.querySelector( 
+    'input[name="optionid"]:checked'); 
+    if(!checkRadio) {
+    	bubble.style.background="red";
+    
+	}
+	  /* document.getElementById("option").checked = true; */
+	  
+	}
+		/* document.getElementById("bubble").onclick = function() {
+    	document.getElementById("myForm").submit();} */
+
 
 </script>
 

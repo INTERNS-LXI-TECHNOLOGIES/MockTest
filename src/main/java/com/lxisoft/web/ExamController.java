@@ -204,6 +204,7 @@ public class ExamController
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		model.addAttribute("attendedOptions", attendedOptions);
 		
+		log.debug("question "+qid);
 		if(quest!=null)
 		{
 			model.addAttribute("question", quest);
