@@ -39,6 +39,7 @@
 	
 	
   	<a th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()-1})}" 
+
   			  id="bubble"  >
   			
   			
@@ -54,7 +55,7 @@
 	  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:#ffff99':'background:lime'"    >
 	  	 <span th:text="${stat.index+1}" ></span>
 	  			 </a> </span>
-	  		</span>
+
 			
 
 			<!-- <span th:style="${attendedOptions==null} ?'color:red':'color:green'" ></span> --> 

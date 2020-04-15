@@ -1,6 +1,8 @@
 package com.lxisoft.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.opencsv.bean.CsvBindByName;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,7 +26,7 @@ public class Question implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @Column(name = "level")
     private String level;
 

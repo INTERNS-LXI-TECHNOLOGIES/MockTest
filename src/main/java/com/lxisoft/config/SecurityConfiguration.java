@@ -74,14 +74,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-            .csrf()
-            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        .and()
-            .addFilterBefore(corsFilter, CsrfFilter.class)
-            .exceptionHandling()
-                .authenticationEntryPoint(problemSupport)
-                .accessDeniedHandler(problemSupport)
-        .and()
+            .csrf().disable()
+//            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//        .and()
+//            .addFilterBefore(corsFilter, CsrfFilter.class)
+//            .exceptionHandling()
+//                .authenticationEntryPoint(problemSupport)
+//                .accessDeniedHandler(problemSupport)
+//        .and()
             .rememberMe()
             .rememberMeServices(rememberMeServices)
             .rememberMeParameter("remember-me")
