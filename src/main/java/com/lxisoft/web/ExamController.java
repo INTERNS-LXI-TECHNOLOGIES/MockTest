@@ -2,7 +2,9 @@ package com.lxisoft.web;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.time.Instant;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +18,7 @@ import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -194,11 +197,10 @@ public class ExamController
 	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,
 			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count,@RequestParam String timerValue) throws Exception
-	
+		
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		Question quest=questService.findById(qid);
-		
 		Exam exam = examService.findById(eId);
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
 		int pos = Integer.parseInt(index);
@@ -206,9 +208,6 @@ public class ExamController
 		
 		int marks = Integer.parseInt(count);
 		marks = optService.setResult(marks, optionid);
-		
-
-//		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
 		attendOptSer.attendOptionUpdate(optionid,list.get(lit.previousIndex()),attendedExam);
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
@@ -217,7 +216,9 @@ public class ExamController
 		
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		model.addAttribute("attendedOptions", attendedOptions);
+
 		model.addAttribute("timerValue",timerValue );
+
 		log.debug("question "+qid);
 		if(quest!=null)
 		{
@@ -228,9 +229,7 @@ public class ExamController
 		}
 		else if (lit.hasNext()) 
 		{
-			
 			model.addAttribute("question", lit.next());
-			
 			return "user_exampage";
 		}
 		else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
@@ -308,6 +307,13 @@ public class ExamController
         }
 		return "redirect:/";
 	}
+	
+	@GetMapping("/model.csv")
+    public void modelCsv(HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        PrintWriter writer=response.getWriter();
+        writer.write("question, level, option1, option2, option3\n");
+    }
 	
 	@RequestMapping ("/create_exam")
 	public String create_exam(Model model)
