@@ -110,7 +110,7 @@ public class ExamController
 		if (!bindingResult.hasErrors()) {
 			extraService.save(user);  
 			return  "redirect:/";
-			}
+		}
 		else
 			return "registration";
 	}  
@@ -232,22 +232,17 @@ public class ExamController
 	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
-		
 		int score = Integer.parseInt(count);
 		Exam exam = examService.findById(eId);
 		int total = exam.getCount();
-		
-		
 		UserExtra userExtra = extraService.currentUserExtra();
 		attendedExam.setUserExtra(userExtra);
 		attendedExam.setExam(exam);
 		attendedExam = attendExamService.attend(attendedExam, score, total);
 		log.debug("attended exam ready to save:- " + attendedExam);
 		attendExamService.save(attendedExam);
-		
 		model.addAttribute("attendedExam", attendedExam);
 		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
-		
 		return "submit";
 	}
 	
