@@ -48,8 +48,6 @@ import com.lxisoft.service.QuestionService;
 import com.lxisoft.service.UserExtraService;
 import com.lxisoft.service.UserService;
 import com.lxisoft.service.dto.UserDTO;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
 
 /**
  * Mocktest Exam controller

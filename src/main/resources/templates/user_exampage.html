@@ -37,7 +37,7 @@
 
 	 <span th:each="qstn ,stat : ${exam.questions}">
  		<span class="bubble" th:if="${attendedOptions==null}"  th:text="${stat.index+1}" ></span>
-	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${iterator.nextIndex()+1})}" 
+	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${stat.index+1})}" 
 	  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:#ffff99':'background:lime'" >
 	  			 <span th:text="${stat.index+1}" ></span></a>
 	  	</span>
