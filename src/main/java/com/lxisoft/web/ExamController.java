@@ -159,21 +159,30 @@ public class ExamController
 	@RequestMapping(value="/user_exam")
 	public String userview(Model model,@RequestParam String eId) throws Exception
 	{
-		Exam exam=examService.findById(eId);
-		List<Question> list=questService.getAllQuestionsFromExam(exam);
-			  ListIterator<Question> lit = list.listIterator(); 
-			  int count=0;
-			  AttendedExam attendedExam=new AttendedExam();
-			  ZonedDateTime dateTime = ZonedDateTime.now();
-			  attendedExam.setDateTime(dateTime);
-			  attendExamService.save(attendedExam);
-			  model.addAttribute("aExamId",attendedExam.getId());
-			  log.debug("attended exam is :" + attendedExam);
+		  Exam exam=examService.findById(eId);
+		  List<Question> list=questService.getAllQuestionsFromExam(exam);
+		
+		  ListIterator<Question> lit = list.listIterator(); 
+		  int count=0;
+		  
+		  AttendedExam attendedExam=new AttendedExam();
+		  ZonedDateTime dateTime = ZonedDateTime.now();
+		  attendedExam.setDateTime(dateTime);
+		  attendExamService.save(attendedExam);
+		  model.addAttribute("aExamId",attendedExam.getId());
+		  log.debug("attended exam is :" + attendedExam);
+		  
+		  Set<Question>questions=exam.getQuestions();
+		  for( Question q: questions)
+		  {
+			  attendOptSer.attendOption("0",q,attendedExam);
+			  log.debug("attended options saved null");
+		  }
 
-//			  model.addAttribute("attendedExam", attendedExam);
-
-		 if (lit.hasNext()) { 
-			 model.addAttribute("attendedOptions",null);
+			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+			
+			 if (lit.hasNext()) { 
+			  model.addAttribute("attendedOptions",attendedOptions);
 			  model.addAttribute("question",lit.next());
 			  model.addAttribute("exam",exam);
 			  model.addAttribute("iterator",lit);
@@ -201,8 +210,8 @@ public class ExamController
 		marks = optService.setResult(marks, optionid);
 		
 
-		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
-
+//		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
+		attendOptSer.attendOptionUpdate(optionid,list.get(lit.previousIndex()),attendedExam);
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("exam", exam);

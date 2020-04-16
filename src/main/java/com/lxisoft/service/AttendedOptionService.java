@@ -1,6 +1,7 @@
 package com.lxisoft.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,7 @@ public class AttendedOptionService {
 	public void attendOption(String optionid, Question question, AttendedExam attendedExam) {
 
 		AttendedOption attendedOpt=new AttendedOption();
+		log.debug("optionid"+optionid);
 		if(optionid.equals("0"))
 		{
 			attendedOpt.setAttendedOpt(null);
@@ -41,14 +43,37 @@ public class AttendedOptionService {
 		attendedOpt.setQuestion(question);
 		log.debug("an attended option save: "+attendedOpt);
 		attendOptRepo.save(attendedOpt);
+
 	}
 	
-//	public List<AttendedOption> attendOptions(AttendedExam attendedExam)
-//	{
-//		return null;
-//	}
 
 	public List<AttendedOption> findAllByAttendedExam(AttendedExam attendedExam) {
 		return attendOptRepo.findAllByAttendedExam(attendedExam);
 	}
+
+	public void attendOptionUpdate(String optionid, Question question, AttendedExam attendedExam) {
+		List<AttendedOption> attendedOptions=findAllByAttendedExam(attendedExam);
+		QstnOption qstnOption=optService.findById(optionid);
+		
+		
+		for(AttendedOption a:attendedOptions)
+		{
+			if(optionid.equals("0"))
+			{
+				a.setAttendedOpt(null);
+				a.setAttendedAnswer(null);
+			}
+			else {
+				Question quest=qstnOption.getQuestion();
+				if(a.getQuestion().equals(quest))
+				a.setAttendedOpt(qstnOption.getOption());
+				a.setAttendedAnswer(qstnOption.isIsAnswer());
+				
+			}
+			attendOptRepo.save(a);
+		}
+		
+	}
+
+
 }
