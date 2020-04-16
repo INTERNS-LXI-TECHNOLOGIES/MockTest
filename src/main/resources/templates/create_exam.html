@@ -41,10 +41,10 @@
 				 	
 					<label for="time">Time:</label>
 					<!-- <input type="time"  name="time"  class="input button2 lengthbtn" /> -->
-					<select name="hour"  >
+					Hour:<select name="hour"  >
     				<option th:each="i : ${#numbers.sequence(0, 12)}" th:value="${i}" th:text="${i}" ></option>
 					</select>
-					<select	name="minute" >
+					Minute:<select	name="minute" >
     				<option th:each="i : ${#numbers.sequence(0, 60)}" th:value="${i}" th:text="${i}" th:selected="${i}"></option>
 					</select>
 				

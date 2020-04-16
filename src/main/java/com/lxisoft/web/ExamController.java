@@ -233,8 +233,6 @@ public class ExamController
 		else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
 	}
 
-
-
 	@RequestMapping("/submit")
 	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
 	{

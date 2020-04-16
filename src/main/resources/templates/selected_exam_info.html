@@ -20,7 +20,7 @@
  <h3>Exam Name:&nbsp;&nbsp; <span th:text="${exam.name}"></span></h3>
   <h4>Level:&nbsp;&nbsp;<span th:text="${exam.level}"></span></h4>
   <h4>Total Questions:&nbsp;<span th:text="${exam.count}"></span></h4>
-  <h4>Time:&nbsp;&nbsp; <span th:text="${exam.time}"></span></h4>
+  <h4>Time:&nbsp;&nbsp; <span th:text="${exam.time}"></span> Hr</h4>
   <br><br>
 
 						 <a th:href="@{/user_instruction(eId=${exam.getId()})}" class="button button1">Take Test
