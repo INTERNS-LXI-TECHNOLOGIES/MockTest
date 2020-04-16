@@ -3,12 +3,8 @@
 <head  th:replace="fragments/head :: headerFragment">
 <meta charset="ISO-8859-1">
 <title>mock test  </title>
-
-
-
 </head>
 <body bgcolor="FloralWhite">
-
 <div class="header">
 <div align="right">
 <p id="timerValue"></p></div>
@@ -23,7 +19,6 @@
   		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>
 
-  	</div>
 <div class="container">
 
 <form id="myForm" th:object="${iterator}"  th:action="@{/user_nextPage}">
@@ -118,7 +113,7 @@ timer();
 
 	  /* document.getElementById("option").checked = true; */
 	  
-	}
+
 		/* document.getElementById("bubble").onclick = function() {
     	document.getElementById("myForm").submit();} */
 
