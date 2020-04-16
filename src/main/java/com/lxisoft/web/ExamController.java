@@ -193,23 +193,13 @@ public class ExamController
 		return "redirect:/submit";
 	}
 	
-	@GetMapping("/model.csv")
-    public void modelCsv(HttpServletResponse response) throws IOException {
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; file=employee.csv");
-        PrintWriter writer=response.getWriter();
-        writer.write("question, level, option1, option2, option3\n");
-    }
-	
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,
 			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
-	
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		Question quest=questService.findById(qid);
-		
 		Exam exam = examService.findById(eId);
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
 		int pos = Integer.parseInt(index);
@@ -217,9 +207,6 @@ public class ExamController
 		
 		int marks = Integer.parseInt(count);
 		marks = optService.setResult(marks, optionid);
-		
-
-//		attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
 		attendOptSer.attendOptionUpdate(optionid,list.get(lit.previousIndex()),attendedExam);
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
@@ -227,7 +214,6 @@ public class ExamController
 		model.addAttribute("iterator", lit);
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		model.addAttribute("attendedOptions", attendedOptions);
-		
 		log.debug("question "+qid);
 		if(quest!=null)
 		{
@@ -236,9 +222,7 @@ public class ExamController
 		}
 		else if (lit.hasNext()) 
 		{
-			
 			model.addAttribute("question", lit.next());
-			
 			return "user_exampage";
 		}
 		else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
@@ -316,6 +300,13 @@ public class ExamController
         }
 		return "redirect:/";
 	}
+	
+	@GetMapping("/model.csv")
+    public void modelCsv(HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        PrintWriter writer=response.getWriter();
+        writer.write("question, level, option1, option2, option3\n");
+    }
 	
 	@RequestMapping ("/create_exam")
 	public String create_exam(Model model)

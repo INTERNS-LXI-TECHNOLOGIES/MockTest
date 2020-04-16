@@ -108,15 +108,19 @@ public class QuestionService {
 
 		public void saveFile(MultipartFile file) throws IOException {
 			BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
-			String line;
+			String line;int i=0;
 			while((line=br.readLine())!=null)
 			{
-				String[] data=line.split(",");
-				Question qstn=new Question();
-				qstn.setQstn(data[0]);
-				qstn.setLevel(data[1]);
-				save(qstn);
-				optService.saveQstnOptn(qstn,data[2],data[3],data[4]);
+				if(i!=0)
+				{
+					String[] data=line.split(",");
+					Question qstn=new Question();
+					qstn.setQstn(data[0]);
+					qstn.setLevel(data[1]);
+					save(qstn);
+					optService.saveQstnOptn(qstn,data[2],data[3],data[4]);
+				}
+				i++;
 			}
 		}
 }
