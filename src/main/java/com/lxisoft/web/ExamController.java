@@ -193,7 +193,7 @@ public class ExamController
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,
-			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count) throws Exception
+			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count,@RequestParam String timerValue) throws Exception
 	
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
@@ -214,13 +214,16 @@ public class ExamController
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("exam", exam);
 		model.addAttribute("iterator", lit);
+		
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		model.addAttribute("attendedOptions", attendedOptions);
-		
+		model.addAttribute("timerValue",timerValue );
 		log.debug("question "+qid);
 		if(quest!=null)
 		{
+			
 			model.addAttribute("question", quest);
+			
 			return "user_exampage";
 		}
 		else if (lit.hasNext()) 
