@@ -2,7 +2,9 @@ package com.lxisoft.web;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.time.Instant;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +18,7 @@ import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -189,6 +192,14 @@ public class ExamController
 		 }
 		return "redirect:/submit";
 	}
+	
+	@GetMapping("/model.csv")
+    public void modelCsv(HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; file=employee.csv");
+        PrintWriter writer=response.getWriter();
+        writer.write("question, level, option1, option2, option3\n");
+    }
 	
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,
