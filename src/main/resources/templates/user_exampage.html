@@ -23,16 +23,15 @@
 
 <form id="myForm" th:object="${iterator}"  th:action="@{/user_nextPage}">
 
-<input type="hidden" id="timer"  name="timerValue" value="0"/>
+<input type="hidden" id="timer"  name="timerValue" value=${timerValue}/>
 
-<span th:text="${timerValue}"></span>
 
 <div class="bubble-container">
 
 
 	 <span th:each="qstn ,stat : ${exam.questions}">
  		<span class="bubble" th:if="${attendedOptions==null}"  th:text="${stat.index+1}" ></span>
-	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${stat.index+1})}" 
+	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${stat.index+1},timerValue=${timerValue})}" 
 	  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:#ffff99':'background:lime'" >
 	  			 <span th:text="${stat.index+1}" ></span></a>
 	  	</span>
