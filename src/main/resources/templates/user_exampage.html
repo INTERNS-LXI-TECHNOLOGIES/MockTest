@@ -66,12 +66,6 @@
 
 </div>
 
-<!-- <form  th:action="@{/user_previousPage}" th:object="${exam}" >
-<div align="left">
-<span th:if="${iterator.hasPrevious()}" >
-<button ><a th:href="@{/user_previousPage(index=${iterator.previousIndex()})}"> previous </a></button>
-</span></div>
-</form> -->
 
 
 <script th:inline="javascript">
@@ -120,14 +114,8 @@ function goBack() {
 }
 
 timer();
-function check() {
-	var bubble = document.getElementById("bubble");
-	var checkRadio = document.querySelector( 
-    'input[name="optionid"]:checked'); 
-    if(!checkRadio) {
-    	bubble.style.background="red";
-    
-	}
+
+
 	  /* document.getElementById("option").checked = true; */
 	  
 	}
