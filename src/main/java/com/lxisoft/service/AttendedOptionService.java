@@ -24,21 +24,11 @@ public class AttendedOptionService {
 	
 	private final Logger log = LoggerFactory.getLogger(AttendedOptionService.class);
 
-	public void attendOption(String optionid, Question question, AttendedExam attendedExam) {
+	public void attendOptionInitial( Question question, AttendedExam attendedExam) {
 
 		AttendedOption attendedOpt=new AttendedOption();
-		log.debug("optionid"+optionid);
-		if(optionid.equals("0"))
-		{
-			attendedOpt.setAttendedOpt(null);
-			attendedOpt.setAttendedAnswer(null);
-		}
-		else
-		{
-			QstnOption qstnOption=optService.findById(optionid);
-			attendedOpt.setAttendedOpt(qstnOption.getOption());
-			attendedOpt.setAttendedAnswer(qstnOption.isIsAnswer());
-		}
+		attendedOpt.setAttendedOpt(null);
+		attendedOpt.setAttendedAnswer(null);
 		attendedOpt.setAttendedExam(attendedExam);
 		attendedOpt.setQuestion(question);
 		log.debug("an attended option save: "+attendedOpt);
@@ -52,28 +42,21 @@ public class AttendedOptionService {
 	}
 
 	public void attendOptionUpdate(String optionid, Question question, AttendedExam attendedExam) {
-		List<AttendedOption> attendedOptions=findAllByAttendedExam(attendedExam);
-		QstnOption qstnOption=optService.findById(optionid);
-		
-		
-		for(AttendedOption a:attendedOptions)
+		AttendedOption attendedOption=attendOptRepo.findByAttendedExamAndQuestion(attendedExam,question);
+		QstnOption qstnOption;
+		if(!optionid.equals("0"))
 		{
-			if(optionid.equals("0"))
-			{
-				a.setAttendedOpt(null);
-				a.setAttendedAnswer(null);
-			}
-			else {
-				Question quest=qstnOption.getQuestion();
-				if(a.getQuestion().equals(quest))
-				a.setAttendedOpt(qstnOption.getOption());
-				a.setAttendedAnswer(qstnOption.isIsAnswer());
-				
-			}
-			attendOptRepo.save(a);
+			qstnOption=optService.findById(optionid);
+			attendedOption.setAttendedOpt(qstnOption.getOption());
+			attendedOption.setAttendedAnswer(qstnOption.isIsAnswer());
+			attendOptRepo.save(attendedOption);
+			log.debug("attendedOption updated after qstn attended:- "+attendedOption);
 		}
 		
 	}
-
-
+	
+	
 }
+
+
+
