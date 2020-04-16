@@ -1,8 +1,6 @@
 package com.lxisoft.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.opencsv.bean.CsvBindByName;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
