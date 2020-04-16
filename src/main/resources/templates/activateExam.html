@@ -9,7 +9,7 @@
 <div class="header">
 	<h2>MockTest Application</h2>
 	<div align="center">
-		Time:- <span th:text="${exam.time} "></span>&nbsp;hr <br>
+		Time:- <span th:text="${exam.time} "></span>&nbsp;Hr <br>
 			Level:- <span th:text="${exam.level} ">level</span><br> 
 			Active:- <span	th:text="${exam.isActive} ">active</span>&nbsp;&nbsp; 
 	<button class="button button1"><a th:href="@{/activate_exam(eId=${exam.getId()})}">Set <span th:text="!${exam.isIsActive()} "></span></a></button>
