@@ -272,6 +272,13 @@ public class ExamController
 
 	}
 	
+	@RequestMapping("/delete_question")
+	public String delete_question(@RequestParam(value="qId") List<String> qId)
+	{
+		log.debug("question id's for deleting -"+qId);
+		return "redirect:/viewall_qstn";
+	}
+	
 	@RequestMapping(value="/addmore_question")
 	public String addmore( @Valid Question quest,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
