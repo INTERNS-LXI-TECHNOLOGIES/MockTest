@@ -11,7 +11,11 @@
 <div align="center">
 	<h1 th:text="${exam.getName()} "> exam name</h1>
 	
-			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; </div>
+			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
+			<!--  <p th:each="qstn ,stat : ${exam.questions}"> -->
+			<!-- <h2 th:text="'Question '+ ${stat.index+1}"> </h2> -->
+			</div>
+			
 	<div class="topnav">
 		<a class="active" >Lxi Technologies</a>
   		
@@ -44,8 +48,9 @@
 		<div>
 			<span th:text="${question.getQstn()}" th:value="${question.id}"><br>question<br> </span></span>
 				 <span th:each="qstn_option : ${question.qstnOptions}"><br><br>
-				<input type="radio" th:name="optionid"  id="option"  th:value="${qstn_option.getId()}"
-				th:text="${qstn_option.option}" /></span>
+				<input type="radio" th:name="optionid"  id="'option'+${qstn_option.getId()}"   th:value="${qstn_option.getId()}"
+				th:text="${qstn_option.option}" />
+				</span>
 		</div>
 		
 		<br><br><br>
@@ -82,8 +87,9 @@ function timer() {
   if(mseconds > 0) {
     document.getElementById('timerValue').innerHTML = millisToMinutesAndSeconds(mseconds);
 		document.getElementById('timer').value = mseconds;
-    window.setTimeout("timer()" , 1000);
+		 window.setTimeout("timer()" , 1000);
   } else {
+	 
 		alert('Timed OUt');
 		document.getElementById('myForm').submit();
 	}
@@ -109,13 +115,11 @@ function goBack() {
 
 timer();
 
+	/* function check(){
+	  document.getElementById("'option'+${qstn_option.getId()}").checked = true;} */
+	
 
-	  /* document.getElementById("option").checked = true; */
-	  
-
-		/* document.getElementById("bubble").onclick = function() {
-    	document.getElementById("myForm").submit();} */
-
+	
 
 </script>
 
