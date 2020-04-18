@@ -31,15 +31,15 @@ public class Question implements Serializable {
     @Column(name = "qstn")
     private String qstn;
 
-    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<QstnOption> qstnOptions = new HashSet<>();
 
-    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AttendedOption> attendedOptions = new HashSet<>();
 
-    @ManyToMany(mappedBy = "questions",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "questions",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JsonIgnore
     private Set<Exam> exams = new HashSet<>();
