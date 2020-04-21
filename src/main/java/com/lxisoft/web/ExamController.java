@@ -46,7 +46,9 @@ import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
+import com.lxisoft.model.AttendedExamBean;
 import com.lxisoft.repository.UserRepository;
+import com.lxisoft.service.AttendedExamBeanService;
 import com.lxisoft.service.AttendedExamService;
 import com.lxisoft.service.AttendedOptionService;
 import com.lxisoft.service.ExamService;
@@ -70,6 +72,9 @@ public class ExamController
     
 	@Autowired
 	private AttendedExamService attendExamService;
+	
+	@Autowired
+	private AttendedExamBeanService beanService;
 	@Autowired
 	private JasperService jasperServ;
 	@Autowired
@@ -472,16 +477,16 @@ public class ExamController
 		@RequestMapping("/exam_history")
 		public String exam_history(Model model,@RequestParam String aExamId,@RequestParam String userid)
 		{
-			long attend_exam_id=Long.parseLong(aExamId);
-			long user_id=Long.parseLong(userid);
+//			long attend_exam_id=Long.parseLong(aExamId);
+//			long user_id=Long.parseLong(userid);
 			AttendedExam attendedExam=attendExamService.findById(aExamId);
 			log.debug("atnd exam"+attendedExam);
 			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 			log.debug("atteneded options are:- "+attendedOptions);
 			model.addAttribute("attendedOptions", attendedOptions);
 			model.addAttribute("attendedExam", attendedExam);
-			model.addAttribute("userid",user_id);
-			model.addAttribute("attend_exam_id",attend_exam_id);
+//			model.addAttribute("userid",userid);
+			model.addAttribute("attend_exam_id",aExamId);
 			return "exam_history";
 		}
 
@@ -513,15 +518,20 @@ public class ExamController
 		
 		 */
 @RequestMapping("/userpdf")
-public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam long attendExam_id,@RequestParam long userid) {
+public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String attendExam_id) {
 	
 	log.debug("REST request to get a pdf");
    
+	
+	List<AttendedExamBean>list=beanService.getAttendedExamDataBean(attendExam_id);
+	
     byte[] pdfContents = null;
   
    try
    {
-	pdfContents=jasperServ.getReportAsPdfUsingDataBase(attendExam_id,userid);
+
+	   pdfContents=jasperServ.getReportAsPdfUsingJavaBeans(list);
+//		pdfContents=jasperServ.getReportAsPdfUsingDataBase(attendExam_id);
    }catch (JRException e) {
         e.printStackTrace();
    }

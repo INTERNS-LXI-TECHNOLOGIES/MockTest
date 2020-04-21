@@ -3,6 +3,7 @@ package com.lxisoft.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -20,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.lxisoft.model.AttendedExamBean;
 
 @Service
 @Transactional
@@ -64,4 +67,15 @@ log.debug("AggregateServiceImpl request to get a pdf");
 			
 
 }
+
+
+	public byte[] getReportAsPdfUsingJavaBeans(List<AttendedExamBean> list)throws JRException
+	{
+		JasperReport jr=JasperCompileManager.compileReport("src/main/resources/report.jrxml");
+		JRBeanCollectionDataSource collectionDataSource=new JRBeanCollectionDataSource(list);
+		Map < String , Object > parameters = new HashMap < String ,	Object >();
+		JasperPrint jp=JasperFillManager.fillReport(jr,parameters,collectionDataSource);
+		return JasperExportManager.exportReportToPdf(jp);
+		
+	}
 }
