@@ -422,6 +422,7 @@ public class ExamController
 			UserExtra userExtra=extraService.currentUserExtra();
 			log.debug("email of user "+userExtra.getUser().getEmail());
 			model.addAttribute("user",userExtra);
+			model.addAttribute("userid",userExtra.getId());
 			List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
 			if(sort.equals("percent"))
 			{
@@ -461,16 +462,18 @@ public class ExamController
 		
 
 		@RequestMapping("/exam_history")
-		public String exam_history(Model model,@RequestParam String aExamId)
+		public String exam_history(Model model,@RequestParam String aExamId,@RequestParam String userid)
 		{
-			long id=Long.parseLong(aExamId);
+			long attend_exam_id=Long.parseLong(aExamId);
+			long user_id=Long.parseLong(userid);
 			AttendedExam attendedExam=attendExamService.findById(aExamId);
 			log.debug("atnd exam"+attendedExam);
 			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 			log.debug("atteneded options are:- "+attendedOptions);
 			model.addAttribute("attendedOptions", attendedOptions);
 			model.addAttribute("attendedExam", attendedExam);
-			model.addAttribute("id",id);
+			model.addAttribute("userid",user_id);
+			model.addAttribute("attend_exam_id",attend_exam_id);
 			return "exam_history";
 		}
 
@@ -502,7 +505,7 @@ public class ExamController
 		
 		 */
 @RequestMapping("/userpdf")
-public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam long id) {
+public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam long attendExam_id,@RequestParam long userid) {
 	
 	log.debug("REST request to get a pdf");
    
@@ -510,7 +513,7 @@ public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam long id)
   
    try
    {
-	pdfContents=jasperServ.getReportAsPdfUsingDataBase(id);
+	pdfContents=jasperServ.getReportAsPdfUsingDataBase(attendExam_id,userid);
    }catch (JRException e) {
         e.printStackTrace();
    }

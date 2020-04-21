@@ -33,20 +33,22 @@ public class JasperService {
     /**
      * Gets userexamReport : using database.
      * @param id 
+     * @param userid 
      *			     
      * @return the byte[].
      * @throws JRException 
      * 
 	 * @throws JRException. 
      */
-	public byte[] getReportAsPdfUsingDataBase(long id) throws JRException {
+	public byte[] getReportAsPdfUsingDataBase(long attend_exam_id, long userid) throws JRException {
 log.debug("AggregateServiceImpl request to get a pdf");
 		
 		JasperReport jr = JasperCompileManager.compileReport("src/main/resources/report.jrxml");
 		
-	       Map<String, Object> parameters=new HashMap<String, Object>();
-			parameters.put("head","user report");
-//			parameters.put("id",id);
+		Map parameters=new HashMap();
+		parameters.put("head","Appraisal report");
+		parameters.put("id",attend_exam_id);
+		parameters.put("id",userid);
 			
 			Connection conn = null;
 			try {
