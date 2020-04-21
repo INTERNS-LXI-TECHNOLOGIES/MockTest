@@ -299,15 +299,7 @@ public class ExamController
             throw new Exception("no file found!!!!!");
         } 
 		else 
-		{
-            try 
-            {
-            	questService.saveFile(file);
-            } 
-            catch (Exception ex) {
-                log.debug("exception occured -"+ex);
-            }
-        }
+           	questService.saveFile(file);
 		return "redirect:/";
 	}
 	
