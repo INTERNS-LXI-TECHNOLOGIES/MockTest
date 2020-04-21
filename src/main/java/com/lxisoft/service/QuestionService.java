@@ -123,4 +123,16 @@ public class QuestionService {
 				i++;
 			}
 		}
+		
+		public void delete(@Valid Question question) 
+		{
+			questRepo.delete(question);
+		}
+		
+		public void deleteMultiple(List<String> qIds) {
+			for(String id:qIds)
+			{
+				delete(findById(id));
+			}
+		}
 }

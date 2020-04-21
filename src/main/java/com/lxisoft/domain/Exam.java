@@ -39,11 +39,11 @@ public class Exam implements Serializable {
     @Column(name = "time")
     private String time;
 
-    @OneToMany(mappedBy = "exam",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "exam",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AttendedExam> attendedExams = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "exam_question",
                joinColumns = @JoinColumn(name = "exam_id", referencedColumnName = "id"),

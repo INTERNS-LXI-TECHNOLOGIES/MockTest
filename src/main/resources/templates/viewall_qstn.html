@@ -30,19 +30,18 @@
 <a class="logout" th:href="@{/logoutpage}">logout</a></form></div></div>
 
 <div align="center">
-<h3><u>All Question in Database</u></h3>
+<h3>All Question in Database</h3>
 
 </div>
 
-
+<form action="/delete_question">
 <table width=100% border=1px>
     <thead>
         <tr>
             <th> Sl.No. </th>
+              <th>select</th>
             <th> Question </th>
-            
-             
-              <th colspan="3"> Answer </th>
+              <th> Answer </th>
         </tr>
     </thead>
     <tbody>
@@ -52,6 +51,9 @@
         
         <tr th:each="qstn ,iterator : ${questions}" align="center">
         <td th:text="${iterator.index+1}" > Sl.No. </td>
+        	<td>
+           		<input type="checkbox" th:value="${qstn.id}" th:name="qId">
+           	</td>
             <td> 
             <h3><span th:text="${qstn.getQstn()}">qstn</span><br></h3>
 	            <span th:each="q_option : ${qstn.qstnOptions}">
@@ -63,16 +65,17 @@
             	</td>
 	            <td>
 	            	<span th:each="q_option : ${qstn.qstnOptions}">
-	            		<span th:if="${q_option.isIsAnswer() == true}" th:text="${q_option.option}+', '"></span><br>
+	            		<span th:if="${q_option.isIsAnswer() == true}" th:text="${q_option.option}+','"></span><br>
 	            	</span>
 	           	</td>
-           <!-- 	<td><a th:href="@{/deleteQuestion(qId=${qstn.getId()},opt_Id=${q_option.getId()})}">Delete</a></td> -->
-           </span>
         </tr>
     </tbody>
 
-	</table>
+	</table><br>
+	<div align="center">
+		<input type="submit" value="delete selected">
 	</div>
-
+</form>
+<br>
 </body>
 </html>
