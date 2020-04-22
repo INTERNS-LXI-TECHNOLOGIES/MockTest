@@ -19,7 +19,7 @@
 </div>
 
 <div align="center">
-	<form action="/question_file" enctype="multipart/form-data" method="post">
+	<form action="/app/question_file" enctype="multipart/form-data" method="post">
 		<h4>import csv file:&nbsp;<input  class="button button1" type="file" name="file"></h4>	
 		<input class="button button1" type="submit" value="import">
 	</form>
@@ -50,13 +50,13 @@
        		<!--  <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
         	
 	<div align="center">
-       	<input type="submit" class="button button1 " value="Add" onclick="alert_func()" formaction="/add_question?'qid=question.getId();'"/>
-       	<input type="submit" class="button button1 " value="Add More" formaction="/addmore_question">
+       	<input type="submit" class="button button1 " value="Add" onclick="alert_func()" formaction="/app/add_question?'qid=question.getId();'"/>
+       	<input type="submit" class="button button1 " value="Add More" formaction="/app/addmore_question">
 	</div>
 </form> 
 </div>
 <br>
-**format of file- question, level(beginner/intermediate/expert), option1, option2, option3 or <a href="/model.csv">fill this csv file and upload</a> 
+**format of file- question, level(beginner/intermediate/expert), option1, option2, option3 or <a href="/app/model.csv">fill this csv file and upload</a> 
 
 <script>
 function alert_func() {
