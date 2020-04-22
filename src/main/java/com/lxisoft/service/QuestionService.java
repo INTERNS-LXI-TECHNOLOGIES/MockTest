@@ -106,15 +106,21 @@ public class QuestionService {
 			return list;
 		}
 
-		public void saveFile(MultipartFile file) throws Exception {
+		public int checkFile(MultipartFile file) throws IOException {
 			BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
-			String line;int i=0;
+			String line;int flag=0;
 			while((line=br.readLine())!=null)
 			{
 				String[] data=line.split(",");
 				if(data.length!=5)
-					throw new Exception("file is not as specified, check fields and import!!!");
+					flag=1;
 			}
+			return flag;
+		}
+		public void saveFile(MultipartFile file) throws IOException {
+			int i=0;
+			BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
+			String line;
 			while((line=br.readLine())!=null)
 			{
 				if(i!=0)

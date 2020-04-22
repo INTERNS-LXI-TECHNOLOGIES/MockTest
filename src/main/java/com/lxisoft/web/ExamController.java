@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lxisoft.domain.AttendedExam;
 import com.lxisoft.domain.AttendedOption;
+import com.lxisoft.domain.CustError;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
@@ -162,10 +163,8 @@ public class ExamController
 	{
 		  Exam exam=examService.findById(eId);
 		  List<Question> list=questService.getAllQuestionsFromExam(exam);
-		
 		  ListIterator<Question> lit = list.listIterator(); 
 		  int count=0;
-		  
 		  AttendedExam attendedExam=new AttendedExam();
 		  ZonedDateTime dateTime = ZonedDateTime.now();
 		  attendedExam.setDateTime(dateTime);
@@ -179,9 +178,7 @@ public class ExamController
 			  attendOptSer.attendOptionInitial(q,attendedExam);
 			  log.debug("attended options saved null");
 		  }
-
 			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-			
 			 if (lit.hasNext()) { 
 			  model.addAttribute("attendedOptions",attendedOptions);
 			  model.addAttribute("question",lit.next());
@@ -216,15 +213,11 @@ public class ExamController
 		
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		model.addAttribute("attendedOptions", attendedOptions);
-
 		model.addAttribute("timerValue",timerValue );
-
 		log.debug("question "+qid);
 		if(quest!=null)
 		{
-			
 			model.addAttribute("question", quest);
-			
 			return "user_exampage";
 		}
 		else if (lit.hasNext()) 
@@ -289,17 +282,29 @@ public class ExamController
 			model.addAttribute("question",new Question());
 		}
 		return "create_question";
-
 	}
 	
 	@RequestMapping(value = "/app/question_file")
 	public String question_file(@RequestParam("file") MultipartFile file, Model model) throws Exception
 	{
 		if (file.isEmpty()) {
-            throw new Exception("no file found!!!!!");
+			CustError error=new CustError("no file found!","insert csv file");
+			model.addAttribute("error",error);
+			return "error";
         } 
 		else 
-           	questService.saveFile(file);
+		{
+			int flag=questService.checkFile(file);
+			if(flag==1)
+			{
+				CustError error=new CustError("file is not as specified","check fields and import!!!");
+				model.addAttribute("error",error);
+				return "error";
+			}
+			else
+				questService.saveFile(file);
+		}
+           	
 		return "redirect:/";
 	}
 	
