@@ -61,7 +61,7 @@
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="180" width="140" height="30" uuid="a2cc815b-fadd-47df-a363-cc1844675f4e"/>
+				<reportElement x="0" y="180" width="120" height="30" uuid="a2cc815b-fadd-47df-a363-cc1844675f4e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
