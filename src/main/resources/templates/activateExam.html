@@ -12,7 +12,7 @@
 		Time:- <span th:text="${exam.time} "></span>&nbsp;Hr <br>
 			Level:- <span th:text="${exam.level} ">level</span><br> 
 			Active:- <span	th:text="${exam.isActive} ">active</span>&nbsp;&nbsp; 
-	<button class="button button1"><a th:href="@{/activate_exam(eId=${exam.getId()})}">Set <span th:text="!${exam.isIsActive()} "></span></a></button>
+	<button class="button button1"><a th:href="@{/app/activate_exam(eId=${exam.getId()})}">Set <span th:text="!${exam.isIsActive()} "></span></a></button>
 	<div class="topnav">
 		<a class="active" >Lxi Technologies</a>
   		<a  th:href="@{/}">Home</a>

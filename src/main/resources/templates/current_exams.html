@@ -28,7 +28,7 @@
 			<span th:each="exam: ${exams}">
 			
 			 <button class="button button1 lengthbtn">
-					<a th:href="@{/selectExam(eId=${exam.id})}">
+					<a th:href="@{/app/selectExam(eId=${exam.id})}">
 						<h2 th:text="${exam.name}">exam</h2>
 							<h4 th:text="${exam.level}">level</h4>
 							is active:<h4 th:text="${exam.isActive}">isActive</h4>

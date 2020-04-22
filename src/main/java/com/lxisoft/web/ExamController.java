@@ -267,7 +267,7 @@ public class ExamController
 		return "submit";
 	}
 	
-	@RequestMapping("/create_question")
+	@RequestMapping("/app/create_question")
 	public String question(Model model)
 	{
 		model.addAttribute("question",new Question());
@@ -275,7 +275,7 @@ public class ExamController
 	}
 
 
-	@RequestMapping(value="/add_question")
+	@RequestMapping(value="/app/add_question")
 	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{ 
 		questService.save(question);
@@ -286,15 +286,15 @@ public class ExamController
 
 	}
 	
-	@RequestMapping("/delete_question")
+	@RequestMapping("/app/delete_question")
 	public String delete_question(@RequestParam(value="qId") List<String> qIds)
 	{
 		log.debug("question id's for deleting -"+qIds);
 		questService.deleteMultiple(qIds);
-		return "redirect:/viewall_qstn";
+		return "redirect:/app/viewall_qstn";
 	}
 	
-	@RequestMapping(value="/addmore_question")
+	@RequestMapping(value="/app/addmore_question")
 	public String addmore( @Valid Question quest,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
 		questService.save(quest);
@@ -306,40 +306,32 @@ public class ExamController
 
 	}
 	
-	@RequestMapping(value = "/question_file")
+	@RequestMapping(value = "/app/question_file")
 	public String question_file(@RequestParam("file") MultipartFile file, Model model) throws Exception
 	{
 		if (file.isEmpty()) {
             throw new Exception("no file found!!!!!");
         } 
 		else 
-		{
-            try 
-            {
-            	questService.saveFile(file);
-            } 
-            catch (Exception ex) {
-                log.debug("exception occured -"+ex);
-            }
-        }
+           	questService.saveFile(file);
 		return "redirect:/";
 	}
 	
-	@GetMapping("/model.csv")
+	@GetMapping("/app/model.csv")
     public void modelCsv(HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
         PrintWriter writer=response.getWriter();
         writer.write("question, level, option1, option2, option3\n");
     }
 	
-	@RequestMapping ("/create_exam")
+	@RequestMapping ("/app/create_exam")
 	public String create_exam(Model model)
 	{
 		model.addAttribute("exam",new Exam());	 
 		return "create_exam";
 	}
 
-	@RequestMapping ("/save_exam")
+	@RequestMapping ("/app/save_exam")
 	public String save_exam(Exam exam,@RequestParam String hour,@RequestParam String minute) throws Exception
 	{
 		exam.setIsActive(false);
@@ -358,7 +350,7 @@ public class ExamController
 		return "current_exams";
 	}
 	
-	@RequestMapping ("/selectExam")
+	@RequestMapping ("/app/selectExam")
 	public String selectExam(Model model,@RequestParam String eId) throws Exception
 	{
 		Exam exam=examService.findById(eId);
@@ -367,7 +359,7 @@ public class ExamController
 		return "activateExam";
 	}
 	
-	@RequestMapping ("/activate_exam")
+	@RequestMapping ("/app/activate_exam")
 	public String activate_exam(@RequestParam String eId) throws Exception
 	{
 		Exam exam=examService.findById(eId);
@@ -379,10 +371,10 @@ public class ExamController
 			exam.setIsActive(true);
 		}
 		examService.update(exam);
-		return "redirect:/selectExam?eId="+eId;
+		return "redirect:/app/selectExam?eId="+eId;
 	}
 	
-	@RequestMapping ("/set_Answer")
+	@RequestMapping ("/app/set_Answer")
 	public String setAnswer(@RequestParam String opt_Id,@RequestParam String qstn_id)
 	{
 		Question question=questService.findById(qstn_id);
@@ -396,7 +388,7 @@ public class ExamController
 		return "redirect:/viewall_qstn";
 	}
 
-	@RequestMapping ("/viewall_qstn")
+	@RequestMapping ("/app/viewall_qstn")
 	public String viewall_qstn(Model model) 
 	{
 		List<Question> questions=questService.findAll();
@@ -405,7 +397,7 @@ public class ExamController
 
 	}
 
-		@RequestMapping("/filter")
+		@RequestMapping("/app/filter")
 		public String questionFilter(Model model,@RequestParam String level)
 		{
 			if(!level.equalsIgnoreCase("--select--"))
@@ -420,7 +412,7 @@ public class ExamController
 			
 		}
 		
-		@RequestMapping("/searchQstn")
+		@RequestMapping("/app/searchQstn")
 		public String searchQuestion(Model model,@RequestParam String searchQstn)
 		{
 			List<Question> questions=questService.findByQstn(searchQstn);

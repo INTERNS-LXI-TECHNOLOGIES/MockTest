@@ -17,49 +17,46 @@
 <div align="center">
    <h2>Question Creation</h2>
 </div>
-<div align="center">
 
-<form action="/question_file" enctype="multipart/form-data" method="post">
-<h4>import csv file:&nbsp;<input  class="button button1" type="file" name="file"></h4>	
-	<input class="button button1" type="submit" value="import">
-</form>
+<div align="center">
+	<form action="/app/question_file" enctype="multipart/form-data" method="post">
+		<h4>import csv file:&nbsp;<input  class="button button1" type="file" name="file"></h4>	
+		<input class="button button1" type="submit" value="import">
+	</form>
 </div>
 <br>
 <div class="container">
 <form  th:object="${question}" >
-
-            	
-            	Level
-				<select name="level" class="select button2 lengthbtn" th:field="*{level}" >
-					<option th:value="beginner">Beginner</option>
-					<option th:value="intermediate">Intermediate</option>
-					<option th:value="expert">Expert</option>
-				</select>
-        		Question
-        		<input type="text" class="input button2 lengthbtn" placeholder="Enter Question.." th:field="*{qstn}" />
-        		 <!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('question.qstn')}" th:errors="${question.qstn}"></span></font></td></tr> -->
-        		Option1
-        		<input type="text" class="input button2 lengthbtn" placeholder="Enter your option.." th:name="opt1" />
-        		 <!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
-        		
-        		Option2
-        		<input type="text" class="input button2 lengthbtn" placeholder="Enter your option.." th:name="opt2"  />
-        		<!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
-        		
-        		Option3
-        		<input type="text" class="input button2 lengthbtn" placeholder="Enter your option.." th:name="opt3" />
-        		
-        		<!--  <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
+           	Level
+			<select name="level" class="select button2 lengthbtn" th:field="*{level}" >
+				<option th:value="beginner">Beginner</option>
+				<option th:value="intermediate">Intermediate</option>
+				<option th:value="expert">Expert</option>
+			</select>
+       		Question
+       		<input type="text" class="input button2 lengthbtn" placeholder="Enter Question.." th:field="*{qstn}" />
+       		 <!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('question.qstn')}" th:errors="${question.qstn}"></span></font></td></tr> -->
+       		Option1
+       		<input type="text" class="input button2 lengthbtn" placeholder="Enter first option.." th:name="opt1" />
+       		 <!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
+       		
+       		Option2
+       		<input type="text" class="input button2 lengthbtn" placeholder="Enter second option.." th:name="opt2"  />
+       		<!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
+       		
+       		Option3
+       		<input type="text" class="input button2 lengthbtn" placeholder="Enter third option.." th:name="opt3" />
+       		
+       		<!--  <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
         	
-<div align="center">
-
-        	<input type="submit" class="button button1 " value="Add" onclick="alert_func()" formaction="/add_question?'qid=question.getId();'"/>
-        	<input type="submit" class="button button1 " value="Add More" formaction="/addmore_question">
-        	
-</div>
+	<div align="center">
+       	<input type="submit" class="button button1 " value="Add" onclick="alert_func()" formaction="/app/add_question?'qid=question.getId();'"/>
+       	<input type="submit" class="button button1 " value="Add More" formaction="/app/addmore_question">
+	</div>
 </form> 
-<br><br>
-**format of file- question, level(beginner/intermediate/expert), option1, option2, option3 or <a href="/model.csv">fill this csv file and upload</a> 
+</div>
+<br>
+**format of file- question, level(beginner/intermediate/expert), option1, option2, option3 or <a href="/app/model.csv">fill this csv file and upload</a> 
 
 <script>
 function alert_func() {

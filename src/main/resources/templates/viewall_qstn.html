@@ -34,7 +34,7 @@
 
 </div>
 
-<form action="/delete_question">
+<form action="/app/delete_question">
 <table width=100% border=1px>
     <thead>
         <tr>
@@ -58,7 +58,7 @@
             <h3><span th:text="${qstn.getQstn()}">qstn</span><br></h3>
 	            <span th:each="q_option : ${qstn.qstnOptions}">
 	            	<span th:text="${q_option.option}">option</span>&nbsp;
-		            	<a th:href="@{/set_Answer(opt_Id=${q_option.getId()},qstn_id=${qstn.getId()})}" >
+		            	<a th:href="@{/app/set_Answer(opt_Id=${q_option.getId()},qstn_id=${qstn.getId()})}" >
 	            			Set <span th:text="!${q_option.isIsAnswer()}"></span><br>
 	            		</a>
 	            	</span><br>
