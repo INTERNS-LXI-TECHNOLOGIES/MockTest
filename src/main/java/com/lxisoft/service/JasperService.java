@@ -73,7 +73,9 @@ log.debug("AggregateServiceImpl request to get a pdf");
 	{
 		JasperReport jr=JasperCompileManager.compileReport("src/main/resources/report.jrxml");
 		JRBeanCollectionDataSource collectionDataSource=new JRBeanCollectionDataSource(list);
+		
 		Map < String , Object > parameters = new HashMap < String ,	Object >();
+		parameters.put("list",list);
 		JasperPrint jp=JasperFillManager.fillReport(jr,parameters,collectionDataSource);
 		return JasperExportManager.exportReportToPdf(jp);
 		

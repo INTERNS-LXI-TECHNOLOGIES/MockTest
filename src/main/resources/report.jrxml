@@ -59,53 +59,51 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="500" splitType="Stretch">
+		<band height="750" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="2" y="90" width="551" height="1" uuid="5e41185f-9c90-45ca-839b-e28b308c1430"/>
-			</line>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<textField>
-				<reportElement x="160" y="5" width="250" height="30" uuid="a67b1e6a-cb90-464a-9d88-307e0d50c7ea"/>
+				<reportElement x="0" y="0" width="555" height="70" uuid="a67b1e6a-cb90-464a-9d88-307e0d50c7ea"/>
 				<textFieldExpression><![CDATA[$F{examName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="110" y="50" width="200" height="30" uuid="d0fa5369-c2d6-4f03-b679-e12cffaa743c"/>
+				<reportElement x="0" y="70" width="555" height="68" uuid="d0fa5369-c2d6-4f03-b679-e12cffaa743c"/>
 				<textFieldExpression><![CDATA[$F{user}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="350" y="50" width="100" height="30" uuid="938146bc-fca9-4cc7-b260-d7dbba047d66"/>
+				<reportElement x="0" y="138" width="555" height="68" uuid="938146bc-fca9-4cc7-b260-d7dbba047d66"/>
 				<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="102" width="100" height="30" uuid="a452d79d-81ce-47db-9e92-eb5908c2cd4a"/>
+				<reportElement x="0" y="206" width="555" height="68" uuid="a452d79d-81ce-47db-9e92-eb5908c2cd4a"/>
 				<textFieldExpression><![CDATA[$F{score}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="330" y="102" width="100" height="30" uuid="003ae154-5c8c-4883-9cc4-fcaee14ddb2d"/>
+				<reportElement x="0" y="274" width="555" height="26" uuid="003ae154-5c8c-4883-9cc4-fcaee14ddb2d"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="190" width="100" height="30" uuid="04092e16-b08a-4f84-a720-4d5a93e62d80"/>
+				<reportElement x="0" y="320" width="555" height="30" uuid="04092e16-b08a-4f84-a720-4d5a93e62d80"/>
 				<textFieldExpression><![CDATA[$F{options}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="187" width="100" height="30" uuid="223dbff7-5a48-4952-9511-f806cd14e91f"/>
+				<reportElement x="0" y="410" width="555" height="68" uuid="223dbff7-5a48-4952-9511-f806cd14e91f"/>
 				<textFieldExpression><![CDATA[$F{options}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="260" y="190" width="100" height="30" uuid="54e0dbe8-e4e0-4b39-85ac-7559280b9f5c"/>
+				<reportElement x="0" y="478" width="555" height="68" uuid="54e0dbe8-e4e0-4b39-85ac-7559280b9f5c"/>
 				<textFieldExpression><![CDATA[$F{options}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="130" y="240" width="100" height="30" uuid="e727fddd-4032-4cfd-a2ea-b80e5ae5e473"/>
+				<reportElement x="0" y="546" width="555" height="68" uuid="e727fddd-4032-4cfd-a2ea-b80e5ae5e473"/>
 				<textFieldExpression><![CDATA[$F{attended_opt}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="270" y="240" width="100" height="30" uuid="72d08d81-bcdb-429d-9d66-3b010599844b"/>
+				<reportElement x="0" y="614" width="555" height="68" uuid="72d08d81-bcdb-429d-9d66-3b010599844b"/>
 				<textFieldExpression><![CDATA[$F{attended_answer}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="450" y="110" width="100" height="30" uuid="84f9bcc5-c081-4ddd-b02d-5abe86893ca6"/>
+				<reportElement x="0" y="682" width="555" height="68" uuid="84f9bcc5-c081-4ddd-b02d-5abe86893ca6"/>
 				<textFieldExpression><![CDATA[$F{percentage}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -146,7 +144,7 @@
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="-4" y="-360" width="524" height="30" uuid="af8c29df-b33d-4cb7-81dd-c2c55c9d7f9b"/>
+					<reportElement style="SubTitle" x="-2" y="-390" width="547" height="30" uuid="af8c29df-b33d-4cb7-81dd-c2c55c9d7f9b"/>
 					<textFieldExpression><![CDATA[$F{question}]]></textFieldExpression>
 				</textField>
 			</frame>
