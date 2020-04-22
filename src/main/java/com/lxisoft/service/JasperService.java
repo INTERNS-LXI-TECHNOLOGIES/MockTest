@@ -71,7 +71,7 @@ log.debug("AggregateServiceImpl request to get a pdf");
 
 	public byte[] getReportAsPdfUsingJavaBeans(List<AttendedExamBean> list)throws JRException
 	{
-		JasperReport jr=JasperCompileManager.compileReport("src/main/resources/report.jrxml");
+		JasperReport jr=JasperCompileManager.compileReport("src/main/resources/ExamReport.jrxml");
 		JRBeanCollectionDataSource collectionDataSource=new JRBeanCollectionDataSource(list);
 		
 		Map < String , Object > parameters = new HashMap < String ,	Object >();

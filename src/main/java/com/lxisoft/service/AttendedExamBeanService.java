@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.lxisoft.domain.AttendedExam;
 import com.lxisoft.domain.AttendedOption;
+import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
-
+import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
 import com.lxisoft.model.AttendedExamBean;
 
@@ -26,58 +27,48 @@ public class AttendedExamBeanService {
 	private	UserExtraService extraService;
     @Autowired
 	private AttendedExamService attendExamService;
+	@Autowired
+	private ExamService examService;
 
-	public List<AttendedExamBean> getAttendedExamDataBean(String attendExam_id) {
+	public List<AttendedExamBean> getAttendedExamDataBean(String Exam_id) throws Exception
+	{
 		
 		List<AttendedExamBean> list=new ArrayList<AttendedExamBean>();
 		
-		UserExtra userExtra=extraService.currentUserExtra();
-		AttendedExam attendedExam=attendExamService.findById(attendExam_id);
-		AttendedExamBean bean=new AttendedExamBean();
+		Exam exam=examService.findById(Exam_id);
 		
-		bean.setExamName(attendedExam.getExam().getName());
-		bean.setScore(attendedExam.getScore());
-		bean.setTotal(attendedExam.getTotal());
-		bean.setPercentage(attendedExam.getPercentage());
+		List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
 		
-		if(attendedExam.isResult()==true)
-		{
-			bean.setResult("Passed");
-		}
+		List<User> candidates =extraService.findAll();
 		
-		
-		Set<Question> questionlist=attendedExam.getExam().getQuestions();
-		ArrayList<String>questions=new ArrayList<String>();
-		ArrayList<String>options=new ArrayList<String>();
-		for(Question quest:questionlist)
-		{
-			questions.add(quest.getQstn());
-			Set<QstnOption> optionlist=quest.getQstnOptions();
-			for(QstnOption opt:optionlist)
+			
+			for(AttendedExam atndexam:attendList)
 			{
-				options.add(opt.getOption());
+				for(User user:candidates)
+				{
+					if(user.getId().equals(atndexam.getUserExtra().getId())) 
+					{
+						AttendedExamBean bean=new AttendedExamBean();
+							
+						log.debug("candidate name"+user.getFirstName()+" "+user.getLastName());
+						bean.setExamName(exam.getName());
+						bean.setCandidate(user.getFirstName()+" "+user.getLastName());
+						bean.setScore(atndexam.getScore());
+						bean.setTotal(atndexam.getTotal());
+						bean.setPercentage(atndexam.getPercentage());
+						bean.setDate(atndexam.getDateTime().toLocalDate());
+						if(atndexam.isResult()==true)
+						{
+							bean.setResult("Passed");
+						}
+						list.add(bean);
+					}
+				}
+				
+				
 			}
 			
-		}
-		bean.setQuestion(questions);
-		bean.setOptions(options);
-		
-		ArrayList<String>attended_opt=new ArrayList<String>();
-		Set<AttendedOption> attendedOptions=attendedExam.getAttendedOptions();
-		for(AttendedOption atn_opt:attendedOptions)
-		{
-			attended_opt.add(atn_opt.getAttendedOpt());
-			if(atn_opt.isAttendedAnswer()==true) {
-				bean.setAttended_answer(true);
-			}
-		}
-		
-		bean.setAttended_opt(attended_opt);
-		String user=userExtra.getUser().getFirstName()+" "+userExtra.getUser().getLastName();
-		bean.setUser(user);
-		
-		list.add(bean);
-		log.debug("beanlist"+list);
+			log.debug("list pdf"+list);
 		return list;
 	}
     

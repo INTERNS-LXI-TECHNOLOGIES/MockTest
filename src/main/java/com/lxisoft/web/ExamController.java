@@ -515,15 +515,16 @@ public class ExamController
 		 * GET  /pdf : get the pdf user report using database.
 		 *  
 		 * @return the byte[]
+		 * @throws Exception 
 		
 		 */
-@RequestMapping("/userpdf")
-public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String attendExam_id) {
+@RequestMapping("/examDetailsPDF")
+public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String Exam_id) throws Exception {
 	
 	log.debug("REST request to get a pdf");
    
 	
-	List<AttendedExamBean>list=beanService.getAttendedExamDataBean(attendExam_id);
+	List<AttendedExamBean>list=beanService.getAttendedExamDataBean(Exam_id);
 	
     byte[] pdfContents = null;
   
