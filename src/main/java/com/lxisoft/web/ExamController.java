@@ -301,13 +301,20 @@ public class ExamController
 	@RequestMapping(value = "/app/question_file")
 	public String question_file(@RequestParam("file") MultipartFile file, Model model) throws Exception
 	{
-		if (file.isEmpty()) {
-			CustError error=new CustError("no file found!","insert csv file");
+		if(!file.getContentType().equals("application/vnd.ms-excel"))
+		{
+			CustError error=new CustError("file is not csv!!","insert a csv file");
+			model.addAttribute("error",error);
+			return "error";
+		}
+		else if (file.isEmpty()) {
+			CustError error=new CustError("file/data missing!!","insert the csv file");
 			model.addAttribute("error",error);
 			return "error";
         } 
 		else 
 		{
+			log.debug("content type impoted file:- "+file.getContentType());
 			int flag=questService.checkFile(file);
 			if(flag==1)
 			{
@@ -318,7 +325,6 @@ public class ExamController
 			else
 				questService.saveFile(file);
 		}
-           	
 		return "redirect:/";
 	}
 	
