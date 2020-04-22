@@ -11,7 +11,7 @@
 		<a class="active" >Lxi Technologies</a>
   		
   		<a  th:href="@{/}">Home</a>
-  		
+  		<!--  <a th:href="@{/userpdf(attendExam_id=${attend_exam_id})}">Generate Pdf</a> -->
   		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>
 
@@ -22,8 +22,11 @@
 <h4>Result: <span th:text="${attendedExam.result}==true? passed:failed">result</span></h4>
 </div>
 <div class="container">
+<div align="right"><button class="button button1" onclick="window.print()">Print</button></div>
+ 
 <table width=100% th:each="qstn ,stat : ${attendedExam.exam.questions}">
     <tbody>
+   
     <tr th:if="${attendedExam.exam.questions.empty}" align="center">
             <td colspan="1"> Questions has been revoked </td>
         </tr>

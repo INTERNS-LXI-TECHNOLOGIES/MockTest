@@ -24,7 +24,10 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -35,6 +38,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import com.lxisoft.domain.AttendedExam;
 import com.lxisoft.domain.AttendedOption;
 import com.lxisoft.domain.CustError;
@@ -43,15 +47,20 @@ import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
+import com.lxisoft.model.AttendedExamBean;
 import com.lxisoft.repository.UserRepository;
+import com.lxisoft.service.AttendedExamBeanService;
 import com.lxisoft.service.AttendedExamService;
 import com.lxisoft.service.AttendedOptionService;
 import com.lxisoft.service.ExamService;
+import com.lxisoft.service.JasperService;
 import com.lxisoft.service.OptionService;
 import com.lxisoft.service.QuestionService;
 import com.lxisoft.service.UserExtraService;
 import com.lxisoft.service.UserService;
 import com.lxisoft.service.dto.UserDTO;
+
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * Mocktest Exam controller
@@ -64,6 +73,11 @@ public class ExamController
     
 	@Autowired
 	private AttendedExamService attendExamService;
+	
+	@Autowired
+	private AttendedExamBeanService beanService;
+	@Autowired
+	private JasperService jasperServ;
 	@Autowired
 	private OptionService optService;
 	@Autowired
@@ -418,6 +432,7 @@ public class ExamController
 			UserExtra userExtra=extraService.currentUserExtra();
 			log.debug("email of user "+userExtra.getUser().getEmail());
 			model.addAttribute("user",userExtra);
+			model.addAttribute("userid",userExtra.getId());
 			List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
 			if(sort.equals("percent"))
 			{
@@ -457,14 +472,18 @@ public class ExamController
 		
 
 		@RequestMapping("/exam_history")
-		public String exam_history(Model model,@RequestParam String aExamId)
+		public String exam_history(Model model,@RequestParam String aExamId,@RequestParam String userid)
 		{
+//			long attend_exam_id=Long.parseLong(aExamId);
+//			long user_id=Long.parseLong(userid);
 			AttendedExam attendedExam=attendExamService.findById(aExamId);
 			log.debug("atnd exam"+attendedExam);
 			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 			log.debug("atteneded options are:- "+attendedOptions);
 			model.addAttribute("attendedOptions", attendedOptions);
 			model.addAttribute("attendedExam", attendedExam);
+//			model.addAttribute("userid",userid);
+			model.addAttribute("attend_exam_id",aExamId);
 			return "exam_history";
 		}
 
@@ -489,8 +508,43 @@ public class ExamController
 		}
 		
 
+		/**
+		 * GET  /pdf : get the pdf user report using database.
+		 *  
+		 * @return the byte[]
+		 * @throws Exception 
+		
+		 */
+@RequestMapping("/examDetailsPDF")
+public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String Exam_id) throws Exception {
+	
+	log.debug("REST request to get a pdf");
+   
+	
+	List<AttendedExamBean>list=beanService.getAttendedExamDataBean(Exam_id);
+	
+    byte[] pdfContents = null;
+  
+   try
+   {
+
+	   pdfContents=jasperServ.getReportAsPdfUsingJavaBeans(list);
+//		pdfContents=jasperServ.getReportAsPdfUsingDataBase(attendExam_id);
+   }catch (JRException e) {
+        e.printStackTrace();
+   }
+  
+   HttpHeaders headers=new HttpHeaders();
+	headers.setContentType(MediaType.parseMediaType("application/pdf"));
+	String fileName="report.pdf";
+	headers.add("content dis-position","attachment: filename="+fileName);
+	ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
+	return response;
+}
 
 }
+
+
 
 //@RequestMapping(value = "/question_file")
 //public String question_file(@RequestParam("file") MultipartFile file, Model model) throws Exception
@@ -528,37 +582,3 @@ public class ExamController
 //	return "redirect:/";
 //}
 
-
-//@RequestMapping("/viewqstn")
-//public String viewquestion(Model model,@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String qid,@RequestParam String aExamId,@RequestParam String index,@RequestParam String count,@RequestParam String eId) throws Exception 
-//{
-//	AttendedExam attendedExam=attendExamService.findById(aExamId);
-//	List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-//	model.addAttribute("attendedOptions", attendedOptions);
-//	
-//	log.debug("question id "+qid);
-//	Question quest=questService.findById(qid);
-//	
-//	Exam exam = examService.findById(eId);
-//	List<Question> list=questService.getAllQuestionsFromExam(exam);
-//	int pos = Integer.parseInt(index);
-//		  ListIterator<Question> lit = list.listIterator(pos); 
-//
-//		  log.debug("option id         " +optionid);
-//		  log.debug("question        " +list.get(pos-1));
-//		  log.debug("atnd exam       "+attendedExam);
-//		  
-//		  int marks = Integer.parseInt(count);
-//			marks = optService.setResult(marks, optionid);
-//			
-//	 attendOptSer.attendOption(optionid,list.get(lit.previousIndex()),attendedExam);
-//	model.addAttribute("iterator", lit);
-//	model.addAttribute("question", quest);
-//	model.addAttribute("aExamId",aExamId);
-//	model.addAttribute("count", marks);
-//	model.addAttribute("exam", exam);
-//	log.debug("exam name" +exam);
-//
-//
-//	return "user_exampage";
-//}
