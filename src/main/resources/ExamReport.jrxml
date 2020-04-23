@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ExamReport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f6e4db4-9f8f-4ffe-9759-6e1fd142f492">
-	<property name="template.type" value="columnar"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (5)"/>
-	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false"/>
-	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ExamReport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13acf49e-4913-4d1b-bccc-113817ad15d1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AttendedExamBean"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
 	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
 	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
@@ -46,114 +45,117 @@
 	<title>
 		<band height="500" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="95" backcolor="#000000" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="370" height="66" uuid="a2a2cac8-5a7d-4487-8c54-dab235ce4e21"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Exam_Report]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="70" y="66" width="450" height="29" forecolor="#FCF5F5" uuid="98cca156-7c8d-4a48-967a-c564c40421bf"/>
+					<textElement>
+						<font fontName="Baskerville Old Face" size="16"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{examName}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="100" width="553" height="32" forecolor="#000000" backcolor="#F3E3FA" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="307" y="12" width="144" height="20" forecolor="#0A0A0A" uuid="5c3301e7-a737-4c59-8a2f-a6c79fd1adb8"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="90" width="89" height="70" uuid="56f123e1-aa22-4616-b0eb-1966644e6e16"/>
+					<textFieldExpression><![CDATA[$F{candidate}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="90" y="100" width="80" height="40" uuid="b3c8c3fb-a360-4e03-9086-48a4d98e0158"/>
+					<textFieldExpression><![CDATA[$F{score}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="-1" y="136" width="555" height="44" forecolor="rgba(240, 209, 209, 0.05882353)" backcolor="rgba(10, 9, 10, 0.84705883)" uuid="b50221b5-8254-440b-8c6f-1f0b138c9259"/>
+				<staticText>
+					<reportElement x="3" y="10" width="87" height="30" forecolor="#FAF3F2" uuid="0bd271c4-ce0c-4372-b262-22ccd1958cca"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Candidate]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="90" y="7" width="81" height="30" forecolor="#F2F0F0" uuid="b43ce297-04fe-4ba9-a39e-629848e2272c"/>
+					<textElement markup="none">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Score]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="181" y="10" width="100" height="27" forecolor="#EDEBEB" uuid="7acd91d3-2f6e-431f-a46d-060249c2463a"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="296" y="14" width="100" height="23" forecolor="#EDE8E8" uuid="db34300a-4950-494c-bfe4-0249cb3f5bb5"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Result]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="412" y="14" width="78" height="30" forecolor="#EDEBEB" uuid="69a9008a-57a3-4f96-b68e-13444c256377"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Percentage]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="504" y="10" width="50" height="30" forecolor="#F2F2F2" uuid="ebd57836-5c98-4687-a872-b42bff19da7e"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Date]]></text>
+				</staticText>
+			</frame>
 			<textField>
-				<reportElement x="150" y="10" width="365" height="60" uuid="471fd04b-c13e-4a38-8d55-3df1cbadba27"/>
-				<textElement>
-					<font size="24" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{examName}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="150" y="180" width="79" height="30" uuid="d5e6a717-ad85-4093-8f08-b5f18768bda8"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
+				<reportElement x="180" y="205" width="100" height="30" uuid="086449d9-9283-4945-a819-bf6bf613f12f"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="180" width="120" height="30" uuid="a2cc815b-fadd-47df-a363-cc1844675f4e"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{candidate}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="229" y="180" width="91" height="30" uuid="8528f75c-a8d1-4581-ba78-47e00a6aad0e"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{score}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="324" y="180" width="56" height="30" uuid="3ee7fc84-ce5e-490c-8339-b8002d6e4835"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
+				<reportElement x="280" y="205" width="100" height="30" uuid="dc1872ad-e1d1-456e-9c2d-068594eb0015"/>
 				<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="390" y="180" width="90" height="30" uuid="41a12fdb-df35-4dbc-86e4-4c74de28d863"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
+				<reportElement x="380" y="210" width="100" height="30" uuid="914af814-a849-44bf-af6f-147f71ab15e9"/>
 				<textFieldExpression><![CDATA[$F{percentage}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="482" y="181" width="75" height="28" uuid="754ef94d-8472-454e-9d8a-4be6e3378257"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
+				<reportElement x="480" y="210" width="73" height="30" uuid="817c1aa0-b68c-4c69-a937-c196bbf7c1a0"/>
 				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="4" y="140" width="116" height="30" uuid="098f1d8d-4e7f-4222-9f61-8b601cf46b54"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Candidate]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="320" y="143" width="60" height="31" uuid="962b0d48-2664-405b-9578-d113e533733b"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Result]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="150" y="140" width="79" height="30" uuid="1fcea8a0-4c34-4f24-88f9-fa1fcda16120"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Total]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="240" y="140" width="61" height="31" uuid="457c283c-387a-45a5-9f62-5147afff8147"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Score]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="390" y="140" width="81" height="31" uuid="4ecf3b18-beca-4b1f-8f0a-d4b69529cf50"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Percentage]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="480" y="140" width="81" height="31" uuid="fc57f68d-d6a1-4a7f-a703-4cebedb3aa91"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Date]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band splitType="Stretch"/>
+		<band height="26" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="104" splitType="Stretch">
-			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
-		</band>
+		<band height="18" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
 		<band height="7" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="fab082df-3ca0-43ac-900e-4da3f8b5a45d"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="1133a906-5b71-476e-9f3e-bc97c97058c1"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -161,25 +163,25 @@
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="13" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="2" y="0" width="555" height="13" forecolor="#D0B48E" backcolor="#9DB1B8" uuid="bfdca178-800d-445c-9a31-bb616a00e8ce"/>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="729c3539-f946-4d0e-a0a7-bda2815ea1b0"/>
 				<textField evaluationTime="Report">
-					<reportElement style="Column header" x="513" y="0" width="40" height="13" forecolor="#FFFFFF" uuid="2fba0f87-635e-476d-858f-d102b26146fe"/>
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="4834e99c-7f6c-485a-b098-50e5187f2ab4"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="Column header" mode="Transparent" x="433" y="0" width="80" height="13" forecolor="#FFFFFF" uuid="e454d23d-bcfc-4c79-a399-0ef520a3150a"/>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="9825b46e-76f1-469a-abb8-a1cc27aad685"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 				</textField>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement style="Column header" x="2" y="0" width="197" height="13" forecolor="#FFFFFF" uuid="14d8de1e-8695-4078-a67f-0e69172574d5"/>
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="137d38c7-1a83-4fc5-b156-9d5f1b1a0ddc"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>

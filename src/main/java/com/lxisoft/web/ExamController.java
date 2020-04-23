@@ -552,8 +552,10 @@ public class ExamController
 		 * @throws Exception 
 		
 		 */
+
 	@RequestMapping("/examDetailsPDF")
-	public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String Exam_id) throws Exception {
+	public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String Exam_id) throws Exception 
+	{
 		
 		log.debug("REST request to get a pdf");
 	   
@@ -578,6 +580,7 @@ public class ExamController
 		ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
 		return response;
 	}
+
 
 }
 
