@@ -301,16 +301,15 @@ public class ExamController
 	@RequestMapping("/app/delete_question")
 	public String delete_question(@RequestParam(name="qId" ,required=false,defaultValue="0") List<String> qId,Model model)
 	{
+		log.debug("question id's for deleting -"+qId);
 		if(qId.get(0).equals("0"))
 		{
-			log.debug("no question id's selected for deleting !! "+qId);
 			CustError error=new CustError("no questions selected!!","select question and retry");
 			model.addAttribute("error",error);
 			return "error";
 		}
 		else
 		{
-			log.debug("question id's for deleting -"+qId);
 			questService.deleteMultiple(qId);
 		}
 		return "redirect:/app/viewall_qstn";
@@ -385,8 +384,6 @@ public class ExamController
 		}
 		return "redirect:/";
 	}
-	
-	
 	
 	@RequestMapping ("/current_exams")
 	public String current_exams(Model model)

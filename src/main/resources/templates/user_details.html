@@ -60,7 +60,7 @@
              					<tr th:each="atndexam ,iterator : ${AttendedExamList}" align="center">
        							 <td th:text="${iterator.index+1}" > Sl.No. </td>
           						   <td>
-          						   		<a th:href="@{/exam_history(aExamId=${atndexam.id})}" th:text="${atndexam.exam.name}"></a>
+          						   		<a th:href="@{/exam_history(aExamId=${atndexam.id},userid=${user.id})}" th:text="${atndexam.exam.name}"></a>
           						   </td>
          							<td th:text="${atndexam.getExam().getLevel()}"> Level </td>
          							 <td th:text="${atndexam.getScore()}"> Score </td>
