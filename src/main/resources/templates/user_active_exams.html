@@ -39,17 +39,14 @@ document.getElementById("demo").innerHTML = days + "d "
   	<div class="container">
 					
 						<span th:if="${exam_list.empty}">
-         				   No Active Exams Available </span>
-         				  
-         				
-         				  
+         				   No Active Exams Available
+         				  </span>
          				  <div>
-         				  <span th:if="!${exam_list.empty}"> Select your Test
-						<br>
-						<br> 
-						 <span th:each="exam: ${exam_list}"> 
+         				  	<span th:if="!${exam_list.empty}"> Select your Test
+							<br><br>
+							 <span th:each="exam: ${exam_list}"> 
 						 
-						 <a th:href="@{/active_examInfo(eId=${exam.getId()})}" class="button button1 lengthbtn">
+						 <a th:href="@{/userexam_instruction(eId=${exam.getId()})}" class="button button1 lengthbtn">
 						 <span th:text="${exam.getName()}"></span>
 						 </a><br><br>
 						 

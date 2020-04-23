@@ -145,21 +145,13 @@ public class ExamController
 		return "user_active_exams";
 	}
 	
-	@RequestMapping("/active_examInfo")
+	@RequestMapping("/userexam_instruction")
 	public String active_exam_info(Model model,@RequestParam String eId) throws Exception
 	{
 		Exam exam=examService.findById(eId);
 		model.addAttribute("exam",exam);
 		model.addAttribute("exams",examService.findAll());
-		return "selected_exam_info";
-	}
-	
-	@RequestMapping(value="/user_instruction")
-	public String userinstruction(Model model,@RequestParam String eId) throws Exception
-	{
-		Exam exam=examService.findById(eId);
-		model.addAttribute("exam",exam);
-		return"user_instruction";
+		return "userexam_instruction";
 	}
 	
 	@RequestMapping("/attended_exam_results")
@@ -280,10 +272,20 @@ public class ExamController
 	}
 	
 	@RequestMapping("/app/delete_question")
-	public String delete_question(@RequestParam(value="qId") List<String> qIds)
+	public String delete_question(@RequestParam(name="qId" ,required=false,defaultValue="0") List<String> qId,Model model)
 	{
-		log.debug("question id's for deleting -"+qIds);
-		questService.deleteMultiple(qIds);
+		if(qId.get(0).equals("0"))
+		{
+			log.debug("no question id's selected for deleting !! "+qId);
+			CustError error=new CustError("no questions selected!!","select question and retry");
+			model.addAttribute("error",error);
+			return "error";
+		}
+		else
+		{
+			log.debug("question id's for deleting -"+qId);
+			questService.deleteMultiple(qId);
+		}
 		return "redirect:/app/viewall_qstn";
 	}
 	
@@ -314,7 +316,6 @@ public class ExamController
         } 
 		else 
 		{
-			log.debug("content type impoted file:- "+file.getContentType());
 			int flag=questService.checkFile(file);
 			if(flag==1)
 			{
@@ -521,70 +522,49 @@ public class ExamController
 		 * @throws Exception 
 		
 		 */
-@RequestMapping("/examDetailsPDF")
-public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String Exam_id) throws Exception {
+	@RequestMapping("/examDetailsPDF")
+	public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String Exam_id) throws Exception {
+		
+		log.debug("REST request to get a pdf");
+	   
+		
+		List<AttendedExamBean>list=beanService.getAttendedExamDataBean(Exam_id);
+		
+	    byte[] pdfContents = null;
+	  
+	   try
+	   {
 	
-	log.debug("REST request to get a pdf");
-   
-	
-	List<AttendedExamBean>list=beanService.getAttendedExamDataBean(Exam_id);
-	
-    byte[] pdfContents = null;
-  
-   try
-   {
+		   pdfContents=jasperServ.getReportAsPdfUsingJavaBeans(list);
+	//		pdfContents=jasperServ.getReportAsPdfUsingDataBase(attendExam_id);
+	   }catch (JRException e) {
+	        e.printStackTrace();
+	   }
+	  
+	   HttpHeaders headers=new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType("application/pdf"));
+		String fileName="report.pdf";
+		headers.add("content dis-position","attachment: filename="+fileName);
+		ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
+		return response;
+	}
 
-	   pdfContents=jasperServ.getReportAsPdfUsingJavaBeans(list);
-//		pdfContents=jasperServ.getReportAsPdfUsingDataBase(attendExam_id);
-   }catch (JRException e) {
-        e.printStackTrace();
-   }
-  
-   HttpHeaders headers=new HttpHeaders();
-	headers.setContentType(MediaType.parseMediaType("application/pdf"));
-	String fileName="report.pdf";
-	headers.add("content dis-position","attachment: filename="+fileName);
-	ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
-	return response;
 }
 
-}
 
-
-
-//@RequestMapping(value = "/question_file")
-//public String question_file(@RequestParam("file") MultipartFile file, Model model) throws Exception
+//@RequestMapping(value="/user_instruction")
+//public String userinstruction(Model model,@RequestParam String eId) throws Exception
 //{
-//	if (file.isEmpty()) {
-//        throw new Exception("no file found!!!!!");
-//    } 
-//	else 
+//	boolean flag=examService.findByIdCheck(eId);
+//	if(flag==false)
 //	{
-//        try 
-//        {
-//        	Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
-//        	CsvToBean<Question> csvToQstn = new CsvToBeanBuilder<Question>(reader)
-//                    .withType(Question.class)
-//                    .withIgnoreLeadingWhiteSpace(true)
-//                    .build();
-//            List<Question> questions = csvToQstn.parse();
-//            questService.save(questions.get(0));
-//            
-//            Reader readeropt = new BufferedReader(new InputStreamReader(file.getInputStream()));
-//            CsvToBean<QstnOption> csvToOptn = new CsvToBeanBuilder<QstnOption>(readeropt)
-//                    .withType(QstnOption.class)
-//                    .withIgnoreLeadingWhiteSpace(true)
-//                    .build();
-//            List<QstnOption> options = csvToOptn.parse();
-//            log.debug("option of csv:= "+options);
-//            optService.save(options.get(0));
-//            optService.save(options.get(1));
-//            optService.save(options.get(2));
-//        } 
-//        catch (Exception ex) {
-//            log.debug("exception occured -"+ex);
-//        }
-//    }
-//	return "redirect:/";
+//		CustError error=new CustError("no questions selected!!","select question and retry");
+//		model.addAttribute("error",error);
+//		return "error";
+//	}
+//	else {
+//		Exam exam=examService.findById(eId);
+//		model.addAttribute("exam",exam);
+//		return "user_instruction";
+//	}
 //}
-

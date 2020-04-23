@@ -37,20 +37,19 @@ public class ExamService {
 	public Exam findById(String eId) throws Exception
 	{
 		long id=Integer.parseInt(eId);
-		Exam exam=null;
 		Optional<Exam> optional=examRepo.findById(id);
-		if(optional.isPresent())
-		{
-			exam=optional.get();
-		}
-		else
-			throw new Exception("Exam(id="+id+") not present. Sorry!!");
-		return exam;
+		return optional.get();
+	}
+	
+	public boolean findByIdCheck(String eId) throws Exception
+	{
+		long id=Integer.parseInt(eId);
+		Optional<Exam> optional=examRepo.findById(id);
+		return optional.isPresent();
 	}
 
 	public void save_exam(Exam exam) throws Exception
 	{
-//		List<Question> finalQstns=new ArrayList<Question>();
 		Set<Question> finalQstns = new HashSet<Question>(); 
 		List<Question> qstns=qstService.findAll();
 		Collections.shuffle(qstns);
@@ -82,16 +81,15 @@ public class ExamService {
 	public void update(Exam exam) {
 		examRepo.save(exam);
 	}
+	
 	public Set<Exam> findActiveExams() throws Exception
 	{
 		List<Exam> exam_list=findAll();
 		Set<Exam> final_list = new HashSet<Exam>();
 		for(Exam e:exam_list)
 		{
-//			System.out.println("exam sevice inside for");
 			if(e.isIsActive()==true)
 			{
-//				System.out.println("exam sevice inside for   ex name"+e.getName());
 				final_list.add(e);
 			}
 		}
