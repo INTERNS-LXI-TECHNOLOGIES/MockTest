@@ -44,14 +44,16 @@ public class AttendedExamBeanService {
 			
 			for(AttendedExam atndexam:attendList)
 			{
+				AttendedExamBean bean=new AttendedExamBean();
+				bean.setExamName(exam.getName());
 				for(User user:candidates)
 				{
 					if(user.getId().equals(atndexam.getUserExtra().getId())) 
 					{
-						AttendedExamBean bean=new AttendedExamBean();
+						
 							
 						log.debug("candidate name"+user.getFirstName()+" "+user.getLastName());
-						bean.setExamName(exam.getName());
+						
 						bean.setCandidate(user.getFirstName()+" "+user.getLastName());
 						bean.setScore(atndexam.getScore());
 						bean.setTotal(atndexam.getTotal());
@@ -62,7 +64,9 @@ public class AttendedExamBeanService {
 							bean.setResult("Passed");
 						}
 						list.add(bean);
+						
 					}
+					
 				}
 				
 				

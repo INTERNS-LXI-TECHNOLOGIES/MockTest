@@ -517,7 +517,6 @@ public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String E
    
 	
 	List<AttendedExamBean>list=beanService.getAttendedExamDataBean(Exam_id);
-	
     byte[] pdfContents = null;
   
    try
