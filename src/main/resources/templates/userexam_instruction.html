@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="fragments/head :: headerFragment">
+<meta charset="ISO-8859-1">
+<title>selected exam details</title>
+
+</head>
+<body bgcolor="FloralWhite">
+<div class="header">
+	<h2>MockTest Application</h2>
+	<div class="topnav">
+		<a class="active" >Lxi Technologies</a>
+  		
+  		<a  th:href="@{/}">Home</a>
+  		<a  th:href="@{/attended_exam_results(eId=${exam.getId()})}">Test Results</a>
+  		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
+  </div>
+<div class="container"align="center">
+ <h3>Exam:&nbsp;<span th:text="${exam.name}"></span></h3>
+  <h4>Level:&nbsp;&nbsp;<span th:text="${exam.level}"></span><br>
+  Total Questions:&nbsp;<span th:text="${exam.count}+' ('+${exam.time}+' hr) '"></span></h4>
+  <br><br>
+
+		<!-- <a th:href="@{/user_instruction(eId=${exam.getId()})}" class="button button1">Take Test</a> -->
+</div>
+ <div align="center">
+		
+			<h4>INSTRUCTIONS TO CANDIDATES</h4>
+		</div>
+  	<div class="container">
+					
+
+
+<h4>
+<ol type="1">
+  <li> No other electronic devices are allowed for assistance</li>
+  <li> Paper is provided for rough working.</li>
+  <li> All exam scripts are collected at the end</li>
+ <li> under no circumstances can anything leave the exam room.</li>
+</ol> 
+</h4>
+ <form action="/user_exam" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('You must agree to the Terms and Conditions'); return false; }">
+	<div align="center">
+		<input type="checkbox" name="checkbox" value="check" id="agree"   /> 
+		I have read the instructions and agree to the Terms and Conditions
+		<br><br>
+		<input type="hidden" th:name="eId" th:value="${exam.getId()}">
+		<input type="submit"  class="button button1" value="Start Now" />
+	</div>
+
+</form>
+	
+	
+
+</body>
+</html>

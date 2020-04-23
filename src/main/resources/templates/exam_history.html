@@ -17,9 +17,8 @@
 
 <div  align="center">
 <h3>Exam: <span th:text="${attendedExam.exam.name}">exam name</span></h3>
-<h4>Mark: <span th:text="${attendedExam.score}">score</span> out of <span th:text="${attendedExam.total}">total</span></h4>
-<h4>Percentage: <span th:text="${attendedExam.percentage}">score</span></h4>
-<h4>Result: <span th:text="${attendedExam.result}==true? passed:failed">result</span></h4>
+<h4>Mark: <span th:text="${attendedExam.score}+' / '+${attendedExam.total}">mark</span><br>
+Percentage: <span th:text="${attendedExam.percentage}+' ('+(${attendedExam.result}==true? passed:failed)+')'">percentage</span>
 </div>
 <div class="container">
 <div align="right"><button class="button button1" onclick="window.print()">Print</button></div>
@@ -53,5 +52,6 @@
            </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>

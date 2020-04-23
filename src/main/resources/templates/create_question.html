@@ -21,10 +21,11 @@
 <div align="center">
 	<form action="/app/question_file" enctype="multipart/form-data" method="post">
 		<h4>import csv file:&nbsp;<input  class="button button1" type="file" name="file"></h4>	
-		<input class="button button1" type="submit" value="import">
+		<input class="button button1" onClick="alert_file()" type="submit" value="import">
 	</form>
 </div>
 <br>
+
 <div class="container">
 <form  th:object="${question}" >
            	Level
@@ -62,6 +63,9 @@
 function alert_func() {
   alert("Successfully Created");
 }
+function alert_file() {
+	  alert("Successfully uploaded");
+	}
 </script>
 
 </body>
