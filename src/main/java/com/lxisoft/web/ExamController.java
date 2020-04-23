@@ -192,7 +192,7 @@ public class ExamController
 			model.addAttribute("error",error);
 			return "error";
 		}
-		else {
+		else{
 			  Exam exam=examService.findById(eId);
 			  List<Question> list=questService.getAllQuestionsFromExam(exam);
 			  ListIterator<Question> lit = list.listIterator(); 
