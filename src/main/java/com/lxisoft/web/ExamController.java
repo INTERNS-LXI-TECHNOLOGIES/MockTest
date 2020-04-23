@@ -138,7 +138,7 @@ public class ExamController
 	}
 	
 	@RequestMapping ("/activeExams")
-	public String userpage(Model model) throws Exception
+	public String userpage(Model model)
 	{
 		Set<Exam> active_exams=examService.findActiveExams();
 		model.addAttribute("exam_list",active_exams);
@@ -146,54 +146,81 @@ public class ExamController
 	}
 	
 	@RequestMapping("/userexam_instruction")
-	public String active_exam_info(Model model,@RequestParam String eId) throws Exception
+	public String active_exam_info(Model model,@RequestParam String eId) 
 	{
-		Exam exam=examService.findById(eId);
-		model.addAttribute("exam",exam);
-		model.addAttribute("exams",examService.findAll());
-		return "userexam_instruction";
+		boolean flag=examService.findByIdCheck(eId);
+		if(flag==false)
+		{
+			CustError error=new CustError("exam id not found!!","please retry");
+			model.addAttribute("error",error);
+			return "error";
+		}
+		else {
+			Exam exam=examService.findById(eId);
+			model.addAttribute("exam",exam);
+			model.addAttribute("exams",examService.findAll());
+			return "userexam_instruction";
+		}
 	}
 	
 	@RequestMapping("/attended_exam_results")
-	public String attended_exam_results(@RequestParam String eId, Model model) throws Exception
+	public String attended_exam_results(@RequestParam String eId, Model model)
 	{
-		Exam exam=examService.findById(eId);
-		model.addAttribute("users",extraService.findAll());
-		model.addAttribute("exam",exam);
-		model.addAttribute("attendList",attendExamService.findAllByExam(exam));
-		return "attended_exams_results";
+		boolean flag=examService.findByIdCheck(eId);
+		if(flag==false)
+		{
+			CustError error=new CustError("exam id not found!!","please retry");
+			model.addAttribute("error",error);
+			return "error";
+		}
+		else {
+			Exam exam=examService.findById(eId);
+			model.addAttribute("users",extraService.findAll());
+			model.addAttribute("exam",exam);
+			model.addAttribute("attendList",attendExamService.findAllByExam(exam));
+			return "attended_exams_results";
+		}
 	}
 
 	@RequestMapping(value="/user_exam")
-	public String userview(Model model,@RequestParam String eId) throws Exception
+	public String userview(Model model,@RequestParam String eId)
 	{
-		  Exam exam=examService.findById(eId);
-		  List<Question> list=questService.getAllQuestionsFromExam(exam);
-		  ListIterator<Question> lit = list.listIterator(); 
-		  int count=0;
-		  AttendedExam attendedExam=new AttendedExam();
-		  ZonedDateTime dateTime = ZonedDateTime.now();
-		  attendedExam.setDateTime(dateTime);
-		  attendExamService.save(attendedExam);
-		  model.addAttribute("aExamId",attendedExam.getId());
-		  log.debug("attended exam is :" + attendedExam);
-		  
-		  Set<Question>questions=exam.getQuestions();
-		  for( Question q: questions)
-		  {
-			  attendOptSer.attendOptionInitial(q,attendedExam);
-			  log.debug("attended options saved null");
-		  }
-			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-			 if (lit.hasNext()) { 
-			  model.addAttribute("attendedOptions",attendedOptions);
-			  model.addAttribute("question",lit.next());
-			  model.addAttribute("exam",exam);
-			  model.addAttribute("iterator",lit);
-			  model.addAttribute("count",count);
-			  return "user_exampage";
-		 }
-		return "redirect:/submit";
+		boolean flag=examService.findByIdCheck(eId);
+		if(flag==false)
+		{
+			CustError error=new CustError("exam id not found!!","please retry");
+			model.addAttribute("error",error);
+			return "error";
+		}
+		else {
+			  Exam exam=examService.findById(eId);
+			  List<Question> list=questService.getAllQuestionsFromExam(exam);
+			  ListIterator<Question> lit = list.listIterator(); 
+			  int count=0;
+			  AttendedExam attendedExam=new AttendedExam();
+			  ZonedDateTime dateTime = ZonedDateTime.now();
+			  attendedExam.setDateTime(dateTime);
+			  attendExamService.save(attendedExam);
+			  model.addAttribute("aExamId",attendedExam.getId());
+			  log.debug("attended exam is :" + attendedExam);
+			  
+			  Set<Question>questions=exam.getQuestions();
+			  for( Question q: questions)
+			  {
+				  attendOptSer.attendOptionInitial(q,attendedExam);
+				  log.debug("attended options saved null");
+			  }
+				List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+				 if (lit.hasNext()) { 
+				  model.addAttribute("attendedOptions",attendedOptions);
+				  model.addAttribute("question",lit.next());
+				  model.addAttribute("exam",exam);
+				  model.addAttribute("iterator",lit);
+				  model.addAttribute("count",count);
+				  return "user_exampage";
+			 }
+			return "redirect:/submit";
+		}
 	}
 	
 	@RequestMapping(value="/user_nextPage")
@@ -344,12 +371,18 @@ public class ExamController
 	}
 
 	@RequestMapping ("/app/save_exam")
-	public String save_exam(Exam exam,@RequestParam String hour,@RequestParam String minute) throws Exception
+	public String save_exam(Exam exam,@RequestParam String hour,@RequestParam String minute,Model model)
 	{
 		exam.setIsActive(false);
 		String time=hour+":"+minute;
 		exam.setTime(time);
-		examService.save_exam(exam);
+		boolean flag=examService.save_exam(exam);
+		if(flag==false)
+		{
+			CustError error=new CustError("less questions present in db!!","please verify and retry");
+			model.addAttribute("error",error);
+			return "error";
+		}
 		return "redirect:/";
 	}
 	

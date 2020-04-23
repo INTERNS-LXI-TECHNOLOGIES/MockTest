@@ -34,25 +34,26 @@ public class ExamService {
 		return examRepo.findAll();
 	}	
 	
-	public Exam findById(String eId) throws Exception
+	public Exam findById(String eId) 
 	{
 		long id=Integer.parseInt(eId);
 		Optional<Exam> optional=examRepo.findById(id);
 		return optional.get();
 	}
 	
-	public boolean findByIdCheck(String eId) throws Exception
+	public boolean findByIdCheck(String eId) 
 	{
 		long id=Integer.parseInt(eId);
 		Optional<Exam> optional=examRepo.findById(id);
 		return optional.isPresent();
 	}
 
-	public void save_exam(Exam exam) throws Exception
+	public boolean save_exam(Exam exam) 
 	{
 		Set<Question> finalQstns = new HashSet<Question>(); 
 		List<Question> qstns=qstService.findAll();
 		Collections.shuffle(qstns);
+		boolean flag=false;
 		int neededCount=exam.getCount(),qstncount=0,c=0;
 		String level=exam.getLevel();
 		for(Question qstn:qstns)
@@ -70,19 +71,21 @@ public class ExamService {
 					finalQstns.add(qstn);
 				}
 			}
+			flag=true;
 		}
-		else
-			throw new Exception("less no. of questions available in database!!");
-		
-		exam.setQuestions(finalQstns);
-		examRepo.save(exam);
+		if(flag==true)
+		{
+			exam.setQuestions(finalQstns);
+			examRepo.save(exam);
+		}
+		return flag;
 	}
 	
 	public void update(Exam exam) {
 		examRepo.save(exam);
 	}
 	
-	public Set<Exam> findActiveExams() throws Exception
+	public Set<Exam> findActiveExams()
 	{
 		List<Exam> exam_list=findAll();
 		Set<Exam> final_list = new HashSet<Exam>();
