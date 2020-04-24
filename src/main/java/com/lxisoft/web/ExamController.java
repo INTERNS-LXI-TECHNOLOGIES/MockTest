@@ -37,8 +37,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.lxisoft.domain.AttendedExam;
 import com.lxisoft.domain.AttendedOption;
 import com.lxisoft.domain.CustError;
@@ -549,7 +551,7 @@ public class ExamController
 		
 
 		/**
-		 * GET  /pdf : get the pdf user report using database.
+		 * GET  /pdf : get the pdf exam report using database.
 		 *  
 		 * @return the byte[]
 		 * @throws Exception 
@@ -582,6 +584,30 @@ public class ExamController
 		headers.add("content dis-position","attachment: filename="+fileName);
 		ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
 		return response;
+	}
+	
+	@RequestMapping("/graph")
+	@ResponseBody
+	public String graphicalAnalyze(@RequestParam String Exam_id,Model model)
+	{
+		Exam exam=examService.findById(Exam_id);
+		model.addAttribute("users",extraService.findAll());
+		model.addAttribute("exam",exam);
+		List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
+		JsonArray jsonArrayCategory = new JsonArray();
+		JsonArray jsonArraySeries = new JsonArray();
+		JsonObject jsonObject = new JsonObject();
+		for(AttendedExam atnd:attendList)
+			{
+				
+				jsonArrayCategory.add(atnd.getUserExtra().getUser().getFirstName());
+				jsonArraySeries.add(atnd.getScore());
+				
+			}
+		jsonObject.add("categories", jsonArrayCategory);
+		jsonObject.add("series", jsonArraySeries);
+		
+		return jsonObject.toString();
 	}
 
 
