@@ -12,14 +12,13 @@
 	<h1 th:text="${exam.getName()} "> exam name</h1>
 	
 			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
-			<!--  <p th:each="qstn ,stat : ${exam.questions}"> -->
-			<!-- <h2 th:text="'Question '+ ${stat.index+1}"> </h2> -->
+			<h2><span th:text="'Question '+ ${qno}"></span></h2>
 			</div>
 			
 	<div class="topnav">
 		<a class="active" >Lxi Technologies</a>
   		
-  		<a  th:href="@{/}">Home</a>
+  		<a  th:href="@{/}" onClick="var r=confirm('do you wish to quit exam!'); if(r == true){return true;} else{return false;}">Home</a>
   		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>
 
@@ -38,7 +37,7 @@
 	 		<span class="bubble" th:if="${attendedOptions==null}"  th:text="${stat.index+1}" ></span>
 		  		<a th:if="!${attendedOptions==null}" th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${stat.index+1},timerValue=${timerValue})}" 
 		  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:#ffff99':'background:lime'" >
-		  			 <span th:text="${stat.index+1}" ></span></a>
+		  			 <span th:text="${stat.index+1}"></span></a>
 		  	</span>
 		  			
 			<div>
@@ -113,7 +112,10 @@ timer();
 	/* function check(){
 	  document.getElementById("'option'+${qstn_option.getId()}").checked = true;} */
 	
-
+	  function homeCheck() {
+		  var r = confirm("Press a button!");
+		  
+		}
 	
 
 </script>

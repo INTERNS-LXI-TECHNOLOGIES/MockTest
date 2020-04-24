@@ -216,6 +216,7 @@ public class ExamController
 				  model.addAttribute("question",lit.next());
 				  model.addAttribute("exam",exam);
 				  model.addAttribute("iterator",lit);
+				  model.addAttribute("qno", "1");
 				  model.addAttribute("count",count);
 				  return "user_exampage";
 			 }
@@ -244,7 +245,7 @@ public class ExamController
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("exam", exam);
 		model.addAttribute("iterator", lit);
-		
+		model.addAttribute("qno", (pos+1));
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		model.addAttribute("attendedOptions", attendedOptions);
 		model.addAttribute("timerValue",timerValue );
