@@ -193,7 +193,7 @@ public class ExamController
 			return "error";
 		}
 		else{
-			  Exam exam=examService.findById(eId);
+			 Exam exam=examService.findById(eId);
 			  List<Question> list=questService.getAllQuestionsFromExam(exam);
 			  ListIterator<Question> lit = list.listIterator(); 
 			  int count=0;
@@ -226,7 +226,8 @@ public class ExamController
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,
-			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count,@RequestParam String timerValue) throws Exception
+			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,
+			@RequestParam String count,@RequestParam String timerValue)
 		
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
@@ -262,7 +263,7 @@ public class ExamController
 	}
 
 	@RequestMapping("/submit")
-	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
+	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model)   
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		int score = Integer.parseInt(count);

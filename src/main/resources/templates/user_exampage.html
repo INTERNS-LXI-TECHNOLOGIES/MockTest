@@ -31,19 +31,22 @@
 
 
 <div class="bubble-container">
+
+
 	 <span th:each="qstn ,stat : ${exam.questions}">
  		<span class="bubble" th:if="${attendedOptions==null}"  th:text="${stat.index+1}" ></span>
 	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${stat.index+1},timerValue=${timerValue})}" 
 	  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:#ffff99':'background:lime'" >
 	  			 <span th:text="${stat.index+1}" ></span></a>
 	  	</span>
+	  			
 		<div>
 			<input type="submit" value="submit" class="button button1">
 		</div>
 </div>
 
 		<div>
-			<span th:text="${question.getQstn()}" th:value="${question.id}"><br>question<br> </span>
+			<span th:text="${question.getQstn()}" th:value="${question.id}"><br>question<br> </span></span>
 				 <span th:each="qstn_option : ${question.qstnOptions}"><br><br>
 				<input type="radio" th:name="optionid"  id="'option'+${qstn_option.getId()}"   th:value="${qstn_option.getId()}"
 				th:text="${qstn_option.option}" />
@@ -55,7 +58,8 @@
 		<input type="hidden" th:name="count" th:value="${count}">
 		<input type="hidden" th:name="aExamId" th:value="${aExamId}">
 		<input type="hidden" th:name="eId" th:value="${exam.getId()}">
-	<input type="submit" onclick="check()" class="button button1" th:value="${iterator.hasNext()}==true? next: submit" >
+	<input type="submit" onclick="check()" class="button button1" th:value="${iterator.hasNext()}==true? next: submit" ></span>
+	<button class="button button1" onclick="goBack()">Go Back</button>
 	
 </form>
 
