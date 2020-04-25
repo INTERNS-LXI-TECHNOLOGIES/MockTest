@@ -49,7 +49,7 @@ public class AttendedExam implements Serializable {
     @JsonIgnoreProperties("attendedExams")
     private Exam exam;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnoreProperties("attendedExams")
     private UserExtra userExtra;
 

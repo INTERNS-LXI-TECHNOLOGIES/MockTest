@@ -185,50 +185,54 @@ public class ExamController
 	@RequestMapping(value="/user_exam")
 	public String userview(Model model,@RequestParam String eId)
 	{
-		boolean flag=examService.findByIdCheck(eId);
-		if(flag==false)
-		{
-			CustError error=new CustError("exam id not found!!","please retry");
-			model.addAttribute("error",error);
-			return "error";
-		}
-		else{
-			  Exam exam=examService.findById(eId);
-			  List<Question> list=questService.getAllQuestionsFromExam(exam);
-			  ListIterator<Question> lit = list.listIterator(); 
-			  int count=0;
-			  AttendedExam attendedExam=new AttendedExam();
-			  ZonedDateTime dateTime = ZonedDateTime.now();
-			  attendedExam.setDateTime(dateTime);
-			  attendExamService.save(attendedExam);
-			  model.addAttribute("aExamId",attendedExam.getId());
-			  log.debug("attended exam is :" + attendedExam);
-			  
-			  Set<Question>questions=exam.getQuestions();
-			  for( Question q: questions)
-			  {
-				  attendOptSer.attendOptionInitial(q,attendedExam);
-				  log.debug("attended options saved null");
-			  }
-				List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-				 if (lit.hasNext()) { 
-				  model.addAttribute("attendedOptions",attendedOptions);
-				  model.addAttribute("question",lit.next());
-				  model.addAttribute("exam",exam);
-				  model.addAttribute("qno", "1");
-				  model.addAttribute("iterator",lit);
-				  model.addAttribute("count",count);
-				  return "user_exampage";
-			 }
-			return "redirect:/submit";
-		}
+//		boolean flag=examService.findByIdCheck(eId);
+//		if(flag==false)
+//		{
+//			CustError error=new CustError("exam id not found!!","please retry");
+//			model.addAttribute("error",error);
+//			return "error";
+//		}
+//		else{
+//			Exam exam=examService.findById(eId);
+			AttendedExam attendedExam=new AttendedExam();
+			ZonedDateTime dateTime = ZonedDateTime.now();
+			attendedExam.setDateTime(dateTime);
+			attendExamService.save(attendedExam);
+			log.debug("attended exam is :" + attendedExam);
+//			model.addAttribute("aExamId",attendedExam.getId());
+//			log.debug("attended exam id is :-"+model.getAttribute("aExamId"));
+//			model.addAttribute("eId",eId);
+//			  List<Question> list=questService.getAllQuestionsFromExam(exam);
+//			  ListIterator<Question> lit = list.listIterator(); 
+//			  int count=0;
+//				
+//			  
+//			  Set<Question>questions=exam.getQuestions();
+//			  for( Question q: questions)
+//			  {
+//				  attendOptSer.attendOptionInitial(q,attendedExam);
+//				  log.debug("attended options saved null");
+//			  }
+//				List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+//				 if (lit.hasNext()) { 
+//				  model.addAttribute("attendedOptions",attendedOptions);
+//				  model.addAttribute("question",lit.next());
+//				  model.addAttribute("exam",exam);
+//				  model.addAttribute("qno", "1");
+//				  model.addAttribute("iterator",lit);
+//				  model.addAttribute("count",count);
+//				  return "user_exampage";
+//			 }
+			return "redirect:/user_nextPage?aExamId="+attendedExam.getId()+"&eId="+eId;
+//		}
 	}
 	
 	@RequestMapping(value="/user_nextPage")
-	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,
-			@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,
-			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count,@RequestParam String timerValue) throws Exception
-		
+	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,
+			@RequestParam(name="qid",required=false,defaultValue="0") String qid,
+			@RequestParam(name="index",required=false,defaultValue="0") String index,
+			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,
+			@RequestParam(required=false,defaultValue="0") String count,@RequestParam(required=false,defaultValue="0") String timerValue) 
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		Question quest=questService.findById(qid);
@@ -239,7 +243,8 @@ public class ExamController
 		
 		int marks = Integer.parseInt(count);
 		marks = optService.setResult(marks, optionid);
-		attendOptSer.attendOptionUpdate(optionid,list.get(lit.previousIndex()),attendedExam);
+		if(!index.equals("0"))
+			attendOptSer.attendOptionUpdate(optionid,list.get(lit.previousIndex()),attendedExam);
 		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("exam", exam);
@@ -254,20 +259,22 @@ public class ExamController
 		int tmpTimerValue = Integer.parseInt(timerValue);
 		if(tmpTimerValue==0) {
 			return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
-		} else{
-			if(quest!=null)
-			{
-				model.addAttribute("question", quest);
-				return "user_exampage";
-			}
-			else if (lit.hasNext()) 
-			{
-				model.addAttribute("question", lit.next());
-				return "user_exampage";
-			}
-			else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
+		}
+		else{
+				if(quest!=null)
+				{
+					model.addAttribute("question", quest);
+					return "user_exampage";
+				}
+				else if (lit.hasNext()) 
+				{
+					model.addAttribute("question", lit.next());
+					return "user_exampage";
+				}
+				else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
 		}
 	}
+	
 	
 	@RequestMapping("/submit")
 	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) 
