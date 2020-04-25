@@ -20,7 +20,18 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class AttendedExam implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    public AttendedExam(ZonedDateTime dateTime, Exam exam, UserExtra userExtra) {
+		super();
+		this.dateTime = dateTime;
+		this.exam = exam;
+		this.userExtra = userExtra;
+	}
+    
+    public AttendedExam() {
+    	
+    }
+
+	private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,11 +56,11 @@ public class AttendedExam implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AttendedOption> attendedOptions = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnoreProperties("attendedExams")
     private Exam exam;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("attendedExams")
     private UserExtra userExtra;
 

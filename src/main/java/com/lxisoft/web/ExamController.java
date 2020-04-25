@@ -185,46 +185,22 @@ public class ExamController
 	@RequestMapping(value="/user_exam")
 	public String userview(Model model,@RequestParam String eId)
 	{
-//		boolean flag=examService.findByIdCheck(eId);
-//		if(flag==false)
-//		{
-//			CustError error=new CustError("exam id not found!!","please retry");
-//			model.addAttribute("error",error);
-//			return "error";
-//		}
-//		else{
-//			Exam exam=examService.findById(eId);
-			AttendedExam attendedExam=new AttendedExam();
-			ZonedDateTime dateTime = ZonedDateTime.now();
-			attendedExam.setDateTime(dateTime);
+		boolean flag=examService.findByIdCheck(eId);
+		if(flag==false)
+		{
+			CustError error=new CustError("exam id not found!!","please retry");
+			model.addAttribute("error",error);
+			return "error";
+		}
+		else{
+			Exam exam=examService.findById(eId);
+			AttendedExam attendedExam=new AttendedExam(ZonedDateTime.now(),exam, extraService.currentUserExtra());
+
 			attendExamService.save(attendedExam);
 			log.debug("attended exam is :" + attendedExam);
-//			model.addAttribute("aExamId",attendedExam.getId());
-//			log.debug("attended exam id is :-"+model.getAttribute("aExamId"));
-//			model.addAttribute("eId",eId);
-//			  List<Question> list=questService.getAllQuestionsFromExam(exam);
-//			  ListIterator<Question> lit = list.listIterator(); 
-//			  int count=0;
-//				
-//			  
-//			  Set<Question>questions=exam.getQuestions();
-//			  for( Question q: questions)
-//			  {
-//				  attendOptSer.attendOptionInitial(q,attendedExam);
-//				  log.debug("attended options saved null");
-//			  }
-//				List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-//				 if (lit.hasNext()) { 
-//				  model.addAttribute("attendedOptions",attendedOptions);
-//				  model.addAttribute("question",lit.next());
-//				  model.addAttribute("exam",exam);
-//				  model.addAttribute("qno", "1");
-//				  model.addAttribute("iterator",lit);
-//				  model.addAttribute("count",count);
-//				  return "user_exampage";
-//			 }
+
 			return "redirect:/user_nextPage?aExamId="+attendedExam.getId()+"&eId="+eId;
-//		}
+		}
 	}
 	
 	@RequestMapping(value="/user_nextPage")
@@ -232,11 +208,20 @@ public class ExamController
 			@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam(name="index",required=false,defaultValue="0") String index,
 			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,
-			@RequestParam(required=false,defaultValue="0") String count,@RequestParam(required=false,defaultValue="0") String timerValue) 
+			@RequestParam(required=false,defaultValue="0") String count,@RequestParam(required=false,defaultValue="initial") String timerValue) 
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		Question quest=questService.findById(qid);
 		Exam exam = examService.findById(eId);
+		if(timerValue.equals("initial"))
+		{
+			String[] time=exam.getTime().split(":");
+			int hour=Integer.parseInt(time[0]);
+			int min=Integer.parseInt(time[1]);
+			LocalTime examTime=LocalTime.of(hour,min);
+			
+			timerValue=exam.getTime();
+		}
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
 		int pos = Integer.parseInt(index);
 		ListIterator<Question> lit = list.listIterator(pos);
@@ -283,9 +268,8 @@ public class ExamController
 		int score = Integer.parseInt(count);
 		Exam exam = examService.findById(eId);
 		int total = exam.getCount();
-		UserExtra userExtra = extraService.currentUserExtra();
-		attendedExam.setUserExtra(userExtra);
-		attendedExam.setExam(exam);
+//		UserExtra userExtra = extraService.currentUserExtra();
+//		attendedExam.setUserExtra(userExtra);
 		attendedExam = attendExamService.attend(attendedExam, score, total);
 		log.debug("attended exam ready to save:- " + attendedExam);
 		attendExamService.save(attendedExam);
@@ -605,3 +589,34 @@ public class ExamController
 
 
 }
+
+
+
+//ZonedDateTime dateTime = ZonedDateTime.now();
+//attendedExam.setDateTime(dateTime);
+//attendedExam.setExam(exam);
+
+//model.addAttribute("aExamId",attendedExam.getId());
+//log.debug("attended exam id is :-"+model.getAttribute("aExamId"));
+//model.addAttribute("eId",eId);
+//  List<Question> list=questService.getAllQuestionsFromExam(exam);
+//  ListIterator<Question> lit = list.listIterator(); 
+//  int count=0;
+//	
+//  
+//  Set<Question>questions=exam.getQuestions();
+//  for( Question q: questions)
+//  {
+//	  attendOptSer.attendOptionInitial(q,attendedExam);
+//	  log.debug("attended options saved null");
+//  }
+//	List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+//	 if (lit.hasNext()) { 
+//	  model.addAttribute("attendedOptions",attendedOptions);
+//	  model.addAttribute("question",lit.next());
+//	  model.addAttribute("exam",exam);
+//	  model.addAttribute("qno", "1");
+//	  model.addAttribute("iterator",lit);
+//	  model.addAttribute("count",count);
+//	  return "user_exampage";
+// }
