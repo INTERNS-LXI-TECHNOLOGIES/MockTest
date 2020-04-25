@@ -26,16 +26,16 @@
 				No Current users are there..!
 			</span>
 			
-			<span th:if="!${users.empty}" >
-	<span  th:each="user: ${users}">
-				
+	<span th:if="!${users.empty}" >
+		<span  th:each="user: ${users}">
 					<span>
 						<a th:href="@{/user_details(id=${user.id})}" class="button button1 lengthbtn" >
 							<h3 th:text="${user.firstName}+' '+${user.lastName}">username</h3>
-						</a></span>
+						</a>
+					</span>
 					
 				</span>
-				</span>
+		</span>
 	</div></div>
 	
 </body>

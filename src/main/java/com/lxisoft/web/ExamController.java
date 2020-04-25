@@ -194,8 +194,8 @@ public class ExamController
 			model.addAttribute("error",error);
 			return "error";
 		}
-		else {
-			  Exam exam=examService.findById(eId);
+		else{
+			 Exam exam=examService.findById(eId);
 			  List<Question> list=questService.getAllQuestionsFromExam(exam);
 			  ListIterator<Question> lit = list.listIterator(); 
 			  int count=0;
@@ -218,6 +218,7 @@ public class ExamController
 				  model.addAttribute("question",lit.next());
 				  model.addAttribute("exam",exam);
 				  model.addAttribute("iterator",lit);
+				  model.addAttribute("qno", "1");
 				  model.addAttribute("count",count);
 				  return "user_exampage";
 			 }
@@ -228,7 +229,8 @@ public class ExamController
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,
-			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count,@RequestParam String timerValue) throws Exception
+			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,
+			@RequestParam String count,@RequestParam String timerValue)
 		
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
@@ -245,7 +247,7 @@ public class ExamController
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("exam", exam);
 		model.addAttribute("iterator", lit);
-		
+		model.addAttribute("qno", (pos+1));
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		model.addAttribute("attendedOptions", attendedOptions);
 		model.addAttribute("timerValue",timerValue );
@@ -264,7 +266,7 @@ public class ExamController
 	}
 
 	@RequestMapping("/submit")
-	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
+	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model)   
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		int score = Integer.parseInt(count);
@@ -303,16 +305,15 @@ public class ExamController
 	@RequestMapping("/app/delete_question")
 	public String delete_question(@RequestParam(name="qId" ,required=false,defaultValue="0") List<String> qId,Model model)
 	{
+		log.debug("question id's for deleting -"+qId);
 		if(qId.get(0).equals("0"))
 		{
-			log.debug("no question id's selected for deleting !! "+qId);
 			CustError error=new CustError("no questions selected!!","select question and retry");
 			model.addAttribute("error",error);
 			return "error";
 		}
 		else
 		{
-			log.debug("question id's for deleting -"+qId);
 			questService.deleteMultiple(qId);
 		}
 		return "redirect:/app/viewall_qstn";
@@ -387,8 +388,6 @@ public class ExamController
 		}
 		return "redirect:/";
 	}
-	
-	
 	
 	@RequestMapping ("/current_exams")
 	public String current_exams(Model model)

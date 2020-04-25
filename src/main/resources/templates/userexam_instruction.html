@@ -32,7 +32,7 @@
 
 
 <h4>
-<ol type="1">
+<ol type="i">
   <li> No other electronic devices are allowed for assistance</li>
   <li> Paper is provided for rough working.</li>
   <li> All exam scripts are collected at the end</li>
@@ -41,9 +41,8 @@
 </h4>
  <form action="/user_exam" onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('You must agree to the Terms and Conditions'); return false; }">
 	<div align="center">
-		<input type="checkbox" name="checkbox" value="check" id="agree"   /> 
-		I have read the instructions and agree to the Terms and Conditions
-		<br><br>
+		<h4><input type="checkbox" name="checkbox" value="check" id="agree"   /> 
+		I have read the instructions and agree to the Terms and Conditions</h4>
 		<input type="hidden" th:name="eId" th:value="${exam.getId()}">
 		<input type="submit"  class="button button1" value="Start Now" />
 	</div>
