@@ -10,6 +10,7 @@
 		<a class="active" >Lxi Technologies</a>
   		
   		<a th:href="@{/activeExams}">Active Exams</a>
+  		<a th:href="@{/userPerformance(user_id=${user.getUser().getId()})}">Performance Level</a>
   		
   		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>

@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.time.Instant;
+import java.time.LocalDate;
+
 import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
@@ -587,7 +589,7 @@ public class ExamController
 	
 	@RequestMapping("/graph")
 
-	public String graphicalAnalyze(@RequestParam String Exam_id,Model model)
+	public String graphicalAnalyzeExam(@RequestParam String Exam_id,Model model)
 	{
 		Exam exam=examService.findById(Exam_id);
 		
@@ -607,7 +609,34 @@ public class ExamController
 		
 		return "chart";
 	}
+	
+	@RequestMapping("/userPerformance")
 
+	public String graphicalAnalyzeUser(@RequestParam String user_id,Model model) throws Exception
+	{
+		UserExtra userExtra=extraService.findById(user_id);
+		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
+		List<LocalDate>date=new ArrayList<LocalDate>();
+		List<Integer> beginner_level=new ArrayList<Integer>();
+		List<Integer> intermediate_level=new ArrayList<Integer>();
+		List<Integer> expert_level=new ArrayList<Integer>();
+		
+		for(AttendedExam atnd:attendExamList)
+		{
+			log.debug("levellllllll"+atnd.getExam().getLevel());
+			if(atnd.getExam().getLevel().equalsIgnoreCase("beginner")) {  beginner_level.add(atnd.getScore()); }
+			else if(atnd.getExam().getLevel().equalsIgnoreCase("intermediate")) {  intermediate_level.add(atnd.getScore()); }
+			else { expert_level.add(atnd.getScore());}
+		date.add(atnd.getDateTime().toLocalDate());
+			
+		}
+		model.addAttribute("beginner",beginner_level);
+		model.addAttribute("intermediate",intermediate_level);
+		model.addAttribute("expert",expert_level);
+		model.addAttribute("user",userExtra.getUser().getFirstName() +" "+ userExtra.getUser().getLastName());
+		model.addAttribute("date",date);
+		return "user_performance_chart";
+	}
 
 }
 

@@ -20,16 +20,11 @@
         <a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>
 
-                                <h3 th:text=" 'Performance of candidate in '+${exam.getName()}"> </h3>
-                               <h5  th:text="'Total Mark: '+${exam.getCount()}"></span></h5>
+                                <h3 th:text=" 'Total Performance of  '+${user}"> </h3>
+                               
                                
 <div id="container1" style="height: 300px"></div>
-    
-
-    
-
-    	
-   <script  th:inline="javascript" >
+     <script  th:inline="javascript" >
 	Highcharts.chart('container1', {
 	    chart: {
 	        type: 'line',
@@ -37,16 +32,16 @@
 	    },
 	    
 	    title: {
-	        text: 'Candidate Performance '
+	        text: 'Performance Level In Exams '
 	    },
 	
 	    xAxis: {
 	    	
-	        categories: [[${users}]]
+	        categories: [[${date}]]
 	    },
 	    yAxis: {
 	        title: {
-	          text: 'Scores achieved by candidates'
+	          text: 'Score'
 	        }
 	      },
 	    tooltip: {
@@ -56,8 +51,15 @@
 	    },
 	
 	    series: [{
-	    	 name: 'candidates Level',
-	        data:  [[${scores}]]
+	    	 name: 'Beginner Level',
+	        data:  [[${beginner}]]
+	    }, {
+	    	name: 'Intermediate Level',
+	        data:  [[${intermediate}]]
+	    	
+	    },{
+	    	name: 'Expert Level',
+	        data:  [[${expert}]]
 	    }]
 	});
 
