@@ -18,7 +18,7 @@
 	<div class="topnav">
 		<a class="active" >Lxi Technologies</a>
   		
-  		<a  th:href="@{/}" onClick="var r=confirm('do you wish to quit exam!'); if(r == true){return true;} else{return false;}">Home</a>
+  		<a  th:href="@{/exam_cancel(aExamId=${aExamId})}" onClick="var r=confirm('do you wish to quit exam!'); if(r == true){return true;} else{return false;}">Home</a>
   		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>
 
