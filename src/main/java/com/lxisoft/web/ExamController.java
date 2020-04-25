@@ -587,27 +587,26 @@ public class ExamController
 	}
 	
 	@RequestMapping("/graph")
-	@ResponseBody
+
 	public String graphicalAnalyze(@RequestParam String Exam_id,Model model)
 	{
 		Exam exam=examService.findById(Exam_id);
-		model.addAttribute("users",extraService.findAll());
-		model.addAttribute("exam",exam);
+		
 		List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
-		JsonArray jsonArrayCategory = new JsonArray();
-		JsonArray jsonArraySeries = new JsonArray();
-		JsonObject jsonObject = new JsonObject();
+		List<Integer> scores=new ArrayList<Integer>();
+		List<String>user=new ArrayList<String>();
 		for(AttendedExam atnd:attendList)
 			{
 				
-				jsonArrayCategory.add(atnd.getUserExtra().getUser().getFirstName());
-				jsonArraySeries.add(atnd.getScore());
+			user.add(atnd.getUserExtra().getUser().getFirstName());
+				scores.add(atnd.getScore());
 				
 			}
-		jsonObject.add("categories", jsonArrayCategory);
-		jsonObject.add("series", jsonArraySeries);
+		model.addAttribute("users",user);
+		model.addAttribute("scores",scores);
+		model.addAttribute("exam",exam);
 		
-		return jsonObject.toString();
+		return "chart";
 	}
 
 

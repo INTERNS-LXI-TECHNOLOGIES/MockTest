@@ -19,9 +19,41 @@
                                 <h3 th:text=" 'Performance of candidate in '+${exam.getName()}"> </h3>
                                <h5  th:text="'Total Mark: '+${exam.getCount()}"></span></h5>
 <div id="container" style="height: 400px"></div>
-	<script th:inline="javascript" src="js/highcharts.js"></script>
+	
 
-	<script th:inline="javascript" src="js/jquery.js"></script>
-	<script  th:inline="javascript" src="js/index.js"></script>
+	
+	<script  th:inline="javascript" >
+		Highcharts.chart('container', {
+		    chart: {
+		        type: 'line',
+		        width: 500
+		    },
+		    
+		    title: {
+		        text: 'Candidate Performance '
+		    },
+		
+		    xAxis: {
+		    	
+		        categories: [[${users}]]
+		    },
+		    yAxis: {
+		        title: {
+		          text: 'Scores achieved by candidates'
+		        }
+		      },
+		    tooltip: {
+		        formatter: function() {
+		          return '<strong>'+this.x+': </strong>'+ this.y;
+		        }
+		    },
+		
+		    series: [{
+		        data:  [[${scores}]]
+		    }]
+		});
+	}
+
+	}</script>
 </body>
 </html>
