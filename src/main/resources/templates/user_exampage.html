@@ -18,7 +18,7 @@
 	<div class="topnav">
 		<a class="active" >Lxi Technologies</a>
   		
-  		<a  th:href="@{/}" onClick="var r=confirm('do you wish to quit exam!'); if(r == true){return true;} else{return false;}">Home</a>
+  		<a  th:href="@{/exam_cancel(aExamId=${aExamId})}" onClick="var r=confirm('do you wish to quit exam!'); if(r == true){return true;} else{return false;}">Home</a>
   		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>
 
@@ -26,33 +26,34 @@
 
 <form id="myForm" th:object="${iterator}"  th:action="@{/user_nextPage}">
 
-	<input type="hidden" id="timer"  name="timerValue" value=${timerValue}/>
-	<input type="hidden" th:name="index" th:value="${iterator.nextIndex()}">
-	<input type="hidden" th:name="count" th:value="${count}">
-	<input type="hidden" th:name="aExamId" th:value="${aExamId}">
-	<input type="hidden" th:name="eId" th:value="${exam.getId()}">
+<input type="hidden" id="timer"  name="timerValue" value=${timerValue}/>
 
-	<div class="bubble-container">
-		 <span th:each="qstn ,stat : ${exam.questions}">
-	 		<span class="bubble" th:if="${attendedOptions==null}"  th:text="${stat.index+1}" ></span>
-		  		<a th:if="!${attendedOptions==null}" th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${stat.index+1},timerValue=${timerValue})}" 
-		  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:#ffff99':'background:lime'" >
-		  			 <span th:text="${stat.index+1}"></span></a>
-		  	</span>
-		  			
-			<div>
-				<input type="submit" value="submit" class="button button1" formaction="/submit">
-			</div>
-	</div>
-	
-	<div>
-		<span th:text="${question.getQstn()}" th:value="${question.id}"><br>question<br> </span>
-			 <span th:each="qstn_option : ${question.qstnOptions}"><br><br>
-			<input type="radio" th:name="optionid"  id="'option'+${qstn_option.getId()}"   th:value="${qstn_option.getId()}"
-			th:text="${qstn_option.option}" />
-			</span>
-	</div>
-	<br><br><br>
+
+<div class="bubble-container">
+	 <span th:each="qstn ,stat : ${exam.questions}">
+ 		<span class="bubble" th:if="${attendedOptions==null}"  th:text="${stat.index+1}" ></span>
+	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${stat.index+1},timerValue=${timerValue})}" 
+	  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:#ffff99':'background:lime'" >
+	  			 <span th:text="${stat.index+1}" ></span></a>
+	  	</span>
+		<div>
+			<input type="submit" value="submit" class="button button1" formaction="/submit">
+		</div>
+</div>
+
+		<div>
+			<span th:text="${question.getQstn()}" th:value="${question.id}"><br>question<br> </span>
+				 <span th:each="qstn_option : ${question.qstnOptions}"><br><br>
+				<input type="radio" th:name="optionid"  id="'option'+${qstn_option.getId()}"   th:value="${qstn_option.getId()}"
+				th:text="${qstn_option.option}" />
+				</span>
+		</div>
+		
+		<br><br><br>
+		<input type="hidden" th:name="index" th:value="${iterator.nextIndex()}">
+		<input type="hidden" th:name="count" th:value="${count}">
+		<input type="hidden" th:name="aExamId" th:value="${aExamId}">
+		<input type="hidden" th:name="eId" th:value="${exam.getId()}">
 	<input type="submit" onclick="check()" class="button button1" th:value="${iterator.hasNext()}==true? next: submit" >
 	
 </form>
@@ -78,15 +79,15 @@ if(ms==null)
 
 function timer() {
 	mseconds = mseconds - 1000;
-  if(mseconds > 0) {
-    document.getElementById('timerValue').innerHTML = millisToMinutesAndSeconds(mseconds);
-		document.getElementById('timer').value = mseconds;
-		 window.setTimeout("timer()" , 1000);
-  } else {
-	 
-		alert('Timed OUt');
-		document.getElementById('myForm').submit();
-	}
+	  if(mseconds > 0) {
+	    document.getElementById('timerValue').innerHTML = millisToMinutesAndSeconds(mseconds);
+			document.getElementById('timer').value = mseconds;
+			 window.setTimeout("timer()" , 1000);
+	  } else {
+			document.getElementById('timer').value = 0;	
+			alert('Timed OUt');
+			document.getElementById('myForm').submit();
+		}
 }
 
 function hourToMiliSeconds(hour) {
@@ -112,10 +113,7 @@ timer();
 	/* function check(){
 	  document.getElementById("'option'+${qstn_option.getId()}").checked = true;} */
 	
-	  function homeCheck() {
-		  var r = confirm("Press a button!");
-		  
-		}
+
 	
 
 </script>

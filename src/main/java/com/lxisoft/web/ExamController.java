@@ -149,24 +149,6 @@ public class ExamController
 		return "user_active_exams";
 	}
 	
-	@RequestMapping("/userexam_instruction")
-	public String active_exam_info(Model model,@RequestParam String eId) 
-	{
-		boolean flag=examService.findByIdCheck(eId);
-		if(flag==false)
-		{
-			CustError error=new CustError("exam id not found!!","please retry");
-			model.addAttribute("error",error);
-			return "error";
-		}
-		else {
-			Exam exam=examService.findById(eId);
-			model.addAttribute("exam",exam);
-			model.addAttribute("exams",examService.findAll());
-			return "userexam_instruction";
-		}
-	}
-	
 	@RequestMapping("/attended_exam_results")
 	public String attended_exam_results(@RequestParam String eId, Model model)
 	{
@@ -185,6 +167,24 @@ public class ExamController
 			return "attended_exams_results";
 		}
 	}
+	
+	@RequestMapping("/userexam_instruction")
+	public String active_exam_info(Model model,@RequestParam String eId) 
+	{
+		boolean flag=examService.findByIdCheck(eId);
+		if(flag==false)
+		{
+			CustError error=new CustError("exam id not found!!","please retry");
+			model.addAttribute("error",error);
+			return "error";
+		}
+		else {
+			Exam exam=examService.findById(eId);
+			model.addAttribute("exam",exam);
+			model.addAttribute("exams",examService.findAll());
+			return "userexam_instruction";
+		}
+	}
 
 	@RequestMapping(value="/user_exam")
 	public String userview(Model model,@RequestParam String eId)
@@ -197,7 +197,7 @@ public class ExamController
 			return "error";
 		}
 		else{
-			 Exam exam=examService.findById(eId);
+			  Exam exam=examService.findById(eId);
 			  List<Question> list=questService.getAllQuestionsFromExam(exam);
 			  ListIterator<Question> lit = list.listIterator(); 
 			  int count=0;
@@ -219,8 +219,8 @@ public class ExamController
 				  model.addAttribute("attendedOptions",attendedOptions);
 				  model.addAttribute("question",lit.next());
 				  model.addAttribute("exam",exam);
-				  model.addAttribute("iterator",lit);
 				  model.addAttribute("qno", "1");
+				  model.addAttribute("iterator",lit);
 				  model.addAttribute("count",count);
 				  return "user_exampage";
 			 }
@@ -231,8 +231,7 @@ public class ExamController
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,
-			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,
-			@RequestParam String count,@RequestParam String timerValue)
+			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count,@RequestParam String timerValue) throws Exception
 		
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
@@ -254,21 +253,28 @@ public class ExamController
 		model.addAttribute("attendedOptions", attendedOptions);
 		model.addAttribute("timerValue",timerValue );
 		log.debug("question "+qid);
-		if(quest!=null)
-		{
-			model.addAttribute("question", quest);
-			return "user_exampage";
-		}
-		else if (lit.hasNext()) 
-		{
-			model.addAttribute("question", lit.next());
-			return "user_exampage";
-		}
-		else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
-	}
 
+
+		int tmpTimerValue = Integer.parseInt(timerValue);
+		if(tmpTimerValue==0) {
+			return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
+		} else{
+			if(quest!=null)
+			{
+				model.addAttribute("question", quest);
+				return "user_exampage";
+			}
+			else if (lit.hasNext()) 
+			{
+				model.addAttribute("question", lit.next());
+				return "user_exampage";
+			}
+			else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
+		}
+	}
+	
 	@RequestMapping("/submit")
-	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model)   
+	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) 
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		int score = Integer.parseInt(count);
@@ -283,6 +289,13 @@ public class ExamController
 		model.addAttribute("attendedExam", attendedExam);
 		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
 		return "submit";
+	}
+	
+	@RequestMapping("/exam_cancel")
+	public String submit(@RequestParam String aExamId) 
+	{
+		attendExamService.deleteById(aExamId);
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/app/create_question")
@@ -639,21 +652,3 @@ public class ExamController
 	}
 
 }
-
-
-//@RequestMapping(value="/user_instruction")
-//public String userinstruction(Model model,@RequestParam String eId) throws Exception
-//{
-//	boolean flag=examService.findByIdCheck(eId);
-//	if(flag==false)
-//	{
-//		CustError error=new CustError("no questions selected!!","select question and retry");
-//		model.addAttribute("error",error);
-//		return "error";
-//	}
-//	else {
-//		Exam exam=examService.findById(eId);
-//		model.addAttribute("exam",exam);
-//		return "user_instruction";
-//	}
-//}

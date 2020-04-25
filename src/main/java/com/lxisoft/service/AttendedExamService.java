@@ -80,5 +80,11 @@ public class AttendedExamService {
 		return atndexam;
 		
 	}
+	
+	public void deleteById(String aExamId) {
+		long id=Integer.parseInt(aExamId);
+		attendedRepo.deleteById(id);
+		log.debug("cancelled exam has been removed, exam id:- "+id);
+	}
 
 }

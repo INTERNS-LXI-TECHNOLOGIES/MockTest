@@ -16,7 +16,7 @@
   </div>
 
 <div  align="center">
-<h3>Exam: <span th:text="${attendedExam.exam.name}+' ('+${attendedExam.exam.level}+')'">exam name</span></h3>
+<h3>Exam: <span th:text="${attendedExam.exam.name}">exam name</span></h3>
 <h4>Mark: <span th:text="${attendedExam.score}+' / '+${attendedExam.total}">mark</span><br>
 Percentage: <span th:style="${attendedExam.isResult()==true}?'color:#0fe300':'color:red'"
 			 th:text="${attendedExam.percentage}+' ('+(${attendedExam.result}==true? passed:failed)+')'">percentage</span><br></h4>
