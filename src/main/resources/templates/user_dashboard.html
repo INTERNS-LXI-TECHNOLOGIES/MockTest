@@ -40,15 +40,18 @@
 								</form>
 					  	</div>
 					  	 *click on the exam to see the corresponding exam attended for further analysis
-         				  <table width=100% border=1px style="font-size: 135%">
+         				   <table width=100% border=5px>
 							    <thead>
 							        <tr>
 							            <th> Sl.No. </th>
 							            <th> Exam Name </th>
+							            <th>	Level </th>
 							            <th> Your Score </th>
+							             <th> Total Score </th>
 							              <th> Percentage </th>
 							              <th> Result </th>
 							              <th> Date </th>
+							              <th>Time</th>
 							          </tr>
                                   </thead>
                                   <tbody>
@@ -57,11 +60,13 @@
           						    <td>
           						   		<a th:href="@{/exam_history(aExamId=${atndexam.id},userid=${userid})}" th:text="${atndexam.exam.name}"></a>
           						   </td>
-         							 <td th:text="${atndexam.score}+'/'+${atndexam.total}"> Score </td>
+         							<td th:text="${atndexam.getExam().getLevel()}"> Level </td>
+         							 <td th:text="${atndexam.getScore()}"> Score </td>
+         							  <td th:text="${atndexam.getTotal()}"> Total </td>
          							   <td th:text="${atndexam.getPercentage()}"> Percentage </td>
-         							    <td th:style="${atndexam.isResult()==true}?'color:#0fe300':'color:red'" 
-         							    		th:text="${atndexam.isResult()==true}? Pass:Fail"> </td>
+         							    <td th:text="${atndexam.isResult()==true}? Pass:Fail"> </td>
          				  				<td th:text="${atndexam.getDateTime().toLocalDate()}"> Date </td>
+         				  				<td th:text="${atndexam.getDateTime().toLocalTime()}"> Time </td>
          				  </tr>
          				  </tbody>
          				  </table>

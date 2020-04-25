@@ -193,7 +193,7 @@ public class ExamController
 			return "error";
 		}
 		else{
-			 Exam exam=examService.findById(eId);
+			  Exam exam=examService.findById(eId);
 			  List<Question> list=questService.getAllQuestionsFromExam(exam);
 			  ListIterator<Question> lit = list.listIterator(); 
 			  int count=0;
@@ -215,8 +215,8 @@ public class ExamController
 				  model.addAttribute("attendedOptions",attendedOptions);
 				  model.addAttribute("question",lit.next());
 				  model.addAttribute("exam",exam);
-				  model.addAttribute("iterator",lit);
 				  model.addAttribute("qno", "1");
+				  model.addAttribute("iterator",lit);
 				  model.addAttribute("count",count);
 				  return "user_exampage";
 			 }
@@ -227,8 +227,7 @@ public class ExamController
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam String aExamId,@RequestParam String eId,@RequestParam String index,
-			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,
-			@RequestParam String count,@RequestParam String timerValue)
+			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,@RequestParam String count,@RequestParam String timerValue) throws Exception
 		
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
@@ -250,21 +249,26 @@ public class ExamController
 		model.addAttribute("attendedOptions", attendedOptions);
 		model.addAttribute("timerValue",timerValue );
 		log.debug("question "+qid);
-		if(quest!=null)
-		{
-			model.addAttribute("question", quest);
-			return "user_exampage";
-		}
-		else if (lit.hasNext()) 
-		{
-			model.addAttribute("question", lit.next());
-			return "user_exampage";
-		}
-		else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
-	}
 
+
+		int tmpTimerValue = Integer.parseInt(timerValue);
+		if(tmpTimerValue==0) {
+			return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
+		} else{
+			if(quest!=null)
+			{
+				model.addAttribute("question", quest);
+				return "user_exampage";
+			}
+			else if (lit.hasNext()) 
+			{
+				model.addAttribute("question", lit.next());
+				return "user_exampage";
+			}
+			else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
+		}}
 	@RequestMapping("/submit")
-	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model)   
+	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) throws Exception
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		int score = Integer.parseInt(count);
