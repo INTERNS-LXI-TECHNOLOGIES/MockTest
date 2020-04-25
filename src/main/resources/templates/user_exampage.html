@@ -78,15 +78,15 @@ if(ms==null)
 
 function timer() {
 	mseconds = mseconds - 1000;
-  if(mseconds > 0) {
-    document.getElementById('timerValue').innerHTML = millisToMinutesAndSeconds(mseconds);
-		document.getElementById('timer').value = mseconds;
-		 window.setTimeout("timer()" , 1000);
-  } else {
-	 
-		alert('Timed OUt');
-		document.getElementById('myForm').submit();
-	}
+	  if(mseconds > 0) {
+	    document.getElementById('timerValue').innerHTML = millisToMinutesAndSeconds(mseconds);
+			document.getElementById('timer').value = mseconds;
+			 window.setTimeout("timer()" , 1000);
+	  } else {
+			document.getElementById('timer').value = 0;	
+			alert('Timed OUt');
+			document.getElementById('myForm').submit();
+		}
 }
 
 function hourToMiliSeconds(hour) {
@@ -112,10 +112,7 @@ timer();
 	/* function check(){
 	  document.getElementById("'option'+${qstn_option.getId()}").checked = true;} */
 	
-	  function homeCheck() {
-		  var r = confirm("Press a button!");
-		  
-		}
+
 	
 
 </script>
