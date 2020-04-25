@@ -636,7 +636,6 @@ public class ExamController
 		
 		for(AttendedExam atnd:attendExamList)
 		{
-			log.debug("levellllllll"+atnd.getExam().getLevel());
 			if(atnd.getExam().getLevel().equalsIgnoreCase("beginner")) {  beginner_level.add(atnd.getScore()); }
 			else if(atnd.getExam().getLevel().equalsIgnoreCase("intermediate")) {  intermediate_level.add(atnd.getScore()); }
 			else { expert_level.add(atnd.getScore());}
