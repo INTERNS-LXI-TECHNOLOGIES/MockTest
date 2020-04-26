@@ -469,7 +469,7 @@ public class ExamController
 				 log.debug("{}", questions);
 				 return "viewall_qstn";
 			}
-			return "redirect:/viewall_qstn";
+			return "redirect:/app/viewall_qstn";
 			
 		}
 		

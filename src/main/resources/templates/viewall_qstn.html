@@ -12,10 +12,10 @@
 	<div class="topnav">
 		<a class="active" >Lxi Technologies</a>
   		<a  th:href="@{/}">Home</a>
-  		<a  th:href="@{/create_question}">Add Question</a>
+  		<a  th:href="@{/app/create_question}">Add Question</a>
   		
 
-<form th:action="@{/filter}" autocomplete="off">
+<form th:action="@{/app/filter}" autocomplete="off">
 	<span th:each="qstn: ${questions}"></span>
 	<select name="level" class="select1 button2">
 	<option type="text" value="--select--" >--select--</option>
@@ -25,7 +25,7 @@
 	</select>
 	<input type="submit" class="button button1" value="filter"> 
 	<input type="text" class="input button2" id="myInput" th:name="searchQstn"/> 
-	<input type="submit" class="button button1" value="Search here" formaction="/searchQstn">
+	<input type="submit" class="button button1" value="Search here" formaction="/app/searchQstn">
 
 <a class="logout" th:href="@{/logoutpage}">logout</a></form></div></div>
 
@@ -73,7 +73,7 @@
 
 	</table><br>
 	<div align="center">
-		<input type="submit" value="delete selected">
+		<input type="submit" class="button button1" value="delete selected">
 	</div>
 </form>
 <br>
