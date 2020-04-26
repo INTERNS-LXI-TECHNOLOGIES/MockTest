@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.time.Instant;
+import java.time.LocalDate;
+
 import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
@@ -37,8 +39,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.lxisoft.domain.AttendedExam;
 import com.lxisoft.domain.AttendedOption;
 import com.lxisoft.domain.CustError;
@@ -446,7 +450,7 @@ public class ExamController
 				 log.debug("{}", questions);
 				 return "viewall_qstn";
 			}
-			return "redirect:/viewall_qstn";
+			return "redirect:/app/viewall_qstn";
 			
 		}
 		
@@ -542,7 +546,7 @@ public class ExamController
 		
 
 		/**
-		 * GET  /pdf : get the pdf user report using database.
+		 * GET  /pdf : get the pdf exam report using database.
 		 *  
 		 * @return the byte[]
 		 * @throws Exception 
@@ -576,7 +580,56 @@ public class ExamController
 		ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
 		return response;
 	}
+	
+	@RequestMapping("/graph")
 
+	public String graphicalAnalyzeExam(@RequestParam String Exam_id,Model model)
+	{
+		Exam exam=examService.findById(Exam_id);
+		
+		List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
+		List<Integer> scores=new ArrayList<Integer>();
+		List<String>user=new ArrayList<String>();
+		for(AttendedExam atnd:attendList)
+			{
+				
+			user.add(atnd.getUserExtra().getUser().getFirstName());
+				scores.add(atnd.getScore());
+				
+			}
+		model.addAttribute("users",user);
+		model.addAttribute("scores",scores);
+		model.addAttribute("exam",exam);
+		
+		return "chart";
+	}
+	
+	@RequestMapping("/userPerformance")
+
+	public String graphicalAnalyzeUser(@RequestParam String user_id,Model model) throws Exception
+	{
+		UserExtra userExtra=extraService.findById(user_id);
+		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
+		List<LocalDate>date=new ArrayList<LocalDate>();
+		List<Integer> beginner_level=new ArrayList<Integer>();
+		List<Integer> intermediate_level=new ArrayList<Integer>();
+		List<Integer> expert_level=new ArrayList<Integer>();
+		
+		for(AttendedExam atnd:attendExamList)
+		{
+			if(atnd.getExam().getLevel().equalsIgnoreCase("beginner")) {  beginner_level.add(atnd.getScore()); }
+			else if(atnd.getExam().getLevel().equalsIgnoreCase("intermediate")) {  intermediate_level.add(atnd.getScore()); }
+			else { expert_level.add(atnd.getScore());}
+		date.add(atnd.getDateTime().toLocalDate());
+			
+		}
+		model.addAttribute("beginner",beginner_level);
+		model.addAttribute("intermediate",intermediate_level);
+		model.addAttribute("expert",expert_level);
+		model.addAttribute("user",userExtra.getUser().getFirstName() +" "+ userExtra.getUser().getLastName());
+		model.addAttribute("date",date);
+		return "user_performance_chart";
+	}
 
 }
 

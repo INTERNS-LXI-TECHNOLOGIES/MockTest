@@ -96,17 +96,22 @@
             </dependency>
             <!-- jhipster-needle-maven-add-dependency-management -->
             
-    <!-- jasper dependency -->
-    <dependency>
-    <groupId>net.sf.jasperreports</groupId>
-    <artifactId>jasperreports</artifactId>
-    <version>6.8.0</version>
-</dependency>
+   
+
+
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-    
+  
+<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+<!-- Include GSON dependency -->
+<dependency>
+  <groupId>com.google.code.gson</groupId>
+  <artifactId>gson</artifactId>
+  <version>2.8.6</version>
+</dependency>
+ <!-- jasper dependency -->
     <dependency>
     <groupId>net.sf.jasperreports</groupId>
     <artifactId>jasperreports</artifactId>
