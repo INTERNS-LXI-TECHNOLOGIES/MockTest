@@ -183,7 +183,7 @@ public class ExamController
 	}
 
 	@RequestMapping(value="/user_exam")
-	public String userview(Model model,@RequestParam String eId)
+	public String userview(Model model,@RequestParam String eId,@RequestParam String timerValue)
 	{
 		boolean flag=examService.findByIdCheck(eId);
 		if(flag==false)
@@ -195,11 +195,10 @@ public class ExamController
 		else{
 			Exam exam=examService.findById(eId);
 			AttendedExam attendedExam=new AttendedExam(ZonedDateTime.now(),exam, extraService.currentUserExtra());
-
 			attendExamService.save(attendedExam);
 			log.debug("attended exam is :" + attendedExam);
 
-			return "redirect:/user_nextPage?aExamId="+attendedExam.getId()+"&eId="+eId;
+			return "redirect:/user_nextPage?aExamId="+attendedExam.getId()+"&eId="+eId+"&timerValue="+timerValue;
 		}
 	}
 	
@@ -208,20 +207,11 @@ public class ExamController
 			@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam(name="index",required=false,defaultValue="0") String index,
 			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,
-			@RequestParam(required=false,defaultValue="0") String count,@RequestParam(required=false,defaultValue="initial") String timerValue) 
+			@RequestParam(required=false,defaultValue="0") String count,@RequestParam String timerValue) 
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		Question quest=questService.findById(qid);
 		Exam exam = examService.findById(eId);
-		if(timerValue.equals("initial"))
-		{
-			String[] time=exam.getTime().split(":");
-			int hour=Integer.parseInt(time[0]);
-			int min=Integer.parseInt(time[1]);
-			LocalTime examTime=LocalTime.of(hour,min);
-			
-			timerValue=exam.getTime();
-		}
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
 		int pos = Integer.parseInt(index);
 		ListIterator<Question> lit = list.listIterator(pos);
