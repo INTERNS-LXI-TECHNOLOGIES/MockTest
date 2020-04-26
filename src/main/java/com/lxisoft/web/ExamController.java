@@ -40,9 +40,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.lxisoft.domain.AttendedExam;
 import com.lxisoft.domain.AttendedOption;
 import com.lxisoft.domain.CustError;
@@ -200,21 +197,23 @@ public class ExamController
 			Exam exam=examService.findById(eId);
 			AttendedExam attendedExam=new AttendedExam(ZonedDateTime.now(),exam, extraService.currentUserExtra());
 			attendExamService.save(attendedExam);
-			log.debug("attended exam is :" + attendedExam);
-
+			Set<Question> questions=exam.getQuestions();
+			for( Question q: questions)
+			{
+			  attendOptSer.attendOptionInitial(q,attendedExam);
+			  log.debug("attended options saved null for attended exam :- "+attendedExam);
+			}
 			return "redirect:/user_nextPage?aExamId="+attendedExam.getId()+"&eId="+eId+"&timerValue="+timerValue;
 		}
 	}
 	
 	@RequestMapping(value="/user_nextPage")
 	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,
-			@RequestParam(name="qid",required=false,defaultValue="0") String qid,
 			@RequestParam(name="index",required=false,defaultValue="0") String index,
 			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,
 			@RequestParam(required=false,defaultValue="0") String count,@RequestParam String timerValue) 
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
-		Question quest=questService.findById(qid);
 		Exam exam = examService.findById(eId);
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
 		int pos = Integer.parseInt(index);
@@ -232,25 +231,18 @@ public class ExamController
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		model.addAttribute("attendedOptions", attendedOptions);
 		model.addAttribute("timerValue",timerValue );
-		log.debug("question "+qid);
-
-
 		int tmpTimerValue = Integer.parseInt(timerValue);
 		if(tmpTimerValue==0) {
 			return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
 		}
 		else{
-				if(quest!=null)
-				{
-					model.addAttribute("question", quest);
-					return "user_exampage";
-				}
-				else if (lit.hasNext()) 
+				if (lit.hasNext()) 
 				{
 					model.addAttribute("question", lit.next());
 					return "user_exampage";
 				}
-				else return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
+				else 
+					return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
 		}
 	}
 	

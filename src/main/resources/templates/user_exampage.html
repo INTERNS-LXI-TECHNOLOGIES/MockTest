@@ -7,8 +7,9 @@
 <body bgcolor="FloralWhite">
 <div class="header">
 <div align="right">
-<p id="timerValue"></p></div>
-<div align="center">
+	<p id="timerValue"></p>
+</div>
+<div align="center" >
 	<h1 th:text="${exam.getName()} "> exam name</h1>
 	
 			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
@@ -32,7 +33,7 @@
 <div class="bubble-container">
 	 <span th:each="qstn ,stat : ${exam.questions}">
  		<span class="bubble" th:if="${attendedOptions==null}"  th:text="${stat.index+1}" ></span>
-	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_nextPage(qid=${qstn.id},count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${stat.index+1},timerValue=${timerValue})}" 
+	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_nextPage(count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${stat.index},timerValue=${timerValue})}" 
 	  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:#ffff99':'background:lime'" >
 	  			 <span th:text="${stat.index+1}" ></span></a>
 	  	</span>
