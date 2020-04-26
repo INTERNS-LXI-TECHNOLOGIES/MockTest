@@ -9,18 +9,25 @@
 	<h2>MockTest Application</h2>
 	<div class="topnav">
 		<a class="active" >Lxi Technologies</a>
+  		<a th:href="@{/app/create_question}">Create Question</a>
+			<a th:href="@{/app/viewall_qstn}">All Questions</a>
+			<a th:href="@{/app/create_exam}">Create Exam</a> 
+			<a th:href="@{/current_exams}">Current Exams</a>
+			<a th:href="@{/activeExams}">Preview</a> 
+		<a th:href="@{/exam_info}">Exam Analysis</a>
+		<a align="right" th:href="@{/user_info}">User Details</a>
   		
-  		<!-- <a th:href="@{/register}">Register</a></div> -->
-  		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
+  		<a class="logout" th:href="@{/logoutpage}">Logout</a></div>
   </div>
-  <div align="center">
+ 
 		
-			<h3>Welcome Admin</h3>
+			
 		</div>
-  	<div class="container">
+  	<div class="container" style="height: 300px">
+  	 <div align="center">
+		<h1 >Welcome Admin</h1></div>
 		
-		
-		<div align="center">
+		<!-- <div align="center">
 			<a th:href="@{/app/create_question}"><button class="button button1">Create Question</button></a> &nbsp;&nbsp;
 			<a th:href="@{/app/viewall_qstn}"><button class="button button1">All questions</button></a>
 		</div>
@@ -36,7 +43,7 @@
 		</div>
 		<br><br><br>
 	<div align="center">
-	<a th:href="@{/user_info}"><button class="button button1">User Details</button></a> </div>
+	<a th:href="@{/user_info}"><button class="button button1">User Details</button></a> </div> -->
 
 
 </body>
