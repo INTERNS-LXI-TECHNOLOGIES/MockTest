@@ -11,18 +11,20 @@
 		<a class="active" >Lxi Technologies</a>
   		
   		<a  th:href="@{/}">Home</a>
-  		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
+  		<form  action="/app/question_file" enctype="multipart/form-data" method="post">
+				<input  class="button button1" type="file" name="file">
+				<input class="button button1" onClick="alert_file()" type="submit" value="import csv file">
+  		<a class="logout" th:href="@{/logoutpage}">logout</a></form></div>
   </div>
 
 <div align="center">
+
    <h2>Question Creation</h2>
+ **format of file - question, level(beginner/intermediate/expert), option1, option2, option3 or <a href="/app/model.csv">fill csv file and upload</a> 
 </div>
 
 <div align="center">
-	<form action="/app/question_file" enctype="multipart/form-data" method="post">
-		<h4>import csv file:&nbsp;<input  class="button button1" type="file" name="file"></h4>	
-		<input class="button button1" onClick="alert_file()" type="submit" value="import">
-	</form>
+	
 </div>
 <br>
 
@@ -57,7 +59,7 @@
 </form> 
 </div>
 <br>
-**format of file- question, level(beginner/intermediate/expert), option1, option2, option3 or <a href="/app/model.csv">fill this csv file and upload</a> 
+
 
 <script>
 function alert_func() {

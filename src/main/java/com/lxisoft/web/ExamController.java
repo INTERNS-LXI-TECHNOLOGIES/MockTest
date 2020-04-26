@@ -61,6 +61,7 @@ import com.lxisoft.service.UserExtraService;
 import com.lxisoft.service.UserService;
 import com.lxisoft.service.dto.UserDTO;
 
+import net.sf.jasperreports.data.http.RequestMethod;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -106,7 +107,7 @@ public class ExamController
 			return "redirect:/login";
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping(value="/login")
 	public String indexpage()
 	{
 		return "index";

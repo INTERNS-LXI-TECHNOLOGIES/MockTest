@@ -190,6 +190,7 @@ header {
 }
 
 .topnav .logout{ float:right;}
+
 @media screen and (max-width: 600px) {
   .topnav .login-container {
     float: none;

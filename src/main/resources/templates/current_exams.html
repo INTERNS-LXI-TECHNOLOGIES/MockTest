@@ -27,12 +27,11 @@
 			</span>
 			<span th:each="exam: ${exams}">
 			
-			 <button class="button button1 lengthbtn">
-					<a th:href="@{/app/selectExam(eId=${exam.id})}">
+					<a  class="button button1 lengthbtn" th:href="@{/app/selectExam(eId=${exam.id})}" >
 						<h2 th:text="${exam.name}">exam</h2>
-							<h4 th:text="${exam.level}">level</h4>
-							is active:<h4 th:text="${exam.isActive}">isActive</h4>
-					</a></button></span><br><br>
+							<h4  th:text="'Level:  ' + ${exam.level}">level</h4>
+							<h4 th:text="'Active: '+ ${exam.isActive}">isActive</h4>
+					</a></span><br><br>
 				
 
 	</div></div>
