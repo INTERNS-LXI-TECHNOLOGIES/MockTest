@@ -184,7 +184,7 @@ public class ExamController
 		}
 	}
 
-	@RequestMapping(value="/user_exam")
+	@RequestMapping(value="/user_examStart")
 	public String userview(Model model,@RequestParam String eId,@RequestParam String timerValue)
 	{
 		boolean flag=examService.findByIdCheck(eId);
@@ -204,11 +204,11 @@ public class ExamController
 			  attendOptSer.attendOptionInitial(q,attendedExam);
 			  log.debug("attended options saved null for attended exam :- "+attendedExam);
 			}
-			return "redirect:/user_nextPage?aExamId="+attendedExam.getId()+"&eId="+eId+"&timerValue="+timerValue;
+			return "redirect:/user_exampage?aExamId="+attendedExam.getId()+"&eId="+eId+"&timerValue="+timerValue;
 		}
 	}
 	
-	@RequestMapping(value="/user_nextPage")
+	@RequestMapping(value="/user_exampage")
 	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,
 			@RequestParam(name="index",required=false,defaultValue="0") String index,
 			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,
