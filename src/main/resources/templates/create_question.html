@@ -63,14 +63,18 @@
 <script th:inline="javascript">
 function alert_func() {
 	
-/* 	var quest=document.getElementById("quest");
-	 if(quest==null){
-		alert("something went wrong!");}
-	else  
-		{ */
-		alert("successfully created");
-		//}
-}
+	var quest = document.getElementById("quest").value;
+	var opt1 = document.getElementById("opt1").value;
+	var opt2 = document.getElementById("opt2").value; 
+	var opt3 = document.getElementById("opt3").value;
+	
+    if(!quest || !opt1 || !opt2 || !opt3) {
+		alert("Please fill the appropriate values"); }
+    
+    else{ alert("successfully created");}
+			
+	}
+	
 function alert_file() {
 	  alert("Successfully uploaded");
 	}
