@@ -29,11 +29,11 @@ public class Question implements Serializable {
     @Column(name = "level")
     private String level;
 
-    @Size(min = 6, max = 50)
+    @Size(min = 6, max = 100)
     @Column(name = "qstn")
     private String qstn;
 
-    @Size(min = 6, max = 50)
+    @Size(max = 50)
     @OneToMany(mappedBy = "question",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<QstnOption> qstnOptions = new HashSet<>();

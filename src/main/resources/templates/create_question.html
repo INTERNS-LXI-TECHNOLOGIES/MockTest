@@ -35,22 +35,22 @@
 				<option th:value="beginner">Beginner</option>
 				<option th:value="intermediate">Intermediate</option>
 				<option th:value="expert">Expert</option>
-			</select>
+			</select><br><br>
        		Question
-       		<input type="text" class="input button2 lengthbtn" placeholder="Enter Question.." th:field="*{qstn}" required/>
+       		<input type="text" id="quest" class="input button2 lengthbtn" placeholder="Enter Question.." th:field="*{qstn}" required/>
        		<font color="red"> <span  th:if="${#fields.hasErrors('qstn')}" th:errors="*{qstn}"></span></font><br><br>
        		Option1
-       		<input type="text" class="input button2 lengthbtn" placeholder="Enter first option.." th:name="opt1" required/>
+       		<input type="text" id="opt1" class="input button2 lengthbtn" placeholder="Enter first option.." th:name="opt1" required/>
        		<font color="red"> <span  th:if="${#fields.hasErrors('qstnOptions')}" th:errors="*{qstnOptions}"></span></font><br><br>
        		
        		Option2
-       		<input type="text" class="input button2 lengthbtn" placeholder="Enter second option.." th:name="opt2"  required/>
+       		<input type="text" id="opt2" class="input button2 lengthbtn" placeholder="Enter second option.." th:name="opt2"  required/>
        		<font color="red"> <span  th:if="${#fields.hasErrors('qstnOptions')}" th:errors="*{qstnOptions}"></span></font><br><br>
        		
        		Option3
-       		<input type="text" class="input button2 lengthbtn" placeholder="Enter third option.." th:name="opt3" required/>
+       		<input type="text" id="opt3" class="input button2 lengthbtn" placeholder="Enter third option.." th:name="opt3" required/>
        		<font color="red"> <span  th:if="${#fields.hasErrors('qstnOptions')}" th:errors="*{qstnOptions}"></span></font><br><br>
-        	
+        
 	<div align="center">
        	<input type="submit" class="button button1 " value="Add" onclick="alert_func()" formaction="/app/add_question?'qid=question.getId();'"/>
        	<input type="submit" class="button button1 " value="Add More" formaction="/app/addmore_question">
@@ -60,9 +60,16 @@
 <br>
 
 
-<script>
+<script th:inline="javascript">
 function alert_func() {
-  alert("Successfully Created");
+	
+/* 	var quest=document.getElementById("quest");
+	 if(quest==null){
+		alert("something went wrong!");}
+	else  
+		{ */
+		alert("successfully created");
+		//}
 }
 function alert_file() {
 	  alert("Successfully uploaded");
