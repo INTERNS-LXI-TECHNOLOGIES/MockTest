@@ -284,8 +284,9 @@ public class ExamController
 	@RequestMapping(value="/app/add_question")
 	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
 	{ 
-		questService.save(question);
+		
 		if (!bindingResult.hasErrors()) {
+			questService.save(question);
 		 optService.saveQstnOptn(question,opt1,opt2,opt3);
 	      return "redirect:/";}
 	    else return "create_question";
