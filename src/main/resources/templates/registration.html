@@ -27,24 +27,24 @@
 <form  th:action="@{/save}" th:object="${user}" >
 
             	<label>First Name</label>
-            	<input type="text" th:field="*{firstName}" placeholder="Enter your FirstName" class="input button2 lengthbtn"/>
-     			 <font color="red"> <span  th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"> </span></font>
+            	<input type="text" th:field="*{firstName}" placeholder="Enter your FirstName" class="input button2 lengthbtn" required/>
+     			 <font color="red"> <span  th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"> </span></font><br><br>
      			 
      			  <label>Last Name</label>
-     			  <input type="text" placeholder="Enter your LastName" th:field="*{lastName}" class="input button2 lengthbtn"/>
-     			  <font color="red"> <span  th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"> </span></font>
+     			  <input type="text" placeholder="Enter your LastName" th:field="*{lastName}" class="input button2 lengthbtn"  required/>
+     			  <font color="red"> <span  th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"> </span></font><br><br>
      			  
         		<label>email</label>
-        		<input type="text" th:field="*{email}" placeholder="Enter your e-mail" class="input button2 lengthbtn"/>
-        		<font color="red"><span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></font>
+        		<input type="text" th:field="*{email}" placeholder="Enter your e-mail" class="input button2 lengthbtn" required/>
+        		<font color="red"><span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></font><br><br>
         		
         		<label>user name</label>
-        		<input type="text" th:field="*{login}" placeholder="Enter your UserName" class="input button2 lengthbtn"/>
-        		<font color="red"><span  th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span></font>
+        		<input type="text" th:field="*{login}" placeholder="Enter your UserName" class="input button2 lengthbtn" required/>
+        		<font color="red"><span  th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span></font><br><br>
         		
         		<label>password</label>
-        		<input type="password" th:field="*{password}"  placeholder="Enter your Password"class="input button2 lengthbtn" />
-        		<font color="red"> <span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></font>
+        		<input type="password" th:field="*{password}"  placeholder="Enter your Password"class="input button2 lengthbtn" required/>
+        		<font color="red"><span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></font><br><br>
         		
         		<!-- <label>Confirm Password</label></td><td><input type="password" name="cpw" />
         		<font color="red"><span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></font> -->

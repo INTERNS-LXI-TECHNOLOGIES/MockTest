@@ -124,9 +124,8 @@ public class ExamController
 	@RequestMapping(value="/save")  
 	public String save(@Valid User user,BindingResult bindingResult)
 	{  
-		log.debug("user name "+user.getFirstName());
+		log.info("user name "+user.getFirstName());
 		if (!bindingResult.hasErrors()) {
-			
 			extraService.save(user);  
 			return  "redirect:/";
 		}
