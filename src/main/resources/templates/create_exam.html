@@ -27,17 +27,19 @@
 		<form  th:action="@{/app/save_exam}" th:object="${exam}" >
 			
 					<label for="name">Enter name of this exam:</label>
-					<input type="text" th:field="*{name}"  class="input button2 lengthbtn"  /><br>
-				
+					<input type="text" id="name" th:field="*{name}"  class="input button2 lengthbtn"  required /><br>
+					<font color="red"> <span  th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></font><br><br>
+					
 					<label for="num">Enter no. of questions needed:</label>
-					<input type="text" th:field="*{count}"  class="input button2 lengthbtn"  /><br>
+					<input type="text" id="count" th:field="*{count}"  class="input button2 lengthbtn"  required /><br>
+					<font color="red"> <span  th:if="${#fields.hasErrors('count')}" th:errors="*{count}"></span></font><br>
 					
 					<label for="level">Level:</label>
 					<select name="level" th:field="*{level}"  class="select button2 lengthbtn"  >
 							<option th:value="beginner">Beginner Level</option>
 							<option th:value="intermediate">Intermediate Level</option>
 							<option th:value="expert">Expert Level</option>
-					</select><br>
+					</select><br><br>
 				 	
 					<label for="time">Time:</label>
 					<!-- <input type="time"  name="time"  class="input button2 lengthbtn" /> -->
@@ -58,6 +60,10 @@
 <script >
 function alert_creation()
 {
+	var name = document.getElementById("name").value;
+	var count = document.getElementById("count").value;
+	if(!name || !count) { alert("Please provide appropriate values"); }
+	else
 	alert("Exam created");
 }
 </script>

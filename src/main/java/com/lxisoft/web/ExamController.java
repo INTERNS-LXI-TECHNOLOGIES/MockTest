@@ -313,8 +313,8 @@ public class ExamController
 	@RequestMapping(value="/app/addmore_question")
 	public String addmore( @Valid Question quest,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
-		questService.save(quest);
 		if(!binding.hasErrors()) {
+			questService.save(quest);
 			 optService.saveQstnOptn(quest,opt1,opt2,opt3);
 			model.addAttribute("question",new Question());
 		}
@@ -365,19 +365,23 @@ public class ExamController
 	}
 
 	@RequestMapping ("/app/save_exam")
-	public String save_exam(Exam exam,@RequestParam String hour,@RequestParam String minute,Model model)
+	public String save_exam(@Valid Exam exam,BindingResult bindingResult,@RequestParam String hour,@RequestParam String minute,Model model)
 	{
-		exam.setIsActive(false);
-		String time=hour+":"+minute;
-		exam.setTime(time);
-		boolean flag=examService.save_exam(exam);
-		if(flag==false)
-		{
-			CustError error=new CustError("less questions present in db!!","please verify and retry");
-			model.addAttribute("error",error);
-			return "error";
+		if(!bindingResult.hasErrors()) {
+				exam.setIsActive(false);
+				String time=hour+":"+minute;
+				exam.setTime(time);
+				boolean flag=examService.save_exam(exam);
+				if(flag==false)
+				{
+					CustError error=new CustError("less questions present in db!!","please verify and retry");
+					model.addAttribute("error",error);
+					return "error";
+				}
+				 return "redirect:/";
 		}
-		return "redirect:/";
+		
+		 else return "create_exam";
 	}
 	
 	@RequestMapping ("/current_exams")
