@@ -62,6 +62,7 @@ public class UserExtraService {
 	}
 
 	public void save(@Valid User user) {
+		log.debug("insde service "+user.getPassword());
 		BCryptPasswordEncoder encode=new BCryptPasswordEncoder(); 
 		user.setPassword(encode.encode(user.getPassword()));
 		Set<Authority> authorities = new HashSet<>();
