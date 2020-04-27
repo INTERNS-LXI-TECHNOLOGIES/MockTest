@@ -236,14 +236,15 @@ public class ExamController
 		if(tmpTimerValue==0) {
 			return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
 		}
-		else{
-				if (lit.hasNext()) 
-				{
-					model.addAttribute("question", lit.next());
-					return "user_exampage";
-				}
-				else 
-					return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
+		else
+		{
+			if (lit.hasNext()) 
+			{
+				model.addAttribute("question", lit.next());
+				return "user_exampage";
+			}
+			else 
+				return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
 		}
 	}
 	
@@ -255,8 +256,6 @@ public class ExamController
 		int score = Integer.parseInt(count);
 		Exam exam = examService.findById(eId);
 		int total = exam.getCount();
-//		UserExtra userExtra = extraService.currentUserExtra();
-//		attendedExam.setUserExtra(userExtra);
 		attendedExam = attendExamService.attend(attendedExam, score, total);
 		log.debug("attended exam ready to save:- " + attendedExam);
 		attendExamService.save(attendedExam);
@@ -420,7 +419,7 @@ public class ExamController
 			qstn_optn.setIsAnswer(false);
 		questService.save(question);
 		optService.save(qstn_optn);
-		return "redirect:/viewall_qstn";
+		return "redirect:/app/viewall_qstn";
 	}
 
 	@RequestMapping ("/app/viewall_qstn")
@@ -625,34 +624,3 @@ public class ExamController
 	}
 
 }
-
-
-
-//ZonedDateTime dateTime = ZonedDateTime.now();
-//attendedExam.setDateTime(dateTime);
-//attendedExam.setExam(exam);
-
-//model.addAttribute("aExamId",attendedExam.getId());
-//log.debug("attended exam id is :-"+model.getAttribute("aExamId"));
-//model.addAttribute("eId",eId);
-//  List<Question> list=questService.getAllQuestionsFromExam(exam);
-//  ListIterator<Question> lit = list.listIterator(); 
-//  int count=0;
-//	
-//  
-//  Set<Question>questions=exam.getQuestions();
-//  for( Question q: questions)
-//  {
-//	  attendOptSer.attendOptionInitial(q,attendedExam);
-//	  log.debug("attended options saved null");
-//  }
-//	List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-//	 if (lit.hasNext()) { 
-//	  model.addAttribute("attendedOptions",attendedOptions);
-//	  model.addAttribute("question",lit.next());
-//	  model.addAttribute("exam",exam);
-//	  model.addAttribute("qno", "1");
-//	  model.addAttribute("iterator",lit);
-//	  model.addAttribute("count",count);
-//	  return "user_exampage";
-// }
