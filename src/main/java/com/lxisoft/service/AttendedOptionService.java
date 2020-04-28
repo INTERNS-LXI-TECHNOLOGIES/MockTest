@@ -54,6 +54,20 @@ public class AttendedOptionService {
 		}
 		
 	}
+
+
+	public int examScore(AttendedExam attendedExam) {
+		List<AttendedOption> attendedOptions=findAllByAttendedExam(attendedExam);
+		int score=0;
+		for(AttendedOption aOption:attendedOptions)
+		{
+			if((aOption.isAttendedAnswer()!=null) && (aOption.isAttendedAnswer()==true))
+			{
+				score+=1;
+			}
+		}
+		return score;
+	}
 	
 	
 }

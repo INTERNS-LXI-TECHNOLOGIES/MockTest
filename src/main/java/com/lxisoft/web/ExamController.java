@@ -212,9 +212,8 @@ public class ExamController
 	
 	@RequestMapping(value="/user_exampage")
 	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,
-			@RequestParam(name="index",required=false,defaultValue="0") String index,
-			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid,
-			@RequestParam(required=false,defaultValue="0") String count,@RequestParam String timerValue) 
+			@RequestParam(name="index",required=false,defaultValue="0") String index,@RequestParam String timerValue,
+			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid) 
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		Exam exam = examService.findById(eId);
@@ -222,21 +221,18 @@ public class ExamController
 		int pos = Integer.parseInt(index);
 		ListIterator<Question> lit = list.listIterator(pos);
 		
-		int marks = Integer.parseInt(count);
-		marks = optService.setResult(marks, optionid);
 		if(!index.equals("0"))
 			attendOptSer.attendOptionUpdate(optionid,list.get(lit.previousIndex()),attendedExam);
-		model.addAttribute("count", marks);
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("exam", exam);
 		model.addAttribute("iterator", lit);
-		model.addAttribute("qno", (pos+1));
+		model.addAttribute("index", index);
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		model.addAttribute("attendedOptions", attendedOptions);
 		model.addAttribute("timerValue",timerValue );
 		int tmpTimerValue = Integer.parseInt(timerValue);
 		if(tmpTimerValue==0) {
-			return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
+			return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
 		}
 		else
 		{
@@ -246,18 +242,18 @@ public class ExamController
 				return "user_exampage";
 			}
 			else 
-				return "redirect:/submit?count=" + marks + "&eId=" + eId +"&aExamId=" +aExamId;
+				return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
 		}
 	}
 	
 	
 	@RequestMapping("/submit")
-	public String submit(@RequestParam String aExamId,@RequestParam String count,@RequestParam String eId,Model model) 
+	public String submit(@RequestParam String aExamId,@RequestParam String eId,Model model) 
 	{
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
-		int score = Integer.parseInt(count);
 		Exam exam = examService.findById(eId);
 		int total = exam.getCount();
+		int score=attendOptSer.examScore(attendedExam);
 		attendedExam = attendExamService.attend(attendedExam, score, total);
 		log.debug("attended exam ready to save:- " + attendedExam);
 		attendExamService.save(attendedExam);

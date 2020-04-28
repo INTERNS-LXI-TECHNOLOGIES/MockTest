@@ -13,7 +13,7 @@
 	<h1 th:text="${exam.getName()} "> exam name</h1>
 	
 			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
-			<h2><span th:text="'Question '+ ${qno}"></span></h2>
+			<h2><span id="qstnNo" >qstnNo</span></h2>
 			</div>
 			
 	<div class="topnav">
@@ -51,7 +51,7 @@
 		</div>
 		
 		<br><br><br>
-		<input type="hidden" th:name="index" th:id="a" th:value="${iterator.nextIndex()}">
+		<input type="hidden" th:name="index" th:value="${iterator.nextIndex()}">
 		<input type="hidden" th:name="count" th:value="${count}">
 		<input type="hidden" th:name="aExamId" th:value="${aExamId}">
 		<input type="hidden" th:name="eId" th:value="${exam.getId()}">
@@ -103,20 +103,18 @@ function millisToMinutesAndSeconds(millis) {
   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
-function goBack() {
-  window.history.back();
-
-}
 
 timer();
 
 	/* function check(){
 	  document.getElementById("'option'+${qstn_option.getId()}").checked = true;} */
-	  function checked() {
-		  var optionId=[[${attendedOptions[qno-1].attendedOpt}]];
-		  document.getElementById(optionId).checked = true;
-		}
-	  checked();
+  function checked() {
+	  document.getElementById('qstnNo').innerHTML = "Question "+[[${index}+1]];
+	  var optionId=[[${attendedOptions[index].attendedOpt}]];
+	  document.getElementById(optionId).checked = true;
+	}
+  checked();
+  
 </script>
 
 

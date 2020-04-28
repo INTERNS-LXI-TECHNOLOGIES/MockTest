@@ -55,18 +55,4 @@ public class OptionService {
 		return option;
 	}
 
-	public int setResult(int count, String optionid) {
-		
-		QstnOption option=findById(optionid);
-		
-		if(option==null)
-		{
-			return count;
-		}
-		else {
-		if(option.isIsAnswer()==true)
-		count++;
-		return count;}
-	}
-
 }
