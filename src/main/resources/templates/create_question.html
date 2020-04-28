@@ -35,23 +35,22 @@
 				<option th:value="beginner">Beginner</option>
 				<option th:value="intermediate">Intermediate</option>
 				<option th:value="expert">Expert</option>
-			</select>
+			</select><br><br>
        		Question
-       		<input type="text" class="input button2 lengthbtn" placeholder="Enter Question.." th:field="*{qstn}" />
-       		 <!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('question.qstn')}" th:errors="${question.qstn}"></span></font></td></tr> -->
+       		<input type="text" id="quest" class="input button2 lengthbtn" placeholder="Enter Question.." th:field="*{qstn}" required/>
+       		<font color="red"> <span  th:if="${#fields.hasErrors('qstn')}" th:errors="*{qstn}"></span></font><br><br>
        		Option1
-       		<input type="text" class="input button2 lengthbtn" placeholder="Enter first option.." th:name="opt1" />
-       		 <!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
+       		<input type="text" id="opt1" class="input button2 lengthbtn" placeholder="Enter first option.." th:name="opt1" required/>
+       		<font color="red"> <span  th:if="${#fields.hasErrors('qstnOptions')}" th:errors="*{qstnOptions}"></span></font><br><br>
        		
        		Option2
-       		<input type="text" class="input button2 lengthbtn" placeholder="Enter second option.." th:name="opt2"  />
-       		<!-- <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
+       		<input type="text" id="opt2" class="input button2 lengthbtn" placeholder="Enter second option.." th:name="opt2"  required/>
+       		<font color="red"> <span  th:if="${#fields.hasErrors('qstnOptions')}" th:errors="*{qstnOptions}"></span></font><br><br>
        		
        		Option3
-       		<input type="text" class="input button2 lengthbtn" placeholder="Enter third option.." th:name="opt3" />
-       		
-       		<!--  <td><font color="red"> <span  th:if="${#fields.hasErrors('optionList.OptionName')}" th:errors="${optionList.OptionName}"></span></font></td> --></tr>
-        	
+       		<input type="text" id="opt3" class="input button2 lengthbtn" placeholder="Enter third option.." th:name="opt3" required/>
+       		<font color="red"> <span  th:if="${#fields.hasErrors('qstnOptions')}" th:errors="*{qstnOptions}"></span></font><br><br>
+        
 	<div align="center">
        	<input type="submit" class="button button1 " value="Add" onclick="alert_func()" formaction="/app/add_question?'qid=question.getId();'"/>
        	<input type="submit" class="button button1 " value="Add More" formaction="/app/addmore_question">
@@ -61,10 +60,21 @@
 <br>
 
 
-<script>
+<script th:inline="javascript">
 function alert_func() {
-  alert("Successfully Created");
-}
+	
+	var quest = document.getElementById("quest").value;
+	var opt1 = document.getElementById("opt1").value;
+	var opt2 = document.getElementById("opt2").value; 
+	var opt3 = document.getElementById("opt3").value;
+	
+    if(!quest || !opt1 || !opt2 || !opt3) {
+		alert("Please fill the appropriate values"); }
+    
+    else{ alert("successfully created");}
+			
+	}
+	
 function alert_file() {
 	  alert("Successfully uploaded");
 	}
