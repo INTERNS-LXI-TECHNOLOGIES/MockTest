@@ -245,6 +245,13 @@ public class ExamController
 		}
 	}
 	
+	@RequestMapping(value="/clear_option")
+	public void clear_option()  
+			
+	{
+		
+		attendOptSer.clearOption("221");
+	}
 	
 	@RequestMapping("/submit")
 	public String submit(@RequestParam String aExamId,@RequestParam String eId,Model model) 

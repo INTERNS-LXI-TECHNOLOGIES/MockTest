@@ -69,6 +69,16 @@ public class AttendedOptionService {
 		return score;
 	}
 	
+	public void clearOption(String id)
+	{
+		Optional<AttendedOption> optional=attendOptRepo.findById((long) Integer.parseInt(id));
+		AttendedOption attendedOpt=optional.get();
+		log.debug("before clearing attnded option:- "+attendedOpt);
+		attendedOpt.setAttendedOpt(null);
+		attendedOpt.setAttendedAnswer(null);
+		attendOptRepo.save(attendedOpt);
+		log.debug("after the clearing of attnded option:- "+attendedOpt);
+	}
 	
 }
 
