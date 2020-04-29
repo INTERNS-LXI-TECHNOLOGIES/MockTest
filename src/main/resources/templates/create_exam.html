@@ -62,9 +62,13 @@ function alert_creation()
 {
 	var name = document.getElementById("name").value;
 	var count = document.getElementById("count").value;
-	if(!name || !count) { alert("Please provide appropriate values"); }
+	if(!name || !count) { alert("Please provide appropriate values"); check();}
 	else
 	alert("Exam created");
 }
+function check()
+{
+	if(document.getElementById("count").value.length>3)
+		alert("please reduce count No..!");}
 </script>
 </html>

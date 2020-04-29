@@ -43,13 +43,13 @@ public class JasperService {
      * 
 	 * @throws JRException. 
      */
-	public byte[] getReportAsPdfUsingDataBase(long attend_exam_id, long userid) throws JRException {
+	/* public byte[] getReportAsPdfUsingDataBase(long attend_exam_id, long userid) throws JRException {
 log.debug("AggregateServiceImpl request to get a pdf");
 		
 		JasperReport jr = JasperCompileManager.compileReport("src/main/resources/report.jrxml");
 		
 		Map parameters=new HashMap();
-		parameters.put("head","Appraisal report");
+		parameters.put("head","Exam report");
 		parameters.put("id",attend_exam_id);
 		parameters.put("id",userid);
 			
@@ -66,8 +66,15 @@ log.debug("AggregateServiceImpl request to get a pdf");
 	   return JasperExportManager.exportReportToPdf(jp);
 			
 
-}
+} */
 
+    /**
+     * Gets userexamReport : using javabean.
+     * @param list-AttentendedExamBean
+     *
+     * @return the byte[].
+     * @throws JRException  
+     */
 
 	public byte[] getReportAsPdfUsingJavaBeans(List<AttendedExamBean> list)throws JRException
 	{
