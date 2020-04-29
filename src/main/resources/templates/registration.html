@@ -4,7 +4,8 @@
     <title>User Registration Page</title>
     
 </head>
-<body bgcolor="FloralWhite">
+<body bgcolor="FloralWhite" onload="preventBack()">
+
 <div class="header">
 	<h2>MockTest Application</h2>
 	<div class="topnav">
@@ -24,42 +25,70 @@
 <div class="container">
 
 
-<form  th:action="@{/save}" th:object="${user}" >
+<form  th:action="@{/save}" th:object="${user}"  >
 
             	<label>First Name</label>
-            	<input type="text" th:field="*{firstName}" placeholder="Enter your FirstName" class="input button2 lengthbtn" required/>
+            	<input type="text" id="fn" th:field="*{firstName}" placeholder="Enter your FirstName" class="input button2 lengthbtn" required/>
      			 <font color="red"> <span  th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"> </span></font><br><br>
      			 
      			  <label>Last Name</label>
-     			  <input type="text" placeholder="Enter your LastName" th:field="*{lastName}" class="input button2 lengthbtn"  required/>
+     			  <input type="text" id="ln" placeholder="Enter your LastName" th:field="*{lastName}" class="input button2 lengthbtn"  required/>
      			  <font color="red"> <span  th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"> </span></font><br><br>
      			  
         		<label>email</label>
-        		<input type="text" th:field="*{email}" placeholder="Enter your e-mail" class="input button2 lengthbtn" required/>
+        		<input type="text" id="email" th:field="*{email}" placeholder="Enter your e-mail" class="input button2 lengthbtn" required/>
         		<font color="red"><span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></font><br><br>
         		
         		<label>user name</label>
-        		<input type="text" th:field="*{login}" placeholder="Enter your UserName" class="input button2 lengthbtn" required/>
+        		<input type="text" id="un" th:field="*{login}" placeholder="Enter your UserName" class="input button2 lengthbtn" required/>
         		<font color="red"><span  th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span></font><br><br>
         		
         		<label>password</label>
-        		<input type="password" th:field="*{password}"  placeholder="Enter your Password"class="input button2 lengthbtn" required/>
-        		<font color="red"><span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></font><br><br>
+        		<input type="password" id="pass" th:field="*{password}"  placeholder="Enter your Password"class="input button2 lengthbtn" required/>
+        		<font color="red"><!-- <span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span> -->
+        	<span th:each="error: ${#fields.errors('password')}">
+        		<span th:each="message : ${error.split('\n')}">
+                       <li th:text="  ${message}"></li></span></span></font><br><br>
         		
         		<!-- <label>Confirm Password</label></td><td><input type="password" name="cpw" />
         		<font color="red"><span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></font> -->
         		
         		<div align="center"><button type="submit" class="button button1 " onclick="alert_creation()">Sign up</button></div>
-        		 			
+        		
+        		<input type="hidden" id="flag"  name="setflag" th:value="0" />
+	
 </form> 
 
-
 </div>
+<form><input type="hidden" id="err"  th:value="${err}" /></form>
 <script >
 function alert_creation()
 {
-	alert("You are Successfully Registered!");
+	var fn = document.getElementById("fn").value;
+	var ln = document.getElementById("ln").value;
+	var email = document.getElementById("email").value;
+	var un = document.getElementById("un").value;
+	var pass = document.getElementById("pass").value;
+	var flag=document.getElementById("flag").value;
+	//document.write(flag);
+	if(!fn || !ln || !email || !un || !pass) { alert("Please enter proper values"); }
+	else if(((fn.length<6) || (fn.length>20)) && ((ln.length<6) || (ln.length>20)) && ((un.length<6) && (un.length>20))) //-->this statements gives false
+	{	alert("something went wrong!");
+			 passcheck();}
+else alert("You are Successfully Registered!");
+
 }
+function passcheck()
+{
+	if(document.getElementById("pass").value.length<8)
+		alert("Your password should contain minimum 8 characters");
+	}
+	
+
+function preventBack() { window.history.forward(); }
+setTimeout("preventBack()", 0);
+window.onunload = function () { null };
+	
 </script>
 </body>
 </html>
