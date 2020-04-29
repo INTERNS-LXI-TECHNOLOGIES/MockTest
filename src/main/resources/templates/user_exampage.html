@@ -7,13 +7,12 @@
 <body bgcolor="FloralWhite">
 <div class="header">
 <div align="right">
-	<p id="timerValue"></p>
+	<span id="timerValue" style="color: red; font-size: x-large;font-weight: bold;"></span> minutes left
 </div>
 <div align="center" >
-	<h1 th:text="${exam.getName()} "> exam name</h1>
+	<h2 th:text="${exam.getName()} "> exam name</h2>
 	
-			Level:- <span th:text="${exam.getLevel()} ">level</span><br>&nbsp;&nbsp; 
-			<h2><span id="qstnNo" >qstnNo</span></h2>
+			<h2><span id="qstnNo" style="color: blue">qstnNo</span></h2>
 			</div>
 			
 	<div class="topnav">
@@ -56,7 +55,8 @@
 		<input type="hidden" th:name="aOptId" th:value="${attendedOptions[index].id}">
 		<input type="hidden" th:name="aExamId" th:value="${aExamId}">
 		<input type="hidden" th:name="eId" th:value="${exam.getId()}">
-		<input type="submit" class="button button1" th:value="clear" formaction="/clear_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="submit" class="button button1" th:value="clear" formaction="/clear_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="submit" class="button button1" value="save & next" formaction="/save_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="submit" onclick="check()" class="button button1" th:value="${iterator.hasNext()}==true? next: submit" >
 	
 </form>
@@ -111,7 +111,7 @@ timer();
 	/* function check(){
 	  document.getElementById("'option'+${qstn_option.getId()}").checked = true;} */
   function checked() {
-	  document.getElementById('qstnNo').innerHTML = "Question "+[[${index}+1]];
+	  document.getElementById('qstnNo').innerHTML = "Question: "+[[${index}+1]];
 	  var optionId=[[${attendedOptions[index].attendedOpt}]];
 	  document.getElementById(optionId).checked = true;
 	}

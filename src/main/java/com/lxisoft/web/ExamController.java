@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -219,9 +220,6 @@ public class ExamController
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
 		int pos = Integer.parseInt(index);
 		ListIterator<Question> lit = list.listIterator(pos);
-		
-		if(!index.equals("0"))
-			attendOptSer.attendOptionUpdate(optionid,list.get(lit.previousIndex()),attendedExam);
 		model.addAttribute("aExamId",aExamId);
 		model.addAttribute("exam", exam);
 		model.addAttribute("iterator", lit);
@@ -243,6 +241,20 @@ public class ExamController
 			else 
 				return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
 		}
+	}
+	
+	@RequestMapping(value="/save_option")
+	public String save_option(Model model,@RequestParam String aExamId,@RequestParam String eId,
+		@RequestParam(required=false,defaultValue="0") String index,@RequestParam String timerValue,
+		@RequestParam(name="optionid",required=false,defaultValue="0") String optionid)  
+	{
+		int pos=Integer.parseInt(index);
+		Exam exam = examService.findById(eId);
+		List<Question> list=questService.getAllQuestionsFromExam(exam);
+		Question quest= list.get(pos-1);
+		if(!index.equals("0"))
+			attendOptSer.attendOptionUpdate(optionid,quest,attendExamService.findById(aExamId));
+		return "redirect:/user_exampage?eId="+eId +"&aExamId="+aExamId +"&optionid=0&timerValue="+timerValue +"&index="+pos;
 	}
 	
 	@RequestMapping(value="/clear_option")
