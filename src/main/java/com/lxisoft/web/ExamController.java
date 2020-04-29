@@ -246,11 +246,15 @@ public class ExamController
 	}
 	
 	@RequestMapping(value="/clear_option")
-	public void clear_option()  
-			
+	public String clear_option(Model model,@RequestParam String aExamId,@RequestParam String eId,
+		@RequestParam String index,@RequestParam String timerValue,@RequestParam(required=false,defaultValue="0") String aOptId)  
 	{
-		
-		attendOptSer.clearOption("221");
+		if(!aOptId.equals("0"))
+			attendOptSer.clearOption(aOptId);
+		int pos=Integer.parseInt(index);
+		if(pos!=0)
+			pos=pos-1;
+		return "redirect:/user_exampage?eId="+eId +"&aExamId="+aExamId +"&optionid=0&timerValue="+timerValue +"&index="+pos;
 	}
 	
 	@RequestMapping("/submit")
@@ -370,17 +374,17 @@ public class ExamController
 	public String save_exam(@Valid Exam exam,BindingResult bindingResult,@RequestParam String hour,@RequestParam String minute,Model model)
 	{
 		if(!bindingResult.hasErrors()) {
-				exam.setIsActive(false);
-				String time=hour+":"+minute;
-				exam.setTime(time);
-				boolean flag=examService.save_exam(exam);
-				if(flag==false)
-				{
-					CustError error=new CustError("less questions present in db!!","please verify and retry");
-					model.addAttribute("error",error);
-					return "error";
-				}
-				 return "redirect:/";
+			exam.setIsActive(false);
+			String time=hour+":"+minute;
+			exam.setTime(time);
+			boolean flag=examService.save_exam(exam);
+			if(flag==false)
+			{
+				CustError error=new CustError("less questions present in db!!","please verify and retry");
+				model.addAttribute("error",error);
+				return "error";
+			}
+			 return "redirect:/";
 		}
 		
 		 else return "create_exam";

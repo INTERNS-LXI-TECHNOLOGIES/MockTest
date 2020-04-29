@@ -33,7 +33,7 @@
 <div class="bubble-container">
 	 <span th:each="qstn ,stat : ${exam.questions}">
  		<span class="bubble" th:if="${attendedOptions==null}"  th:text="${stat.index+1}" ></span>
-	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_exampage(count=${count},aExamId=${aExamId},eId=${exam.getId()},index=${stat.index},timerValue=${timerValue})}" 
+	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_exampage(aExamId=${aExamId},eId=${exam.getId()},index=${stat.index},timerValue=${timerValue})}" 
 	  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:#ffff99':'background:lime'" >
 	  			 <span th:text="${stat.index+1}" ></span></a>
 	  	</span>
@@ -55,7 +55,7 @@
 		<input type="hidden" th:name="aOptId" th:value="${attendedOptions[index].id}">
 		<input type="hidden" th:name="aExamId" th:value="${aExamId}">
 		<input type="hidden" th:name="eId" th:value="${exam.getId()}">
-		<input type="submit" class="button button1" th:value="clear" formaction="/clear_option">
+		<input type="submit" class="button button1" th:value="clear" formaction="/clear_option">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="submit" onclick="check()" class="button button1" th:value="${iterator.hasNext()}==true? next: submit" >
 	
 </form>
