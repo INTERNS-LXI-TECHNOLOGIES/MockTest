@@ -33,7 +33,8 @@
 <div class="bubble-container">
 	 <span th:each="qstn ,stat : ${exam.questions}">
  		<span class="bubble" th:if="${attendedOptions==null}"  th:text="${stat.index+1}" ></span>
-	  		<a th:if="!${attendedOptions==null}" th:href="@{/user_exampage(aExamId=${aExamId},eId=${exam.getId()},index=${stat.index},timerValue=${timerValue})}" 
+	  		 <a th:if="!${attendedOptions==null}" 
+			  	th:onclick="showQuestion( [[${aExamId}]] ,  [[${exam.getId()}]] , [[${stat.index}]])"
 	  			class="bubble" th:style="${attendedOptions[__stat.index__].attendedOpt==null}?'background:#ffff99':'background:lime'" >
 	  			 <span th:text="${stat.index+1}" ></span></a>
 	  	</span>
@@ -115,6 +116,12 @@ timer();
 	  document.getElementById(optionId).checked = true;
 	}
   checked();
+  
+  function showQuestion( aExamId , examId , index) {
+		let url  = "/user_exampage";
+		let params = `aExamId=${aExamId}&eId=${examId}&index=${index}&timerValue=${mseconds}`;
+		window.location = url + '?'+ params;
+	  }
   
 </script>
 
