@@ -72,7 +72,7 @@ import net.sf.jasperreports.engine.JRException;
 public class ExamController 
 {
 	private final Logger log = LoggerFactory.getLogger(ExamController.class);
-    
+    private static String examValid="0";
     
 	@Autowired
 	private AttendedExamService attendExamService;
@@ -197,6 +197,7 @@ public class ExamController
 			return "error";
 		}
 		else{
+			examValid="1";
 			Exam exam=examService.findById(eId);
 			AttendedExam attendedExam=new AttendedExam(ZonedDateTime.now(),exam, extraService.currentUserExtra());
 			attendExamService.save(attendedExam);
@@ -206,46 +207,55 @@ public class ExamController
 			  attendOptSer.attendOptionInitial(q,attendedExam);
 			  log.debug("attended options saved null for attended exam :- "+attendedExam);
 			}
-			return "redirect:/user_exampage?aExamId="+attendedExam.getId()+"&eId="+eId+"&timerValue="+timerValue;
+			return "redirect:/user_exampage?aExamId="+attendedExam.getId()+"&eId="+eId+"&timerValue="+timerValue +"&active=1";
 		}
 	}
 	
 	@RequestMapping(value="/user_exampage")
-	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,
-			@RequestParam(name="index",required=false,defaultValue="0") String index,@RequestParam String timerValue,
+	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String timerValue,
+			@RequestParam(required=false,defaultValue="0") String index,
 			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid) 
 	{
-		AttendedExam attendedExam=attendExamService.findById(aExamId);
-		Exam exam = examService.findById(eId);
-		List<Question> list=questService.getAllQuestionsFromExam(exam);
-		int pos = Integer.parseInt(index);
-		ListIterator<Question> lit = list.listIterator(pos);
-		model.addAttribute("aExamId",aExamId);
-		model.addAttribute("exam", exam);
-		model.addAttribute("iterator", lit);
-		model.addAttribute("index", index);
-		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-		model.addAttribute("attendedOptions", attendedOptions);
-		model.addAttribute("timerValue",timerValue );
-		int tmpTimerValue = Integer.parseInt(timerValue);
-		if(tmpTimerValue==0) {
-			return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
+		if(examValid.equals("1"))
+		{
+			AttendedExam attendedExam=attendExamService.findById(aExamId);
+			Exam exam = examService.findById(eId);
+			List<Question> list=questService.getAllQuestionsFromExam(exam);
+			int pos = Integer.parseInt(index);
+			ListIterator<Question> lit = list.listIterator(pos);
+			model.addAttribute("aExamId",aExamId);
+			model.addAttribute("exam", exam);
+			model.addAttribute("iterator", lit);
+			model.addAttribute("index", index);
+			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+			model.addAttribute("attendedOptions", attendedOptions);
+			model.addAttribute("timerValue",timerValue );
+			int tmpTimerValue = Integer.parseInt(timerValue);
+			if(tmpTimerValue==0) {
+				return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
+			}
+			else
+			{
+				if (lit.hasNext()) 
+				{
+					model.addAttribute("question", lit.next());
+					return "user_exampage";
+				}
+				else 
+					return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
+			}
 		}
 		else
 		{
-			if (lit.hasNext()) 
-			{
-				model.addAttribute("question", lit.next());
-				return "user_exampage";
-			}
-			else 
-				return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
+			CustError error=new CustError("exam has expired!!","please restart exam");
+			model.addAttribute("error",error);
+			return "error";
 		}
 	}
 	
 	@RequestMapping(value="/save_option")
-	public String save_option(Model model,@RequestParam String aExamId,@RequestParam String eId,
-		@RequestParam(required=false,defaultValue="0") String index,@RequestParam String timerValue,
+	public String save_option(Model model,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String timerValue,
+		@RequestParam(required=false,defaultValue="0") String index,
 		@RequestParam(name="optionid",required=false,defaultValue="0") String optionid)  
 	{
 		int pos=Integer.parseInt(index);
@@ -274,6 +284,7 @@ public class ExamController
 	@RequestMapping("/submit")
 	public String submit(@RequestParam String aExamId,@RequestParam String eId,Model model) 
 	{
+		examValid="0";
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		Exam exam = examService.findById(eId);
 		int total = exam.getCount();
@@ -344,17 +355,17 @@ public class ExamController
 	@RequestMapping(value = "/app/question_file")
 	public String question_file(@RequestParam("file") MultipartFile file, Model model) throws Exception
 	{
-		if(!file.getContentType().equals("application/vnd.ms-excel"))
+		 if (file.isEmpty()) {
+				CustError error=new CustError("file/data missing!!","insert the csv file");
+				model.addAttribute("error",error);
+				return "error";
+	        } 
+		else if(!file.getContentType().equals("application/vnd.ms-excel"))
 		{
 			CustError error=new CustError("file is not csv!!","insert a csv file");
 			model.addAttribute("error",error);
 			return "error";
 		}
-		else if (file.isEmpty()) {
-			CustError error=new CustError("file/data missing!!","insert the csv file");
-			model.addAttribute("error",error);
-			return "error";
-        } 
 		else 
 		{
 			int flag=questService.checkFile(file);
