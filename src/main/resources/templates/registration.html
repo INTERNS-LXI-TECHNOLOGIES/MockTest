@@ -4,7 +4,7 @@
     <title>User Registration Page</title>
     
 </head>
-<body bgcolor="FloralWhite" onload="preventBack()">
+<body bgcolor="FloralWhite" th:onload="check([[${err}]])">
 
 <div class="header">
 	<h2>MockTest Application</h2>
@@ -72,22 +72,16 @@ function alert_creation()
 	var flag=document.getElementById("flag").value;
 	//document.write(flag);
 	if(!fn || !ln || !email || !un || !pass) { alert("Please enter proper values"); }
-	else if(((fn.length<6) || (fn.length>20)) && ((ln.length<6) || (ln.length>20)) && ((un.length<6) && (un.length>20))) //-->this statements gives false
-	{	alert("something went wrong!");
-			 passcheck();}
-else alert("You are Successfully Registered!");
-
-}
-function passcheck()
-{
 	if(document.getElementById("pass").value.length<8)
 		alert("Your password should contain minimum 8 characters");
-	}
+	else{ alert("you are successfully registered!")}
+}
 	
-
 function preventBack() { window.history.forward(); }
 setTimeout("preventBack()", 0);
 window.onunload = function () { null };
+
+function check(err){ if(err) alert(" you have some errors ! ") }
 	
 </script>
 </body>

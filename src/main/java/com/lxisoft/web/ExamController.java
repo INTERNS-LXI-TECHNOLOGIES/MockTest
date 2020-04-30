@@ -120,10 +120,10 @@ public class ExamController
 		model.addAttribute("user", new User());
 		return "registration";
 	}
-
 	
+
 	@RequestMapping(value="/save")  
-	public String save(@Valid User user,BindingResult bindingResult)
+	public String save(@Valid User user,BindingResult bindingResult,Model model)
 	{  
 		log.info("user name "+user.getFirstName());
 		if (!bindingResult.hasErrors()) {
@@ -131,6 +131,7 @@ public class ExamController
 			return  "redirect:/";
 		}
 		else
+			model.addAttribute("err",true);
 			return "registration";
 	}  
 
@@ -300,14 +301,16 @@ public class ExamController
 
 
 	@RequestMapping(value="/app/add_question")
-	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3)
+	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3,Model model)
 	{ 
 		
 		if (!bindingResult.hasErrors()) {
 			questService.save(question);
 		 optService.saveQstnOptn(question,opt1,opt2,opt3);
+		 model.addAttribute("success",true);
 	      return "redirect:/";}
-	    else return "create_question";
+	    else model.addAttribute("err",true);
+		return "create_question";
 
 	}
 	
@@ -336,6 +339,7 @@ public class ExamController
 			 optService.saveQstnOptn(quest,opt1,opt2,opt3);
 			model.addAttribute("question",new Question());
 		}
+		else return "create_question";
 		return "create_question";
 	}
 	
@@ -399,7 +403,8 @@ public class ExamController
 			 return "redirect:/";
 		}
 		
-		 else return "create_exam";
+		 else model.addAttribute("err",true);
+		return "create_exam";
 	}
 	
 	@RequestMapping ("/current_exams")
