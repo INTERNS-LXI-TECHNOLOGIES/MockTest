@@ -22,33 +22,34 @@
 <div align="center">
 	
 	
-		<table width="100%" border=5px>
+		<table width=100% border=1px style="font-size: 135%">
 		<thead>
 			<tr>
 	            <th> Sl.No. </th>
 	            <th> user </th>
 	             <th> score </th>
-	              <th> total </th>
 	              <th>result</th>
 	              <th>percentage</th>
 	               <th> Date </th>
-					<th>Time</th>
+					 <th>Time</th>
 	        </tr>
 		</thead>
 			<tr th:if="${attendList.empty}" align="center">
-				<td colspan="8">No Exams Available</td>
+				<td colspan="7">No Exams Available</td>
 			</tr>
 			<tr align="center" th:each="attended,iterator: ${attendList}">
 				<td th:text="${iterator.index+1}" > Sl.No. </td>
 				<td>
-					<span th:each="user:${users}" th:text="${(attended.userExtra.id==user.id)}? ${user.login}:null">user</span>
+					
+					<span th:each="user:${users}" >
+						<a th:href="@{/user_details(id=${user.id})}" th:text="${(attended.userExtra.id==user.id)}? ${user.login}:null">
+							
+						</a>
+					</span>
 				</td>
-				<td th:text="${attended.score}">score</td>
-				<td th:text="${attended.total}">total</td>
-				<td th:if="${attended.isResult()==true}"> 
-     							     <span th:text="Pass"> </span>
-     							     <td th:if="${attended.isResult()==false}"> 
-     							     <span th:text="fail"> </span>
+				<td th:text="${attended.score}+'/'+${attended.total}">score</td>
+				<td th:style="${attended.isResult()==true}?'color:#0fe300':'color:red'" 
+						th:text="${attended.result==true}? Pass:Fail">result</td>
 				<td th:text="${attended.percentage}">percentage</td>
 				<td th:text="${attended.getDateTime().toLocalDate()}"> Date </td>
          		<td th:text="${attended.getDateTime().toLocalTime()}"> Time </td>
