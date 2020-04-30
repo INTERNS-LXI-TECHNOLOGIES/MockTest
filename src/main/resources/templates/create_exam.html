@@ -62,9 +62,9 @@ function alert_creation()
 {
 	var name = document.getElementById("name").value;
 	var count = document.getElementById("count").value;
-	if(!name || !count) { alert("Please provide appropriate values"); checkcount();}
+	if(!name || !count) { alert("Please provide appropriate values");}  checkcount();
 	if(isNaN(count)){ alert("please provide an integer value for count")}
-	else alert("successfully created exam");
+	
 	
 }
 function check(err){ if(err) alert(" you have some errors ! ") }
