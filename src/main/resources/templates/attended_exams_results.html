@@ -18,6 +18,15 @@
 <div align="center">
  <h3>attended exam details of exam: <span th:text="${exam.name}">exam</span></h3>
 			exam still active: <span th:text="${exam.isActive}">state</span>
+			
+			<form action="/attended_exam_results">
+							<select name="sort" class="select1 button2">
+									<option value="date">Date attended</option>
+									<option value="percent">Percentage</option>
+								</select>
+								<input type="hidden" name="eId" th:value="${exam.id}">
+								<input type="submit" value="sort"  class="button button1 " >
+								</form>
 </div>
 <div align="center">
 	
@@ -42,9 +51,9 @@
 				<td>
 					
 					<span th:each="user:${users}" >
-						<a th:href="@{/user_details(id=${user.id})}" th:text="${(attended.userExtra.id==user.id)}? ${user.login}:null">
+						<span th:text="${(attended.userExtra.id==user.id)}? ${user.login}:null">
 							
-						</a>
+						</span>
 					</span>
 				</td>
 				<td th:text="${attended.score}+'/'+${attended.total}">score</td>

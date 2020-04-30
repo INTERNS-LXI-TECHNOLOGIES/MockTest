@@ -151,7 +151,7 @@ public class ExamController
 	}
 	
 	@RequestMapping("/attended_exam_results")
-	public String attended_exam_results(@RequestParam String eId, Model model)
+	public String attended_exam_results(@RequestParam String eId, Model model,@RequestParam(name="sort",required=false,defaultValue="date") String sort)
 	{
 		boolean flag=examService.findByIdCheck(eId);
 		if(flag==false)
@@ -162,9 +162,15 @@ public class ExamController
 		}
 		else {
 			Exam exam=examService.findById(eId);
+			List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
+			log.debug("ateend list  " +attendList);
+			if(sort.equals("percent"))
+			{
+				Collections.sort(attendList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
+			}
 			model.addAttribute("users",extraService.findAll());
 			model.addAttribute("exam",exam);
-			model.addAttribute("attendList",attendExamService.findAllByExam(exam));
+			model.addAttribute("attendList",attendList);
 			return "attended_exams_results";
 		}
 	}
