@@ -1,7 +1,7 @@
 package com.lxisoft.domain;
 
 import com.lxisoft.config.Constants;
-
+import com.lxisoft.customValidation.ValidPassword;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
@@ -35,26 +35,25 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @NotNull
     @Pattern(regexp = Constants.LOGIN_REGEX)
-    @Size(min = 4, max = 50)
+    @Size(min = 6, max = 20)
     @Column(length = 50, unique = true, nullable = false)
     private String login;
 
     @JsonIgnore
     @NotNull
-    @Size(min = 6, max = 50)
+    @ValidPassword
     @Column(name = "password_hash", length = 60, nullable = false)
     private String password;
 
-    @Size(min = 6, max = 50)
+    @Size(min = 6, max = 20)
     @Column(name = "first_name", length = 50)
     private String firstName;
 
-    @Size(min = 6, max = 50)
+    @Size(min = 6, max = 20)
     @Column(name = "last_name", length = 50)
     private String lastName;
 
     @Email
-    @Size(min = 6, max = 50)
     @Column(length = 254, unique = true)
     private String email;
 

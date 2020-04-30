@@ -4,7 +4,7 @@
 <meta charset="ISO-8859-1">
 <title>create exam</title>
 </head>
-<body bgcolor="FloralWhite">
+<body bgcolor="FloralWhite" th:onload="check([[${err}]])">
 <div class="header">
 	<h2>MockTest Application</h2>
 	<div class="topnav">
@@ -32,7 +32,7 @@
 					
 					<label for="num">Enter no. of questions needed:</label>
 					<input type="text" id="count" th:field="*{count}"  class="input button2 lengthbtn"  required /><br>
-					<font color="red"> <span  th:if="${#fields.hasErrors('count')}" th:errors="*{count}"></span></font><br>
+					<!-- <font color="red"> <span  th:if="${#fields.hasErrors('count')}" th:errors="*{count}"></span></font><br> -->
 					
 					<label for="level">Level:</label>
 					<select name="level" th:field="*{level}"  class="select button2 lengthbtn"  >
@@ -62,9 +62,15 @@ function alert_creation()
 {
 	var name = document.getElementById("name").value;
 	var count = document.getElementById("count").value;
-	if(!name || !count) { alert("Please provide appropriate values"); }
-	else
-	alert("Exam created");
+	if(!name || !count) { alert("Please provide appropriate values");}  checkcount();
+	if(isNaN(count)){ alert("please provide an integer value for count")}
+	
+	
 }
+function check(err){ if(err) alert(" you have some errors ! ") }
+function checkcount()
+{
+	if(document.getElementById("count").value.length>3)
+		alert("please reduce count No..!");}
 </script>
 </html>

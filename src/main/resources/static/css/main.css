@@ -3,6 +3,7 @@
   background-color:white;
   padding: 20px;
 }
+ol{list-style-position: inside;}
 .lengthbtn
 {
 	  width: 95%;

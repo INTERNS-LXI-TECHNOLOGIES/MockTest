@@ -18,7 +18,7 @@
 	<div class="topnav">
 		<a class="active" >Lxi Technologies</a>
   		
-  		<a  th:href="@{/exam_cancel(aExamId=${aExamId})}" onClick="var r=confirm('do you wish to quit exam!'); if(r == true){return true;} else{return false;}">Home</a>
+  		<a  th:href="@{/exam_cancel(aExamId=${aExamId})}" onClick="quitExam()">Home</a>
   		<a class="logout" th:href="@{/logoutpage}">logout</a></div>
   </div>
 
@@ -122,6 +122,10 @@ timer();
 		let params = `aExamId=${aExamId}&eId=${examId}&index=${index}&timerValue=${mseconds}`;
 		window.location = url + '?'+ params;
 	  }
+  function quitExam()
+  {
+	  var r=confirm('do you wish to quit exam!'); if(r == true){return true;} else{return false;}
+  }
   
 </script>
 

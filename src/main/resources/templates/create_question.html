@@ -4,7 +4,7 @@
 <meta charset="ISO-8859-1">
 <title>Question creation</title>
 </head>
-<body bgcolor="FloralWhite">
+<body bgcolor="FloralWhite" th:onload="check([[${err}]])">
 <div class="header">
 	<h2>MockTest Application</h2>
 	<div class="topnav">
@@ -53,7 +53,7 @@
         
 	<div align="center">
        	<input type="submit" class="button button1 " value="Add" onclick="alert_func()" formaction="/app/add_question?'qid=question.getId();'"/>
-       	<input type="submit" class="button button1 " value="Add More" formaction="/app/addmore_question">
+       	<input type="submit" class="button button1 " value="Add More"  onclick="alert_func()" formaction="/app/addmore_question">
 	</div>
 </form> 
 </div>
@@ -70,11 +70,11 @@ function alert_func() {
 	
     if(!quest || !opt1 || !opt2 || !opt3) {
 		alert("Please fill the appropriate values"); }
-    
-    else{ alert("successfully created");}
-			
+   if(quest.length>6){  alert("Question created Successfully");}
 	}
 	
+function check(err){ if(err) alert(" you have some errors ! ") }
+
 function alert_file() {
 	  alert("Successfully uploaded");
 	}
