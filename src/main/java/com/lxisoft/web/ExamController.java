@@ -72,7 +72,7 @@ import net.sf.jasperreports.engine.JRException;
 public class ExamController 
 {
 	private final Logger log = LoggerFactory.getLogger(ExamController.class);
-    
+    private static String examValid="0";
     
 	@Autowired
 	private AttendedExamService attendExamService;
@@ -204,6 +204,7 @@ public class ExamController
 			return "error";
 		}
 		else{
+			examValid="1";
 			Exam exam=examService.findById(eId);
 			AttendedExam attendedExam=new AttendedExam(ZonedDateTime.now(),exam, extraService.currentUserExtra());
 			attendExamService.save(attendedExam);
@@ -213,46 +214,55 @@ public class ExamController
 			  attendOptSer.attendOptionInitial(q,attendedExam);
 			  log.debug("attended options saved null for attended exam :- "+attendedExam);
 			}
-			return "redirect:/user_exampage?aExamId="+attendedExam.getId()+"&eId="+eId+"&timerValue="+timerValue;
+			return "redirect:/user_exampage?aExamId="+attendedExam.getId()+"&eId="+eId+"&timerValue="+timerValue +"&active=1";
 		}
 	}
 	
 	@RequestMapping(value="/user_exampage")
-	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,
-			@RequestParam(name="index",required=false,defaultValue="0") String index,@RequestParam String timerValue,
+	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String timerValue,
+			@RequestParam(required=false,defaultValue="0") String index,
 			@RequestParam(name="optionid",required=false,defaultValue="0") String optionid) 
 	{
-		AttendedExam attendedExam=attendExamService.findById(aExamId);
-		Exam exam = examService.findById(eId);
-		List<Question> list=questService.getAllQuestionsFromExam(exam);
-		int pos = Integer.parseInt(index);
-		ListIterator<Question> lit = list.listIterator(pos);
-		model.addAttribute("aExamId",aExamId);
-		model.addAttribute("exam", exam);
-		model.addAttribute("iterator", lit);
-		model.addAttribute("index", index);
-		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-		model.addAttribute("attendedOptions", attendedOptions);
-		model.addAttribute("timerValue",timerValue );
-		int tmpTimerValue = Integer.parseInt(timerValue);
-		if(tmpTimerValue==0) {
-			return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
+		if(examValid.equals("1"))
+		{
+			AttendedExam attendedExam=attendExamService.findById(aExamId);
+			Exam exam = examService.findById(eId);
+			List<Question> list=questService.getAllQuestionsFromExam(exam);
+			int pos = Integer.parseInt(index);
+			ListIterator<Question> lit = list.listIterator(pos);
+			model.addAttribute("aExamId",aExamId);
+			model.addAttribute("exam", exam);
+			model.addAttribute("iterator", lit);
+			model.addAttribute("index", index);
+			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+			model.addAttribute("attendedOptions", attendedOptions);
+			model.addAttribute("timerValue",timerValue );
+			int tmpTimerValue = Integer.parseInt(timerValue);
+			if(tmpTimerValue==0) {
+				return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
+			}
+			else
+			{
+				if (lit.hasNext()) 
+				{
+					model.addAttribute("question", lit.next());
+					return "user_exampage";
+				}
+				else 
+					return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
+			}
 		}
 		else
 		{
-			if (lit.hasNext()) 
-			{
-				model.addAttribute("question", lit.next());
-				return "user_exampage";
-			}
-			else 
-				return "redirect:/submit?eId=" + eId +"&aExamId=" +aExamId;
+			CustError error=new CustError("exam has expired!!","please restart exam");
+			model.addAttribute("error",error);
+			return "error";
 		}
 	}
 	
 	@RequestMapping(value="/save_option")
-	public String save_option(Model model,@RequestParam String aExamId,@RequestParam String eId,
-		@RequestParam(required=false,defaultValue="0") String index,@RequestParam String timerValue,
+	public String save_option(Model model,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String timerValue,
+		@RequestParam(required=false,defaultValue="0") String index,
 		@RequestParam(name="optionid",required=false,defaultValue="0") String optionid)  
 	{
 		int pos=Integer.parseInt(index);
@@ -281,6 +291,7 @@ public class ExamController
 	@RequestMapping("/submit")
 	public String submit(@RequestParam String aExamId,@RequestParam String eId,Model model) 
 	{
+		examValid="0";
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		Exam exam = examService.findById(eId);
 		int total = exam.getCount();
@@ -354,17 +365,17 @@ public class ExamController
 	@RequestMapping(value = "/app/question_file")
 	public String question_file(@RequestParam("file") MultipartFile file, Model model) throws Exception
 	{
-		if(!file.getContentType().equals("application/vnd.ms-excel"))
+		 if (file.isEmpty()) {
+				CustError error=new CustError("file/data missing!!","insert the csv file");
+				model.addAttribute("error",error);
+				return "error";
+	        } 
+		else if(!file.getContentType().equals("application/vnd.ms-excel"))
 		{
 			CustError error=new CustError("file is not csv!!","insert a csv file");
 			model.addAttribute("error",error);
 			return "error";
 		}
-		else if (file.isEmpty()) {
-			CustError error=new CustError("file/data missing!!","insert the csv file");
-			model.addAttribute("error",error);
-			return "error";
-        } 
 		else 
 		{
 			int flag=questService.checkFile(file);
@@ -469,131 +480,125 @@ public class ExamController
 
 	}
 
-		@RequestMapping("/app/filter")
-		public String questionFilter(Model model,@RequestParam String level)
+	@RequestMapping("/app/filter")
+	public String questionFilter(Model model,@RequestParam String level)
+	{
+		if(!level.equalsIgnoreCase("--select--"))
 		{
-			if(!level.equalsIgnoreCase("--select--"))
-			{
-				 log.info("question list");
-				List<Question> questions=questService.findByLevel(level);
-				model.addAttribute("questions",questions);	
-				 log.debug("{}", questions);
-				 return "viewall_qstn";
-			}
-			return "redirect:/app/viewall_qstn";
-			
-		}
-		
-		@RequestMapping("/app/searchQstn")
-		public String searchQuestion(Model model,@RequestParam String searchQstn)
-		{
-			List<Question> questions=questService.findByQstn(searchQstn);
+			 log.info("question list");
+			List<Question> questions=questService.findByLevel(level);
 			model.addAttribute("questions",questions);	
-			return "viewall_qstn";
+			 log.debug("{}", questions);
+			 return "viewall_qstn";
 		}
+		return "redirect:/app/viewall_qstn";
 		
-		@RequestMapping ("/user_dashboard")
-		public String userdashboard(Model model,@RequestParam(name="sort",required=false,defaultValue="date") String sort)
+	}
+		
+	@RequestMapping("/app/searchQstn")
+	public String searchQuestion(Model model,@RequestParam String searchQstn)
+	{
+		List<Question> questions=questService.findByQstn(searchQstn);
+		model.addAttribute("questions",questions);	
+		return "viewall_qstn";
+	}
+	
+	@RequestMapping ("/user_dashboard")
+	public String userdashboard(Model model,@RequestParam(name="sort",required=false,defaultValue="date") String sort)
+	{
+		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
+		UserExtra userExtra=extraService.currentUserExtra();
+		log.debug("email of user "+userExtra.getUser().getEmail());
+		model.addAttribute("user",userExtra);
+		model.addAttribute("userid",userExtra.getId());
+		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
+		if(sort.equals("percent"))
 		{
-			model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
-			UserExtra userExtra=extraService.currentUserExtra();
-			log.debug("email of user "+userExtra.getUser().getEmail());
-			model.addAttribute("user",userExtra);
-			model.addAttribute("userid",userExtra.getId());
-			List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
-			if(sort.equals("percent"))
-			{
-				Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
-			}
-			model.addAttribute("AttendedExamList",attendExamList);
-			return "user_dashboard";
+			Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
 		}
-		
-		@RequestMapping("/user_info")
-		public String user_info(Model model)
+		model.addAttribute("AttendedExamList",attendExamList);
+		return "user_dashboard";
+	}
+	
+	@RequestMapping("/user_info")
+	public String user_info(Model model)
+	{
+		model.addAttribute("users",extraService.findAll());
+		return "user_info";
+	}
+	
+	@RequestMapping("/user_details")
+	public String userDetails(Model model,@RequestParam String id,@RequestParam(name="sort",required=false,defaultValue="date") String sort) throws Exception
+	{
+		UserExtra user=extraService.findById(id);
+		model.addAttribute("user",user);
+		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(user);
+		if(sort.equals("percent"))
 		{
-			model.addAttribute("users",extraService.findAll());
-			return "user_info";
+			Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
 		}
-		
-		@RequestMapping("/user_details")
-		public String userDetails(Model model,@RequestParam String id,@RequestParam(name="sort",required=false,defaultValue="date") String sort) throws Exception
-		{
-			UserExtra user=extraService.findById(id);
-			model.addAttribute("user",user);
-			List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(user);
-			if(sort.equals("percent"))
-			{
-				Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
-			}
-			model.addAttribute("AttendedExamList",attendExamList);
-			return "user_details";
-		}
-		
-		@RequestMapping("/exam_info")
-		public String exam_info(Model model)
-		{
-			model.addAttribute("exams",examService.findAll());
-			return "exam_info";
-		}
-		
+		model.addAttribute("AttendedExamList",attendExamList);
+		return "user_details";
+	}
+	
+	@RequestMapping("/exam_info")
+	public String exam_info(Model model)
+	{
+		model.addAttribute("exams",examService.findAll());
+		return "exam_info";
+	}
+	
 
-		@RequestMapping("/exam_history")
-		public String exam_history(Model model,@RequestParam String aExamId,@RequestParam String userid)
-		{
+	@RequestMapping("/exam_history")
+	public String exam_history(Model model,@RequestParam String aExamId,@RequestParam String userid)
+	{
 //			long attend_exam_id=Long.parseLong(aExamId);
 //			long user_id=Long.parseLong(userid);
-			AttendedExam attendedExam=attendExamService.findById(aExamId);
-			log.debug("atnd exam"+attendedExam);
-			List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
-			log.debug("atteneded options are:- "+attendedOptions);
-			model.addAttribute("attendedOptions", attendedOptions);
-			model.addAttribute("attendedExam", attendedExam);
+		AttendedExam attendedExam=attendExamService.findById(aExamId);
+		log.debug("atnd exam"+attendedExam);
+		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
+		log.debug("atteneded options are:- "+attendedOptions);
+		model.addAttribute("attendedOptions", attendedOptions);
+		model.addAttribute("attendedExam", attendedExam);
 //			model.addAttribute("userid",userid);
-			model.addAttribute("attend_exam_id",aExamId);
-			return "exam_history";
-		}
+		model.addAttribute("attend_exam_id",aExamId);
+		return "exam_history";
+	}
 
-		
-		@RequestMapping("/exam_attended")
-		public String exam_attended(@RequestParam String eId,@RequestParam(name="sort",required=false,defaultValue="date") String sort, Model model) throws Exception
+	
+	@RequestMapping("/exam_attended")
+	public String exam_attended(@RequestParam String eId,@RequestParam(name="sort",required=false,defaultValue="date") String sort, Model model) throws Exception
+	{
+		Exam exam=examService.findById(eId);
+		model.addAttribute("users",extraService.findAll());
+		model.addAttribute("exam",exam);
+		List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
+		if(sort.equals("percent"))
 		{
-			Exam exam=examService.findById(eId);
-			model.addAttribute("users",extraService.findAll());
-			model.addAttribute("exam",exam);
-			List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
-			if(sort.equals("percent"))
-			{
-				Collections.sort(attendList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
-			}
-			else if(sort.equals("user"))
-			{
-				Collections.sort(attendList,(a,a2)->{return (int)(a2.getUserExtra().getId()-a.getUserExtra().getId());});
-			}
-			model.addAttribute("attendList",attendList);
-			return "exam_attended";
+			Collections.sort(attendList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
 		}
+		else if(sort.equals("user"))
+		{
+			Collections.sort(attendList,(a,a2)->{return (int)(a2.getUserExtra().getId()-a.getUserExtra().getId());});
+		}
+		model.addAttribute("attendList",attendList);
+		return "exam_attended";
+	}
 		
 
-		/**
-		 * GET  /pdf : get the pdf exam report using database.
-		 *  
-		 * @return the byte[]
-		 * @throws Exception 
-		
-		 */
-
+	/**
+	 * GET  /pdf : get the pdf exam report using database.
+	 *  
+	 * @return the byte[]
+	 * @throws Exception 
+	
+	 */
 	@RequestMapping("/examDetailsPDF")
 	public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String Exam_id) throws Exception 
 	{
-		
 		log.debug("REST request to get a pdf");
-	   
-		
 		List<AttendedExamBean>list=beanService.getAttendedExamDataBean(Exam_id);
-		
 	    byte[] pdfContents = null;
-	  
 	   try
 	   {
 	

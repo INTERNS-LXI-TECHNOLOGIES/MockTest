@@ -32,7 +32,7 @@ public class CustError {
 
 	@Override
 	public String toString() {
-		return "Error [status=" + status + ", message=" + message + "]";
+		return "Error occured....  [status-" + status + " & message-" + message + "]";
 	}
 
 	
