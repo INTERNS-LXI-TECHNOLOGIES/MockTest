@@ -251,7 +251,9 @@ public class ExamController
 		int pos=Integer.parseInt(index);
 		Exam exam = examService.findById(eId);
 		List<Question> list=questService.getAllQuestionsFromExam(exam);
-		Question quest= list.get(pos-1);
+		if(pos!=0)
+			pos=pos-1;
+		Question quest= list.get(pos);
 		if(!index.equals("0"))
 			attendOptSer.attendOptionUpdate(optionid,quest,attendExamService.findById(aExamId));
 		return "redirect:/user_exampage?eId="+eId +"&aExamId="+aExamId +"&optionid=0&timerValue="+timerValue +"&index="+pos;
