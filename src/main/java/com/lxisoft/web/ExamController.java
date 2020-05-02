@@ -300,6 +300,7 @@ public class ExamController
 		log.debug("attended exam ready to save:- " + attendedExam);
 		attendExamService.save(attendedExam);
 		model.addAttribute("attendedExam", attendedExam);
+		model.addAttribute("userid",attendedExam.getUserExtra().getUser().getId());
 		model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
 		return "submit";
 	}
