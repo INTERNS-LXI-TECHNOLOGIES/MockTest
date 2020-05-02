@@ -75,5 +75,26 @@ public class UserExtraService {
 		userRepo.save(user);
 	}
 
+	public boolean userEmailAlreadyExist(String email) {
+		List<User> users=findAll();
+		boolean flag=false;
+		for(User us:users)
+		{
+		 if(us.getEmail().equalsIgnoreCase(email)) flag=true;
+		}
+		return flag;
+	}
+
+	public boolean UsernameExists(String login) {
+		
+		List<User> users=findAll();
+		boolean flag=false;
+		for(User us:users)
+		{
+		 if(us.getLogin().equalsIgnoreCase(login)) flag=true;
+		}
+		return flag;
+	}
+
 	
 }

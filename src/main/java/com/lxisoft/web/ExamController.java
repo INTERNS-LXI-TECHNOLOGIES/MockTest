@@ -125,12 +125,30 @@ public class ExamController
 	@RequestMapping(value="/save")  
 	public String save(@Valid User user,BindingResult bindingResult,Model model)
 	{  
+		boolean emailInUse,loginUse;
 		log.info("user name "+user.getFirstName());
 		if (!bindingResult.hasErrors()) {
-			extraService.save(user);  
-			return  "redirect:/";
+				emailInUse=extraService.userEmailAlreadyExist(user.getEmail());
+				loginUse=extraService.UsernameExists(user.getLogin());
+				if(emailInUse==true || loginUse==true) {
+					if(emailInUse==true)
+					{
+						CustError error=new CustError("exam id Already in Use!!","please retry");
+						model.addAttribute("error",error);
+						return "error";
+					}
+					if(loginUse==true)
+					{
+						CustError error=new CustError("username Already in Use!!","please retry");
+						model.addAttribute("error",error);
+						return "error";
+					} }
+				else
+				extraService.save(user);  
+				return  "redirect:/";
 		}
-		else
+		else 
+		
 			model.addAttribute("err",true);
 			return "registration";
 	}  
