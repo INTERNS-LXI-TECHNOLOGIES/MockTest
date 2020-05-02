@@ -335,7 +335,6 @@ public class ExamController
 	@RequestMapping("/app/delete_question")
 	public String delete_question(@RequestParam(name="qId" ,required=false,defaultValue="0") List<String> qId,Model model)
 	{
-		int count=0;
 		log.debug("question id's for deleting -"+qId);
 		if(qId.get(0).equals("0"))
 		{
@@ -346,8 +345,15 @@ public class ExamController
 		else
 		{
 			List<Question> qstnList=questService.checkDelete(qId);
-			log.debug("count of delete questions "+qstnList.size());
-			log.debug(" delete questions "+qstnList);
+			log.debug("count of delete questions "+qstnList.size()+ "qstns:- "+qstnList);
+			if(qstnList.size()==0)
+				questService.deleteMultiple(qId);
+			else
+			{
+				model.addAttribute("message", "can't delete, these questions are currently active in exams");
+				model.addAttribute("questions",  qstnList);
+				return "temp_qstnview";
+			}
 		}
 		return "redirect:/app/viewall_qstn";
 	}

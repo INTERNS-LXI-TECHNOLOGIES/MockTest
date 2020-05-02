@@ -155,7 +155,6 @@ public class QuestionService {
 			for(String id:qIds)
 			{
 				Question temp=activeQuestionCheck(findById(id));
-				log.debug("status temp"+temp);
 				if(temp!=null)
 					qstnList.add(temp);
 			}
@@ -165,7 +164,6 @@ public class QuestionService {
 		public Question activeQuestionCheck(Question qstn)
 		{
 			Question active=null;
-			log.debug("status "+active);
 			List<Exam> examList=examRepo.findAll();
 			for(Exam exam:examList)
 			{
