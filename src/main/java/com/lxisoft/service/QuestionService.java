@@ -119,8 +119,9 @@ public class QuestionService {
 			return flag;
 		}
 		
-		public void saveFile(MultipartFile file) throws IOException {
+		public List<Question> saveFile(MultipartFile file) throws IOException {
 			int i=0;
+			List<Question> qstnList=new ArrayList<>();
 			BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
 			String line;
 			while((line=br.readLine())!=null)
@@ -133,9 +134,11 @@ public class QuestionService {
 					qstn.setLevel(data[1]);
 					save(qstn);
 					optService.saveQstnOptn(qstn,data[2],data[3],data[4]);
+					qstnList.add(qstn);
 				}
 				i++;
 			}
+			return qstnList;
 		}
 		
 		public void delete(@Valid Question question) 

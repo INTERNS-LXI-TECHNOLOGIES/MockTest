@@ -394,9 +394,13 @@ public class ExamController
 				return "error";
 			}
 			else
-				questService.saveFile(file);
+			{
+				List<Question> qstnList=questService.saveFile(file);
+				model.addAttribute("message", "question saved from csv file");
+				model.addAttribute("questions",  qstnList);
+				return "temp_qstnview";
+			}
 		}
-		return "redirect:/";
 	}
 	
 	@GetMapping("/app/model.csv")
