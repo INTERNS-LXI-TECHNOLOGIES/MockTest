@@ -53,7 +53,7 @@
 				<td>
 					
 					<span th:each="user:${users}" >
-						<a th:href="@{/user_details(id=${user.id})}" th:text="${(attended.userExtra.id==user.id)}? ${user.login}:null">
+						<a th:href="@{/exam_history(aExamId=${attended.id},userid=${user.id})}" th:text="${(attended.userExtra.id==user.id)}? ${user.login}:null">
 							
 						</a>
 					</span>
