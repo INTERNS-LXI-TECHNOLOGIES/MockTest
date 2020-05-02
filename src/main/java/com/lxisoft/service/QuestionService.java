@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
+import com.lxisoft.repository.ExamRepository;
 import com.lxisoft.repository.QstnOptionRepository;
 import com.lxisoft.repository.QuestionRepository;
 
@@ -31,8 +32,8 @@ import com.lxisoft.repository.QuestionRepository;
 public class QuestionService {
 
     private final Logger log = LoggerFactory.getLogger(QuestionService.class);
-  
-	    		
+	    @Autowired
+	    ExamRepository examRepo;
 	    @Autowired
 		private OptionService optService;
         @Autowired
@@ -147,5 +148,33 @@ public class QuestionService {
 			{
 				delete(findById(id));
 			}
+		}
+		
+		public List<Question> checkDelete(List<String> qIds) {
+			List<Question> qstnList=new ArrayList<Question>();
+			for(String id:qIds)
+			{
+				Question temp=activeQuestionCheck(findById(id));
+				log.debug("status temp"+temp);
+				if(temp!=null)
+					qstnList.add(temp);
+			}
+			return qstnList;
+		}
+		
+		public Question activeQuestionCheck(Question qstn)
+		{
+			Question active=null;
+			log.debug("status "+active);
+			List<Exam> examList=examRepo.findAll();
+			for(Exam exam:examList)
+			{
+				for(Question q:exam.getQuestions())
+				{
+					if(q.getId().equals(qstn.getId()))
+						active=q;
+				}
+			}
+			return active;
 		}
 }

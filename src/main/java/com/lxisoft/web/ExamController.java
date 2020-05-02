@@ -330,12 +330,12 @@ public class ExamController
 	      return "redirect:/";}
 	    else model.addAttribute("err",true);
 		return "create_question";
-
 	}
 	
 	@RequestMapping("/app/delete_question")
 	public String delete_question(@RequestParam(name="qId" ,required=false,defaultValue="0") List<String> qId,Model model)
 	{
+		int count=0;
 		log.debug("question id's for deleting -"+qId);
 		if(qId.get(0).equals("0"))
 		{
@@ -345,7 +345,9 @@ public class ExamController
 		}
 		else
 		{
-			questService.deleteMultiple(qId);
+			List<Question> qstnList=questService.checkDelete(qId);
+			log.debug("count of delete questions "+qstnList.size());
+			log.debug(" delete questions "+qstnList);
 		}
 		return "redirect:/app/viewall_qstn";
 	}
