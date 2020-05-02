@@ -53,7 +53,7 @@
 				<text><![CDATA[Candidate]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="-10" width="210" height="40" uuid="b43f3011-26ee-4ec2-803d-0dd52df545f0"/>
+				<reportElement x="180" y="-20" width="240" height="40" backcolor="#DED3D3" uuid="b43f3011-26ee-4ec2-803d-0dd52df545f0"/>
 				<textElement>
 					<font size="26"/>
 				</textElement>
@@ -67,7 +67,7 @@
 				<textFieldExpression><![CDATA[$F{examName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="82" y="102" width="100" height="30" uuid="0f5a977e-9376-403b-8b85-a8d74a87318e"/>
+				<reportElement x="100" y="102" width="78" height="30" uuid="0f5a977e-9376-403b-8b85-a8d74a87318e"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -95,7 +95,7 @@
 				<text><![CDATA[Percentage]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="480" y="104" width="75" height="30" uuid="6e1ed844-7594-41e2-a5fb-5d5eed2e495f"/>
+				<reportElement x="490" y="105" width="75" height="30" uuid="6e1ed844-7594-41e2-a5fb-5d5eed2e495f"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -119,7 +119,7 @@
 				<textFieldExpression><![CDATA[$F{candidate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="10" width="90" height="30" uuid="e0a13ee9-f461-4a0d-95c0-e149fe256b51"/>
+				<reportElement x="100" y="10" width="50" height="30" uuid="e0a13ee9-f461-4a0d-95c0-e149fe256b51"/>
 				<textFieldExpression><![CDATA[$F{score}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -135,7 +135,7 @@
 				<textFieldExpression><![CDATA[$F{percentage}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="475" y="10" width="85" height="30" uuid="8ff19aeb-16ac-44f0-b0db-10a68d16f6da"/>
+				<reportElement x="490" y="10" width="75" height="30" uuid="8ff19aeb-16ac-44f0-b0db-10a68d16f6da"/>
 				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
 			</textField>
 			<line>

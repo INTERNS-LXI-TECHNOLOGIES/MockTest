@@ -29,7 +29,7 @@ public class Question implements Serializable {
     @Column(name = "level")
     private String level;
 
-    @Size(min = 6, max = 100)
+    @Size(min = 6)
     @Column(name = "qstn")
     private String qstn;
 
