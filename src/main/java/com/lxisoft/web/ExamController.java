@@ -684,5 +684,23 @@ public class ExamController
 		model.addAttribute("date",date);
 		return "user_performance_chart";
 	}
+	@RequestMapping("/examCertificate")
+	public ResponseEntity<byte[]>  getPdf(@RequestParam (name="id")String id)
+	{
+	long examid=Long.parseLong(id);
+		byte[] pdfContents=null;
+		try {
+			pdfContents=jasperServ.getReportAsPdfUsingDatabase(examid);
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		HttpHeaders headers=new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType("application/pdf"));
+		String fileName="Certificate.pdf";
+		headers.add("content dis-position","attachment: filename="+fileName);
+		ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
+		return response;
+	}
 
 }

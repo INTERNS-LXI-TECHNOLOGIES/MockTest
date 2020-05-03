@@ -90,4 +90,32 @@ log.debug("AggregateServiceImpl request to get a pdf");
 		
 		
 	}
+	
+	 /**
+     * Gets certificate of exam : using database
+     * @param long id of attendedExam
+     *
+     * @return the byte[].
+     * @throws JRException  
+     */
+
+	 public byte[] getReportAsPdfUsingDatabase(long id)throws JRException
+		{
+			JasperReport jr=JasperCompileManager.compileReport("src/main/resources/Certificate.jrxml");
+			
+			//preparing parameteres
+			Map parameters=new HashMap();
+		//	parameters.put("head","Certificate");
+			parameters.put("id",id);
+			Connection con=null;
+			try {
+				con=dataSource.getConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			JasperPrint jp=JasperFillManager.fillReport(jr,parameters,con);
+			return JasperExportManager.exportReportToPdf(jp);
+			
+		}
+
 }
