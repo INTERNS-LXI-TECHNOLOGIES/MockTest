@@ -21,13 +21,12 @@
 
 </div>
 
-<form action="/app/delete_question">
+
 <table width=100% border=1px>
     <thead>
         <tr>
             <th> Sl.No. </th>
             <th> Question </th>
-              <th> Answer </th>
         </tr>
     </thead>
     <tbody>
@@ -43,15 +42,14 @@
 	            	<span th:text="${q_option.option}">option</span><br>
 	            	</span><br>
             	</td>
-	            <td>
-	            	<span th:each="q_option : ${qstn.qstnOptions}">
-	            		<span th:if="${q_option.isIsAnswer() == true}" th:text="${q_option.option}+','"></span><br>
-	            	</span>
-	           	</td>
         </tr>
     </tbody>
-
-	</table><br>
+</table>
 <br>
+<div align="center">
+<form action="/app/viewall_qstn">
+	<input type="submit" value="ok" class="button button1">
+</form>
+</div>
 </body>
 </html>

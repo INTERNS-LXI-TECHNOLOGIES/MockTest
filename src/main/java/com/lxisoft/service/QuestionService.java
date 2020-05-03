@@ -133,7 +133,7 @@ public class QuestionService {
 					qstn.setQstn(data[0]);
 					qstn.setLevel(data[1]);
 					save(qstn);
-					optService.saveQstnOptn(qstn,data[2],data[3],data[4]);
+					qstn=optService.saveQstnOptn(qstn,data[2],data[3],data[4]);
 					qstnList.add(qstn);
 				}
 				i++;

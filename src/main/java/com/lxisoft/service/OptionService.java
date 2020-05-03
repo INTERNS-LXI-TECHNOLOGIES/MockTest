@@ -33,7 +33,7 @@ public class OptionService {
 		
 	}
 	
-	public void saveQstnOptn( Question question,String ...options) 
+	public Question saveQstnOptn( Question question,String ...options) 
 	{
 		for(int i=0;i<options.length;i++)
 		{
@@ -42,6 +42,7 @@ public class OptionService {
 			optn.setQuestion(question);
 			save(optn);
 		}
+		return question;
 	}
 
 	public QstnOption findById(String opt_Id) {
