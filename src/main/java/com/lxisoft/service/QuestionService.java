@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.lxisoft.domain.Exam;
 import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
+import com.lxisoft.repository.ExamRepository;
 import com.lxisoft.repository.QstnOptionRepository;
 import com.lxisoft.repository.QuestionRepository;
 
@@ -31,8 +32,8 @@ import com.lxisoft.repository.QuestionRepository;
 public class QuestionService {
 
     private final Logger log = LoggerFactory.getLogger(QuestionService.class);
-  
-	    		
+	    @Autowired
+	    ExamRepository examRepo;
 	    @Autowired
 		private OptionService optService;
         @Autowired
@@ -117,8 +118,10 @@ public class QuestionService {
 			}
 			return flag;
 		}
-		public void saveFile(MultipartFile file) throws IOException {
+		
+		public List<Question> saveFile(MultipartFile file) throws IOException {
 			int i=0;
+			List<Question> qstnList=new ArrayList<>();
 			BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
 			String line;
 			while((line=br.readLine())!=null)
@@ -130,10 +133,12 @@ public class QuestionService {
 					qstn.setQstn(data[0]);
 					qstn.setLevel(data[1]);
 					save(qstn);
-					optService.saveQstnOptn(qstn,data[2],data[3],data[4]);
+					qstn=optService.saveQstnOptn(qstn,data[2],data[3],data[4]);
+					qstnList.add(qstn);
 				}
 				i++;
 			}
+			return qstnList;
 		}
 		
 		public void delete(@Valid Question question) 
@@ -146,5 +151,31 @@ public class QuestionService {
 			{
 				delete(findById(id));
 			}
+		}
+		
+		public List<Question> checkDelete(List<String> qIds) {
+			List<Question> qstnList=new ArrayList<Question>();
+			for(String id:qIds)
+			{
+				Question temp=activeQuestionCheck(findById(id));
+				if(temp!=null)
+					qstnList.add(temp);
+			}
+			return qstnList;
+		}
+		
+		public Question activeQuestionCheck(Question qstn)
+		{
+			Question active=null;
+			List<Exam> examList=examRepo.findAll();
+			for(Exam exam:examList)
+			{
+				for(Question q:exam.getQuestions())
+				{
+					if(q.getId().equals(qstn.getId()))
+						active=q;
+				}
+			}
+			return active;
 		}
 }

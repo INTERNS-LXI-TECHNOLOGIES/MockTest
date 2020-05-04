@@ -349,7 +349,6 @@ public class ExamController
 	      return "redirect:/";}
 	    else model.addAttribute("err",true);
 		return "create_question";
-
 	}
 	
 	@RequestMapping("/app/delete_question")
@@ -364,7 +363,16 @@ public class ExamController
 		}
 		else
 		{
-			questService.deleteMultiple(qId);
+			List<Question> qstnList=questService.checkDelete(qId);
+			log.debug("count of delete questions "+qstnList.size()+ "qstns:- "+qstnList);
+			if(qstnList.size()==0)
+				questService.deleteMultiple(qId);
+			else
+			{
+				model.addAttribute("message", "can't delete, these questions are currently active in exams");
+				model.addAttribute("questions",  qstnList);
+				return "temp_qstnview";
+			}
 		}
 		return "redirect:/app/viewall_qstn";
 	}
@@ -405,9 +413,13 @@ public class ExamController
 				return "error";
 			}
 			else
-				questService.saveFile(file);
+			{
+				List<Question> qstnList=questService.saveFile(file);
+				model.addAttribute("message", "question saved from csv file");
+				model.addAttribute("questions",  qstnList);
+				return "temp_qstnview";
+			}
 		}
-		return "redirect:/";
 	}
 	
 	@GetMapping("/app/model.csv")
