@@ -46,7 +46,7 @@ FROM mocktest.attended_exam
 	INNER JOIN mocktest.jhi_user ON 
 	 mocktest.attended_exam.user_extra_id = mocktest.jhi_user.id 
 WHERE 
-	 mocktest.attended_exam.id= $P{id} ]]>
+	 mocktest.attended_exam.id= $P{id}]]>
 	</queryString>
 	<field name="score" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="score"/>
@@ -108,7 +108,7 @@ WHERE
 		<band height="16" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="250" splitType="Stretch">
+		<band height="270" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
@@ -161,21 +161,21 @@ WHERE
 				<text><![CDATA[In]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="10" y="170" width="540" height="30" forecolor="#3F0CF5" uuid="382af627-1753-40b2-9e6d-e6c7e85257f0"/>
+				<reportElement x="60" y="170" width="410" height="30" forecolor="#3F0CF5" uuid="382af627-1753-40b2-9e6d-e6c7e85257f0"/>
 				<textElement textAlignment="Center">
 					<font size="22" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="220" width="800" height="30" uuid="7f0c6dbd-4a01-4244-9d67-aaf882fd18bc"/>
+				<reportElement x="1" y="240" width="800" height="30" uuid="7f0c6dbd-4a01-4244-9d67-aaf882fd18bc"/>
 				<textElement textAlignment="Center">
 					<font size="22"/>
 				</textElement>
 				<text><![CDATA[Organized By Lxi Technologies]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="590" y="170" width="100" height="30" uuid="7a528423-95d4-4d1d-bba6-ff5b83e81126"/>
+				<reportElement x="490" y="170" width="100" height="30" uuid="7a528423-95d4-4d1d-bba6-ff5b83e81126"/>
 				<textElement>
 					<font size="22"/>
 				</textElement>
