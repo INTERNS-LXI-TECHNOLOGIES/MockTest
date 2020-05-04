@@ -112,70 +112,56 @@ WHERE
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="60" y="40" width="230" height="30" uuid="0d68dc28-909c-439c-9fb0-0f349d6fb80a"/>
+				<reportElement x="130" y="40" width="230" height="30" uuid="0d68dc28-909c-439c-9fb0-0f349d6fb80a"/>
 				<textElement>
 					<font size="22"/>
 				</textElement>
 				<text><![CDATA[This is Certified That]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="320" y="40" width="210" height="30" forecolor="#1C0CFA" uuid="73a492d6-d89f-4a39-b37f-3293120ba4ee"/>
+				<reportElement x="390" y="40" width="350" height="30" forecolor="#1C0CFA" uuid="73a492d6-d89f-4a39-b37f-3293120ba4ee"/>
 				<textElement>
 					<font size="22" isItalic="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{first_name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="510" y="40" width="242" height="30" forecolor="#1B07F2" uuid="d0b398e3-3cfd-4439-ab1b-631c1930e502"/>
-				<textElement>
-					<font size="22" isItalic="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{last_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{first_name}+" "+$F{last_name}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="60" y="100" width="110" height="30" uuid="e940f351-b9ca-48c1-afca-01cf3e958c72"/>
+				<reportElement x="210" y="100" width="110" height="30" uuid="e940f351-b9ca-48c1-afca-01cf3e958c72"/>
 				<textElement>
 					<font size="22"/>
 				</textElement>
 				<text><![CDATA[Scored]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="200" y="100" width="110" height="30" forecolor="#3416F5" uuid="b8d061aa-e431-409f-87df-6a460a027ce8"/>
+				<reportElement x="360" y="100" width="70" height="30" forecolor="#3416F5" uuid="b8d061aa-e431-409f-87df-6a460a027ce8"/>
 				<textElement>
 					<font size="22" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{percentage}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="340" y="100" width="130" height="30" uuid="5bc44811-0f73-4a5e-845d-e64ad77abfe4"/>
+				<reportElement x="470" y="100" width="240" height="30" uuid="5bc44811-0f73-4a5e-845d-e64ad77abfe4"/>
 				<textElement>
 					<font size="22"/>
 				</textElement>
-				<text><![CDATA[% Of Marks]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="590" y="100" width="100" height="30" uuid="476cbb7b-e0cb-4e33-b386-8045997e6ca3"/>
-				<textElement>
-					<font size="22"/>
-				</textElement>
-				<text><![CDATA[In]]></text>
+				<text><![CDATA[% Of Marks In]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="60" y="170" width="410" height="30" forecolor="#3F0CF5" uuid="382af627-1753-40b2-9e6d-e6c7e85257f0"/>
+				<reportElement x="210" y="160" width="260" height="30" forecolor="#3F0CF5" uuid="382af627-1753-40b2-9e6d-e6c7e85257f0"/>
 				<textElement textAlignment="Center">
 					<font size="22" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="240" width="800" height="30" uuid="7f0c6dbd-4a01-4244-9d67-aaf882fd18bc"/>
+				<reportElement x="-20" y="220" width="839" height="30" uuid="7f0c6dbd-4a01-4244-9d67-aaf882fd18bc"/>
 				<textElement textAlignment="Center">
 					<font size="22"/>
 				</textElement>
 				<text><![CDATA[Organized By Lxi Technologies]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="490" y="170" width="100" height="30" uuid="7a528423-95d4-4d1d-bba6-ff5b83e81126"/>
+				<reportElement x="500" y="160" width="100" height="30" uuid="7a528423-95d4-4d1d-bba6-ff5b83e81126"/>
 				<textElement>
 					<font size="22"/>
 				</textElement>
