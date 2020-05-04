@@ -369,7 +369,7 @@ public class ExamController
 				questService.deleteMultiple(qId);
 			else
 			{
-				model.addAttribute("message", "can't delete, these questions are currently active in exams");
+				model.addAttribute("message", "Can't Delete, These Questions Are Currently Active in Exams");
 				model.addAttribute("questions",  qstnList);
 				return "temp_qstnview";
 			}
