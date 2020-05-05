@@ -18,6 +18,10 @@ import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.repository.QstnOptionRepository;
 
+/**
+ * OptionService
+ */
+
 @Service
 @Transactional
 public class OptionService {
@@ -27,12 +31,21 @@ public class OptionService {
     @Autowired
 	private QstnOptionRepository optRepo;
     
+    /**
+     * Save an Option
+     * @param option
+     */
 	public void save(QstnOption option) 
 	{
 		optRepo.save(option);
 		
 	}
 	
+	/**
+     * Save all options and corresponding question 
+     * @param question and options
+     * @return Question.
+     */
 	public Question saveQstnOptn( Question question,String ...options) 
 	{
 		for(int i=0;i<options.length;i++)
@@ -45,6 +58,11 @@ public class OptionService {
 		return question;
 	}
 
+	/**
+     * Find an option by its id.
+     * @param option_id
+     * @return option.
+     */
 	public QstnOption findById(String opt_Id) {
 		long id=Integer.parseInt(opt_Id);
 		QstnOption option=null;

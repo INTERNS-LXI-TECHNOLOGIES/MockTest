@@ -28,6 +28,11 @@ import com.lxisoft.web.ExamController;
 
 import io.github.jhipster.security.RandomUtil;
 
+
+/**
+ * UserExtraService
+ */
+
 @Service
 public class UserExtraService {
 	
@@ -37,6 +42,11 @@ public class UserExtraService {
 	@Autowired
 	private UserRepository userRepo;
 	
+	
+	/**
+     * Get current user from authentication.
+     * @return UserExtra.
+     */
 	public UserExtra currentUserExtra()
 	{
 		String login= SecurityContextHolder.getContext().getAuthentication().getName();
@@ -48,10 +58,21 @@ public class UserExtraService {
 		return userExtra;
 	}
 
+	
+	/**
+     * find all user from database.
+     * @return List<User>.
+     */
 	public  List<User> findAll() {
 		return userRepo.findAll() ;
 	}
 
+	
+	/**
+     * find user by id from database
+     * @param userid
+     * @return UserExtra.
+     */
 	public UserExtra findById(String uid) throws Exception {
 			long id=Integer.parseInt(uid);
 			Optional<User>user=userRepo.findById(id);
@@ -61,6 +82,11 @@ public class UserExtraService {
 			return userExtra;
 	}
 
+	
+	/**
+     * Save a user in to database.
+     * @param User
+     */
 	public void save(@Valid User user) {
 		BCryptPasswordEncoder encode=new BCryptPasswordEncoder(); 
 		user.setPassword(encode.encode(user.getPassword()));
@@ -75,6 +101,12 @@ public class UserExtraService {
 		userRepo.save(user);
 	}
 
+	
+	/**
+     * Check userEmail exists or not
+     * @param email
+     * @return flag.
+     */
 	public boolean userEmailAlreadyExist(String email) {
 		List<User> users=findAll();
 		boolean flag=false;
@@ -85,6 +117,11 @@ public class UserExtraService {
 		return flag;
 	}
 
+	/**
+     * Check username exists or not
+     * @param login(username)
+     * @return flag.
+     */
 	public boolean UsernameExists(String login) {
 		
 		List<User> users=findAll();

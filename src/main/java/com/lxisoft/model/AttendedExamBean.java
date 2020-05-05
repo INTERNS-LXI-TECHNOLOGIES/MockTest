@@ -3,7 +3,9 @@ package com.lxisoft.model;
 import java.time.LocalDate;
 
 
-
+/**
+ * AttendedExamBean for setting model for generate jasper report using bean
+ */
 public class AttendedExamBean {
 	
 

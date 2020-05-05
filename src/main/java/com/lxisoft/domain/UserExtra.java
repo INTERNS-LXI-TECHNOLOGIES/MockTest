@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A UserExtra.
+ * UserExtra class Map with User Entity.
  */
 @Entity
 @Table(name = "user_extra")

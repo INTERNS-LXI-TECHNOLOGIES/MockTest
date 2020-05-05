@@ -18,6 +18,10 @@ import com.lxisoft.domain.Question;
 import com.lxisoft.repository.ExamRepository;
 import com.lxisoft.repository.QuestionRepository;
 
+/**
+ * Exam Service
+ */
+
 @Service
 @Transactional
 public class ExamService {
@@ -30,10 +34,20 @@ public class ExamService {
 	@Autowired
 	QuestionService qstService;
 	
+	/**
+     * Find all exam from database
+     * @return List<Exam>.
+     */
 	public List<Exam> findAll() {
 		return examRepo.findAll();
 	}	
 	
+	
+	/**
+     * Find an Exam By its Id
+     * @param ExamId
+     * @return Exam
+     */
 	public Exam findById(String eId) 
 	{
 		long id=Integer.parseInt(eId);
@@ -41,6 +55,11 @@ public class ExamService {
 		return optional.get();
 	}
 	
+	/**
+     * Check an Exam is present or not in database by its Id.
+     * @param ExamId
+     * @return boolean
+     */
 	public boolean findByIdCheck(String eId) 
 	{
 		long id=Integer.parseInt(eId);
@@ -48,6 +67,11 @@ public class ExamService {
 		return optional.isPresent();
 	}
 
+	/**
+     * shuffling questions and Save an Exam in to the database and also check requested question count is greater than questions in database and retun a flag.
+     * @param Exam
+     * @return flag
+     */
 	public boolean save_exam(Exam exam) 
 	{
 		Set<Question> finalQstns = new HashSet<Question>(); 
@@ -81,10 +105,20 @@ public class ExamService {
 		return flag;
 	}
 	
+	
+	/**
+     * update an exam
+     * @param Exam
+     */
 	public void update(Exam exam) {
 		examRepo.save(exam);
 	}
 	
+	
+	/**
+     * Find Active Exams from the database
+     * @return Set<Exam>
+     */
 	public Set<Exam> findActiveExams()
 	{
 		List<Exam> exam_list=findAll();

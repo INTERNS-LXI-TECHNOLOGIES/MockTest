@@ -1,6 +1,4 @@
-/**
- * ValidPassword custom Annotation class
- */
+
 package com.lxisoft.customValidation;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
@@ -19,8 +17,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 @Target({ FIELD, ANNOTATION_TYPE })
 /**
- * @author PUSHKALA
- *
+ * ValidPassword custom Annotation class
  */
 public @interface ValidPassword {
 

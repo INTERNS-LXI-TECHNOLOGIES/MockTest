@@ -15,6 +15,10 @@ import org.passay.PasswordValidator;
 import org.passay.RuleResult;
 import org.passay.WhitespaceRule;
 
+
+/**
+ * PasswordConstraintValidator for custom validation
+ */
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String>{
 
 	 @Override

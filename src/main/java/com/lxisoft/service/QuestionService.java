@@ -1,6 +1,7 @@
 package com.lxisoft.service;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -27,6 +28,11 @@ import com.lxisoft.repository.ExamRepository;
 import com.lxisoft.repository.QstnOptionRepository;
 import com.lxisoft.repository.QuestionRepository;
 
+
+/**
+ * QuestionService
+ */
+
 @Service
 @Transactional
 public class QuestionService {
@@ -39,17 +45,28 @@ public class QuestionService {
         @Autowired
     	private QuestionRepository questRepo;
 
+        /**
+         * Find all Questions from Database.
+         * @return List<Question>.
+         */
         public List<Question> findAll() {
     		List<Question> question=questRepo.findAll();
     		return question;
     	}
 
-    	public void saveOrUpdate(Question question, Exam exam) {
-    		//question.setExam(exam);
-    		questRepo.save(question);
-    		
-    	}
+        
+	/*
+	 * public void saveOrUpdate(Question question, Exam exam) {
+	 * //question.setExam(exam); questRepo.save(question);
+	 * 
+	 * }
+	 */
 
+        
+        /**
+         * Find a Question from Database By its id
+         * @return Question.
+         */
     	public Question findById(String qstn_id) {
     		long id=Integer.parseInt(qstn_id);
     		Question quest=null;
@@ -62,12 +79,23 @@ public class QuestionService {
     		
     	}
 
+    	
+    	/**
+         * Save a Question in to database
+         * @param Question
+         */
 		public void save(@Valid Question question) 
 		{
 			
 			questRepo.save(question);
 		}
 
+		
+		/**
+         * Find set of Questions from Database By its level
+         * @param level
+         * @return List<Question>.
+         */
 		public List<Question> findByLevel(String level) {
 			List<Question> finalQstns=new ArrayList<Question>(); 
 			List<Question> qstns=findAll();
@@ -80,6 +108,12 @@ public class QuestionService {
 			return finalQstns;
 		}
 
+		
+		/**
+         * Search for set of questions based on string value
+         * @param searchQstn
+         * @return List<Question>.
+         */
 		public List<Question> findByQstn(String searchQstn) {
 			List<Question> finalQstns=new ArrayList<Question>(); 
 			List<Question> qstns=findAll();
@@ -92,11 +126,22 @@ public class QuestionService {
 			return finalQstns;
 		}
 
+		
+		/**
+         * delete a Question from Database By its id
+         * @param questionId.
+         */
 		public void deleteQuestion(String qId) {
 			long id=Integer.parseInt(qId);
 			questRepo.deleteById(id);
 		}
 
+		
+		/**
+         * Get all questions from corresponding exam
+         * @param Exam
+         * @return List<Question>.
+         */
 		public List<Question> getAllQuestionsFromExam(Exam exam) {
 			Set<Question> questions=exam.getQuestions();
 			List<Question> list = new ArrayList<Question>();
@@ -107,6 +152,14 @@ public class QuestionService {
 			return list;
 		}
 
+		
+		
+		/**
+         * Checking csv file has proper fields and return flag
+         * @param file
+         * @return int.
+         * @throws IOException
+         */
 		public int checkFile(MultipartFile file) throws IOException {
 			BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()));
 			String line;int flag=0;
@@ -119,6 +172,13 @@ public class QuestionService {
 			return flag;
 		}
 		
+		
+		/**
+         * Save data in the csv file
+         * @param file
+         * @return List<Question>.
+         * @throws IOException
+         */
 		public List<Question> saveFile(MultipartFile file) throws IOException {
 			int i=0;
 			List<Question> qstnList=new ArrayList<>();
@@ -141,11 +201,21 @@ public class QuestionService {
 			return qstnList;
 		}
 		
+		
+		/**
+         * Delete a question from database
+         * @param question
+         */ 
 		public void delete(@Valid Question question) 
 		{
 			questRepo.delete(question);
 		}
 		
+		
+		/**
+         * Delete multiple questions from database
+         * @param List of question_id's
+         */
 		public void deleteMultiple(List<String> qIds) {
 			for(String id:qIds)
 			{
@@ -153,6 +223,12 @@ public class QuestionService {
 			}
 		}
 		
+		
+		/**
+         * checking the requested delete questions are in active exams
+         * @param List of question_id's
+         * @return List<Question>.
+         */
 		public List<Question> checkDelete(List<String> qIds) {
 			List<Question> qstnList=new ArrayList<Question>();
 			for(String id:qIds)
@@ -164,6 +240,12 @@ public class QuestionService {
 			return qstnList;
 		}
 		
+		
+		/**
+         * getting active question from Active Exam 
+         * @param Question
+         * @return Question.
+         */
 		public Question activeQuestionCheck(Question qstn)
 		{
 			Question active=null;
