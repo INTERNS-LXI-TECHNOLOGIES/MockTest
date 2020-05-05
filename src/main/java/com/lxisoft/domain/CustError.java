@@ -1,7 +1,7 @@
 package com.lxisoft.domain;
 
 /**
- * @author kpmuh
+ * custom Error page
  *
  */
 public class CustError {
