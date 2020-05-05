@@ -94,6 +94,10 @@ public class ExamController
 	@Autowired
 	private AttendedOptionService attendOptSer;
 	
+	/**
+     * View authenticated pages or redirect index page 
+     * @return index
+     */
 	@RequestMapping(value="/")
 	public String index()
 	{
@@ -108,12 +112,23 @@ public class ExamController
 			return "redirect:/login";
 	}
 	
+
+	/**
+     * view index page
+     * @return  index page 
+     */
 	@RequestMapping(value="/login")
 	public String indexpage()
 	{
 		return "index";
 	}
+	
 
+	/**
+     * Get register page
+     * @param Model
+     * @return register page.
+     */
 	@RequestMapping("/register")
 	public String register(Model model)
 	{
@@ -121,7 +136,11 @@ public class ExamController
 		return "registration";
 	}
 	
-
+	/**
+     * saving Registered users in to database
+     * @param User,bindingResult,Model
+     * @return index
+     */
 	@RequestMapping(value="/save")  
 	public String save(@Valid User user,BindingResult bindingResult,Model model)
 	{  
@@ -153,13 +172,23 @@ public class ExamController
 			return "registration";
 	}  
 
-
+	
+	/**
+     * Get logout page
+     * @return logoutpage.
+     */
 	@RequestMapping ("/logoutpage")
 	public String logout()
 	{
 		return "logoutpage";
 	}
 	
+	
+	/**
+     * user get Active exams from database
+     * @param Model
+     * @return user_active_exams.
+     */
 	@RequestMapping ("/activeExams")
 	public String userpage(Model model)
 	{
@@ -168,6 +197,12 @@ public class ExamController
 		return "user_active_exams";
 	}
 	
+	
+	/**
+     * user view result of others before entering exam
+     * @param examid,sort value,model
+     * @return attended_exam_results
+     */
 	@RequestMapping("/attended_exam_results")
 	public String attended_exam_results(@RequestParam String eId, Model model,@RequestParam(name="sort",required=false,defaultValue="date") String sort)
 	{
@@ -193,6 +228,12 @@ public class ExamController
 		}
 	}
 	
+
+	/**
+     * instruction view of exam
+     * @param examid,model
+     * @return userexam_instruction
+     */
 	@RequestMapping("/userexam_instruction")
 	public String active_exam_info(Model model,@RequestParam String eId) 
 	{
@@ -211,6 +252,11 @@ public class ExamController
 		}
 	}
 
+	/**
+     * Start page of exam
+     * @param examid,timer value,model
+     * @return userexam_start page
+     */
 	@RequestMapping(value="/user_examStart")
 	public String userview(Model model,@RequestParam String eId,@RequestParam String timerValue)
 	{
@@ -236,6 +282,12 @@ public class ExamController
 		}
 	}
 	
+	
+	/**
+     *view user exam Page 
+     * @param examid,attendExam id,timer value,index position of question,and option id
+     * @return user exampage or redirect submit page
+     */
 	@RequestMapping(value="/user_exampage")
 	public String userNextPage(Model model,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String timerValue,
 			@RequestParam(required=false,defaultValue="0") String index,
@@ -278,6 +330,13 @@ public class ExamController
 		}
 	}
 	
+	
+	
+	/**
+     * save each attended option in exam
+     * @param examid,attendExam id,timer value,index position of question,and option id
+     * @return userexamPage
+     */
 	@RequestMapping(value="/save_option")
 	public String save_option(Model model,@RequestParam String aExamId,@RequestParam String eId,@RequestParam String timerValue,
 		@RequestParam(required=false,defaultValue="0") String index,
@@ -294,6 +353,12 @@ public class ExamController
 		return "redirect:/user_exampage?eId="+eId +"&aExamId="+aExamId +"&optionid=0&timerValue="+timerValue +"&index="+pos;
 	}
 	
+	
+	/**
+     * clar the option in radio button and from database
+     * @param examid,attendExam id,timer value,index position of question,timervalue and option id
+     * @return userexamPage
+     */
 	@RequestMapping(value="/clear_option")
 	public String clear_option(Model model,@RequestParam String aExamId,@RequestParam String eId,
 		@RequestParam String index,@RequestParam String timerValue,@RequestParam(required=false,defaultValue="0") String aOptId)  
@@ -306,6 +371,13 @@ public class ExamController
 		return "redirect:/user_exampage?eId="+eId +"&aExamId="+aExamId +"&optionid=0&timerValue="+timerValue +"&index="+pos;
 	}
 	
+	
+	
+	/**
+     * view submit page of exam
+     * @param examid,attendExam id
+     * @return submit page
+     */
 	@RequestMapping("/submit")
 	public String submit(@RequestParam String aExamId,@RequestParam String eId,Model model) 
 	{
@@ -323,6 +395,12 @@ public class ExamController
 		return "submit";
 	}
 	
+	
+	/**
+     * Cancel the exam after user entered in exam 
+     * @param attendExam id
+     * @return Homepage of user
+     */
 	@RequestMapping("/exam_cancel")
 	public String submit(@RequestParam String aExamId) 
 	{
@@ -330,6 +408,12 @@ public class ExamController
 		return "redirect:/";
 	}
 	
+	
+	/**
+     * Question creation page by admin
+     * @param model
+     * @return create_question
+     */
 	@RequestMapping("/app/create_question")
 	public String question(Model model)
 	{
@@ -338,6 +422,11 @@ public class ExamController
 	}
 
 
+	/**
+     * Add a question in to database
+     * @param Question,option1,option2,option3 
+     * @return indexpage
+     */
 	@RequestMapping(value="/app/add_question")
 	public String createExam(@Valid Question question ,BindingResult bindingResult,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3,Model model)
 	{ 
@@ -351,6 +440,11 @@ public class ExamController
 		return "create_question";
 	}
 	
+	/**
+     * Delete a question from database
+     * @param List<String>questionid 
+     * @return viewall_Qstn
+     */
 	@RequestMapping("/app/delete_question")
 	public String delete_question(@RequestParam(name="qId" ,required=false,defaultValue="0") List<String> qId,Model model)
 	{
@@ -377,6 +471,12 @@ public class ExamController
 		return "redirect:/app/viewall_qstn";
 	}
 	
+	
+	/**
+     *Add more question in to database
+     * @param question,option1,option2,option3,bindingResult
+     * @return create_question
+     */
 	@RequestMapping(value="/app/addmore_question")
 	public String addmore( @Valid Question quest,Model model,BindingResult binding,@RequestParam String opt1,@RequestParam String opt2,@RequestParam String opt3) 
 	{
@@ -389,6 +489,13 @@ public class ExamController
 		return "create_question";
 	}
 	
+	
+	/**
+     * Importing CSV file 
+     * @param File
+     * @return temp_qstnview
+     * @throws Exception  
+     */
 	@RequestMapping(value = "/app/question_file")
 	public String question_file(@RequestParam("file") MultipartFile file, Model model) throws Exception
 	{
@@ -422,6 +529,12 @@ public class ExamController
 		}
 	}
 	
+
+	/**
+     * saving contents of  CSV file 
+     * @param HttpServletResponse
+     * @throws IOException  
+     */
 	@GetMapping("/app/model.csv")
     public void modelCsv(HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
@@ -429,13 +542,26 @@ public class ExamController
         writer.write("question, level, option1, option2, option3\n");
     }
 	
+	
+
+	/**
+     * creating exam 
+     * @param model
+     * @return create_exam
+     */
 	@RequestMapping ("/app/create_exam")
 	public String create_exam(Model model)
 	{
 		model.addAttribute("exam",new Exam());	 
 		return "create_exam";
 	}
+	
 
+	/**
+    * saving exam details 
+    * @param Exam,bindingresult,hour,minute
+    * @return create_exam
+    */
 	@RequestMapping ("/app/save_exam")
 	public String save_exam(@Valid Exam exam,BindingResult bindingResult,@RequestParam String hour,@RequestParam String minute,Model model)
 	{
@@ -457,6 +583,12 @@ public class ExamController
 		return "create_exam";
 	}
 	
+	
+	/**
+    * view current exams in database
+    * @param model
+    * @return crrent_exam
+    */
 	@RequestMapping ("/current_exams")
 	public String current_exams(Model model)
 	{
@@ -464,6 +596,12 @@ public class ExamController
 		return "current_exams";
 	}
 	
+	
+	/**
+     * select an exam from list of exam for activate or deactivate or view exam details
+     * @param examId
+     * @return activateExam
+     */
 	@RequestMapping ("/app/selectExam")
 	public String selectExam(Model model,@RequestParam String eId) throws Exception
 	{
@@ -473,6 +611,13 @@ public class ExamController
 		return "activateExam";
 	}
 	
+	
+	
+	/**
+     * Activate an selected Exam
+     * @param ExamId
+     * @return activateExam
+     */
 	@RequestMapping ("/app/activate_exam")
 	public String activate_exam(@RequestParam String eId) throws Exception
 	{
@@ -488,6 +633,12 @@ public class ExamController
 		return "redirect:/app/selectExam?eId="+eId;
 	}
 	
+	
+	/**
+    * Set answer from options
+    * @param QuestionId,OptionId
+    * @return Viewall_Qstn
+    */
 	@RequestMapping ("/app/set_Answer")
 	public String setAnswer(@RequestParam String opt_Id,@RequestParam String qstn_id)
 	{
@@ -502,6 +653,12 @@ public class ExamController
 		return "redirect:/app/viewall_qstn";
 	}
 
+	
+	/**
+    * viewall_qstn from database
+    * @param model
+    * @return Viewall_Qstn
+    */
 	@RequestMapping ("/app/viewall_qstn")
 	public String viewall_qstn(Model model) 
 	{
@@ -510,7 +667,13 @@ public class ExamController
 		return "viewall_qstn";
 
 	}
-
+	
+	
+	/**
+    * Filtering question as level based from the database
+    * @param String level
+    * @return Viewall_Qstn
+    */
 	@RequestMapping("/app/filter")
 	public String questionFilter(Model model,@RequestParam String level)
 	{
@@ -525,7 +688,13 @@ public class ExamController
 		return "redirect:/app/viewall_qstn";
 		
 	}
-		
+	
+	
+    /**
+    * Search Questions from database
+    * @param String searchQstn
+    * @return Viewall_Qstn
+    */
 	@RequestMapping("/app/searchQstn")
 	public String searchQuestion(Model model,@RequestParam String searchQstn)
 	{
@@ -534,6 +703,12 @@ public class ExamController
 		return "viewall_qstn";
 	}
 	
+	
+	/**
+    * view of user_dashboard
+    * @param sort  value
+    * @return user dashboard
+    */
 	@RequestMapping ("/user_dashboard")
 	public String userdashboard(Model model,@RequestParam(name="sort",required=false,defaultValue="date") String sort)
 	{
@@ -551,6 +726,12 @@ public class ExamController
 		return "user_dashboard";
 	}
 	
+	
+	/**
+    * Getting all user details
+    * @param model
+    * @return user_info
+    */
 	@RequestMapping("/user_info")
 	public String user_info(Model model)
 	{
@@ -558,6 +739,12 @@ public class ExamController
 		return "user_info";
 	}
 	
+	
+    /**
+    * Sorting user details based on sortvalue
+    * @param sort value
+    * @return userDetails
+    */
 	@RequestMapping("/user_details")
 	public String userDetails(Model model,@RequestParam String id,@RequestParam(name="sort",required=false,defaultValue="date") String sort) throws Exception
 	{
@@ -572,6 +759,11 @@ public class ExamController
 		return "user_details";
 	}
 	
+	/**
+    * Exam details of all exam in database
+    * @param model
+    * @return exam_info
+    */
 	@RequestMapping("/exam_info")
 	public String exam_info(Model model)
 	{
@@ -579,24 +771,29 @@ public class ExamController
 		return "exam_info";
 	}
 	
-
+	/**
+    * view attendedExam review of questions and answers attended by user
+    * @param userId,attendedExamId
+    * @return Exam_history
+    */
 	@RequestMapping("/exam_history")
 	public String exam_history(Model model,@RequestParam String aExamId,@RequestParam String userid)
 	{
-//			long attend_exam_id=Long.parseLong(aExamId);
-//			long user_id=Long.parseLong(userid);
 		AttendedExam attendedExam=attendExamService.findById(aExamId);
 		log.debug("atnd exam"+attendedExam);
 		List<AttendedOption> attendedOptions=attendOptSer.findAllByAttendedExam(attendedExam);
 		log.debug("atteneded options are:- "+attendedOptions);
 		model.addAttribute("attendedOptions", attendedOptions);
 		model.addAttribute("attendedExam", attendedExam);
-//			model.addAttribute("userid",userid);
 		model.addAttribute("attend_exam_id",aExamId);
 		return "exam_history";
 	}
 
-	
+	/**
+    * Attended exam details of particular exam
+    * @param sort value,examId,
+    * @return userDetails
+    */
 	@RequestMapping("/exam_attended")
 	public String exam_attended(@RequestParam String eId,@RequestParam(name="sort",required=false,defaultValue="date") String sort, Model model) throws Exception
 	{
@@ -619,10 +816,8 @@ public class ExamController
 
 	/**
 	 * GET  /pdf : get the pdf exam report using database.
-	 *  
 	 * @return the byte[]
 	 * @throws Exception 
-	
 	 */
 	@RequestMapping("/examDetailsPDF")
 	public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@RequestParam String Exam_id) throws Exception 
@@ -634,7 +829,6 @@ public class ExamController
 	   {
 	
 		   pdfContents=jasperServ.getReportAsPdfUsingJavaBeans(list);
-	//		pdfContents=jasperServ.getReportAsPdfUsingDataBase(attendExam_id);
 	   }catch (JRException e) {
 	        e.printStackTrace();
 	   }
@@ -647,8 +841,13 @@ public class ExamController
 		return response;
 	}
 	
+	
+	/**
+	 * GET  graphical representation of attended exam
+	 * @param Examid
+	 * @return chart
+	 */
 	@RequestMapping("/graph")
-
 	public String graphicalAnalyzeExam(@RequestParam String Exam_id,Model model)
 	{
 		Exam exam=examService.findById(Exam_id);
@@ -670,8 +869,12 @@ public class ExamController
 		return "chart";
 	}
 	
+	/**
+	 * GET  user performance as graphical representation of attended exam based on levels
+	 * @param userid
+	 * @return user_Performance_chart
+	 */
 	@RequestMapping("/userPerformance")
-
 	public String graphicalAnalyzeUser(@RequestParam String user_id,Model model) throws Exception
 	{
 		UserExtra userExtra=extraService.findById(user_id);
@@ -696,6 +899,13 @@ public class ExamController
 		model.addAttribute("date",date);
 		return "user_performance_chart";
 	}
+	
+	/**
+	 * GET  /pdf : get the pdf of exam Certificate using database.
+	 * @param examid
+	 * @return the byte[]
+	 * @throws Exception 
+	 */
 	@RequestMapping("/examCertificate")
 	public ResponseEntity<byte[]>  getPdf(@RequestParam (name="id")String id)
 	{

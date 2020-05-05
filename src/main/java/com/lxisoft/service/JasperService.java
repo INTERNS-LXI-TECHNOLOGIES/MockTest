@@ -24,8 +24,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lxisoft.model.AttendedExamBean;
 
+/**
+* Service class for jasper report generation
+*/
 @Service
 @Transactional
+
 public class JasperService {
 
     private final Logger log = LoggerFactory.getLogger(JasperService.class);
@@ -33,40 +37,6 @@ public class JasperService {
     @Autowired
 	DataSource dataSource;
     
-    /**
-     * Gets userexamReport : using database.
-     * @param id 
-     * @param userid 
-     *			     
-     * @return the byte[].
-     * @throws JRException 
-     * 
-	 * @throws JRException. 
-     */
-	/* public byte[] getReportAsPdfUsingDataBase(long attend_exam_id, long userid) throws JRException {
-log.debug("AggregateServiceImpl request to get a pdf");
-		
-		JasperReport jr = JasperCompileManager.compileReport("src/main/resources/report.jrxml");
-		
-		Map parameters=new HashMap();
-		parameters.put("head","Exam report");
-		parameters.put("id",attend_exam_id);
-		parameters.put("id",userid);
-			
-			Connection conn = null;
-			try {
-				conn = dataSource.getConnection();
-			} catch (SQLException e) {
-				
-				e.printStackTrace();
-			}
-			
-	   JasperPrint jp = JasperFillManager.fillReport(jr, parameters, conn);
-			
-	   return JasperExportManager.exportReportToPdf(jp);
-			
-
-} */
 
     /**
      * Gets userexamReport : using javabean.
