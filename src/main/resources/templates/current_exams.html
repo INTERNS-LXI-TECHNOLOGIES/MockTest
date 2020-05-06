@@ -26,7 +26,7 @@
 			No Exams Available
 			</span>
 			<span th:each="exam: ${exams}">
-			
+		
 					<a  class="button button1 lengthbtn" th:href="@{/app/selectExam(eId=${exam.id})}" >
 						<h2 th:text="${exam.name}">exam</h2>
 							<h4  th:text="'Level:  ' + ${exam.level}">level</h4>
