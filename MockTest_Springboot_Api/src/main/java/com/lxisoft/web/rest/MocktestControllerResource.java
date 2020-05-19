@@ -22,5 +22,6 @@ public class MocktestControllerResource {
     public String getRegistrationDetails() {
         return "getRegistrationDetails";
     }
+    
 
 }
