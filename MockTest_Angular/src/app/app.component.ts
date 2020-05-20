@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -9,7 +9,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
+
 export class AppComponent implements OnInit {
+  public web:string='as';
   public selectedIndex = 0;
   public appPages = [
     {
@@ -45,11 +47,12 @@ export class AppComponent implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
-  constructor(
+  user:string=this.http.get()
+
+  constructor(private http:HttpClient,
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
-  ) {
+    private statusBar: StatusBar) {
     this.initializeApp();
   }
 
