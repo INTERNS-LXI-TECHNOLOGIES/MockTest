@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
-  user:string=this.http.get()
+  user:string;
 
   constructor(private http:HttpClient,
     private platform: Platform,
@@ -60,6 +60,8 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.http.get('http://localhost:8080/api/mocktest-controller/').subscribe(data => {
+        this.user=JSON.stringify(data)});
     });
   }
 
