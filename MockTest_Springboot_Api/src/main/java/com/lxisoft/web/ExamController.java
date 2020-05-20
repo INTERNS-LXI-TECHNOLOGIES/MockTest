@@ -98,19 +98,19 @@ public class ExamController
      * View authenticated pages or redirect index page 
      * @return index
      */
-	@RequestMapping(value="/")
-	public String index()
-	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
-		if(isAdmin)
-			return "adminpage";
-		else if(isUser)
-			return "redirect:/user_dashboard";
-		else 
-			return "redirect:/login";
-	}
+//	@RequestMapping(value="/")
+//	public String index()
+//	{
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+//		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
+//		if(isAdmin)
+//			return "adminpage";
+//		else if(isUser)
+//			return "redirect:/user_dashboard";
+//		else 
+//			return "redirect:/login";
+//	}
 	
 
 	/**
