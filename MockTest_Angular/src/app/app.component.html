@@ -23,13 +23,17 @@
           </ion-item>
         </ion-list> -->
 
-         dkffkdjn
           
-          <p>oo</p> 
-          <ion-item  *ngFor="let p of (user | async)">
-          <ion-label>{{p.id}}</ion-label>  
+          <p>text:= {{user|async}}</p> 
+
+
+          <ion-item  *ngFor="let p of (questions | async)">
+          <p>{{p.id}}<p> 
+          <ion-label>{{p.qstn}}</ion-label>  
+          <ion-label>{{p.level}}</ion-label><br>  
+          <ion-label *ngFor="let opt of p.qstnOptions">{{opt.option}}</ion-label>
           </ion-item> 
-         emekmfmklr
+        
       </ion-content>
     <!-- </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
