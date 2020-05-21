@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-split-pane contentId="main-content">
+<!-- <ion-split-pane contentId="main-content">
   <ion-menu contentId="main-content" type="overlay">
     <ion-content>
       <ion-list id="inbox-list">
@@ -23,11 +23,12 @@
       </ion-list>
       </ion-content>
       </ion-menu>
-      </ion-split-pane>
+      </ion-split-pane> -->
+
       
 
 
-<ion-content [fullscreen]="true" padding>
+<!-- <ion-content [fullscreen]="true" padding>
 
   <ion-button  color="secondary"  (click)="users()">dispalyuser</ion-button>
 
@@ -51,14 +52,17 @@
       </ion-col>
     </ion-row>
   
-  </form>
+  </form> -->
 
 
-<!-- 
-<ion-card *ngFor="let article of data?.users">
+<ion-content>
+  <ion-button  color="secondary"  (click)="users()">dispalyuser</ion-button>
+  <ion-card>
+    <ion-card-header>hi</ion-card-header></ion-card>
+<ion-card *ngFor="let data of data?.articles">
 
   <ion-card-header>
-    <ion-card-subtitle>{{user.firstName}}</ion-card-subtitle>
+    <ion-card-subtitle>mock</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
     Details
@@ -70,7 +74,8 @@
    
 
   </ion-card-content>
-</ion-card> -->
+</ion-card>
+
 </ion-content>
 
 

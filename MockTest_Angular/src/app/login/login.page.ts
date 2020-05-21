@@ -11,44 +11,17 @@ import { UsersService } from '../users.service';
 })
 export class LoginPage implements OnInit {
 
-  data:any;
-  public selectedIndex = 0;
-  public appPages = [
-    {
-      title: 'Home',
-      url: '../folder/Home',
-      icon: 'mail'
-    },
-    {
-      title: 'Outbox',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
-    },
-    {
-      title: 'Favorites',
-      url: '/folder/Favorites',
-      icon: 'heart'
-    },
-   
-  ];
+  data;
  
   constructor(private modalCtrl: ModalController,
     private userServ:UsersService) {}
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
-    
+   
+     this.users();
   }
-  async signIn(){
-    const modal = await this.modalCtrl.create({
-      component: FolderPage,
-      swipeToClose: true,
-      presentingElement: await this.modalCtrl.getTop() // Get the top-most ion-modal
-    });
-    return await modal.present();
+  signIn(){
+   
   }
   users()
   {
