@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -47,12 +47,17 @@ export class AppComponent implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
-  user:string;
+  user:any;
+  
+  heroes():void {
+    console.log('data accessed via api- qq'+ this.user);
+    }
 
   constructor(private http:HttpClient,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar) {
+      this.heroes();
     this.initializeApp();
   }
 
@@ -60,12 +65,13 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.http.get('http://localhost:8080/api/mocktest-controller/').subscribe(data => {
-        this.user=JSON.stringify(data)});
     });
   }
 
   ngOnInit() {
+    this.user=this.http.get('http://localhost:8080/api/questions').pipe(map(data => {
+  console.log('raw ::'+data);
+    return data;}));
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
