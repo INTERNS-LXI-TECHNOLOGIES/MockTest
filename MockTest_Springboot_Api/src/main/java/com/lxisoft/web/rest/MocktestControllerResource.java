@@ -51,20 +51,13 @@ public class MocktestControllerResource {
     	return userRes.getAllUsers(pageable);
         
     }
-    @GetMapping("/authenticate")
-    public String isAuthenticated(HttpServletRequest request) {
-        log.debug("REST request to check if the current user is authenticated");
-        return request.getRemoteUser();
-    }
+    // @GetMapping("/authenticate")
+    // public String isAuthenticated(HttpServletRequest request) {
+    //     log.debug("REST request to check if the current user is authenticated");
+    //     return request.getRemoteUser();
+    // }
 
-    @GetMapping("/login")
-    public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
-      
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
-		return null;
-    }
+    
 
 
 }

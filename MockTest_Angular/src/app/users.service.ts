@@ -9,7 +9,7 @@ export class UsersService {
   imports:[HttpClient]
   constructor(private http: HttpClient) { }
   getData(){
-    return this.http.get(`http://localhost:8080/api/mocktest-controller/all`);
+    return this.http.get(`http://localhost:8080/api/mocktest-controller/all/`);
     
   }
 }

@@ -7,28 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-split-pane contentId="main-content">
-  <ion-menu contentId="main-content" type="overlay">
-    <ion-content>
-      <ion-list id="inbox-list">
-        <ion-list-header>Inbox</ion-list-header>
-        <ion-note>hi@MockApp.com</ion-note>
-
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = Home">
-          <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
-            <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-            <ion-label>{{ p.title }}</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-      </ion-content>
-      </ion-menu>
-      </ion-split-pane> -->
-
-      
-
-
-<!-- <ion-content [fullscreen]="true" padding>
+<ion-content [fullscreen]="true" padding>
 
   <ion-button  color="secondary"  (click)="users()">dispalyuser</ion-button>
 
@@ -52,11 +31,11 @@
       </ion-col>
     </ion-row>
   
-  </form> -->
+  </form>
 
-
-<ion-content>
-  <ion-button  color="secondary"  (click)="users()">dispalyuser</ion-button>
+<!-- 
+<ion-content> -->
+ 
   <ion-card>
     <ion-card-header>hi</ion-card-header></ion-card>
 <ion-card *ngFor="let data of data?.articles">
@@ -66,16 +45,16 @@
   </ion-card-header>
   <ion-card-content>
     Details
-    <p>
+    <!-- <p>
      1st- {{user.firstName}}
      last- {{user.lastName}}
       
-    </p>
+    </p> -->
    
 
   </ion-card-content>
 </ion-card>
-
+<router-outlet></router-outlet>
 </ion-content>
 
 
