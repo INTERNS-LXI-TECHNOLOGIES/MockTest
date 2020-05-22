@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/mocktest-controller")
-@CrossOrigin(origins = "http://localhost:8100")
 public class MocktestControllerResource {
 
     private final Logger log = LoggerFactory.getLogger(MocktestControllerResource.class);
@@ -34,7 +33,7 @@ public class MocktestControllerResource {
 //		else if(isUser)
 //			return "user";
 //		else 
-			return "ashiq";
+			return "home";
 	}
 	
 	

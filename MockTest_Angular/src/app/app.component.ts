@@ -11,42 +11,24 @@ import { map } from 'rxjs/operators';
 })
 
 export class AppComponent implements OnInit {
+  static getUser():string{
+    return JSON.stringify(this.user);
+  }
+  static user:any;
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
-    },
-    {
-      title: 'Outbox',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
+      title: 'home',
+      url: '/home',
+      icon: 'home'
     },
     {
       title: 'Favorites',
-      url: '/folder/Favorites',
+      url: '/Favorites',
       icon: 'heart'
-    },
-    {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
-    },
-    {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
     }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-
-  user:any;
+  
   questions:any;
   
   constructor(private http:HttpClient,
@@ -64,7 +46,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user=this.http.get('http://localhost:8080/api/mocktest-controller/',{responseType: 'text'}).pipe(map(data => {
+    AppComponent.user=this.http.get('http://localhost:8080/api/mocktest-controller/',{responseType: 'text'}).pipe(map(data => {
   console.log('raw ::'+data);
     return data;}));
 
@@ -77,4 +59,5 @@ export class AppComponent implements OnInit {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
   }
+
 }
