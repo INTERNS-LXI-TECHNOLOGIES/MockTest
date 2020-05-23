@@ -7,19 +7,24 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
-
+import com.lxisoft.domain.Question;
+import com.lxisoft.repository.QuestionRepository;
+import com.lxisoft.service.QuestionService;
 import com.lxisoft.service.UserService;
 import com.lxisoft.service.dto.UserDTO;
 
@@ -38,7 +43,9 @@ public class MocktestControllerResource {
     UserService userService;
     @Autowired 
     UserResource userRes;
-    
+    @Autowired
+	private QuestionRepository questService;
+     
     /**
     * GET getRegistrationDetails
     */
@@ -57,7 +64,14 @@ public class MocktestControllerResource {
     //     return request.getRemoteUser();
     // }
 
-    
+//    @GetMapping("/questions")
+//     public ResponseEntity<List<Question>> questions() {
+//    	Pageable pageable=null;
+//    	 final Page<Question> page =questService.findAll(pageable);
+//    			   HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+//    	 return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//         
+//     }
 
 
 }

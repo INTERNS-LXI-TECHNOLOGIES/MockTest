@@ -23,10 +23,10 @@ export class LoginPage implements OnInit {
    
      this.users();
   }
-  signIn(){
-    this.router
-      .navigateByUrl('../adminpage/adminpage.module', { replaceUrl: true })
-  }
+  // signIn(){
+  //   this.router
+  //     .navigateByUrl('../adminpage/adminpage.module', { replaceUrl: true })
+  // }
   users()
   {
     this.userServ.getData().subscribe(data => {
