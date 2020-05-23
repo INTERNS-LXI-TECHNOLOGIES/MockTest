@@ -4,6 +4,9 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { HttpClient } from '@angular/common/http';
+
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -30,11 +33,13 @@ export class AppComponent implements OnInit {
    
   ];
  
+  users:any;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private http:HttpClient
   ) {
     this.initializeApp();
   }
@@ -52,5 +57,9 @@ export class AppComponent implements OnInit {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
     
+    this.users=this.http.get(`http://localhost:8080/api/mocktest-controller/all/`).pipe(map(data => {
+     console.log('users ::'+data);
+    return data;}));
+
   }
 }
