@@ -51,6 +51,13 @@ public class MocktestControllerResource {
     */
   
     
+
+    @RequestMapping(value="/")
+    public String index()
+    {
+        return "pushkala";
+    }
+    
     @GetMapping("/all")
    @CrossOrigin(origins = {"http://localhost:8100","http://localhost:8080"})
     public ResponseEntity<List<UserDTO>> getAll() {

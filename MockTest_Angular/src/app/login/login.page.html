@@ -12,10 +12,10 @@
   <ion-button  color="secondary"  (click)="users()">dispalyuser</ion-button>
 
   <form>
-    <h4 text-center margin-top>Insert your credentials</h4>
+    <h4 text-center margin-top>Insert your credentials welcome {{username}}</h4>
     <ion-item lines="full">
       <ion-label position="floating">Username</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="text" [(ngModel)]="username" (change)="print($event)" [ngModelOptions]="{standalone: true}" required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
@@ -35,21 +35,21 @@
 
 <!-- 
 <ion-content> -->
- 
+
   <ion-card>
     <ion-card-header>hi</ion-card-header></ion-card>
-<ion-card *ngFor="let data of data?.articles">
+    <p *ngIf="data"> yes you have datas!!</p>
+<ion-card *ngFor="let d of data">
 
   <ion-card-header>
     <ion-card-subtitle>mock</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
     Details
-    <!-- <p>
-     1st- {{user.firstName}}
-     last- {{user.lastName}}
+    <p>
+     {{d.firstName}} {{d.lastName}}
       
-    </p> -->
+    </p>
    
 
   </ion-card-content>

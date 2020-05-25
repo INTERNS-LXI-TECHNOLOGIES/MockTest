@@ -13,7 +13,7 @@ import { MenuController} from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   data;
- 
+  username;
   
   constructor(private modalCtrl: ModalController,
     private userServ:UsersService,public menu: MenuController,
@@ -34,6 +34,11 @@ export class LoginPage implements OnInit {
       this.data=data;
       
     });
+  }
+  print(event)
+  {
+    console.log(event);
+    this.username=event.target.value;
   }
   ionViewWillEnter() {
     this.menu.enable(false);
