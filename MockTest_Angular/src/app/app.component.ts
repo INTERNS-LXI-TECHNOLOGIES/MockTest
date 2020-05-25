@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   
   url:string='http://localhost:8080/api/mocktest-controller/';
   questions:any=this.mockTestSer.getDataFromServer('http://localhost:8080/api/questions/');
-  user=this.mockTestSer.getDataFromServer(this.url);
+  user=this.mockTestSer.getStringFromServer(this.url);
 
   constructor(private mockTestSer: MockTestService,
      private platform: Platform,
