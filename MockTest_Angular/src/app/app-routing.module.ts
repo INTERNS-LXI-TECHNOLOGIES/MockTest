@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
+import { MockTestService } from './mock-test.service';
+
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/'+AppComponent.getUser(),
+    redirectTo: '/'+this.user,
     pathMatch: 'full'
   },
   {
