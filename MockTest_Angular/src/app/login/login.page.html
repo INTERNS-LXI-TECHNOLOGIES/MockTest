@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" padding>
+<ion-content  padding="true">
 
   <!-- <ion-button  color="secondary"  (click)="users()">dispalyuser</ion-button> -->
   <!-- welcome {{username}}
@@ -15,9 +15,10 @@
  
  
   <form>
-    
+   
     <div class="ion-text-center">
     <h4 >Insert your credentials </h4>
+    <ion-list>
     <ion-item lines="full">
       <ion-label position="floating">Username</ion-label>
       <ion-input type="text" required></ion-input>
@@ -27,14 +28,13 @@
       <ion-label position="floating">Password</ion-label>
       <ion-input type="password" required></ion-input>
     </ion-item>
-
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="danger" expand="block" (click)="signIn()">Sign In</ion-button>
-       <p> <a class="small-text">Forgot Password?</a> </p>
-       <p ><a  class="small-text">Register Here..!</a></p>
-      </ion-col>
-    </ion-row>
+    </ion-list>
+    
+        <ion-button color="success" share="round" expand="block"  routerLink='/signup'>Log In</ion-button>
+      
+       <p> <a class="small-text" routerLink='/signup'>Forgot Password?</a> </p>
+       <p ><a  class="small-text" routerLink='/signup'>Create Account..!</a></p>
+     
   </div>
   </form>
 

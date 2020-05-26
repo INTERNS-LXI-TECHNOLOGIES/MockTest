@@ -11,13 +11,14 @@ const routes: Routes = [
   //   path: 'folder/:id',
   //   loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   // },
-  {
-    path: '',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
+ 
   {
     path: 'adminpage',
     loadChildren: () => import('./adminpage/adminpage.module').then( m => m.AdminpagePageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./index/index.module').then( m => m.IndexPageModule)
   }
 ];
 

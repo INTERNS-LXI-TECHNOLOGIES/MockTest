@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController,NavController } from '@ionic/angular';
 import{AdminpagePage} from '../adminpage/adminpage.page';
-import { UsersService } from '../users.service';
+import { UsersService } from '../services/users.service';
 import { Router } from '@angular/router';
 import { MenuController} from '@ionic/angular';
 
