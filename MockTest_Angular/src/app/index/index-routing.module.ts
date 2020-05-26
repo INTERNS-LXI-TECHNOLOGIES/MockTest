@@ -6,16 +6,22 @@ import { IndexPage } from './index.page';
 const routes: Routes = [
   {
     path: '',
-    component: IndexPage
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('../login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'signup',
-    loadChildren: () => import('../signup/signup.module').then( m => m.SignupPageModule)
-  }
+    component: IndexPage,
+    children: [
+                  {
+                    path: '',
+                    loadChildren: () => import('../welcome/welcome.module').then( m => m.WelcomePageModule)
+                  },
+                  {
+                    path: 'login',
+                    loadChildren: () => import('../login/login.module').then( m => m.LoginPageModule)
+                  },
+                  {
+                    path: 'signup',
+                    loadChildren: () => import('../signup/signup.module').then( m => m.SignupPageModule)
+                  }
+              ]
+    }
 ];
 
 @NgModule({

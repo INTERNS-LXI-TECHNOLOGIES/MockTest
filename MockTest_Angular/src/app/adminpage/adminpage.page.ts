@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MenuController} from '@ionic/angular';
 @Component({
   selector: 'app-adminpage',
   templateUrl: './adminpage.page.html',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminpagePage implements OnInit {
 
-  constructor() { }
+  constructor(private menu:MenuController) { }
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+    this.menu.enable(true);
   }
 
 }

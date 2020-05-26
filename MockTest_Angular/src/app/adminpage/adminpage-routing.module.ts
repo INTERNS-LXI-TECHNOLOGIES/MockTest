@@ -6,8 +6,19 @@ import { AdminpagePage } from './adminpage.page';
 const routes: Routes = [
   {
     path: '',
-    component: AdminpagePage
-  }
+    component: AdminpagePage,
+    children: [
+                  {
+                    path: '',
+                    redirectTo: '../folder/Inbox',
+                    pathMatch: 'full'
+                  },
+                  {
+                    path: 'folder/:id',
+                    loadChildren: () => import('../folder/folder.module').then( m => m.FolderPageModule)
+                  }
+              ]
+    }
 ];
 
 @NgModule({
