@@ -6,11 +6,11 @@ import { HttpClient } from '@angular/common/http';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/home',
+    path: 'ashiq',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
-  { path: 'heroes', component: AppComponent },
+  { path: '', component: AppComponent },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
@@ -24,8 +24,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule{
-  // userLogged;
-  // this.mockTestSer.getDataFromServer('http://localhost:8080/api/mocktest-controller/')
-  // var mockTestSer:MockTestService =new MockTestService();
-}
+export class AppRoutingModule{}
