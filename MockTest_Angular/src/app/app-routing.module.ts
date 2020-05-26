@@ -1,19 +1,22 @@
-import { NgModule, OnInit } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { MockTestService } from './mock-test.service';
-import { HttpClient } from '@angular/common/http';
 
 const routes: Routes = [
   {
-    path: 'ashiq',
+    path: '',
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  { path: '', component: AppComponent },
   {
+    path: 'folder/:id',
+    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+  },
+  {
+    path: 'create-question',
+    loadChildren: () => import('./pages/create-question/create-question.module').then( m => m.CreateQuestionPageModule)
+  },  {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   }
 
 ];
@@ -24,4 +27,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule{}
+export class AppRoutingModule {}
