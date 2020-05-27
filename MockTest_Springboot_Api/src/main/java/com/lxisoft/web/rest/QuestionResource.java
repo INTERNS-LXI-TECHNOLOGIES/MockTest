@@ -89,6 +89,7 @@ public class QuestionResource {
         log.debug("REST request to get all Questions");
         return questionRepository.findAll();
     }
+    
 
     /**
      * {@code GET  /questions/:id} : get the "id" question.

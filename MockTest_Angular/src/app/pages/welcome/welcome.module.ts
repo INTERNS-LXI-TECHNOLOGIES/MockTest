@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { WelcomePageRoutingModule } from './welcome-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 import { WelcomePage } from './welcome.page';
-import { ComponentsModule } from '../components/components.module';
+import { ComponentsModule } from '../../components/components.module';
 
 
 

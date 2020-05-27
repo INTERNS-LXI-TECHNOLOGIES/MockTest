@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginPageModule } from '../login/login.module';
+import { LoginPageModule } from '../pages/login/login.module';
 
 @Injectable({
   providedIn: 'root'

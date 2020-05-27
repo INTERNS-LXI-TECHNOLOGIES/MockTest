@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController,NavController } from '@ionic/angular';
-import{AdminpagePage} from '../adminpage/adminpage.page';
-import { UsersService } from '../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { MenuController} from '@ionic/angular';
 
@@ -12,8 +11,8 @@ import { MenuController} from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  data;
-  username;
+  // data;
+  // username;
  
   
   constructor(private modalCtrl: ModalController,
@@ -22,26 +21,27 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
    
-     this.users();
+    //  this.users();
   }
   
-  signIn(){
-    // this.nav.navigateRoot(AdminpagePage);
-    // this.router.navigate=(['/adminpage']);
+  navigateToHome() {
+    this.router.navigate(['/home']);
     }
-  users()
-  {
-    this.userServ.getData().subscribe(data => {
-      console.log(data);
-      this.data=data;
+  
+  // users()
+  // {
+  //   this.userServ.getData().subscribe(data => {
+  //     console.log(data);
+  //     this.data=data;
       
-    });
-  }
-  print(event)
-  {
-    console.log(event);
-    this.username=event.target.value;
-  }
+  //   });
+  // }
+
+  // print(event)
+  // {
+  //   console.log(event);
+  //   this.username=event.target.value;
+  // }
   ionViewWillEnter() {
     this.menu.enable(false);
   }
