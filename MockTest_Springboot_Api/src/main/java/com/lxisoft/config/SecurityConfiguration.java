@@ -77,25 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .csrf()//.disable()
            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
        .and()
-           .addFilterBefore(corsFilter, CsrfFilter.class)
-           .exceptionHandling()
-               .authenticationEntryPoint(problemSupport)
-               .accessDeniedHandler(problemSupport)
-//        .and()
-<<<<<<< HEAD
-        //     .rememberMe()
-        //     .rememberMeServices(rememberMeServices)
-        //     .rememberMeParameter("remember-me")
-        //     .key(jHipsterProperties.getSecurity().getRememberMe().getKey())
-        .and()
-            .formLogin()
-            .loginPage("/login")
-            .permitAll()
-        .and()
-            .logout()
-            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            .permitAll()
-=======
+         
             .addFilterBefore(corsFilter, CsrfFilter.class)
             .exceptionHandling()
                 .authenticationEntryPoint(problemSupport)
@@ -113,7 +95,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //            .logout()
 //            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 //            .permitAll()
->>>>>>> 0660524ec859da467b6e288d53e2081b9f15c243
+
         .and()
             .headers()
             .contentSecurityPolicy("default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:")
@@ -123,26 +105,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .featurePolicy("geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; fullscreen 'self'; payment 'none'")
         .and()
             .frameOptions()
-<<<<<<< HEAD
-            .deny()
-        .and()
-            .authorizeRequests()
-            .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/account/reset-password/init").permitAll()
-            .antMatchers("/api/account/reset-password/finish").permitAll()
-            // .antMatchers("/api/**").authenticated()
-            .antMatchers("/management/health").permitAll()
-            .antMatchers("/management/info").permitAll()
-            .antMatchers("/management/prometheus").permitAll()
-            .antMatchers("/app/*").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/register").permitAll()
-            .antMatchers("/save").permitAll()
-            .antMatchers("/*").authenticated();
-            // .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN);
-=======
+
             .deny();
+   
 //        .and()
 //            .authorizeRequests()
 //            .antMatchers("/api/authenticate").permitAll()
@@ -159,7 +124,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //            .antMatchers("/save").permitAll()
 //            .antMatchers("/*").authenticated()
 //            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN);
->>>>>>> 0660524ec859da467b6e288d53e2081b9f15c243
+
         // @formatter:on
     }
 }
