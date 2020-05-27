@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage
+  },
+  {
+    path: 'create-question',
+    loadChildren: () => import('../create-question/create-question.module').then( m => m.CreateQuestionPageModule)
   }
 ];
 

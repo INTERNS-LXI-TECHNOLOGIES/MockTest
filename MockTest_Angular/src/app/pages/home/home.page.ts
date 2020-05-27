@@ -16,12 +16,12 @@ export class HomePage implements OnInit {
     {
      
       title: 'question',
-      url: '/question',
+      url: 'create-question',
       icon: 'mail'
     },
     {
       title: 'exam',
-      url: '/exam',
+      url: '/signup',
       icon: 'paper-plane'
     },
     {
@@ -56,7 +56,7 @@ export class HomePage implements OnInit {
   constructor(private mockTestSer: MockTestService) { }
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
+    const path = window.location.pathname.split('/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.adminPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
