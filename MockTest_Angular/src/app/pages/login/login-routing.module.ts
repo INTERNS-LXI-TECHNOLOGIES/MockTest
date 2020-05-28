@@ -8,10 +8,6 @@ const routes: Routes = [
     path: '',
     component: LoginPage
     
-  },
-  {
-    path: 'adminpage',
-    loadChildren: () => import('../adminpage/adminpage.module').then( m => m.AdminpagePageModule)
   }
 ];
 
