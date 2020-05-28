@@ -27,6 +27,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -91,18 +92,23 @@ public class MocktestControllerResource {
      * View authenticated pages or redirect index page 
      * @return index
      */
-	@RequestMapping(value="/")
-	public String index()
+	@SuppressWarnings("unlikely-arg-type")
+	@PostMapping(value="/login")
+	public String index(User user)
 	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
-//		if(isAdmin)
-//			return "admin";
-//		else if(isUser)
-//			return "user";
-//		else 
-			return "home";
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+//		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
+		List<String> authorities=userService.getAuthorities();
+		for(String auth:authorities)
+		{
+			if(auth.equals(user.getAuthorities().equals("ROLE_ADMIN"))) {
+			return"Admin";
+			}
+			
+				
+		}
+		 return "user";	
 	}
 	
 	

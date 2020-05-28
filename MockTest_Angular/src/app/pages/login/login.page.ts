@@ -3,6 +3,7 @@ import { ModalController,NavController } from '@ionic/angular';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { MenuController} from '@ionic/angular';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,11 @@ export class LoginPage implements OnInit {
 
   // data;
   // username;
- 
+  
+  userdata={}
   
   constructor(private modalCtrl: ModalController,
-    private userServ:UsersService,public menu: MenuController,private nav:NavController,
+    private userServ:UsersService,public menu: MenuController,private nav:NavController,private auth:AuthService,
     private router: Router) {}
 
   ngOnInit() {
@@ -24,8 +26,14 @@ export class LoginPage implements OnInit {
     //  this.users();
   }
   
-  navigateToHome() {
-    this.router.navigate(['/home']);
+  public async navigateToHome() {
+    
+    // this.auth.loginUser(this.userdata).subscribe(res => console.log(res),
+    // err=>console.log(err));
+
+    this.auth.loginUser(this.userdata);
+    console.log(this.auth.loginUser(this.userdata));
+   this.router.navigate(['/home']);
     }
   
   // users()

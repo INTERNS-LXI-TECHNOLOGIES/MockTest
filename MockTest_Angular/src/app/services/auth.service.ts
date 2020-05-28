@@ -1,28 +1,46 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { AdminpagePage } from '../pages/adminpage/adminpage.page';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  imports:[HttpClient]
 
-  constructor() { }
-  public isAuthenticated(): boolean {
-    // Return true or false
-    return true;
+  public isLogin=false;
+  private loginurl=""
+  constructor(private http: HttpClient) { }
+
+  public loginUser(user){
+    //  return this.http.post<any>(this.loginurl,user)
+    this.isLogin=true;
+   return 'admin';
+  
+  }
+  // public isAuthenticated(): boolean {
+    
+  //   return true;
+  //   }
+    
+    
+
+    // login() : void {
+    //   this.isLogin = true;
+    // }
+
+    // logout():void{
+    //   this.isLogin=false;
+    // }
+    
+    authenticated() : boolean {
+      return this.isLogin;
     }
     
-    public login(postData) {
-    // login actions
-    }
+    // public signup(postData) {
+    // }
     
+    // public logout() {
+   
+    // }
     
-    public signup(postData) {
-    // login actions
-    
-    }
-    
-    public logout() {
-    // logout actions
-    }
-    }
 }
