@@ -16,7 +16,7 @@ export class HomePage implements OnInit {
     {
      
       title: 'question',
-      url: 'create-question',
+      url: '/question',
       icon: 'mail'
     },
     {
@@ -49,6 +49,7 @@ export class HomePage implements OnInit {
       icon: 'trash'
     }
   ];
+  
   url:string='http://localhost:8080/api/mocktest-controller/';
   questions:any=this.mockTestSer.getDataFromServer('http://localhost:8080/api/questions/');
   // userRole=this.mockTestSer.getStringFromServer(this.url);
