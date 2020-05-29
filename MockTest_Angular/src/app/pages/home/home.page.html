@@ -36,9 +36,11 @@
    </ion-menu>
    <ion-router-outlet id="main-content"></ion-router-outlet>
  </ion-split-pane>
+
  <h2 *ngIf="isAuthenticated()" text-center>User is logged in!</h2>
 <h2 *ngIf="!isAuthenticated()" text-center>User is not logged in!</h2>
- 
+<ion-button color="success"  (click)="logout()">Log out</ion-button> 
+      
 
 
 </ion-content> 

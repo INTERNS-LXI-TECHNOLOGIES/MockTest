@@ -6,7 +6,7 @@ import { AdminpagePage } from '../pages/adminpage/adminpage.page';
 })
 export class AuthService {
   imports:[HttpClient]
-
+  public data;
   public isLogin=false;
   private loginurl=""
   constructor(private http: HttpClient) { }
@@ -14,33 +14,38 @@ export class AuthService {
   public loginUser(user){
     //  return this.http.post<any>(this.loginurl,user)
     this.isLogin=true;
-   return 'admin';
+    this. data =sessionStorage.getItem('userData');
+   return this.data;
   
   }
-  // public isAuthenticated(): boolean {
-    
-  //   return true;
-  //   }
-    
-    
 
-    // login() : void {
-    //   this.isLogin = true;
-    // }
-
-    // logout():void{
-    //   this.isLogin=false;
-    // }
-    
-    authenticated() : boolean {
-      return this.isLogin;
+  public isAuthenticated(): boolean {
+    const userData = sessionStorage.getItem('userData');
+    console.log(userData);
+    if (userData && userData.length > 0) {
+    return true;
+    } else {
+    return false;
+    }
     }
     
-    // public signup(postData) {
-    // }
+
+    public async login(postData) {
+      console.log(postData.username);
+      const loginApiResponce = {
+        name: 'pushkala',
+        role:'user'
+        // id: 4,
+        // token: '2323523523DFSWERWERWER'
+      };
+      await sessionStorage.setItem('userData', JSON.stringify(loginApiResponce));
+      return true;
+    }
     
-    // public logout() {
-   
-    // }
+    public async logout() {
+      await sessionStorage.removeItem('userData');
+      await sessionStorage.clear();
+      return true;
+    }
     
 }
