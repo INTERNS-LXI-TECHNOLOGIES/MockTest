@@ -66,8 +66,9 @@ export class LoginPage implements OnInit {
   // }
 
   async loginAction(){
-    
+    console.log(this.postData);
         if(this.postData.username && this.postData.password){
+          //here i want to use API action
           this.auth.loginUser(this.postData);
           console.log(this.postData.username);
           console.log(this.postData.password);
