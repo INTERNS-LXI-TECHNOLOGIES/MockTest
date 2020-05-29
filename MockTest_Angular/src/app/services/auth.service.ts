@@ -29,7 +29,11 @@ export class AuthService {
     }
     }
     
-
+    public async getUserInfo()
+    {
+      const userInfo=await sessionStorage.getItem('userData');
+      return JSON.parse(userInfo);
+    }
     public async login(postData) {
       console.log(postData.username);
       const loginApiResponce = {

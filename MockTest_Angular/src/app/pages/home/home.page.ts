@@ -54,6 +54,7 @@ export class HomePage implements OnInit {
   url:string='http://localhost:8080/api/mocktest-controller/';
   questions:any=this.mockTestSer.getDataFromServer('http://localhost:8080/api/questions/');
   // userRole=this.mockTestSer.getStringFromServer(this.url);
+  public userInfo :object;
    userRole;
   constructor(private mockTestSer: MockTestService,private auth:AuthService,private router:Router) { }
 
@@ -83,6 +84,10 @@ export class HomePage implements OnInit {
     if (path !== undefined) {
       this.selectedIndex = this.adminPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
+    this.auth.getUserInfo().then(userData => {
+      console.log(userData);
+      this.userInfo=userData;
+    })
   }
 
 }

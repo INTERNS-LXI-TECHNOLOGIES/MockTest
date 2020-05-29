@@ -39,6 +39,9 @@
 
  <h2 *ngIf="isAuthenticated()" text-center>User is logged in!</h2>
 <h2 *ngIf="!isAuthenticated()" text-center>User is not logged in!</h2>
+welcome {{userInfo?.name}}
+<p>
+<a  routerLink='/login'>logout?</a></p>
 <ion-button color="success"  (click)="logout()">Log out</ion-button> 
       
 
