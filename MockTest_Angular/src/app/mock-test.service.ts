@@ -3,10 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
+export interface QstnOption{
+  option: string;
+  isAnswer: boolean;
+}
+export interface Question {
+  qstn: string;
+  level: string;
+  options: Array<QstnOption>;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class MockTestService {
+  qstn:Question;
 
   getStringFromServer(url:string):Observable<string>{
    return this.http.get(url,{responseType: 'text'}).pipe(map(str => {

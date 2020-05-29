@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Question } from 'src/app/mock-test.service';
 
 @Component({
   selector: 'app-create-question',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateQuestionPage implements OnInit {
 
+  question:Question;
+  
   constructor() { }
 
   ngOnInit() {
+    console.log(this.question);
   }
 
 }
