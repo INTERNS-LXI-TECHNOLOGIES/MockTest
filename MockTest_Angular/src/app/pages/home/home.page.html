@@ -4,6 +4,11 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Logout
+           </ion-button>
+   
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
   <ion-content>
@@ -40,13 +45,10 @@
  <h2 *ngIf="isAuthenticated()" text-center>User is logged in!</h2>
 <h2 *ngIf="!isAuthenticated()" text-center>User is not logged in!</h2>
 welcome {{userInfo?.name}}
-<p>
-<a  routerLink='/login'>logout?</a></p>
-<ion-button color="success"  (click)="logout()">Log out</ion-button> 
-      
+
 
 
 </ion-content> 
-<ion-router-outlet></ion-router-outlet>
+
 
 

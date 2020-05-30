@@ -8,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {AuthService} from './services/auth.service';
 import{AuthGuard} from './guards/auth.guard';
+import {LoginGuard} from './guards/login.guard';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -24,7 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   providers: [
     StatusBar,
-    SplashScreen,AuthService,AuthGuard,
+    SplashScreen,AuthService,AuthGuard,LoginGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

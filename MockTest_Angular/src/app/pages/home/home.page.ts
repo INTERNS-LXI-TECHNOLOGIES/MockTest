@@ -49,6 +49,11 @@ export class HomePage implements OnInit {
       title: 'exam',
       url: '/folder/Trash',
       icon: 'trash'
+    },
+    {
+      title: 'logout',
+      url: './logout',
+      icon: 'power'
     }
   ];
   url:string='http://localhost:8080/api/mocktest-controller/';
