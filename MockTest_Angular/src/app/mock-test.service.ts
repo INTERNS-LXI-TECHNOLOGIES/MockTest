@@ -20,15 +20,17 @@ export interface Question {
 export class MockTestService {
   qstn:Question;
 
+  defUrl='http://localhost:8080/api/mocktest-controller';
+  
   getStringFromServer(url:string):Observable<string>{
-   return this.http.get(url,{responseType: 'text'}).pipe(map(str => {
-      console.log('data from server for url'+url+' is ::'+str);
+   return this.http.get(this.defUrl+url,{responseType: 'text'}).pipe(map(str => {
+      console.log('data from server for url'+this.defUrl+url+' is ::'+str);
       return str;}));
   }
 
   getDataFromServer(url:string){
-    return this.http.get(url).pipe(map(data => {
-      console.log('string from server for url'+url+' is ::'+data);
+    return this.http.get(this.defUrl+url).pipe(map(data => {
+      console.log('string from server for url'+this.defUrl+url+' is ::'+data);
         return data;}));
   }
 

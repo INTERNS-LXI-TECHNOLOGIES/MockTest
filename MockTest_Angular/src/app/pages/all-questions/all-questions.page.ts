@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MockTestService, Question } from 'src/app/mock-test.service';
 
 @Component({
   selector: 'app-all-questions',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllQuestionsPage implements OnInit {
 
-  constructor() { }
+  constructor(private mockSer:MockTestService) { }
+  
+  allQuestions=this.mockSer.getDataFromServer("/app/allQuestions");
 
   ngOnInit() {
   }

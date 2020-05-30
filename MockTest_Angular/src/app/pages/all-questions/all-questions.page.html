@@ -9,5 +9,11 @@
 
 
 <ion-content>
-
+  <ion-item  *ngFor="let question of (allQuestions | async),let i=index">
+   <p>
+    <ion-label>{{i+1}}) {{question.qstn}}</ion-label>  
+    <ion-label>{{question.level}}</ion-label>
+    <ion-label *ngFor="let opt of question.qstnOptions,let o=index">&nbsp;&nbsp;{{o+1}}. {{opt.option}}</ion-label>
+  </p> 
+  </ion-item> 
 </ion-content>
