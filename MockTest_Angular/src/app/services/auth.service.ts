@@ -11,14 +11,6 @@ export class AuthService {
   private loginurl=""
   constructor(private http: HttpClient) { }
 
-  public loginUser(user){
-    //  return this.http.post<any>(this.loginurl,user)
-    this.isLogin=true;
-    this. data =sessionStorage.getItem('userData');
-   return this.data;
-  
-  }
-
   public isAuthenticated(): boolean {
     const userData = sessionStorage.getItem('userData');
     console.log(userData);
@@ -35,7 +27,7 @@ export class AuthService {
       return JSON.parse(userInfo);
     }
     public async login(postData) {
-      console.log(postData.username);
+      console.log('user'+postData.username);
       const loginApiResponce = {
         name: 'pushkala',
         role:'user'
@@ -43,9 +35,21 @@ export class AuthService {
         // token: '2323523523DFSWERWERWER'
       };
       await sessionStorage.setItem('userData', JSON.stringify(loginApiResponce));
+      this.data =sessionStorage.getItem('userData');
+      console.log('data'+this.data);
       return true;
     }
+    public loginUser(user){
+      //  return this.http.post<any>(this.loginurl,user)
+      console.log('hiiiii'+user);
+      this.isLogin=true;
+      console.log(this.isLogin);
+      this.data =sessionStorage.getItem('userData');
+      console.log(this.data);
+     return this.data;
     
+    }
+  
     public async logout() {
       await sessionStorage.removeItem('userData');
       await sessionStorage.clear();

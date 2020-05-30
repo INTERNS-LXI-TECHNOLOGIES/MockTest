@@ -36,17 +36,7 @@ export class LoginPage implements OnInit {
    
     //  this.users();
   }
-  
-  public async navigateToHome() {
-    
-    // this.auth.loginUser(this.userdata).subscribe(res => console.log(res),
-    // err=>console.log(err));
-
-    this.auth.loginUser(this.postData);
-    console.log(this.auth.loginUser(this.userdata));
-   this.router.navigate(['/home']);
-    }
-  
+ 
   // users()
   // {
   //   this.userServ.getData().subscribe(data => {
@@ -69,10 +59,11 @@ export class LoginPage implements OnInit {
     console.log(this.postData);
         if(this.postData.username && this.postData.password){
           //here i want to use API action
-          this.auth.loginUser(this.postData);
+       
           console.log(this.postData.username);
           console.log(this.postData.password);
             if(this.auth.login(this.postData)){
+              this.auth.loginUser(this.postData);
                    this.router.navigate(['/home']);
              }
             } else {

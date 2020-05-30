@@ -25,7 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   providers: [
     StatusBar,
-    SplashScreen,AuthService,AuthGuard,LoginGuard,
+    SplashScreen,AuthService,AuthGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

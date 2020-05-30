@@ -49,11 +49,6 @@ export class HomePage implements OnInit {
       title: 'exam',
       url: '/folder/Trash',
       icon: 'trash'
-    },
-    {
-      title: 'logout',
-      url: './logout',
-      icon: 'power'
     }
   ];
   url:string='http://localhost:8080/api/mocktest-controller/';
@@ -89,6 +84,7 @@ export class HomePage implements OnInit {
     if (path !== undefined) {
       this.selectedIndex = this.adminPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
+    this.isAuthenticated();
     this.auth.getUserInfo().then(userData => {
       console.log(userData);
       this.userInfo=userData;
