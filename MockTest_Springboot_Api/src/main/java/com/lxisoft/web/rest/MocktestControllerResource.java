@@ -112,13 +112,13 @@ public class MocktestControllerResource {
 	}
 	
 	
-//	 @GetMapping("/all")
-//	   @CrossOrigin(origins = {"http://localhost:8100","http://localhost:8080"})
-//	    public ResponseEntity<List<UserDTO>> getAll() {
-//	    	Pageable pageable=null;
-//	    	return userRes.getAllUsers(pageable);
-//	        
-//	    }
+	 @GetMapping("/all")
+	   @CrossOrigin(origins = {"http://localhost:8100","http://localhost:8080"})
+	    public ResponseEntity<List<UserDTO>> getAll() {
+	    	Pageable pageable=null;
+	    	return userRes.getAllUsers(pageable);
+	        
+	    }
     
     
 //    /**

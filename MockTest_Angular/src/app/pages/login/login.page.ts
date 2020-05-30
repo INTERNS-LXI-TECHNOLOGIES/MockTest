@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController,NavController,ToastController } from '@ionic/angular';
-import { UsersService } from '../../services/users.service';
+
 import { Router } from '@angular/router';
 import { MenuController} from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginPage implements OnInit {
 
-  // data;
+  
   // username;
   
   userdata={}
@@ -22,7 +22,6 @@ export class LoginPage implements OnInit {
     public errorText: string;
 
   constructor(private modalCtrl: ModalController,
-              private userServ:UsersService,
               public menu: MenuController,
               private nav:NavController,
               private auth:AuthService,
@@ -34,17 +33,9 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
    
-    //  this.users();
+ 
   }
  
-  // users()
-  // {
-  //   this.userServ.getData().subscribe(data => {
-  //     console.log(data);
-  //     this.data=data;
-      
-  //   });
-  // }
 
   // print(event)
   // {

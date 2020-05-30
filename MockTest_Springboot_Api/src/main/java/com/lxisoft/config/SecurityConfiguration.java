@@ -74,15 +74,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-            .csrf().disable()
-           // .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-       // .and()
+            .csrf()//.disable()
+           .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+       .and()
          
             .addFilterBefore(corsFilter, CsrfFilter.class)
             .exceptionHandling()
                 .authenticationEntryPoint(problemSupport)
                 .accessDeniedHandler(problemSupport)
-                 
 //        .and()
 //            .rememberMe()
 //            .rememberMeServices(rememberMeServices)
@@ -116,7 +115,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //            .antMatchers("/api/activate").permitAll()
 //            .antMatchers("/api/account/reset-password/init").permitAll()
 //            .antMatchers("/api/account/reset-password/finish").permitAll()
-            // .antMatchers("/api/**").authenticated()
+//            .antMatchers("/api/**").authenticated()
 //            .antMatchers("/management/health").permitAll()
 //            .antMatchers("/management/info").permitAll()
 //            .antMatchers("/management/prometheus").permitAll()

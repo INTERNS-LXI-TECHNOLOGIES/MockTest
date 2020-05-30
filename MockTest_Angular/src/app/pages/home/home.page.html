@@ -44,7 +44,12 @@
 
  <!-- <h2 *ngIf="isAuthenticated()" text-center>User is logged in!</h2>
 <h2 *ngIf="!isAuthenticated()" text-center>User is not logged in!</h2> -->
-welcome {{userInfo?.name}}
+<h2>welcome {{userInfo?.name}}</h2>
+
+    <!-- <p *ngIf="data"> yes you have datas!!</p> -->
+<ion-item *ngFor="let d of data">
+     {{d.firstName}} {{d.lastName}}
+</ion-item>
 
 
 
