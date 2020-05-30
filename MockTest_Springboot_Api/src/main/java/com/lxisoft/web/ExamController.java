@@ -642,7 +642,7 @@ public class ExamController
 	@RequestMapping ("/app/set_Answer")
 	public String setAnswer(@RequestParam String opt_Id,@RequestParam String qstn_id)
 	{
-		Question question=questService.findById(qstn_id);
+		Question question=questService.findById(Integer.parseInt(qstn_id));
 		QstnOption qstn_optn=optService.findById(opt_Id);
 		if(qstn_optn.isIsAnswer()==false)
 			qstn_optn.setIsAnswer(true);
