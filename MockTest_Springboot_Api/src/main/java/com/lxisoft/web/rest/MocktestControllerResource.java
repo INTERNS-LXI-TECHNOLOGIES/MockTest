@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,6 +54,7 @@ import com.lxisoft.service.UserExtraService;
 import com.lxisoft.service.UserService;
 import com.lxisoft.service.dto.UserDTO;
 
+import io.github.jhipster.web.util.ResponseUtil;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -119,7 +121,15 @@ public class MocktestControllerResource {
 	    	return userRes.getAllUsers(pageable);
 	        
 	    }
-    
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable long id) {
+        log.debug("REST request to get User : {}", id);
+//        Long userid=Long.parseLong(id);
+        return ResponseUtil.wrapOrNotFound(
+            userService.getUserWithAuthorities(id)
+                .map(UserDTO::new));
+    }
     
 //    /**
 //     * view index page

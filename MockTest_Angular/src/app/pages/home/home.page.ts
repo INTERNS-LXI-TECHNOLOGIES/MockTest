@@ -56,9 +56,10 @@ export class HomePage implements OnInit {
   questions:any=this.mockTestSer.getDataFromServer('http://localhost:8080/api/questions/');
   // userRole=this.mockTestSer.getStringFromServer(this.url);
 
-  public userInfo :object;
+  public userInfo:object;
    userRole;
    data;
+   registerId;
   constructor(private mockTestSer: MockTestService,private userServ:UsersService,private auth:AuthService,private router:Router) { }
 
   isAuthenticated(){
@@ -80,14 +81,12 @@ export class HomePage implements OnInit {
   }
 
   }
-
   
   users()
   {
-    this.userServ.getData().subscribe(data => {
+    this.userServ.getUserById(this.registerId).subscribe(data => {
       console.log(data);
       this.data=data;
-      
     });
   }
   ngOnInit() {
@@ -102,6 +101,8 @@ export class HomePage implements OnInit {
     this.auth.getUserInfo().then(userData => {
       console.log(userData);
       this.userInfo=userData;
+      this.registerId=userData.id;
+      console.log(this.registerId);
     })
   }
 
