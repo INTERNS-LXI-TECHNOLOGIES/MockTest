@@ -8,15 +8,28 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="logForm()">
+  <form (ngSubmit)="logForm(form)">
     <ion-item>
-      <ion-label>enter the question </ion-label>
+      <ion-label>enter the question: </ion-label>
       <ion-input type="text" [(ngModel)]="question.qstn" name="question"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>select the level</ion-label>
-      <!-- <ion-textarea [(ngModel)]="todo.description" name="description"></ion-textarea> -->
+      <ion-label>select the level: &nbsp;
+      <select [(ngModel)]="question.level" [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let level of allLevels" [value]="level">{{level}}</option>
+      </select>
+    </ion-label>
     </ion-item>
-    <button ion-button type="submit" block>Add Todo</button>
+
+      <ion-item *ngFor="let opt of question.options,let i=index">
+        <ion-label>enter option-{{i+1}}: </ion-label>
+        <ion-input type="text" [(ngModel)]="question.options[i].option" name="option"></ion-input>
+      </ion-item>
+      <br>
+      <div align="center">
+        <button type="submit">save</button>
+      </div>
   </form>
+
+  <p *ngIf="question.qstn != ''"> {{question.qstn}}  {{question.options[2].option}}</p>
 </ion-content>

@@ -13,12 +13,10 @@ export interface Question {
   options: Array<QstnOption>;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class MockTestService {
-  qstn:Question;
 
   defUrl='http://localhost:8080/api/mocktest-controller';
   

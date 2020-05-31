@@ -8,12 +8,35 @@ import { Question } from 'src/app/mock-test.service';
 })
 export class CreateQuestionPage implements OnInit {
 
-  question:Question;
+  question:Question={
+    qstn:'',
+    level:'beginner',
+    options:[
+      {
+        option:'',
+        isAnswer:false
+      },
+      {
+        option:'',
+        isAnswer:false
+      },
+      {
+        option:'',
+        isAnswer:false
+      }
+    ]
+  };
+
+  allLevels=['beginner','intermediate','expert'];
+
+  logForm(form) {
+    console.log('question is '+this.question.options[1].isAnswer)
+  }
   
   constructor() { }
 
   ngOnInit() {
-    console.log(this.question);
+    console.log('question is '+this.question.qstn);
   }
 
 }
