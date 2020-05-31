@@ -7,8 +7,20 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
-    canActivate: [AuthGuard]
-  }
+    canActivate: [AuthGuard],
+    children: [
+      
+        {
+          path: 'active-exams',
+          loadChildren: () => import('../active-exams/active-exams.module').then( m => m.ActiveExamsPageModule)
+        },
+        {
+          path: 'user-dashboard',
+          loadChildren: () => import('../user-dashboard/user-dashboard.module').then( m => m.UserDashboardPageModule)
+        }
+
+      ]
+    }
 ];
 
 @NgModule({

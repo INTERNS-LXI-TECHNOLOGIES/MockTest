@@ -43,14 +43,14 @@ export class HomePage implements OnInit {
     },
  
     {
-      title: 'dashboard',
-      url: '/dashboard',
+      title: 'Dashboard',
+      url:  './user-dashboard',
       icon: 'mail'
     },
     {
-      title: 'exam',
-      url: '/folder/Trash',
-      icon: 'trash'
+      title: 'ActiveExams',
+      url: './active-exams',
+      icon: 'heart'
     }
   ];
   url:string='http://localhost:8080/api/mocktest-controller/';
@@ -59,8 +59,7 @@ export class HomePage implements OnInit {
 
   public userInfo:object;
    userRole;
-   data;
-   id;
+
 //  registerId;
   constructor(private mockTestSer: MockTestService,private http: HttpClient,
     private route: ActivatedRoute,private userServ:UsersService,private auth:AuthService,private router:Router) { }
@@ -84,17 +83,7 @@ export class HomePage implements OnInit {
   }
 
   }
-  
-  users()
-  {
-    // this.userServ.getUserById('http://localhost:8080/api/mocktest-controller/users/'+this.id).subscribe(data => {
-      this.userServ.getUserById(this.id).subscribe(data => {
-      console.log(data);
-      this.data=data});
-    
-  
-   
-  }
+ 
 
   ngOnInit() {
 
@@ -108,8 +97,8 @@ export class HomePage implements OnInit {
     this.auth.getUserInfo().then(userData => {
       console.log(userData);
       this.userInfo=userData;
-      this.id=userData.id;
-      this.users();
+      // this.id=userData.id;
+     
     })
    
 
