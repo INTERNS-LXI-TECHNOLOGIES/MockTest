@@ -44,13 +44,24 @@
 
  <!-- <h2 *ngIf="isAuthenticated()" text-center>User is logged in!</h2>
 <h2 *ngIf="!isAuthenticated()" text-center>User is not logged in!</h2> -->
-<h2>welcome {{userInfo?.name}}</h2>
+<div class="ion-text-center"> <h2>welcome {{userInfo?.name}}</h2> </div>
 
-    <p *ngIf="data"> yes you have datas!!</p>
-<!-- <ion-item *ngFor="let d of data">
+
+    <!-- <p *ngIf="data"> yes you have datas!!</p>   -->
+<!--     
+<ion-item *ngFor="let d of data">
      {{d.firstName}} {{d.lastName}}
 </ion-item> -->
- 
+<ion-card *ngFor="let d of data">
+  <ion-card-content>
+    <p>
+     FirstName  : {{d.firstName}} 
+     LastName   : {{d.lastName}}
+     Email      : {{d.email}}
+     RegisterId : {{d.id}}
+    </p>
+  </ion-card-content>
+</ion-card>
 
 
 </ion-content> 

@@ -10,10 +10,10 @@ export class UsersService {
   constructor(private http: HttpClient) { }
   getData(){
     return this.http.get(`http://localhost:8080/api/mocktest-controller/all/`);
-   
   }
+  
   getUserById(id)
   {
-    return this.http.get(`http://localhost:8080/api/mocktest-controller/users/id`);
+    return this.http.get('http://localhost:8080/api/mocktest-controller/users/'+id);
   }
 }

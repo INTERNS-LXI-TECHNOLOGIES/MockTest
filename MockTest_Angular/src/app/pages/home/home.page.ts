@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MockTestService } from '../../mock-test.service';
 import{AuthService} from '../../services/auth.service';
-import{Router} from '@angular/router';
+import{Router,ActivatedRoute} from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { UsersService } from '../../services/users.service';
 @Component({
   selector: 'app-home',
@@ -59,8 +60,10 @@ export class HomePage implements OnInit {
   public userInfo:object;
    userRole;
    data;
-   registerId;
-  constructor(private mockTestSer: MockTestService,private userServ:UsersService,private auth:AuthService,private router:Router) { }
+   id;
+//  registerId;
+  constructor(private mockTestSer: MockTestService,private http: HttpClient,
+    private route: ActivatedRoute,private userServ:UsersService,private auth:AuthService,private router:Router) { }
 
   isAuthenticated(){
    if(this.auth.isLogin==true)
@@ -84,15 +87,19 @@ export class HomePage implements OnInit {
   
   users()
   {
-    this.userServ.getUserById(this.registerId).subscribe(data => {
+    // this.userServ.getUserById('http://localhost:8080/api/mocktest-controller/users/'+this.id).subscribe(data => {
+      this.userServ.getUserById(this.id).subscribe(data => {
       console.log(data);
-      this.data=data;
-    });
+      this.data=data});
+    
+  
+   
   }
+
   ngOnInit() {
 
     this.userRole='user'
-    this.users();
+ 
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.adminPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
@@ -101,9 +108,12 @@ export class HomePage implements OnInit {
     this.auth.getUserInfo().then(userData => {
       console.log(userData);
       this.userInfo=userData;
-      this.registerId=userData.id;
-      console.log(this.registerId);
+      this.id=userData.id;
+      this.users();
     })
+   
+
+  
   }
 
 }

@@ -125,7 +125,7 @@ public class MocktestControllerResource {
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable long id) {
         log.debug("REST request to get User : {}", id);
-//        Long userid=Long.parseLong(id);
+       // Long userid=Long.parseLong(id);
         return ResponseUtil.wrapOrNotFound(
             userService.getUserWithAuthorities(id)
                 .map(UserDTO::new));
