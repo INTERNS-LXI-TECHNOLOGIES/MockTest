@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AdminpagePage } from '../pages/adminpage/adminpage.page';
+
 @Injectable({
   providedIn: 'root'
 })

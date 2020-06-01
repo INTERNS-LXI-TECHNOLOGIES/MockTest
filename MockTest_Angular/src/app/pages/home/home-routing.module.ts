@@ -17,10 +17,14 @@ const routes: Routes = [
         {
           path: 'user-dashboard',
           loadChildren: () => import('../user-dashboard/user-dashboard.module').then( m => m.UserDashboardPageModule)
+        },
+        {
+          path: 'question',
+          loadChildren: () => import('../question/question.module').then( m => m.QuestionPageModule)
         }
 
       ]
-    }
+    } 
 ];
 
 @NgModule({

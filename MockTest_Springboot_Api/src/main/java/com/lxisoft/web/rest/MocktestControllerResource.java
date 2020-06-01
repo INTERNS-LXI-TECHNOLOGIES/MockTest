@@ -27,7 +27,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,9 +97,14 @@ public class MocktestControllerResource {
      * View authenticated pages or redirect index page 
      * @return index
      */
+
 	@SuppressWarnings("unlikely-arg-type")
 	@PostMapping(value="/login")
 	public String index(User user)
+
+	// @GetMapping(value="/")
+	// public String index()
+
 	{
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
@@ -113,6 +121,23 @@ public class MocktestControllerResource {
 		 return "user";	
 	}
 	
+	@GetMapping ("/app/allQuestions")
+	public List<Question> getAllQuestions() 
+	{
+		return questService.findAll();
+	}
+	
+	@GetMapping ("/app/question/{id}")
+	public Question getQuestion(@PathVariable Long id) 
+	{
+		return questService.findById(id);
+	}
+	
+	@PostMapping ("/app/question")
+	public void createQuestion(@RequestBody Question question) 
+	{
+		questService.save(question);
+	}
 	
 	 @GetMapping("/all")
 	   @CrossOrigin(origins = {"http://localhost:8100","http://localhost:8080"})
@@ -313,7 +338,7 @@ public class MocktestControllerResource {
 //		{
 //			AttendedExam attendedExam=attendExamService.findById(aExamId);
 //			Exam exam = examService.findById(eId);
-//			List<Question> list=questService.getAllQuestionsFromExam(exam);
+//			List<Question> list=questService.getFvitionsFromExam(exam);
 //			int pos = Integer.parseInt(index);
 //			ListIterator<Question> lit = list.listIterator(pos);
 //			model.addAttribute("aExamId",aExamId);
@@ -423,19 +448,6 @@ public class MocktestControllerResource {
 //		attendExamService.deleteById(aExamId);
 //		return "redirect:/";
 //	}
-	
-	
-	/**
-     * Question creation page by admin
-     * @param model
-     * @return create_question
-     */
-	@RequestMapping("/app/create_question")
-	public Question question()
-	{
-		return new Question();
-	}
-
 
 //	/**
 //     * Add a question in to database

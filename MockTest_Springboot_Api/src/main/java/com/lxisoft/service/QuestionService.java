@@ -67,10 +67,9 @@ public class QuestionService {
          * Find a Question from Database By its id
          * @return Question.
          */
-    	public Question findById(String qstn_id) {
-    		long id=Integer.parseInt(qstn_id);
+    	public Question findById(long qstn_id) {
     		Question quest=null;
-    			Optional< Question> optional=questRepo.findById(id);
+    			Optional< Question> optional=questRepo.findById(qstn_id);
     			if(optional.isPresent())
     			{
     				quest=optional.get();
@@ -219,7 +218,7 @@ public class QuestionService {
 		public void deleteMultiple(List<String> qIds) {
 			for(String id:qIds)
 			{
-				delete(findById(id));
+				delete(findById(Integer.parseInt(id)));
 			}
 		}
 		
@@ -233,7 +232,7 @@ public class QuestionService {
 			List<Question> qstnList=new ArrayList<Question>();
 			for(String id:qIds)
 			{
-				Question temp=activeQuestionCheck(findById(id));
+				Question temp=activeQuestionCheck(findById(Integer.parseInt(id)));
 				if(temp!=null)
 					qstnList.add(temp);
 			}

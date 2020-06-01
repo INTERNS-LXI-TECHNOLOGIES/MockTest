@@ -9,19 +9,19 @@ const routes: Routes = [
     component: IndexPage,
     canActivate:[LoginGuard],
     children: [
-                  {
-                    path: '',
-                    loadChildren: () => import('../welcome/welcome.module').then( m => m.WelcomePageModule)
-                  },
-                  {
-                    path: 'login',
-                    loadChildren: () => import('../login/login.module').then( m => m.LoginPageModule)
-                  },
-                  {
-                    path: 'signup',
-                    loadChildren: () => import('../signup/signup.module').then( m => m.SignupPageModule)
-                  }
-              ]
+          {
+            path: '',
+            loadChildren: () => import('../welcome/welcome.module').then( m => m.WelcomePageModule)
+          },
+          {
+            path: 'login',
+            loadChildren: () => import('../login/login.module').then( m => m.LoginPageModule)
+          },
+          {
+            path: 'signup',
+            loadChildren: () => import('../signup/signup.module').then( m => m.SignupPageModule)
+          }
+      ]
     }
 ];
 

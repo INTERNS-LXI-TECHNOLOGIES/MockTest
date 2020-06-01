@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AdminpagePageRoutingModule } from './adminpage-routing.module';
+import { AllQuestionsPageRoutingModule } from './all-questions-routing.module';
 
-import { AdminpagePage } from './adminpage.page';
+import { AllQuestionsPage } from './all-questions.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdminpagePageRoutingModule
+    AllQuestionsPageRoutingModule
   ],
-  declarations: [AdminpagePage]
+  declarations: [AllQuestionsPage]
 })
-export class AdminpagePageModule {}
+export class AllQuestionsPageModule {}
