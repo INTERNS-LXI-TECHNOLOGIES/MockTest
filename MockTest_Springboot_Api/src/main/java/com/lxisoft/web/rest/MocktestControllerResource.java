@@ -99,8 +99,8 @@ public class MocktestControllerResource {
      */
 
 	@SuppressWarnings("unlikely-arg-type")
-	@PostMapping(value="/login")
-	public String index(User user)
+	@PostMapping(value="/login/{login}")
+	public String index(@PathVariable String login )
 
 	// @GetMapping(value="/")
 	// public String index()
@@ -109,16 +109,27 @@ public class MocktestControllerResource {
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 //		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
+		Pageable pageable=null;
+		List<User> users=extraService.findAll();
 		List<String> authorities=userService.getAuthorities();
-		for(String auth:authorities)
-		{
-			if(auth.equals(user.getAuthorities().equals("ROLE_ADMIN"))) {
-			return"Admin";
+		for( User user:users)
+		{	
+				log.debug("cssdfsd"+login);
+			if(user.getLogin().equals(login))
+			{
+				log.debug(login);
+				for(String auth:authorities)
+				{
+					if((auth.equals(user.getAuthorities().equals("ROLE_ADMIN")))&&(auth.equals(user.getAuthorities().equals("ROLE_USER"))))
+					 {
+						return"Admin";
+					 }	
+				}
+						
 			}
 			
-				
 		}
-		 return "user";	
+		return "user";	 
 	}
 	
 	@GetMapping ("/app/allQuestions")

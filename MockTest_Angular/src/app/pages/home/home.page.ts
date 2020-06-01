@@ -85,7 +85,6 @@ export class HomePage implements OnInit {
 
   }
  
-
   ngOnInit() {
 
     this.userRole='user'
