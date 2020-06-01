@@ -32,8 +32,8 @@ export class MockTestService {
         return data;}));
   }
 
-  putDataToServer(url:string,data){
-    return this.http.put(this.defUrl+url,data);
+  postDataToServer(url:string,data){
+    return this.http.post(this.defUrl+url,data);
   }
   constructor(private http:HttpClient) { }
 }
