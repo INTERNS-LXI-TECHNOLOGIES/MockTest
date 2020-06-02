@@ -30,7 +30,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,6 +45,7 @@ import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
+import com.lxisoft.domain.Authority;
 import com.lxisoft.model.AttendedExamBean;
 import com.lxisoft.service.AttendedExamBeanService;
 import com.lxisoft.service.AttendedExamService;
@@ -55,6 +58,7 @@ import com.lxisoft.service.UserExtraService;
 import com.lxisoft.service.UserService;
 import com.lxisoft.service.dto.UserDTO;
 
+import io.github.jhipster.web.util.ResponseUtil;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -94,18 +98,40 @@ public class MocktestControllerResource {
      * View authenticated pages or redirect index page 
      * @return index
      */
-	@GetMapping(value="/")
-	public String index()
+
+	@SuppressWarnings("unlikely-arg-type")
+	@PostMapping(value="/login/{login}")
+	public String index(@PathVariable String login )
+
+	// @GetMapping(value="/")
+	// public String index()
+
 	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
-//		if(isAdmin)
-//			return "admin";
-//		else if(isUser)
-//			return "user";
-//		else 
-			return "home";
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+//		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
+		Pageable pageable=null;
+		List<User> users=extraService.findAll();
+		
+//		for( User user:users)
+//		{	
+//			Set<Authority> authorities=user.getAuthorities();
+//				log.debug("cssdfsd"+login);
+//			if(user.getLogin().equals(login))
+//			{
+//				log.debug(login);
+//				for(Authority auth:authorities)
+//				{
+//					if((auth.equals(user.getAuthorities().equals("ROLE_ADMIN")))&&(auth.equals(user.getAuthorities().equals("ROLE_USER"))))
+//					 {
+//						return"Admin";
+//					 }	
+//				}
+//						
+//			}
+//			
+//		}
+		return "user";	 
 	}
 	
 	@GetMapping ("/app/allQuestions")
@@ -126,14 +152,22 @@ public class MocktestControllerResource {
 		questService.save(question);
 	}
 	
-//	 @GetMapping("/all")
-//	   @CrossOrigin(origins = {"http://localhost:8100","http://localhost:8080"})
-//	    public ResponseEntity<List<UserDTO>> getAll() {
-//	    	Pageable pageable=null;
-//	    	return userRes.getAllUsers(pageable);
-//	        
-//	    }
-    
+	 @GetMapping("/all")
+	   @CrossOrigin(origins = {"http://localhost:8100","http://localhost:8080"})
+	    public ResponseEntity<List<UserDTO>> getAll() {
+	    	Pageable pageable=null;
+	    	return userRes.getAllUsers(pageable);
+	        
+	    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable long id) {
+        log.debug("REST request to get User : {}", id);
+       // Long userid=Long.parseLong(id);
+        return ResponseUtil.wrapOrNotFound(
+            userService.getUserWithAuthorities(id)
+                .map(UserDTO::new));
+    }
     
 //    /**
 //     * view index page

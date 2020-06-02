@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>AttendedExams</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    
+<ion-item *ngFor="let d of attendedExamdata">
+ {{d?.exam?.name}} {{d?.exam?.level}} {{result}}
+ 
+</ion-item>
+</ion-content>

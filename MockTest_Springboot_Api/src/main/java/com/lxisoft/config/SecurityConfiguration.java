@@ -74,14 +74,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-            .csrf()//.disable()
-           .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-       .and()
+            .csrf().disable()
+       //     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+       // .and()
          
-            .addFilterBefore(corsFilter, CsrfFilter.class)
-            .exceptionHandling()
-                .authenticationEntryPoint(problemSupport)
-                .accessDeniedHandler(problemSupport)
+            // .addFilterBefore(corsFilter, CsrfFilter.class)
+            // .exceptionHandling()
+            //     .authenticationEntryPoint(problemSupport)
+            //     .accessDeniedHandler(problemSupport)
 //        .and()
 //            .rememberMe()
 //            .rememberMeServices(rememberMeServices)
@@ -96,7 +96,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 //            .permitAll()
 
-        .and()
+        // .and()
             .headers()
             .contentSecurityPolicy("default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:")
         .and()

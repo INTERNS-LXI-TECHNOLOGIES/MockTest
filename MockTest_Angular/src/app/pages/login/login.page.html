@@ -21,17 +21,18 @@
     <ion-list>
     <ion-item >
       <ion-label position="floating">Username</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="text"  [(ngModel)]="postData.username" [ngModelOptions]="{standalone: true}" required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" required></ion-input>
+      <ion-input type="password" [(ngModel)]="postData.password" [ngModelOptions]="{standalone: true}" required></ion-input>
     </ion-item>
+   
     </ion-list>
     
-        <ion-button color="success" share="round" expand="block"  (click)="navigateToHome()">Log In</ion-button>
-      
+        <ion-button color="success" share="round" expand="block"  (click)="loginAction()">Log In</ion-button>
+       
        <p> <a  routerLink='/'>Forgot Password?</a> </p>
      
        <p ><a  routerLink='/signup'>Create Account..!</a></p>
@@ -41,25 +42,8 @@
 
 
 
-  <!-- <ion-card>
-    <ion-card-header>hi</ion-card-header></ion-card>
-    <p *ngIf="data"> yes you have datas!!</p>
-<ion-card *ngFor="let d of data">
-
-  <ion-card-header>
-    <ion-card-subtitle>mock</ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content>
-    Details
-    <p>
-     {{d.firstName}} {{d.lastName}}
-      
-    </p>
-   
-
-  </ion-card-content>
-</ion-card>
-<router-outlet></router-outlet> -->
+  
+<!-- <router-outlet></router-outlet> --> 
 
 
 
