@@ -9,6 +9,8 @@ export class AttendedExamsPage implements OnInit {
 
   constructor(private userServ:UsersService) { }
   attendedExamdata;
+ public result;
+
   attendedExams()
   {
     this.userServ.getAttendedExamDetails().subscribe(data => {
@@ -17,6 +19,10 @@ export class AttendedExamsPage implements OnInit {
   }
   ngOnInit() {
     this.attendedExams();
+    // if(this.attendedExamdata?.result==true)
+    // {
+    //   this.result="pass";
+    // }
   }
 
 }
