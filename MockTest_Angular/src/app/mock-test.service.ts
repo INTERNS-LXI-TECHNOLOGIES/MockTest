@@ -10,7 +10,7 @@ export interface QstnOption{
 export interface Question {
   qstn: string;
   level: string;
-  options: Array<QstnOption>;
+  qstnOptions: Array<QstnOption>;
 }
 
 @Injectable({
@@ -32,8 +32,10 @@ export class MockTestService {
         return data;}));
   }
 
-  postDataToServer(url:string,data){
-    return this.http.post(this.defUrl+url,data);
+  postDataToServer(url:string,data:Question){
+    console.log('post data  for url'+this.defUrl+url+' is ::'+data);
+    this.http.post(this.defUrl+url,data);
   }
+
   constructor(private http:HttpClient) { }
 }

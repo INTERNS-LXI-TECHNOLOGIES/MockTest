@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
@@ -154,9 +155,13 @@ public class MocktestControllerResource {
 	}
 	
 	@PostMapping ("/app/question")
-	public void createQuestion(@RequestBody Question question) 
+	public void createQuestion(@RequestBody Object question) 
 	{
-		questService.save(question);
+		log.debug("saving question {}"+question);
+//		Set<QstnOption> options=question.getQstnOptions();
+//		Iterator<QstnOption> i = options.iterator(); 
+//		optService.saveQstnOptn(question,i.next().getOption(),i.next().getOption(),i.next().getOption());
+//		questService.save(question);
 	}
 	
 	 @GetMapping("/all")
@@ -176,6 +181,7 @@ public class MocktestControllerResource {
                 .map(UserDTO::new));
     }
     
+
 //    /**
 //     * view index page
 //     * @return  index page 

@@ -30,6 +30,8 @@ public class OptionService {
 
     @Autowired
 	private QstnOptionRepository optRepo;
+    @Autowired
+    private QuestionService qstnService;
     
     /**
      * Save an Option
@@ -48,10 +50,12 @@ public class OptionService {
      */
 	public Question saveQstnOptn( Question question,String ...options) 
 	{
+		log.debug("options saving {} "+options[0],options[1],options[2]);
 		for(int i=0;i<options.length;i++)
 		{
 			QstnOption optn=new QstnOption();
 			optn.setOption(options[i]);
+			qstnService.save(question);
 			optn.setQuestion(question);
 			save(optn);
 		}
