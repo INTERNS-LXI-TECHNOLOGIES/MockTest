@@ -47,6 +47,8 @@ import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
 import com.lxisoft.domain.Authority;
 import com.lxisoft.model.AttendedExamBean;
+import com.lxisoft.model.UserDashBoard;
+import com.lxisoft.repository.UserExtraRepository;
 import com.lxisoft.service.AttendedExamBeanService;
 import com.lxisoft.service.AttendedExamService;
 import com.lxisoft.service.AttendedOptionService;
@@ -54,6 +56,7 @@ import com.lxisoft.service.ExamService;
 import com.lxisoft.service.JasperService;
 import com.lxisoft.service.OptionService;
 import com.lxisoft.service.QuestionService;
+import com.lxisoft.service.RestApiService;
 import com.lxisoft.service.UserExtraService;
 import com.lxisoft.service.UserService;
 import com.lxisoft.service.dto.UserDTO;
@@ -90,6 +93,8 @@ public class MocktestControllerResource {
 	private	UserExtraService extraService;
 	@Autowired
 	private AttendedOptionService attendOptSer;
+	@Autowired
+	private RestApiService restServ;
 	
 	  @Autowired 
 	    UserResource userRes;
@@ -103,13 +108,7 @@ public class MocktestControllerResource {
 	@PostMapping(value="/login/{login}")
 	public String index(@PathVariable String login )
 
-	// @GetMapping(value="/")
-	// public String index()
-
 	{
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-//		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
 		Pageable pageable=null;
 		List<User> users=extraService.findAll();
 		
@@ -153,7 +152,7 @@ public class MocktestControllerResource {
 	}
 	
 	 @GetMapping("/all")
-	   @CrossOrigin(origins = {"http://localhost:8100","http://localhost:8080"})
+//	   @CrossOrigin(origins = {"http://localhost:8100","http://localhost:8080"})
 	    public ResponseEntity<List<UserDTO>> getAll() {
 	    	Pageable pageable=null;
 	    	return userRes.getAllUsers(pageable);
@@ -168,6 +167,26 @@ public class MocktestControllerResource {
             userService.getUserWithAuthorities(id)
                 .map(UserDTO::new));
     }
+    
+	
+	/**
+    * view of user_dashboard
+    */
+    @GetMapping("/user_dashboard/{login}")
+    public UserDashBoard userDashboard(UserDashBoard board,@PathVariable String login) {
+    	
+//		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
+		UserExtra userExtra=restServ.currentUserExtra(login);
+		log.debug("email of user "+userExtra.getUser().getEmail());
+		board.setCurrentUser(userExtra);
+		board.setUserId(userExtra.getId());
+		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
+		board.setAttendedExamList(attendExamList);
+		return board;
+
+	
+	}
+	
     
 //    /**
 //     * view index page
@@ -743,29 +762,7 @@ public class MocktestControllerResource {
 //		return "viewall_qstn";
 //	}
 //	
-//	
-//	/**
-//    * view of user_dashboard
-//    * @param sort  value
-//    * @return user dashboard
-//    */
-//	@RequestMapping ("/user_dashboard")
-//	public String userdashboard(Model model,@RequestParam(name="sort",required=false,defaultValue="date") String sort)
-//	{
-//		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
-//		UserExtra userExtra=extraService.currentUserExtra();
-//		log.debug("email of user "+userExtra.getUser().getEmail());
-//		model.addAttribute("user",userExtra);
-//		model.addAttribute("userid",userExtra.getId());
-//		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
-//		if(sort.equals("percent"))
-//		{
-//			Collections.sort(attendExamList,(a,a2)->{return (int)(a2.getPercentage()-a.getPercentage());});
-//		}
-//		model.addAttribute("AttendedExamList",attendExamList);
-//		return "user_dashboard";
-//	}
-//	
+
 //	
 //	/**
 //    * Getting all user details
