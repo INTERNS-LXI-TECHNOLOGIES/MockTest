@@ -26,6 +26,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -144,6 +145,12 @@ public class MocktestControllerResource {
 	public Question getQuestion(@PathVariable Long id) 
 	{
 		return questService.findById(id);
+	}
+	
+	@DeleteMapping ("/app/question/{id}")
+	public void deleteQuestion(@PathVariable Long id) 
+	{
+		questService.delete(questService.findById(id));
 	}
 	
 	@PostMapping ("/app/question")
