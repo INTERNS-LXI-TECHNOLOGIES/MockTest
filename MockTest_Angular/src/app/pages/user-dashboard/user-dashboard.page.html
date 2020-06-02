@@ -1,36 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
     <ion-title>Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-tabs>
 
-<ion-content>
-  <!-- <h2 *ngIf="isAuthenticated()" text-center>User is logged in!</h2>
-<h2 *ngIf="!isAuthenticated()" text-center>User is not logged in!</h2> -->
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="user-profile">
+      <ion-icon name="square"></ion-icon>
+      <ion-label><b>Profile</b></ion-label>
+    </ion-tab-button>
 
+    <ion-tab-button tab="attended-exams">
+      <ion-icon name="ellipse"></ion-icon>
+      <ion-label><b>AttendedExams</b></ion-label>
+    </ion-tab-button>
 
-
-<!-- <p *ngIf="data"> yes you have datas!!</p>   -->
-<!--     
-<ion-item *ngFor="let d of data">
- {{d.firstName}} {{d.lastName}}
-</ion-item> -->
-<ion-card>
-<ion-card-content>
- <p>FirstName  : {{data?.firstName}} </p>
- <p>LastName   : {{data?.lastName}}</p>
-<p> Email      : {{data?.email}}</p>
- <p>RegisterId : {{data?.id}}</p>
-
-</ion-card-content>
-</ion-card>
-</ion-content>
-<ion-content class="ion-text-center">
-  <ion-button [routerLink]="['/attended-exams']">
    
-   create
-  </ion-button>
-  </ion-content>
+  </ion-tab-bar>
+
+</ion-tabs>

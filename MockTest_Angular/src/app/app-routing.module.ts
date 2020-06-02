@@ -29,11 +29,10 @@ const routes: Routes = [
     {
       path: 'user-dashboard',
       loadChildren: () => import('./pages/user-dashboard/user-dashboard.module').then( m => m.UserDashboardPageModule)
-    },
-  {
-    path: 'attended-exams',
-    loadChildren: () => import('./pages/attended-exams/attended-exams.module').then( m => m.AttendedExamsPageModule)
-  }
+    }
+  
+  
+
 
  
  
