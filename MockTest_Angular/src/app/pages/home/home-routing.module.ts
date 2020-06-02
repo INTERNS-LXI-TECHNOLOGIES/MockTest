@@ -10,18 +10,20 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       
-        {
-          path: 'active-exams',
-          loadChildren: () => import('../active-exams/active-exams.module').then( m => m.ActiveExamsPageModule)
-        },
-        {
-          path: 'user-dashboard',
-          loadChildren: () => import('../user-dashboard/user-dashboard.module').then( m => m.UserDashboardPageModule)
-        },
-        {
-          path: 'question',
-          loadChildren: () => import('../question/question.module').then( m => m.QuestionPageModule)
-        }
+        // {
+        //   path: 'active-exams',
+        //   loadChildren: () => import('./active-exams/active-exams.module').then( m => m.ActiveExamsPageModule)
+        // },
+        // {
+        //   path: 'user-dashboard',
+        //   loadChildren: () => import('./user-dashboard/user-dashboard.module').then( m => m.UserDashboardPageModule)
+        // }
+        // {
+        //   path: 'question',
+        //   loadChildren: () => import('../question/question.module').then( m => m.QuestionPageModule)
+        // },
+        
+       
 
       ]
     } 

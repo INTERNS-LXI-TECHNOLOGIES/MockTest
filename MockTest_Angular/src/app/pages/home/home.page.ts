@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
     },
     {
       title: 'exam',
-      url: './active-exams',
+      url: '/active-exams',
       icon: 'paper-plane'
     },
     {
@@ -44,12 +44,12 @@ export class HomePage implements OnInit {
  
     {
       title: 'Dashboard',
-      url:  './user-dashboard',
+      url:  '/user-dashboard',
       icon: 'mail'
     },
     {
       title: 'ActiveExams',
-      url: './active-exams',
+      url: '/active-exams',
       icon: 'heart'
     }
   ];

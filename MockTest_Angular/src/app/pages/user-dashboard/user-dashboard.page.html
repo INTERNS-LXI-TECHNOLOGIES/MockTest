@@ -1,11 +1,11 @@
-<!-- <ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Dashboard</ion-title>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
 <ion-content>
   <!-- <h2 *ngIf="isAuthenticated()" text-center>User is logged in!</h2>
@@ -28,3 +28,9 @@
 </ion-card-content>
 </ion-card>
 </ion-content>
+<ion-content class="ion-text-center">
+  <ion-button [routerLink]="['/attended-exams']">
+   
+   create
+  </ion-button>
+  </ion-content>

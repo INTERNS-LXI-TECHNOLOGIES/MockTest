@@ -45,6 +45,7 @@ import com.lxisoft.domain.QstnOption;
 import com.lxisoft.domain.Question;
 import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
+import com.lxisoft.domain.Authority;
 import com.lxisoft.model.AttendedExamBean;
 import com.lxisoft.service.AttendedExamBeanService;
 import com.lxisoft.service.AttendedExamService;
@@ -111,24 +112,25 @@ public class MocktestControllerResource {
 //		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
 		Pageable pageable=null;
 		List<User> users=extraService.findAll();
-		List<String> authorities=userService.getAuthorities();
-		for( User user:users)
-		{	
-				log.debug("cssdfsd"+login);
-			if(user.getLogin().equals(login))
-			{
-				log.debug(login);
-				for(String auth:authorities)
-				{
-					if((auth.equals(user.getAuthorities().equals("ROLE_ADMIN")))&&(auth.equals(user.getAuthorities().equals("ROLE_USER"))))
-					 {
-						return"Admin";
-					 }	
-				}
-						
-			}
-			
-		}
+		
+//		for( User user:users)
+//		{	
+//			Set<Authority> authorities=user.getAuthorities();
+//				log.debug("cssdfsd"+login);
+//			if(user.getLogin().equals(login))
+//			{
+//				log.debug(login);
+//				for(Authority auth:authorities)
+//				{
+//					if((auth.equals(user.getAuthorities().equals("ROLE_ADMIN")))&&(auth.equals(user.getAuthorities().equals("ROLE_USER"))))
+//					 {
+//						return"Admin";
+//					 }	
+//				}
+//						
+//			}
+//			
+//		}
 		return "user";	 
 	}
 	

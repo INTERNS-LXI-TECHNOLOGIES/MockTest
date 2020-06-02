@@ -10,19 +10,32 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
- 
   {
-    path: 'question',
-    loadChildren: () => import('./pages/question/question.module').then( m => m.QuestionPageModule)
-  },
+      path: 'question',
+      loadChildren: () => import('./pages/question/question.module').then( m => m.QuestionPageModule)
+    },
+    {
+      path: 'all-questions',
+      loadChildren: () => import('./pages/all-questions/all-questions.module').then( m => m.AllQuestionsPageModule)
+    },
+    {
+      path: 'create-question',
+      loadChildren: () => import('./pages/create-question/create-question.module').then( m => m.CreateQuestionPageModule)
+    },
+    {
+      path: 'active-exams',
+      loadChildren: () => import('./pages/active-exams/active-exams.module').then( m => m.ActiveExamsPageModule)
+    },
+    {
+      path: 'user-dashboard',
+      loadChildren: () => import('./pages/user-dashboard/user-dashboard.module').then( m => m.UserDashboardPageModule)
+    },
   {
-    path: 'all-questions',
-    loadChildren: () => import('./pages/all-questions/all-questions.module').then( m => m.AllQuestionsPageModule)
-  },
-  {
-    path: 'create-question',
-    loadChildren: () => import('./pages/create-question/create-question.module').then( m => m.CreateQuestionPageModule)
+    path: 'attended-exams',
+    loadChildren: () => import('./pages/attended-exams/attended-exams.module').then( m => m.AttendedExamsPageModule)
   }
+
+ 
  
 
  

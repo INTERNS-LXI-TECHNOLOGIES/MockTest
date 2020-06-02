@@ -25,6 +25,7 @@ export class UserDashboardPage implements OnInit {
     this.auth.getUserInfo().then(userData => {
       console.log(userData);
       this.id=userData.id;
+      console.log(this.id);
       this.users(); 
     })
   
