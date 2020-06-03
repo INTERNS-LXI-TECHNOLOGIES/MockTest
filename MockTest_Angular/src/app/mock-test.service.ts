@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface QstnOption{
   option: string;
@@ -32,10 +33,15 @@ export class MockTestService {
         return data;}));
   }
 
-  postDataToServer(url:string,data:Question){
+  postQstnToServer(url:string,data:Question){
     console.log('post data  for url'+this.defUrl+url+' is ::'+data);
-    this.http.post(this.defUrl+url,data);
+    this.http.post(this.defUrl+url,data).subscribe(()=>{alert("question created");
+    this.router.navigateByUrl('/question');}
+  );
+  err=> {
+    alert("something went wromg..!" );
+  }
   }
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private router:Router) { }
 }

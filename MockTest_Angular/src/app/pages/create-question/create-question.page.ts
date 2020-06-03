@@ -31,7 +31,7 @@ export class CreateQuestionPage implements OnInit {
 
   logForm(form) {
     console.log('question is '+this.question.qstnOptions[1].isAnswer);
-    this.mockSer.postDataToServer('/app/question',this.question);   
+    this.mockSer.postQstnToServer('/app/question',this.question);   
   }
   
   constructor(private mockSer:MockTestService) { }
