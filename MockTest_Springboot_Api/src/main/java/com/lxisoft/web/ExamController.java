@@ -104,12 +104,12 @@ public class ExamController
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		boolean isAdmin=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 		boolean isUser=authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
-		if(isAdmin)
+//		if(isAdmin)
 			return "adminpage";
-		else if(isUser)
-			return "redirect:/user_dashboard";
-		else 
-			return "redirect:/login";
+//		else if(isUser)
+//			return "redirect:/user_dashboard";
+//		else 
+//			return "redirect:/login";
 	}
 	
 

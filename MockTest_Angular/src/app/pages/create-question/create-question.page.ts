@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Question } from 'src/app/mock-test.service';
+import { Question, MockTestService } from 'src/app/mock-test.service';
 
 @Component({
   selector: 'app-create-question',
@@ -11,7 +11,7 @@ export class CreateQuestionPage implements OnInit {
   question:Question={
     qstn:'',
     level:'beginner',
-    options:[
+    qstnOptions:[
       {
         option:'',
         isAnswer:false
@@ -30,10 +30,11 @@ export class CreateQuestionPage implements OnInit {
   allLevels=['beginner','intermediate','expert'];
 
   logForm(form) {
-    console.log('question is '+this.question.options[1].isAnswer)
+    console.log('question is '+this.question.qstnOptions[1].isAnswer);
+    this.mockSer.postQstnToServer('/app/question',this.question);   
   }
   
-  constructor() { }
+  constructor(private mockSer:MockTestService) { }
 
   ngOnInit() {
     console.log('question is '+this.question.qstn);

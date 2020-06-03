@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
@@ -26,6 +27,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -145,9 +147,19 @@ public class MocktestControllerResource {
 		return questService.findById(id);
 	}
 	
+	@DeleteMapping ("/app/question/{id}")
+	public void deleteQuestion(@PathVariable Long id) 
+	{
+		questService.delete(questService.findById(id));
+	}
+	
 	@PostMapping ("/app/question")
 	public void createQuestion(@RequestBody Question question) 
 	{
+		log.debug("saving question {}"+question);
+		Set<QstnOption> options=question.getQstnOptions();
+		Iterator<QstnOption> i = options.iterator(); 
+		optService.saveQstnOptn(question,i.next().getOption(),i.next().getOption(),i.next().getOption());
 		questService.save(question);
 	}
 	
@@ -168,6 +180,7 @@ public class MocktestControllerResource {
                 .map(UserDTO::new));
     }
     
+
 	
 	/**
     * view of user_dashboard
@@ -188,16 +201,6 @@ public class MocktestControllerResource {
 	}
 	
     
-//    /**
-//     * view index page
-//     * @return  index page 
-//     */
-//	@RequestMapping(value="/login")
-//	public String indexpage()
-//	{
-//		return "index";
-//	}
-	
 
 	/**
      * Get register page
