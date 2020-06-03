@@ -180,8 +180,8 @@ public class MocktestControllerResource {
 		log.debug("email of user "+userExtra.getUser().getEmail());
 		board.setCurrentUser(userExtra);
 		board.setUserId(userExtra.getId());
-//		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
-//		board.setAttendedExamList(attendExamList);
+		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
+		board.setAttendedExamList(attendExamList);
 		return board;
 
 	

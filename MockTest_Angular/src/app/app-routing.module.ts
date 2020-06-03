@@ -29,7 +29,12 @@ const routes: Routes = [
     {
       path: 'user-dashboard',
       loadChildren: () => import('./pages/user-dashboard/user-dashboard.module').then( m => m.UserDashboardPageModule)
-    }
+    },
+  {
+    path: 'exam-history',
+    loadChildren: () => import('./pages/exam-history/exam-history.module').then( m => m.ExamHistoryPageModule)
+  }
+
   
   
 
