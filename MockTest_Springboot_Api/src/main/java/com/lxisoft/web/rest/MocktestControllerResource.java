@@ -155,13 +155,13 @@ public class MocktestControllerResource {
 	}
 	
 	@PostMapping ("/app/question")
-	public void createQuestion(@RequestBody Object question) 
+	public void createQuestion(@RequestBody Question question) 
 	{
 		log.debug("saving question {}"+question);
-//		Set<QstnOption> options=question.getQstnOptions();
-//		Iterator<QstnOption> i = options.iterator(); 
-//		optService.saveQstnOptn(question,i.next().getOption(),i.next().getOption(),i.next().getOption());
-//		questService.save(question);
+		Set<QstnOption> options=question.getQstnOptions();
+		Iterator<QstnOption> i = options.iterator(); 
+		optService.saveQstnOptn(question,i.next().getOption(),i.next().getOption(),i.next().getOption());
+		questService.save(question);
 	}
 	
 	 @GetMapping("/all")
