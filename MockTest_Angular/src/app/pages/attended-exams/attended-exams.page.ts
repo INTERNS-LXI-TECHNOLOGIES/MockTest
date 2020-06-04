@@ -4,6 +4,7 @@ import {AuthService} from '../../services/auth.service';
 // import {Sort} from '@angular/material/sort';
 import { Router } from '@angular/router';
 import{attendedExam} from '../../model/attendedExam';
+import { dashboard } from '../../model/dashboard';
 @Component({
   selector: 'app-attended-exams',
   templateUrl: './attended-exams.page.html',
@@ -13,6 +14,10 @@ export class AttendedExamsPage implements OnInit {
 
   constructor(private userServ:UsersService,private auth:AuthService,private router: Router) { }
  
+  data:object;
+ login:String;
+ examlist: Array<attendedExam>;
+
   examData:attendedExam={
     examName:"",
     score : "",
@@ -22,16 +27,21 @@ export class AttendedExamsPage implements OnInit {
     date:"",
     time:"",
   }
+  dashboardData:dashboard={
+    currentUser:"",
+    userId:"",
+    attendedExamList:this.examlist
+  }
 
-  data:object;
- public login:String;
  
   attendedExams()
   {
     this.userServ.getUserDashboardDetails(this.login).subscribe(data => {
       console.log(data);
-     this.data=data
-      console.log(this.examData);
+      this.dashboardData=data
+      this.examlist=this.dashboardData.attendedExamList;
+      console.log(this.examlist);
+      
 
      
     });

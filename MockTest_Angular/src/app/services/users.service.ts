@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginPageModule } from '../pages/login/login.module';
-import{attendedExam} from '../model/attendedExam';
+import{dashboard} from '../model/dashboard';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +19,7 @@ export class UsersService {
 
  getUserDashboardDetails(username)
  {
-  return this.http.get(`http://localhost:8080/api/mocktest-controller/user_dashboard/`+username);
+  return this.http.get<dashboard>(`http://localhost:8080/api/mocktest-controller/user_dashboard/`+username);
  }
   
 }
