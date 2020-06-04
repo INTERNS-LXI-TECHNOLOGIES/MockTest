@@ -13,7 +13,9 @@ public class UserDashBoard {
 	
 	private UserExtra currentUser;
 	private long userId;
-	private List<AttendedExam> attendedExamList;
+	private List<AttendedExamModel> attendedExamList;
+	
+
 	
 	
 	public UserExtra getCurrentUser() {
@@ -26,6 +28,9 @@ public class UserDashBoard {
 	}
 
 
+	
+
+
 	public long getUserId() {
 		return userId;
 	}
@@ -36,23 +41,22 @@ public class UserDashBoard {
 	}
 
 
-	public List<AttendedExam> getAttendedExamList() {
+	public List<AttendedExamModel> getAttendedExamList() {
 		return attendedExamList;
 	}
 
 
-	public void setAttendedExamList(List<AttendedExam> attendedExamList) {
-		this.attendedExamList = attendedExamList;
+	public void setAttendedExamList(List<AttendedExamModel> examlist) {
+		this.attendedExamList = examlist;
 	}
 
 
-	public UserDashBoard(UserExtra currentUser, long userId, List<AttendedExam> attendedExamList) {
+	public UserDashBoard(UserExtra currentUser, long userId, List<AttendedExamModel> attendedExamList) {
 		super();
 		this.currentUser = currentUser;
 		this.userId = userId;
 		this.attendedExamList = attendedExamList;
 	}
-
 
 	public UserDashBoard() {
 		super();

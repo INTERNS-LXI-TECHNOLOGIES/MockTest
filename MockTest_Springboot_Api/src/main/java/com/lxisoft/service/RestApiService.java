@@ -1,5 +1,10 @@
 package com.lxisoft.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -8,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.lxisoft.domain.AttendedExam;
 import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
+import com.lxisoft.model.AttendedExamBean;
+import com.lxisoft.model.AttendedExamModel;
 import com.lxisoft.repository.UserExtraRepository;
 import com.lxisoft.repository.UserRepository;
 
@@ -35,6 +43,31 @@ public class RestApiService {
 		UserExtra userExtra=optExtra.get();
 		return userExtra;
 	}
-
+	public List<AttendedExamModel> attendedExamDetailsOfUser(List<AttendedExam> attendExamList) {
+		
+		DateTimeFormatter datePattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter timePattern = DateTimeFormatter.ofPattern("hh:mm:ss a");
+		List<AttendedExamModel> examlist=new ArrayList<AttendedExamModel>();
+		for(AttendedExam atndexam:attendExamList)
+		{
+			
+			AttendedExamModel model=new AttendedExamModel();
+			
+			model.setDate(atndexam.getDateTime().toLocalDate().format(datePattern));
+			model.setTime(atndexam.getDateTime().toLocalTime().format(timePattern));
+			model.setExamName(atndexam.getExam().getName());
+			model.setScore(atndexam.getScore());
+			model.setTotal(atndexam.getTotal());
+			model.setPercentage(atndexam.getPercentage());
+			if(atndexam.isResult()==true)
+			{
+				model.setResult("Passed");
+			}
+			examlist.add(model);
+		}
+		return examlist;
+	}
+	
+	
 
 }

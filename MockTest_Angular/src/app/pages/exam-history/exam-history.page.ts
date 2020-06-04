@@ -11,11 +11,10 @@ export class ExamHistoryPage implements OnInit {
 
   ngOnInit() {
 
-    // this.acivaterouter.params.subscribe(params => {
-    //   let id = params['id'];
-    
-    //   console.log(`${id}`);
-    //   });
+    this.acivaterouter.params.subscribe(params => {
+      const id= params['id']; //use this id to get examHistory details..!
+
+    });
   }
 
 }

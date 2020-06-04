@@ -3,6 +3,8 @@ package com.lxisoft.web.rest;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +51,7 @@ import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
 import com.lxisoft.domain.Authority;
 import com.lxisoft.model.AttendedExamBean;
+import com.lxisoft.model.AttendedExamModel;
 import com.lxisoft.model.UserDashBoard;
 import com.lxisoft.repository.UserExtraRepository;
 import com.lxisoft.service.AttendedExamBeanService;
@@ -194,7 +197,8 @@ public class MocktestControllerResource {
 		board.setCurrentUser(userExtra);
 		board.setUserId(userExtra.getId());
 		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
-		board.setAttendedExamList(attendExamList);
+		List<AttendedExamModel> examlist=restServ.attendedExamDetailsOfUser(attendExamList);
+		board.setAttendedExamList(examlist);
 		return board;
 
 	

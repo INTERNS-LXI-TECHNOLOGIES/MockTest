@@ -5,7 +5,7 @@ import { ExamHistoryPage } from './exam-history.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: ExamHistoryPage,
     pathMatch: 'full'
   }
