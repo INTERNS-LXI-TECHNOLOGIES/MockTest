@@ -5,20 +5,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card color="medium">
     <ion-card-content>
-     <p>FirstName  : {{data?.firstName}} </p>
-     <p>LastName   : {{data?.lastName}}</p>
-    <p> Email      : {{data?.email}}</p>
-     <p>RegisterId : {{data?.id}}</p>
+     <h3>FirstName  :<ion-text style="text-transform: capitalize;">{{data?.firstName}} </ion-text></h3>
+      
+     <h3>LastName   :<ion-text style="text-transform: capitalize;"> {{data?.lastName}}</ion-text></h3>
+    <h3> Email      : {{data?.email}} </h3>
+     <h3>RegisterId : {{data?.id}}</h3>
     
     </ion-card-content>
     </ion-card>
     </ion-content>
-    <!-- <ion-content class="ion-text-center">
-      <ion-button [routerLink]="['/attended-exams']">
-       
-       create
-      </ion-button>
-      
-</ion-content> -->

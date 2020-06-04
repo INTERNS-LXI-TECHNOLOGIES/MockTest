@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import {AuthService} from '../../services/auth.service';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+// import {Sort} from '@angular/material/sort';
 import { Router } from '@angular/router';
+import{attendedExam} from '../../model/attendedExam';
 @Component({
   selector: 'app-attended-exams',
   templateUrl: './attended-exams.page.html',
@@ -12,16 +13,26 @@ export class AttendedExamsPage implements OnInit {
 
   constructor(private userServ:UsersService,private auth:AuthService,private router: Router) { }
  
-  data;
+  examData:attendedExam={
+    examName:"",
+    score : "",
+    total:"",
+    percentage:"" ,
+    result:"",
+    date:"",
+    time:"",
+  }
 
- public result;
+  data:object;
  public login:String;
-
+ 
   attendedExams()
   {
     this.userServ.getUserDashboardDetails(this.login).subscribe(data => {
       console.log(data);
      this.data=data
+      console.log(this.examData);
+
      
     });
   }
@@ -29,15 +40,10 @@ export class AttendedExamsPage implements OnInit {
     
     this.auth.getUserInfo().then(userData => {
       this.login=userData.name;
-   
       this.attendedExams();
-
+      
     })
 
-    // if(this.attendedExamdata?.result==true)
-    // {
-    //   this.result="pass";
-    // }
   }
   
  examHistory(id)
