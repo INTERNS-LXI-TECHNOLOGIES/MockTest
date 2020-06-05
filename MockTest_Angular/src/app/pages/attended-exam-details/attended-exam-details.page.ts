@@ -3,7 +3,8 @@ import { RouterModule,ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
-import { CreateQuestionPage } from '../create-question/create-question.page';
+
+
 
 
 
@@ -36,23 +37,25 @@ export class AttendedExamDetailsPage implements OnInit {
   this.router.navigate(['/exam-history',examid]);
  
  }
- async presentPopover(ev: any) {
-  const popover = await this.popoverController.create({
+//  async presentPopover(ev: any) {
+//   const popover = await this.popoverController.create({
     
-    component: CreateQuestionPage,
-    cssClass: 'my-custom-class',
-    event: ev,
-    translucent: true
-  });
-  console.log("dsdsdsd");
-  return await popover.present();
-}
+//     component: PopoverComponentComponent,
+//     cssClass: 'my-custom-class',
+//     event: ev,
+//     translucent: true
+//   });
+//   console.log(ev);
+//   return await popover.present();
+// }
   ngOnInit() {
     this.acivaterouter.params.subscribe(params => {
       const id= params['id']; //use this id to get  details..!
       this.attendedExamDetails(id);
+     
     });
 
   }
+  
 
 }
