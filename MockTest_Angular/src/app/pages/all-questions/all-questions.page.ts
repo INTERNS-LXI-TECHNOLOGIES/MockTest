@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MockTestService, Question } from 'src/app/mock-test.service';
+import { MockTestService, Question } from '../../services/mock-test.service';
 
 @Component({
   selector: 'app-all-questions',

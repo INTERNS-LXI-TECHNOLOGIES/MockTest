@@ -1,5 +1,6 @@
 export interface attendedExam
 {
+    examId:string;
     examName:string;
     score:string;
     total:string;

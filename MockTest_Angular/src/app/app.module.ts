@@ -11,6 +11,7 @@ import{AuthGuard} from './guards/auth.guard';
 import {LoginGuard} from './guards/login.guard';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     IonicModule.forRoot(),
     HttpClientModule,
-    AppRoutingModule, RouterModule
+    AppRoutingModule, RouterModule, BrowserAnimationsModule
   ],
   providers: [
     StatusBar,

@@ -21,5 +21,7 @@ export class UsersService {
  {
   return this.http.get<dashboard>(`http://localhost:8080/api/mocktest-controller/user_dashboard/`+username);
  }
-  
+  getAllExams(){
+    return this.http.get(`http://localhost:8080/api/mocktest-controller/allExamDetails/`);
+  }
 }

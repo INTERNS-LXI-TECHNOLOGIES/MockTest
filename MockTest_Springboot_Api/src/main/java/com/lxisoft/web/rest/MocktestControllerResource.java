@@ -203,7 +203,14 @@ public class MocktestControllerResource {
 
 	
 	}
-	
+    
+    /** 
+     * get all exam from database
+     */
+    @GetMapping("/allExamDetails")
+    public List<Exam>getAllExamDetails() {
+    	return examService.findAll();
+    }
     
 
 	/**

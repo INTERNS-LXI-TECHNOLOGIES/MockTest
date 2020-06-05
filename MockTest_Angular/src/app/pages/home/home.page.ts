@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MockTestService } from '../../mock-test.service';
+import { MockTestService } from '../../services/mock-test.service';
 import{AuthService} from '../../services/auth.service';
 import{Router,ActivatedRoute} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -29,9 +29,9 @@ export class HomePage implements OnInit {
       icon: 'paper-plane'
     },
     {
-      title: 'users',
-      url: '/users',
-      icon: 'heart'
+      title: 'exam-analysis',
+      url: '/exam-analysis',
+      icon: 'pencil'
     }
   ];
 
@@ -87,7 +87,7 @@ export class HomePage implements OnInit {
  
   ngOnInit() {
 
-    this.userRole='user'
+    this.userRole='admin'
  
     const path = window.location.pathname.split('folder/')[1];
     // const path = window.location.pathname.split('/')[1];

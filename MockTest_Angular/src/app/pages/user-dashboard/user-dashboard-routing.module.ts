@@ -11,11 +11,11 @@ const routes: Routes = [
 
           {
             path: 'user-profile',
-            loadChildren: () => import('../user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+            loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule)
           },
           {
             path: 'attended-exams',
-            loadChildren: () => import('../attended-exams/attended-exams.module').then( m => m.AttendedExamsPageModule)
+            loadChildren: () => import('./attended-exams/attended-exams.module').then( m => m.AttendedExamsPageModule)
           },
           {
             path: '',

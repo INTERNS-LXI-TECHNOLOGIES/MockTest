@@ -52,7 +52,7 @@ public class RestApiService {
 		{
 			
 			AttendedExamModel model=new AttendedExamModel();
-			
+			model.setExamId(atndexam.getId());
 			model.setDate(atndexam.getDateTime().toLocalDate().format(datePattern));
 			model.setTime(atndexam.getDateTime().toLocalTime().format(timePattern));
 			model.setExamName(atndexam.getExam().getName());

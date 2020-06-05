@@ -18,6 +18,17 @@ public class AttendedExamModel {
 	private String date;
 	
 	private String time;
+	private Long ExamId;
+
+	
+	
+	public Long getExamId() {
+		return ExamId;
+	}
+
+	public void setExamId(Long examId) {
+		ExamId = examId;
+	}
 
 	public String getExamName() {
 		return examName;
