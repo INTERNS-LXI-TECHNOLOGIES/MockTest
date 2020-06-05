@@ -8,5 +8,50 @@
 </ion-header>
 
 <ion-content>
+  <div  *ngIf="attendedExamData ;else noExamDataFoundTemplate ">
+    <ion-card>   
+      <ion-card-content>
+        {{attendedExamData?.exam?.name}}
+      </ion-card-content>
+    </ion-card>
+    </div>
+    
+      <ng-template #noExamDataFoundTemplate>
+        
+        <ion-card  color="light">
+          currently there is no data!
+        </ion-card>
+        
+      </ng-template>
 
+    <div>
+*click on the username to see the corresponding details for further analysis</div><br><br>
+<div style="overflow-x:auto;">
+  
+         				  <table  width=95% border=3px style="font-size: 100%">
+							    <thead>
+							        <tr>
+							            <th> Sl.No. </th>
+							            <th > Users </th>
+							            <th> Score </th>
+							              <th> Percentage </th>
+							              <th> Result </th>
+                            <th>  Date & Time </th>
+                          
+							          </tr>
+                                  </thead>
+                                  <tbody>
+                                    
+                                    <tr  *ngFor="let data of attendedExamData?.attendList ,index as i;">
+                                     <td>{{i+1}}</td> 
+                                   <td> 
+                                     <a  (click)="examHistory(attendedExamData?.exam?.id,data?.userExtra?.user?.id)">
+                                       {{data?.userExtra?.user?.login}}</a></td>
+                                     <td>{{data?.score}} / {{data?.total}}</td>
+                                     <td>{{data?.percentage}}</td>
+                                      <td>{{data?.result ==true? 'passed' :'failed'}}</td>
+                                    <td>{{data?.dateTime}}</td>
+                                    
+                                    </tbody>
+                   </table></div>
 </ion-content>
