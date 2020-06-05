@@ -24,4 +24,8 @@ export class UsersService {
   getAllExams(){
     return this.http.get(`http://localhost:8080/api/mocktest-controller/allExamDetails/`);
   }
+  getAllAttendedExamDetails(id)
+  {
+    return this.http.get('http://localhost:8080/api/mocktest-controller/attendedExamDetails/'+id);
+  }
 }

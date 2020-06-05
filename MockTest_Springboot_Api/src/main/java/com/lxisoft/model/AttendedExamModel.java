@@ -2,7 +2,9 @@ package com.lxisoft.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+/**
+ *  AttendedExamModel  for transferring the data to Front end
+ */
 public class AttendedExamModel {
 
 	private String examName;

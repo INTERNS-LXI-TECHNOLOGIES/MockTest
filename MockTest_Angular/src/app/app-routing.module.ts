@@ -33,10 +33,15 @@ const routes: Routes = [
   {
     path: 'exam-history',
     loadChildren: () => import('./pages/exam-history/exam-history.module').then( m => m.ExamHistoryPageModule)
-  },  {
+  },
+  {
     path: 'exam-analysis',
     loadChildren: () => import('./pages/exam-analysis/exam-analysis.module').then( m => m.ExamAnalysisPageModule)
-  }
+  },
+  {
+      path: 'attended-exam-details',
+      loadChildren: () => import('./pages/attended-exam-details/attended-exam-details.module').then( m => m.AttendedExamDetailsPageModule)
+    }
 
 
   

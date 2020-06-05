@@ -50,7 +50,7 @@ public class RestApiService {
 		List<AttendedExamModel> examlist=new ArrayList<AttendedExamModel>();
 		for(AttendedExam atndexam:attendExamList)
 		{
-			
+			log.debug("idmmm, "+atndexam.getId());
 			AttendedExamModel model=new AttendedExamModel();
 			model.setExamId(atndexam.getId());
 			model.setDate(atndexam.getDateTime().toLocalDate().format(datePattern));
@@ -66,6 +66,19 @@ public class RestApiService {
 			examlist.add(model);
 		}
 		return examlist;
+	}
+	public List<User> getAttendedUserDetails(List<User> users, List<AttendedExam> attendList) {
+		
+		List<User> userlist=new ArrayList<User>();
+		for(AttendedExam atndexam:attendList)
+		{
+			for(User user:users)
+			{
+				if(atndexam.getUserExtra().getId().equals(user.getId()))
+					userlist.add(user);
+			}
+		}
+		return userlist;
 	}
 	
 	

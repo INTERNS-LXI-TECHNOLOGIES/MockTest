@@ -51,6 +51,7 @@ import com.lxisoft.domain.User;
 import com.lxisoft.domain.UserExtra;
 import com.lxisoft.domain.Authority;
 import com.lxisoft.model.AttendedExamBean;
+import com.lxisoft.model.AttendedExamListModel;
 import com.lxisoft.model.AttendedExamModel;
 import com.lxisoft.model.UserDashBoard;
 import com.lxisoft.repository.UserExtraRepository;
@@ -210,6 +211,23 @@ public class MocktestControllerResource {
     @GetMapping("/allExamDetails")
     public List<Exam>getAllExamDetails() {
     	return examService.findAll();
+    }
+    
+    /** 
+     * get all exam from database
+     * @return 
+     */
+    @GetMapping("/getAllAttendedExamDetails/{id}")
+    public AttendedExamListModel getAllAttendedExamDetails(@PathVariable String id,AttendedExamListModel model)
+    {
+    	Exam exam=examService.findById(id);
+    	model.setExam(exam);
+    	List<User> users=extraService.findAll();
+    	List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
+    	model.setUsers(restServ.getAttendedUserDetails(users,attendList));
+    	model.setAttendList(attendExamService.findAllByExam(exam));
+		
+		return model;
     }
     
 
