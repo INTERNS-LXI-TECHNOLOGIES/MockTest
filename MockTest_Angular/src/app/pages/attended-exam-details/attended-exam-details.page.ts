@@ -1,12 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { RouterModule,ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
+import { MatTableDataSource } from '@angular/material/table';
+import {MatPaginator} from  '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table'
 
-
-
-
+export interface attendedExamDetails
+{
+    userName:string;
+    score:string;
+    total:string;
+    percentage:string;
+    result:string;
+    dateTime:string;
+}
 
 @Component({
   selector: 'app-attended-exam-details',
@@ -15,20 +25,33 @@ import { PopoverController } from '@ionic/angular';
 })
 export class AttendedExamDetailsPage implements OnInit {
 
+
+  examData:attendedExamDetails={
+    
+    userName:"",
+    score : "",
+    total:"",
+    percentage:"" ,
+    result:"",
+    dateTime:"",
+  }
+  examlist: Array<attendedExamDetails>;
+  attendedExamData;
+
   constructor(private acivaterouter:ActivatedRoute,
     private userServ:UsersService,
     private router: Router,
     public popoverController: PopoverController) { }
 
 
-  attendedExamData
+  
   attendedExamDetails(id)
   {
     this.userServ.getAllAttendedExamDetails(id).subscribe(data => {
       console.log(data);
       this.attendedExamData=data
-     
-     
+     this.examlist=this.attendedExamData.attendList
+     console.log(this.examlist);
     });
   }
   examHistory(examid,userid)
@@ -48,6 +71,17 @@ export class AttendedExamDetailsPage implements OnInit {
 //   console.log(ev);
 //   return await popover.present();
 // }
+
+displayedColumns: string[] = ['sl.no', 'user', 'score', 'percentage','result','dateTime'];
+// displayedColumns: string[] = ['score'];
+dataSource = new MatTableDataSource<attendedExamDetails>(this.examlist);
+@ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngAfterViewInit() { this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator; }
+
+
   ngOnInit() {
     this.acivaterouter.params.subscribe(params => {
       const id= params['id']; //use this id to get  details..!

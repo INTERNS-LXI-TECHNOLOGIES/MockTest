@@ -12,6 +12,10 @@ import {LoginGuard} from './guards/login.guard';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -22,7 +26,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     IonicModule.forRoot(),
     HttpClientModule,
-    AppRoutingModule, RouterModule, BrowserAnimationsModule
+    AppRoutingModule, RouterModule, BrowserAnimationsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [
     StatusBar,

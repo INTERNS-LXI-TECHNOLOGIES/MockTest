@@ -55,7 +55,7 @@
 
     <div>
 *click on the username to see the corresponding details for further analysis</div><br><br>
-<div style="overflow-x:auto;">
+<!-- <div style="overflow-x:auto;">
   
          				  <table  width=95% border=3px style="font-size: 100%">
 							    <thead>
@@ -82,5 +82,36 @@
                                     <td>{{data?.dateTime}}</td>
                                     
                                     </tbody>
-                   </table></div>
+                   </table></div> -->
+
+                   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort >
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" >                      
+                    </mat-row>
+                    <ng-container matColumnDef="sl.no">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Sl.No </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.sl.no}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="user">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.user}} </mat-cell>
+                    </ng-container>
+                   
+                    <ng-container matColumnDef="score">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> score </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.score}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="percentage">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Percentage </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.percentage}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="result">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Result </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.result}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="dateTime">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> DateTime </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.dateTime}} </mat-cell>
+                    </ng-container>
+                   </mat-table>
 </ion-content>
