@@ -37,7 +37,8 @@ export class AttendedExamDetailsPage implements OnInit {
   }
   examlist: Array<attendedExamDetails>;
   attendedExamData;
-
+  dataSource;
+  sourcelist:Array<attendedExamDetails>;;
   constructor(private acivaterouter:ActivatedRoute,
     private userServ:UsersService,
     private router: Router,
@@ -51,7 +52,14 @@ export class AttendedExamDetailsPage implements OnInit {
       console.log(data);
       this.attendedExamData=data
      this.examlist=this.attendedExamData.attendList
-     console.log(this.examlist);
+
+     for (let i = 0; i < this.examlist.length; i++) {
+      this.sourcelist.push(this.examlist[i]);
+    }
+    // this.listData = new MatTableDataSource(this.listRequests);
+   this.dataSource = new MatTableDataSource<attendedExamDetails>(this.sourcelist);
+   this.dataSource.sort = this.sort;
+     console.log(this.dataSource);
     });
   }
   examHistory(examid,userid)
@@ -74,12 +82,12 @@ export class AttendedExamDetailsPage implements OnInit {
 
 displayedColumns: string[] = ['sl.no', 'user', 'score', 'percentage','result','dateTime'];
 // displayedColumns: string[] = ['score'];
-dataSource = new MatTableDataSource<attendedExamDetails>(this.examlist);
+// dataSource = new MatTableDataSource<attendedExamDetails>(this.examlist);
 @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  ngAfterViewInit() { this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator; }
+  // ngAfterViewInit() { this.dataSource.sort = this.sort;
+  //   this.dataSource.paginator = this.paginator; }
 
 
   ngOnInit() {

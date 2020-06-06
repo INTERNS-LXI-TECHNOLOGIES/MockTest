@@ -50,10 +50,15 @@
         <ion-card  color="light">
           currently there is no data!
         </ion-card>
+        <!-- <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+          <mat-spinner></mat-spinner>
+      </div> -->
         
       </ng-template>
 
     <div>
+
+
 *click on the username to see the corresponding details for further analysis</div><br><br>
 <!-- <div style="overflow-x:auto;">
   
@@ -84,7 +89,7 @@
                                     </tbody>
                    </table></div> -->
 
-                   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort >
+                   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" color="light" matSort >
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;" >                      
                     </mat-row>
