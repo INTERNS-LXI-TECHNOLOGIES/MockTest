@@ -7,13 +7,24 @@ import { IonicModule } from '@ionic/angular';
 import { AttendedExamsPageRoutingModule } from './attended-exams-routing.module';
 
 import { AttendedExamsPage } from './attended-exams.page';
+import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 
 @NgModule({
   imports: [
+    MatCardModule,
+    MatProgressSpinnerModule,
     CommonModule,
     FormsModule,
     IonicModule,
-    AttendedExamsPageRoutingModule,NgxDatatableModule
+    AttendedExamsPageRoutingModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   declarations: [AttendedExamsPage]
 })
