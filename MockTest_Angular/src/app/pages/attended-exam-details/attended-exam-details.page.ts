@@ -6,7 +6,7 @@ import { PopoverController } from '@ionic/angular';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from  '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table'
+
 
 export interface attendedExamDetails
 {
@@ -37,8 +37,11 @@ export class AttendedExamDetailsPage implements OnInit {
   }
   examlist: Array<attendedExamDetails>;
   attendedExamData;
-  dataSource;
-  sourcelist:Array<attendedExamDetails>;;
+  dataSource= null;
+  isLoading = true;
+  isEmpty=true;
+ 
+
   constructor(private acivaterouter:ActivatedRoute,
     private userServ:UsersService,
     private router: Router,
@@ -51,16 +54,18 @@ export class AttendedExamDetailsPage implements OnInit {
     this.userServ.getAllAttendedExamDetails(id).subscribe(data => {
       console.log(data);
       this.attendedExamData=data
+      this.isLoading = false;
      this.examlist=this.attendedExamData.attendList
-
-     for (let i = 0; i < this.examlist.length; i++) {
-      this.sourcelist.push(this.examlist[i]);
-    }
-    // this.listData = new MatTableDataSource(this.listRequests);
-   this.dataSource = new MatTableDataSource<attendedExamDetails>(this.sourcelist);
+     if(this.examlist.length>0)
+     {
+      this.isEmpty=false;
+     }
+    this.dataSource = new MatTableDataSource<attendedExamDetails>(this.examlist);
    this.dataSource.sort = this.sort;
      console.log(this.dataSource);
-    });
+    },
+    error => this.isLoading = false
+    );
   }
   examHistory(examid,userid)
  {
@@ -68,21 +73,10 @@ export class AttendedExamDetailsPage implements OnInit {
   this.router.navigate(['/exam-history',examid]);
  
  }
-//  async presentPopover(ev: any) {
-//   const popover = await this.popoverController.create({
-    
-//     component: PopoverComponentComponent,
-//     cssClass: 'my-custom-class',
-//     event: ev,
-//     translucent: true
-//   });
-//   console.log(ev);
-//   return await popover.present();
-// }
 
-displayedColumns: string[] = ['sl.no', 'user', 'score', 'percentage','result','dateTime'];
-// displayedColumns: string[] = ['score'];
-// dataSource = new MatTableDataSource<attendedExamDetails>(this.examlist);
+
+displayedColumns: string[] = [ 'index','userExtra.user.login', 'score', 'percentage','result','dateTime'];
+
 @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 

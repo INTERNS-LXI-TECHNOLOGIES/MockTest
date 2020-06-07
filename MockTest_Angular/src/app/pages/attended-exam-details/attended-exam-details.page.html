@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+
 
   <!-- <ion-fab horizontal="start" vertical="bottom" slot="fixed">
     <ion-fab-button color="dark">
@@ -36,87 +36,63 @@
     </ion-fab-list>
   </ion-fab> -->
 
-
-  <div  *ngIf="attendedExamData ;else noExamDataFoundTemplate ">
-    <ion-card>   
-      <ion-card-content>
-        {{attendedExamData?.exam?.name}}
-      </ion-card-content>
-    </ion-card>
-    </div>
-    
-      <ng-template #noExamDataFoundTemplate>
-        
-        <ion-card  color="light">
-          currently there is no data!
-        </ion-card>
-        <!-- <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-          <mat-spinner></mat-spinner>
-      </div> -->
-        
-      </ng-template>
-
-    <div>
+  <ion-content>
+  <div  *ngIf="attendedExamData">
+    <ion-text color="medium" class="ion-text-center">
+    <h1> {{attendedExamData?.exam?.name}}</h1>
+    <h3>Status:{{attendedExamData?.exam?.isActive==true ? 'Active-Now' : 'Not-Active'}}</h3>
+    </ion-text>
 
 
-*click on the username to see the corresponding details for further analysis</div><br><br>
-<!-- <div style="overflow-x:auto;">
-  
-         				  <table  width=95% border=3px style="font-size: 100%">
-							    <thead>
-							        <tr>
-							            <th> Sl.No. </th>
-							            <th > Users </th>
-							            <th> Score </th>
-							              <th> Percentage </th>
-							              <th> Result </th>
-                            <th>  Date & Time </th>
-                          
-							          </tr>
-                                  </thead>
-                                  <tbody>
-                                    
-                                    <tr  *ngFor="let data of attendedExamData?.attendList ,index as i;">
-                                     <td>{{i+1}}</td> 
-                                   <td> 
-                                     <a  (click)="examHistory(attendedExamData?.exam?.id,data?.userExtra?.user?.id)">
-                                       {{data?.userExtra?.user?.login}}</a></td>
-                                     <td>{{data?.score}} / {{data?.total}}</td>
-                                     <td>{{data?.percentage}}</td>
-                                      <td>{{data?.result ==true? 'passed' :'failed'}}</td>
-                                    <td>{{data?.dateTime}}</td>
-                                    
-                                    </tbody>
-                   </table></div> -->
 
-                   <mat-table [dataSource]="dataSource" class="mat-elevation-z8" color="light" matSort >
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;" >                      
-                    </mat-row>
-                    <ng-container matColumnDef="sl.no">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> Sl.No </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.sl.no}} </mat-cell>
+<h5>*click on the username to see the corresponding details for further analysis</h5><br><br>
+                   <div style="overflow-x:auto;">
+
+                   <mat-table [dataSource]="dataSource" class="mat-elevation-z8"  matSort >
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" >   </tr>    
+
+                    <ng-container matColumnDef="index">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl.No  </th>
+                      <td mat-cell *matCellDef="let element,let i = index;"> {{i+1}}  </td>
                     </ng-container>
-                    <ng-container matColumnDef="user">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.user}} </mat-cell>
+                    <ng-container matColumnDef="userExtra.user.login">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> User  </th>
+                       <td mat-cell *matCellDef="let element"><a  (click)="examHistory(attendedExamData.exam.id,element.userExtra.user.id)" class="mat-row-link"> {{element.userExtra.user.login}} </a> </td>
                     </ng-container>
                    
                     <ng-container matColumnDef="score">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> score </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.score}} </mat-cell>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> score </th>
+                      <td mat-cell *matCellDef="let element"> {{element.score}} / {{element.total}} </td>
                     </ng-container>
                     <ng-container matColumnDef="percentage">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> Percentage </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.percentage}} </mat-cell>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Percentage  </th>
+                   <td mat-cell *matCellDef="let element"> {{element.percentage}}  </td>
                     </ng-container>
                     <ng-container matColumnDef="result">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> Result </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.result}} </mat-cell>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Result  </th>
+                      <td mat-cell *matCellDef="let element"> {{element.result ==true? 'passed' :'failed'}}  </td>
                     </ng-container>
                     <ng-container matColumnDef="dateTime">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> DateTime </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.dateTime}} </mat-cell>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> DateTime  </th>
+                      <td mat-cell *matCellDef="let element"> {{element.dateTime}}  </td>
                     </ng-container>
                    </mat-table>
+                  </div>
+                </div>
+
+                  <mat-card *ngIf="isLoading" 
+                 style="display: flex; justify-content: center; align-items: center">
+                 <mat-progress-spinner 
+                  color="primary" 
+                   mode="indeterminate">
+                  </mat-progress-spinner>
+                  </mat-card>
+
+                  <div  *ngIf="isEmpty">
+                    <ion-text color="secondary" class="ion-text-center">
+                   <h1> No data !!! </h1>
+                    </ion-text>
+                    </div>
+                
 </ion-content>
