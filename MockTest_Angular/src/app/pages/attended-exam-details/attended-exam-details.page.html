@@ -37,7 +37,10 @@
   </ion-fab> -->
 
   <ion-content>
-  <div  *ngIf="attendedExamData">
+    
+   
+
+    <div  *ngIf="attendedExamData; else noDataTemplate">
     <ion-text color="medium" class="ion-text-center">
     <h1> {{attendedExamData?.exam?.name}}</h1>
     <h3>Status:{{attendedExamData?.exam?.isActive==true ? 'Active-Now' : 'Not-Active'}}</h3>
@@ -89,10 +92,13 @@
                   </mat-progress-spinner>
                   </mat-card>
 
-                  <div  *ngIf="isEmpty">
-                    <ion-text color="secondary" class="ion-text-center">
-                   <h1> No data !!! </h1>
-                    </ion-text>
-                    </div>
+                  <ng-template #noDataTemplate>
+                    <div  *ngIf="isEmpty">
+                      <ion-text color="medium" class="ion-text-center">
+                     <h1> No data !!! </h1>
+                      </ion-text>
+                      </div>
+                  </ng-template>
+                 
                 
 </ion-content>
