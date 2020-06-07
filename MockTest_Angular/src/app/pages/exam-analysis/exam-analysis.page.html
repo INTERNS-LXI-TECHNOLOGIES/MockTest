@@ -11,16 +11,20 @@
   <div  *ngIf="exam ;else noExamDataFoundTemplate ">
 <ion-card *ngFor="let data of exam" color="light" button (click)="examDetaills(data.id)">
   <ion-card-content>
-    {{data.name}}
+    <ion-text  class="ion-text-center">
+      {{data.name}}
+    </ion-text>
+    
   </ion-card-content>
 </ion-card>
 </div>
 
   <ng-template #noExamDataFoundTemplate>
     
-    <ion-card  color="light">
+    <!-- <ion-card  color="light">
       No Current Exam Data Found
-    </ion-card>
+    </ion-card> -->
+   <br> <ion-progress-bar type="indeterminate"></ion-progress-bar>
     
   </ng-template>
 </ion-content>
