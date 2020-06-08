@@ -87,7 +87,7 @@ export class HomePage implements OnInit {
  
   ngOnInit() {
 
-    this.userRole='admin'
+    this.userRole='user'
  
     const path = window.location.pathname.split('folder/')[1];
     // const path = window.location.pathname.split('/')[1];

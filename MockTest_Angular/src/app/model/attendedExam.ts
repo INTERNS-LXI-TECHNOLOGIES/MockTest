@@ -8,4 +8,5 @@ export interface attendedExam
     result:string;
     date:string;
     time:string;
+    
 }

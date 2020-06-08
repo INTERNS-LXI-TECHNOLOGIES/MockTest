@@ -10,12 +10,16 @@ import {MatSort} from '@angular/material/sort';
 
 export interface attendedExamDetails
 {
-    userName:string;
-    score:string;
+     user:{
+    login:String;
+    id;
+    }
+   score:string;
     total:string;
     percentage:string;
     result:string;
     dateTime:string;
+    
 }
 
 @Component({
@@ -28,12 +32,16 @@ export class AttendedExamDetailsPage implements OnInit {
 
   examData:attendedExamDetails={
     
-    userName:"",
-    score : "",
+    user:{
+      id:"",
+      login:""},
+   score : "",
     total:"",
     percentage:"" ,
     result:"",
     dateTime:"",
+    
+
   }
   
   examlist: Array<attendedExamDetails>;
@@ -61,7 +69,7 @@ export class AttendedExamDetailsPage implements OnInit {
       this.attendedExamData=data
       this.isLoading = false;
      this.examlist=this.attendedExamData.attendList
-    
+   
      if(this.examlist.length>0)
      {
       this.isEmpty=false;
@@ -89,7 +97,7 @@ export class AttendedExamDetailsPage implements OnInit {
  }
 
 
-displayedColumns: string[] = [ 'index','login', 'score', 'percentage','result','dateTime'];
+displayedColumns: string[] = [ 'index','user', 'score', 'percentage','result','dateTime'];
 
 
   ngOnInit() {

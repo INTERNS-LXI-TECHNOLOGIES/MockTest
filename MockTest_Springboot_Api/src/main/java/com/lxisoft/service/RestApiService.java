@@ -48,7 +48,7 @@ public class RestApiService {
 		DateTimeFormatter datePattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter timePattern = DateTimeFormatter.ofPattern("hh:mm:ss a");
 		List<AttendedExamModel> examlist=new ArrayList<AttendedExamModel>();
-		List<User> userlist=new ArrayList<User>();
+		
 		User user=new User();
 		for(AttendedExam atndexam:attendExamList)
 		{
@@ -66,8 +66,7 @@ public class RestApiService {
 			model.setPercentage(atndexam.getPercentage());
 			model.setResult(atndexam.isResult());
 			user=atndexam.getUserExtra().getUser();
-			userlist.add(user);
-			model.setUsers(userlist);
+			model.setUser(user);
 			examlist.add(model);
 		}
 		return examlist;
