@@ -11,27 +11,21 @@ import com.lxisoft.domain.User;
 
 public class AttendedExamListModel {
 	
-	List<User> users;
-	Exam exam ;
-	List<AttendedExam> attendList;
 	
-	public List<User> getUsers() {
-		return users;
-	}
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
+	Exam exam ;
+	List<AttendedExamModel> attendList;
+	
 	public Exam getExam() {
 		return exam;
 	}
 	public void setExam(Exam exam) {
 		this.exam = exam;
 	}
-	public List<AttendedExam> getAttendList() {
+	public List<AttendedExamModel> getAttendList() {
 		return attendList;
 	}
-	public void setAttendList(List<AttendedExam> attendList) {
-		this.attendList = attendList;
+	public void setAttendList(List<AttendedExamModel> examlist) {
+		this.attendList = examlist;
 	}
 	
 

@@ -43,43 +43,49 @@ public class RestApiService {
 		UserExtra userExtra=optExtra.get();
 		return userExtra;
 	}
-	public List<AttendedExamModel> attendedExamDetailsOfUser(List<AttendedExam> attendExamList) {
+	public List<AttendedExamModel> attendedExamDetails(List<AttendedExam> attendExamList) {
 		
 		DateTimeFormatter datePattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter timePattern = DateTimeFormatter.ofPattern("hh:mm:ss a");
 		List<AttendedExamModel> examlist=new ArrayList<AttendedExamModel>();
+		List<User> userlist=new ArrayList<User>();
+		User user=new User();
 		for(AttendedExam atndexam:attendExamList)
 		{
+			
 			log.debug("idmmm, "+atndexam.getId());
 			AttendedExamModel model=new AttendedExamModel();
+			
+			
 			model.setExamId(atndexam.getId());
-			model.setDate(atndexam.getDateTime().toLocalDate().format(datePattern));
-			model.setTime(atndexam.getDateTime().toLocalTime().format(timePattern));
+			model.setDateTime(atndexam.getDateTime().toLocalDate().format(datePattern)+" at "+atndexam.getDateTime().toLocalTime().format(timePattern));
+			//model.setTime(atndexam.getDateTime().toLocalTime().format(timePattern));
 			model.setExamName(atndexam.getExam().getName());
 			model.setScore(atndexam.getScore());
 			model.setTotal(atndexam.getTotal());
 			model.setPercentage(atndexam.getPercentage());
-			if(atndexam.isResult()==true)
-			{
-				model.setResult("Passed");
-			}
+			model.setResult(atndexam.isResult());
+			user=atndexam.getUserExtra().getUser();
+			userlist.add(user);
+			model.setUsers(userlist);
 			examlist.add(model);
 		}
 		return examlist;
 	}
-	public List<User> getAttendedUserDetails(List<User> users, List<AttendedExam> attendList) {
-		
-		List<User> userlist=new ArrayList<User>();
-		for(AttendedExam atndexam:attendList)
-		{
-			for(User user:users)
-			{
-				if(atndexam.getUserExtra().getId().equals(user.getId()))
-					userlist.add(user);
-			}
-		}
-		return userlist;
-	}
+//	public List<User> getAttendedUserDetails(List<User> users, List<AttendedExam> attendList) {
+//		
+//		List<User> userlist=new ArrayList<User>();
+//		for(AttendedExam atndexam:attendList)
+//		{
+//			
+//			for(User user:users)
+//			{
+//				if(atndexam.getUserExtra().getId().equals(user.getId()))
+//					userlist.add(user);
+//			}
+//		}
+//		return userlist;
+//	}
 	
 	
 

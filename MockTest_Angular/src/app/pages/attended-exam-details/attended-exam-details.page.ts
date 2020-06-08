@@ -35,12 +35,17 @@ export class AttendedExamDetailsPage implements OnInit {
     result:"",
     dateTime:"",
   }
+  
   examlist: Array<attendedExamDetails>;
+ 
   attendedExamData;
-  dataSource= null;
+  dataSource1= null;
+ 
   isLoading = true;
   isEmpty=true;
  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private acivaterouter:ActivatedRoute,
     private userServ:UsersService,
@@ -56,13 +61,22 @@ export class AttendedExamDetailsPage implements OnInit {
       this.attendedExamData=data
       this.isLoading = false;
      this.examlist=this.attendedExamData.attendList
+    
      if(this.examlist.length>0)
      {
       this.isEmpty=false;
      }
-    this.dataSource = new MatTableDataSource<attendedExamDetails>(this.examlist);
-   this.dataSource.sort = this.sort;
-     console.log(this.dataSource);
+    this.dataSource1 = new MatTableDataSource<attendedExamDetails>(this.examlist);
+    this.dataSource1.sortingDataAccessor = (item, property) => {
+      switch(property) {
+        case 'users.login': return item.users.login;
+        default: return item[property];
+      }
+    };
+   this.dataSource1.sort = this.sort;
+   
+
+     console.log(this.dataSource1);
     },
     error => this.isLoading = false
     );
@@ -75,13 +89,7 @@ export class AttendedExamDetailsPage implements OnInit {
  }
 
 
-displayedColumns: string[] = [ 'index','userExtra.user.login', 'score', 'percentage','result','dateTime'];
-
-@ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
-  // ngAfterViewInit() { this.dataSource.sort = this.sort;
-  //   this.dataSource.paginator = this.paginator; }
+displayedColumns: string[] = [ 'index','login', 'score', 'percentage','result','dateTime'];
 
 
   ngOnInit() {

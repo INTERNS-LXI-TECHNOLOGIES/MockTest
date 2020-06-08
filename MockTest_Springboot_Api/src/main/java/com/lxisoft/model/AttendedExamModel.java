@@ -2,6 +2,9 @@ package com.lxisoft.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
+import com.lxisoft.domain.User;
 /**
  *  AttendedExamModel  for transferring the data to Front end
  */
@@ -13,17 +16,24 @@ public class AttendedExamModel {
 	
 	private int total;
 	
-	private String result="Failed";
+	private boolean result=false;
 	
 	private float percentage;
 	
-	private String date;
+	private String dateTime;
 	
-	private String time;
 	private Long ExamId;
+	
+	private List<User> users;
+	
+	public List<User> getUsers() {
+		return users;
+	}
 
-	
-	
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	public Long getExamId() {
 		return ExamId;
 	}
@@ -56,11 +66,13 @@ public class AttendedExamModel {
 		this.total = total;
 	}
 
-	public String getResult() {
+	
+
+	public boolean isResult() {
 		return result;
 	}
 
-	public void setResult(String result) {
+	public void setResult(boolean result) {
 		this.result = result;
 	}
 
@@ -72,21 +84,14 @@ public class AttendedExamModel {
 		this.percentage = percentage;
 	}
 
-	public String getDate() {
-		return date;
+	public String getDateTime() {
+		return dateTime;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
 	}
 
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
 
 
 }

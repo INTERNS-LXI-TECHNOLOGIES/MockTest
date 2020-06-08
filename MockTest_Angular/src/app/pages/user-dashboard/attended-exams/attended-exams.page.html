@@ -43,12 +43,12 @@
 
                         <ng-container matColumnDef="result">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> Result  </th>
-                          <td mat-cell *matCellDef="let element"> {{element.result}}  </td>
+                          <td mat-cell *matCellDef="let element">{{element.result ==true? 'passed' :'failed'}}  </td>
                         </ng-container>
 
                         <ng-container matColumnDef="dateTime">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> DateTime  </th>
-                          <td mat-cell *matCellDef="let element"> {{element.date}} : {{element.time}}   </td>
+                          <td mat-cell *matCellDef="let element"> {{element.dateTime}}  </td>
                         </ng-container>
 
                       </mat-table>

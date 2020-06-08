@@ -198,7 +198,7 @@ public class MocktestControllerResource {
 		board.setCurrentUser(userExtra);
 		board.setUserId(userExtra.getId());
 		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
-		List<AttendedExamModel> examlist=restServ.attendedExamDetailsOfUser(attendExamList);
+		List<AttendedExamModel> examlist=restServ.attendedExamDetails(attendExamList);
 		board.setAttendedExamList(examlist);
 		return board;
 
@@ -222,10 +222,11 @@ public class MocktestControllerResource {
     {
     	Exam exam=examService.findById(id);
     	model.setExam(exam);
-    	List<User> users=extraService.findAll();
+    //	List<User> users=extraService.findAll();
     	List<AttendedExam> attendList=attendExamService.findAllByExam(exam);
-    	model.setUsers(restServ.getAttendedUserDetails(users,attendList));
-    	model.setAttendList(attendExamService.findAllByExam(exam));
+    	List<AttendedExamModel> examlist=restServ.attendedExamDetails(attendList);
+    //	model.setUsers(restServ.getAttendedUserDetails(users,attendList));
+    	model.setAttendList(examlist);
 		
 		return model;
     }
