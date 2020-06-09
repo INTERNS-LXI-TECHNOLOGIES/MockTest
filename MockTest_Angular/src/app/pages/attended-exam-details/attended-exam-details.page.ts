@@ -8,6 +8,7 @@ import {MatPaginator} from  '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 
 
+
 export interface attendedExamDetails
 {
      user:{
@@ -107,6 +108,11 @@ displayedColumns: string[] = [ 'index','user', 'score', 'percentage','result','d
      
     });
 
+  }
+
+  onClick()
+  {
+    this.router.navigate(['/pdf-view']);
   }
   
 

@@ -41,7 +41,11 @@ const routes: Routes = [
   {
       path: 'attended-exam-details',
       loadChildren: () => import('./pages/attended-exam-details/attended-exam-details.module').then( m => m.AttendedExamDetailsPageModule)
-    }
+    },  {
+    path: 'pdf-view',
+    loadChildren: () => import('./pages/pdf-view/pdf-view.module').then( m => m.PdfViewPageModule)
+  }
+
 
 
   
