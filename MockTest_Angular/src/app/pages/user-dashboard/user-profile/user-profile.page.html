@@ -2,9 +2,15 @@
   <ion-toolbar color="primary">
     <ion-title>Profile</ion-title>
   </ion-toolbar>
+  <ng-template #noDataTemplate>
+   <ion-progress-bar type="indeterminate"></ion-progress-bar> 
+  </ng-template>
 </ion-header>
 
+
 <ion-content>
+  <div  *ngIf="data; else noDataTemplate">
+  <div id="wrapper">
   <ion-card color="medium">
     <ion-card-content>
      <h3>FirstName  :<ion-text style="text-transform: capitalize;">{{data?.firstName}} </ion-text></h3>
@@ -15,4 +21,6 @@
     
     </ion-card-content>
     </ion-card>
+    </div></div>
+
     </ion-content>

@@ -9,6 +9,7 @@
 
 
 <ion-content>
+  
   <ion-item  *ngFor="let question of (allQuestions | async),let i=index">
    <p>
     <ion-label>{{i+1}}) {{question.qstn}}</ion-label>  

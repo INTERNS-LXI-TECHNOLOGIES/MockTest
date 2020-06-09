@@ -5,6 +5,14 @@
     </ion-buttons>
     <ion-title>Exam Analysis</ion-title>
   </ion-toolbar>
+  <ng-template #noExamDataFoundTemplate>
+    
+    <!-- <ion-card  color="light">
+      No Current Exam Data Found
+    </ion-card> -->
+   <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    
+  </ng-template>
 </ion-header>
 
 <ion-content>
@@ -19,12 +27,5 @@
 </ion-card>
 </div>
 
-  <ng-template #noExamDataFoundTemplate>
-    
-    <!-- <ion-card  color="light">
-      No Current Exam Data Found
-    </ion-card> -->
-   <br> <ion-progress-bar type="indeterminate"></ion-progress-bar>
-    
-  </ng-template>
+
 </ion-content>

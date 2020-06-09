@@ -1,5 +1,7 @@
 {
   "name": "MockTest_Angular",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
