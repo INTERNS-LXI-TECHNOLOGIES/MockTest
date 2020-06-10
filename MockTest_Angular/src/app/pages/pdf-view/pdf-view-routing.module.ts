@@ -5,8 +5,9 @@ import { PdfViewPage } from './pdf-view.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: PdfViewPage
+    path: ':id',
+    component: PdfViewPage,
+    pathMatch: 'full'
   }
 ];
 

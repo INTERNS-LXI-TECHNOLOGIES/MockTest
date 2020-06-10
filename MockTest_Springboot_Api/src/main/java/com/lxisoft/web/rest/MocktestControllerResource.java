@@ -230,7 +230,33 @@ public class MocktestControllerResource {
 		
 		return model;
     }
-    
+    /**
+	 * GET  /pdf : get the pdf exam report using javabean.
+	 * @return the byte[]
+	 * @throws Exception 
+	 */
+	@GetMapping("/examDetailsPDF/{Exam_id}")
+	public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@PathVariable String Exam_id) throws Exception 
+	{
+		log.debug("REST request to get a pdf");
+		List<AttendedExamBean>list=beanService.getAttendedExamDataBean(Exam_id);
+	    byte[] pdfContents = null;
+	   try
+	   {
+	
+		   pdfContents=jasperServ.getReportAsPdfUsingJavaBeans(list);
+	   }catch (JRException e) {
+	        e.printStackTrace();
+	   }
+	  
+	   HttpHeaders headers=new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType("application/pdf"));
+		String fileName="report.pdf";
+		headers.add("content dis-position","attachment: filename="+fileName);
+		ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
+		return response;
+	}
+	
 
 	/**
      * Get register page

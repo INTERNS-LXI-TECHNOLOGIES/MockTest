@@ -110,9 +110,9 @@ displayedColumns: string[] = [ 'index','user', 'score', 'percentage','result','d
 
   }
 
-  onClick()
+  onClick(id)
   {
-    this.router.navigate(['/pdf-view']);
+    this.router.navigate(['/pdf-view',id]);
   }
   
 

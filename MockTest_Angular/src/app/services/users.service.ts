@@ -6,6 +6,7 @@ import{dashboard} from '../model/dashboard';
   providedIn: 'root'
 })
 export class UsersService {
+  url="http://localhost:8080/api/mocktest-controller";
   imports:[HttpClient]
   constructor(private http: HttpClient) { }
   getData(){
@@ -27,5 +28,13 @@ export class UsersService {
   getAllAttendedExamDetails(id)
   {
     return this.http.get('http://localhost:8080/api/mocktest-controller/getAllAttendedExamDetails/'+id);
+  }
+  getPdfviewOfAttendedExamDetail(id)
+  {
+    const httpOptions = {
+      'responseType'  : 'arraybuffer' as 'json'
+       //'responseType'  : 'blob' as 'json'        //This also worked
+    };
+    return this.http.get<any>('http://localhost:8080/api/mocktest-controller/examDetailsPDF/'+id,httpOptions);
   }
 }

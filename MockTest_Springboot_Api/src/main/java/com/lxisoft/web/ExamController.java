@@ -815,7 +815,7 @@ public class ExamController
 		
 
 	/**
-	 * GET  /pdf : get the pdf exam report using database.
+	 * GET  /pdf : get the pdf exam report using javabean.
 	 * @return the byte[]
 	 * @throws Exception 
 	 */
