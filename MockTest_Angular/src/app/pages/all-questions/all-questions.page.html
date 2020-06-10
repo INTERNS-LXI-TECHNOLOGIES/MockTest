@@ -1,12 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="question"></ion-back-button>
     </ion-buttons>
     <ion-title>all questions</ion-title>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content>
   <ion-item  *ngFor="let question of (allQuestions | async),let i=index">
