@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { ifStmt } from '@angular/compiler/src/output/output_ast';
 
 export interface QstnOption{
   option: string;
@@ -20,7 +21,14 @@ export interface Question {
 export class MockTestService {
 
   defUrl='http://localhost:8080/api/mocktest-controller';
-  
+  alertMessage(message:string)
+  {
+    if(message!=null)
+      alert(message);
+    else
+      alert('something went wrong');
+  }
+
   getStringFromServer(url:string):Observable<string>{
    return this.http.get(this.defUrl+url,{responseType: 'text'}).pipe(map(str => {
       console.log('data from server for url'+this.defUrl+url+' is ::'+str);
@@ -35,12 +43,10 @@ export class MockTestService {
 
   postQstnToServer(url:string,data:Question){
     console.log('post data  for url'+this.defUrl+url+' is ::'+data);
-    this.http.post(this.defUrl+url,data).subscribe(()=>{alert("question created");
+    this.http.post(this.defUrl+url,data).subscribe(()=>{
+    this.alertMessage('successfully created question');
     this.router.navigateByUrl('/question');}
   );
-  err=> {
-    alert("something went wromg..!" );
-  }
   }
 
   constructor(private http:HttpClient,private router:Router) { }

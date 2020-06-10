@@ -231,6 +231,11 @@ public class MocktestControllerResource {
 		return model;
     }
     
+    @GetMapping("/attendedExam/{id}")
+    public AttendedExam attendedExamById(@PathVariable String id)
+    {
+    	return attendExamService.findById(id);
+    }
 
 	/**
      * Get register page

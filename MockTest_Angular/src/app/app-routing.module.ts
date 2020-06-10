@@ -41,17 +41,7 @@ const routes: Routes = [
   {
       path: 'attended-exam-details',
       loadChildren: () => import('./pages/attended-exam-details/attended-exam-details.module').then( m => m.AttendedExamDetailsPageModule)
-    }
-
-
-  
-  
-
-
- 
- 
-
- 
+  }
 ];
 
 
