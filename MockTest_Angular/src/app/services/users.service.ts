@@ -7,8 +7,20 @@ import{dashboard} from '../model/dashboard';
 })
 export class UsersService {
   url="http://localhost:8080/api/mocktest-controller";
+  private pdfId;
   imports:[HttpClient]
   constructor(private http: HttpClient) { }
+
+  setPdfId(id)
+  {
+    this.pdfId=id;
+    console.log("id from service"+id);
+  }
+  getPdfId()
+  {
+    return this.pdfId;
+  }
+  
   getData(){
     return this.http.get(`http://localhost:8080/api/mocktest-controller/all/`);
   }

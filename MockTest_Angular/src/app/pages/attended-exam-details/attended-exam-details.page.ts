@@ -45,6 +45,7 @@ export class AttendedExamDetailsPage implements OnInit {
     dateTime:"",
   }
   
+  
   examlist: Array<attendedExamDetails>;
   attendedExamData;
   dataSource1= null;
@@ -94,19 +95,15 @@ export class AttendedExamDetailsPage implements OnInit {
     });
 
   }
-
-  onClick(id)
-  {
-    this.router.navigate(['menu/pdf-view',id]);
-  }
   
-  async presentPopover(ev: any) {
+  async presentPopover(ev: any,id) {
+    console.log("id"+id);
     const popover = await this.popoverController.create({
       component:PopovercomponentPage,
       event: ev,
       translucent: false
     });
-  
+  this.userServ.setPdfId(id);
     await popover.present();
   }
 

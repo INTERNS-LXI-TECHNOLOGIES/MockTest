@@ -9,9 +9,13 @@ const routes: Routes = [
     component: MenuPage,
     canActivate: [AuthGuard],
     children: [
-      
+      {
+        path: ' ',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      },
         {
-          path: '',
+          path: 'home',
           loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
         },
         {

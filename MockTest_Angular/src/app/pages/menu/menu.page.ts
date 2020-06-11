@@ -13,7 +13,7 @@ export class MenuPage implements OnInit {
   public adminPages = [
     {
       title: 'home',
-      url: '/menu',
+      url: '/menu/home',
       icon: 'home'
     },
     {
@@ -37,7 +37,7 @@ export class MenuPage implements OnInit {
   public userPages = [
     {
       title: 'home',
-      url: '/menu',
+      url: '/menu/home',
       icon: 'home'
     },
  
