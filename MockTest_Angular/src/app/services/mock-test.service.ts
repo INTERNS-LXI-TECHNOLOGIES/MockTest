@@ -35,12 +35,16 @@ export class MockTestService {
       return str;}));
   }
 
+  getDataFromApi(url:string){
+    return this.http.get(this.defUrl+url);
+   }
+
   getDataFromServer(url:string){
     return this.http.get(this.defUrl+url).pipe(map(data => {
       console.log('string from server for url'+this.defUrl+url+' is ::'+data);
         return data;}));
   }
-  
+
   postQstnToServer(url:string,data:Question){
     console.log('post data  for url'+this.defUrl+url+' is ::'+data);
     this.http.post(this.defUrl+url,data).subscribe(()=>{
