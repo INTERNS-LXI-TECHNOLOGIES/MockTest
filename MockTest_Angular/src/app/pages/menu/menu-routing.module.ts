@@ -53,6 +53,10 @@ const routes: Routes = [
       {
         path: 'exam',
         loadChildren: () => import('../exam/exam.module').then( m => m.ExamPageModule)
+      },
+      {
+        path: 'popovercomponent',
+        loadChildren: () => import('../popovercomponent/popovercomponent.module').then( m => m.PopovercomponentPageModule)
       }
      
 
