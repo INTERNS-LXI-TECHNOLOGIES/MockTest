@@ -10,41 +10,26 @@
    
     </ion-buttons>
   </ion-toolbar>
+  <ng-template #noDataTemplate>
+
+   <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    
+  </ng-template>
 </ion-header>
 
- 
+ <ion-content>
 
-<ion-content>
- <ion-split-pane contentId="main-content">
-   <ion-menu contentId="main-content" type="overlay">
-     <ion-content>
-       <ion-list id="inbox-list">
-         <ion-list-header>mocktest</ion-list-header>
-         <!-- <ion-note>mocktest</ion-note> -->
-         <div *ngIf="userRole=='admin'">
-           <ion-menu-toggle auto-hide="false" *ngFor="let p of adminPages; let i = index">
-             <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
-               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-               <ion-label>{{ p.title }}</ion-label>
-             </ion-item>
-           </ion-menu-toggle>
-         </div>
-         <div *ngIf="userRole=='user'">
-           <ion-menu-toggle auto-hide="false" *ngFor="let p of userPages; let i = index">
-             <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
-               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-               <ion-label>{{ p.title }}</ion-label>
-             </ion-item>
-           </ion-menu-toggle>
-         </div>
-       </ion-list>
-     </ion-content>
-   </ion-menu>
-  
-   <ion-router-outlet id="main-content"></ion-router-outlet>
-  
- </ion-split-pane>
- <div class="ion-text-center"> <h2><b>welcome {{userInfo?.name}}</b></h2> </div>
+ <div *ngIf="activeExams; else noDataTemplate">
+      <div class="ion-text-center"> <h2>welcome {{userInfo?.name}}</h2>
+      <h3> choose a test to start!</h3> </div>
+
+        <ion-card *ngFor="let exam of activeExams" color="light" button (click)="preview(exam.id)">
+          <ion-card-content class="ion-text-center">
+              {{exam.name}}
+          </ion-card-content>
+        </ion-card>
+</div>
+
 </ion-content> 
 
 

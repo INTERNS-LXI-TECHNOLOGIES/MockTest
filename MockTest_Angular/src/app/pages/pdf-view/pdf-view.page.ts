@@ -58,7 +58,7 @@ export class PdfViewPage implements OnInit {
       console.log(this.data);
       // var UTF8_STR = new Uint8Array(this.data); // Convert to UTF-8... 
     	// var BINARY_ARR = UTF8_STR.buffer; // Convert to buffer...
-      pdfmake.createPdf(this.data).open()
+     // pdfmake.createPdf(this.data).open()
     let file = new Blob([data], { type: 'application/pdf' });            
         var fileURL = URL.createObjectURL(file);
         window.open(fileURL);

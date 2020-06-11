@@ -55,7 +55,7 @@ export class LoginPage implements OnInit {
           console.log(this.postData.password);
             if(this.auth.login(this.postData)){
               this.auth.loginUser(this.postData);
-                   this.router.navigate(['/home']);
+                   this.router.navigate(['/menu']);
              }
             } else {
               const toast=await this.toastcntrl.create({

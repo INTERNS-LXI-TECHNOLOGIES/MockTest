@@ -257,6 +257,17 @@ public class MocktestControllerResource {
 		return response;
 	}
 	
+	/**
+	 * get Active exams from database
+	 * @return user_active_exams.
+	 */
+	@GetMapping ("/activeExams")
+	public Set<Exam> activeExams()
+	{
+		Set<Exam> active_exams=examService.findActiveExams();
+		return active_exams;
+	}
+	
 
 	/**
      * Get register page
@@ -316,18 +327,7 @@ public class MocktestControllerResource {
 //		return "logoutpage";
 //	}
 	
-	
-	/**
-     * user get Active exams from database
-     * @param Model
-     * @return user_active_exams.
-     */
-	@RequestMapping ("/activeExams")
-	public Set<Exam> userpage(Model model)
-	{
-		Set<Exam> active_exams=examService.findActiveExams();
-		return active_exams;
-	}
+
 	
 	
 //	/**

@@ -20,7 +20,7 @@ export class ExamAnalysisPage implements OnInit {
      examDetaills(id)
      {
       console.log("method call" +id);
-    this.router.navigate(['/attended-exam-details',id]);
+    this.router.navigate(['menu/attended-exam-details',id]);
      }
   ngOnInit() {
     this.getAllExam();

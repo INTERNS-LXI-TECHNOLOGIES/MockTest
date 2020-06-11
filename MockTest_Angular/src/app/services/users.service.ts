@@ -37,4 +37,8 @@ export class UsersService {
     };
     return this.http.get<any>('http://localhost:8080/api/mocktest-controller/examDetailsPDF/'+id,httpOptions);
   }
+  getActiveExams()
+  {
+    return this.http.get(`http://localhost:8080/api/mocktest-controller/activeExams/`);
+  }
 }
