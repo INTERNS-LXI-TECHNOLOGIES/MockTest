@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule,ActivatedRoute } from '@angular/router';
+import { MockTestService } from 'src/app/services/mock-test.service';
+import { attendedExam } from 'src/app/model/attendedExam';
 @Component({
   selector: 'app-exam-history',
   templateUrl: './exam-history.page.html',
@@ -7,13 +9,15 @@ import { RouterModule,ActivatedRoute } from '@angular/router';
 })
 export class ExamHistoryPage implements OnInit {
 
-  constructor(private acivaterouter:ActivatedRoute) { }
+  constructor(private acivaterouter:ActivatedRoute,private mockSer:MockTestService) { }
+  id=this.acivaterouter;
+  attendedExam=this.mockSer.getDataFromServer("/attendedExam/1").subscribe();
 
   ngOnInit() {
 
     this.acivaterouter.params.subscribe(params => {
       const id= params['id']; //use this id to get examHistory details..!
-
+      return id;
     });
   }
 

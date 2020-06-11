@@ -40,7 +40,7 @@ export class MockTestService {
       console.log('string from server for url'+this.defUrl+url+' is ::'+data);
         return data;}));
   }
-
+  
   postQstnToServer(url:string,data:Question){
     console.log('post data  for url'+this.defUrl+url+' is ::'+data);
     this.http.post(this.defUrl+url,data).subscribe(()=>{

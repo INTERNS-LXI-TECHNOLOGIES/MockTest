@@ -48,16 +48,17 @@ date: <span th:text="${attendedExam.getDateTime().toLocalDate()}+' at '+${attend
            		<br>
            </tr>
     </tbody>
-</table>
+</table> -->
 
-<ion-content>
-  <div  *ngIf="exam ;else noExamDataFoundTemplate ">
-    <ion-card *ngFor="let data of exam" color="light" button (click)="examDetaills(data.id)">
-      <ion-card-content>
+
+  <!-- <div  *ngIf="attendedExam ;else noExamDataFoundTemplate ">
+    <ion-card *ngFor="let data of attendedExam" color="light">
+      <ion-card-content> -->
         <ion-text  class="ion-text-center">
-          {{data.name}}
+          {{attendedExam}}
         </ion-text>
         
-      </ion-card-content>
-</ion-card> -->
+      <!-- </ion-card-content>
+    </ion-card> -->
+    <!-- </div> -->
 </ion-content>
