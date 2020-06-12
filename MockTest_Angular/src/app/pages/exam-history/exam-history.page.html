@@ -59,7 +59,7 @@ date: <span th:text="${attendedExam.getDateTime().toLocalDate()}+' at '+${attend
     <ion-card *ngFor="let exam of attendedExam?. attendedOptions" color="light">
       <ion-card-content>
         <ion-text  class="ion-text-center">
-          {{exam.id}}
+          {{exam?.id}}
           
          <!-- cc {{attendedExam.id }} -->
         </ion-text>
