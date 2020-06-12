@@ -5,13 +5,17 @@
     </ion-buttons>
     <ion-title>Home</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="logout()">Logout
-           </ion-button>
-   
+      <ion-button (click)="logout()">Logout </ion-button>
     </ion-buttons>
   </ion-toolbar>
+
+  <ng-template #noDataTemplate>
+   <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </ng-template>
+
 </ion-header>
 
+<<<<<<< HEAD
  
 
 <ion-content>
@@ -45,6 +49,21 @@
   
  </ion-split-pane>
  <div class="ion-text-center"> <h2><b>welcome  {{userInfo?.name}}</b></h2> </div>
+=======
+ <ion-content>
+
+    <div *ngIf="activeExams; else noDataTemplate">
+          <div class="ion-text-center"> <h2>welcome {{userInfo?.name}}</h2>
+          <h3> choose a test to start!</h3> </div>
+
+            <ion-card *ngFor="let exam of activeExams" color="light" button (click)="preview(exam.id)">
+              <ion-card-content class="ion-text-center">
+                  {{exam.name}}
+              </ion-card-content>
+            </ion-card>
+    </div>
+
+>>>>>>> e7c9953ecf552518acf832189772174013c5f689
 </ion-content> 
 
 

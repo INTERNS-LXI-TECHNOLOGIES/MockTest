@@ -16,7 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { File } from '@ionic-native/file/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,13 +29,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AppRoutingModule, RouterModule, BrowserAnimationsModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [
     StatusBar,
-    SplashScreen,AuthService,AuthGuard,
+    SplashScreen,AuthService,AuthGuard,File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+// cordova plugin remove cordova-plugin-file
+
+// npm i @ionic-native/plugin-name@4 --save 

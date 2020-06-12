@@ -6,8 +6,21 @@ import{dashboard} from '../model/dashboard';
   providedIn: 'root'
 })
 export class UsersService {
+  url="http://localhost:8080/api/mocktest-controller";
+  private pdfId;
   imports:[HttpClient]
   constructor(private http: HttpClient) { }
+
+  setPdfId(id)
+  {
+    this.pdfId=id;
+    console.log("id from service"+id);
+  }
+  getPdfId()
+  {
+    return this.pdfId;
+  }
+  
   getData(){
     return this.http.get(`http://localhost:8080/api/mocktest-controller/all/`);
   }
@@ -28,4 +41,21 @@ export class UsersService {
   {
     return this.http.get('http://localhost:8080/api/mocktest-controller/getAllAttendedExamDetails/'+id);
   }
+  getPdfviewOfAttendedExamDetail(id)
+  {
+    const httpOptions = {
+      'responseType'  : 'arraybuffer' as 'json'
+       //'responseType'  : 'blob' as 'json'        //This also worked
+    };
+    return this.http.get<any>('http://localhost:8080/api/mocktest-controller/examDetailsPDF/'+id,httpOptions);
+  }
+  getActiveExams()
+  {
+    return this.http.get(`http://localhost:8080/api/mocktest-controller/activeExams/`);
+  }
+  getSelectedExamDetails(id)
+  {
+    return this.http.get('http://localhost:8080/api/mocktest-controller/getSelectedExamDetails/'+id);
+  }
+
 }

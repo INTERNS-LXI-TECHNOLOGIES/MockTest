@@ -3,12 +3,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-back-button defaultHref="../"></ion-back-button>
     </ion-buttons>
     <ion-title>AttendExamDetails</ion-title>
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical" (click)="presentPopover($event)"></ion-icon>
+      <ion-button (click)="presentPopover($event,attendedExamData.exam.id)">
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical" ></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -100,10 +100,10 @@
                   <ng-template #noDataTemplate>
                     <div  *ngIf="isEmpty">
                       <ion-text color="medium" class="ion-text-center">
-                     <h1> No data !!! </h1>
+                     <!-- <h1> No data !!! </h1> -->
                       </ion-text>
                       </div>
                   </ng-template>
                  
-                
+              
 </ion-content>

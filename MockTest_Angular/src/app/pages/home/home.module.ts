@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import  {RouterModule} from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { HomePage } from './home.page';
 
 @NgModule({
@@ -13,10 +12,10 @@ import { HomePage } from './home.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,RouterModule,NgxDatatableModule
+    HomePageRoutingModule,RouterModule
   ],
  
   
-  declarations: [HomePage], schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [HomePage]
 })
 export class HomePageModule {}

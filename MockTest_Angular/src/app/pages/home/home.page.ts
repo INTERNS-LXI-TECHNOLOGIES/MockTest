@@ -10,56 +10,14 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  public selectedIndex = 0;
-  public adminPages = [
-    {
-      title: 'home',
-      url: '/home',
-      icon: 'home'
-    },
-    {
-     
-      title: 'question',
-      url: '/question',
-      icon: 'mail'
-    },
-    {
-      title: 'exam',
-      url: '/active-exams',
-      icon: 'paper-plane'
-    },
-    {
-      title: 'exam-analysis',
-      url: '/exam-analysis',
-      icon: 'pencil'
-    }
-  ];
-
-  public userPages = [
-    {
-      title: 'home',
-      url: '/home',
-      icon: 'home'
-    },
  
-    {
-      title: 'Dashboard',
-      url:  '/user-dashboard',
-      icon: 'mail'
-    },
-    {
-      title: 'ActiveExams',
-      url: '/active-exams',
-      icon: 'heart'
-    }
-  ];
-  
   url:string='http://localhost:8080/api/mocktest-controller/';
   questions:any=this.mockTestSer.getDataFromServer('http://localhost:8080/api/questions/');
   // userRole=this.mockTestSer.getStringFromServer(this.url);
 
   public userInfo:object;
    userRole;
+   activeExams;
 
 //  registerId;
   constructor(private mockTestSer: MockTestService,private http: HttpClient,
@@ -84,16 +42,17 @@ export class HomePage implements OnInit {
   }
 
   }
+
+  getActiveExams()
+  {
+    this.userServ.getActiveExams().subscribe(response => {
+      this.activeExams=response;
+      console.log(this.activeExams);
+    });
+  }
  
   ngOnInit() {
 
-    this.userRole='admin'
- 
-    const path = window.location.pathname.split('folder/')[1];
-    // const path = window.location.pathname.split('/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.adminPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
     // this.isAuthenticated();
     this.auth.getUserInfo().then(userData => {
       console.log(userData);
@@ -102,7 +61,7 @@ export class HomePage implements OnInit {
      
     })
    
-
+    this.getActiveExams();
   
   }
 

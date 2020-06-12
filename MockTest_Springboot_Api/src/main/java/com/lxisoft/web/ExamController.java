@@ -1,4 +1,4 @@
-package com.lxisoft.web;
+ package com.lxisoft.web;
 
 
 import java.io.BufferedReader;
@@ -815,7 +815,7 @@ public class ExamController
 		
 
 	/**
-	 * GET  /pdf : get the pdf exam report using database.
+	 * GET  /pdf : get the pdf exam report using javabean.
 	 * @return the byte[]
 	 * @throws Exception 
 	 */

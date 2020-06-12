@@ -53,6 +53,7 @@ import com.lxisoft.domain.Authority;
 import com.lxisoft.model.AttendedExamBean;
 import com.lxisoft.model.AttendedExamListModel;
 import com.lxisoft.model.AttendedExamModel;
+import com.lxisoft.model.ExamModel;
 import com.lxisoft.model.UserDashBoard;
 import com.lxisoft.repository.UserExtraRepository;
 import com.lxisoft.service.AttendedExamBeanService;
@@ -212,7 +213,20 @@ public class MocktestControllerResource {
     public List<Exam>getAllExamDetails() {
     	return examService.findAll();
     }
-    
+    /**
+     * select an exam from list of exam for activate or deactivate or view exam details
+     * @param examId
+     * @return activateExam
+     */
+	@GetMapping ("/getSelectedExamDetails/{eId}")
+	public ExamModel selectExam(@PathVariable String eId,ExamModel model) throws Exception
+	{
+		Exam exam=examService.findById(eId);
+		model.setExam(exam);
+		model.setQuestions(exam.getQuestions());
+		return model;
+	}
+	
     /** 
      * get all exam from database
      * @return 
@@ -230,6 +244,7 @@ public class MocktestControllerResource {
 		
 		return model;
     }
+<<<<<<< HEAD
     
     @GetMapping("/attendedExam/{id}")
     public AttendedExam attendedExamById(@PathVariable String id)
@@ -237,6 +252,46 @@ public class MocktestControllerResource {
     	log.debug("get attended exam with id-"+id);
     	return attendExamService.findById(id);
     }
+=======
+    /**
+	 * GET  /pdf : get the pdf exam report using javabean.
+	 * @return the byte[]
+	 * @throws Exception 
+	 */
+	@GetMapping("/examDetailsPDF/{Exam_id}")
+	public ResponseEntity<byte[]> getReportAsPdfUsingDataBase(@PathVariable String Exam_id) throws Exception 
+	{
+		log.debug("REST request to get a pdf");
+		List<AttendedExamBean>list=beanService.getAttendedExamDataBean(Exam_id);
+	    byte[] pdfContents = null;
+	   try
+	   {
+	
+		   pdfContents=jasperServ.getReportAsPdfUsingJavaBeans(list);
+	   }catch (JRException e) {
+	        e.printStackTrace();
+	   }
+	  
+	   HttpHeaders headers=new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType("application/pdf"));
+		String fileName="report.pdf";
+		headers.add("content dis-position","attachment: filename="+fileName);
+		ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
+		return response;
+	}
+	
+	/**
+	 * get Active exams from database
+	 * @return user_active_exams.
+	 */
+	@GetMapping ("/activeExams")
+	public Set<Exam> activeExams()
+	{
+		Set<Exam> active_exams=examService.findActiveExams();
+		return active_exams;
+	}
+	
+>>>>>>> e7c9953ecf552518acf832189772174013c5f689
 
 	/**
      * Get register page
@@ -296,18 +351,7 @@ public class MocktestControllerResource {
 //		return "logoutpage";
 //	}
 	
-	
-	/**
-     * user get Active exams from database
-     * @param Model
-     * @return user_active_exams.
-     */
-	@RequestMapping ("/activeExams")
-	public Set<Exam> userpage(Model model)
-	{
-		Set<Exam> active_exams=examService.findActiveExams();
-		return active_exams;
-	}
+
 	
 	
 //	/**
