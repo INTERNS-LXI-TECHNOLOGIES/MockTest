@@ -53,6 +53,7 @@ import com.lxisoft.domain.Authority;
 import com.lxisoft.model.AttendedExamBean;
 import com.lxisoft.model.AttendedExamListModel;
 import com.lxisoft.model.AttendedExamModel;
+import com.lxisoft.model.ExamModel;
 import com.lxisoft.model.UserDashBoard;
 import com.lxisoft.repository.UserExtraRepository;
 import com.lxisoft.service.AttendedExamBeanService;
@@ -212,7 +213,20 @@ public class MocktestControllerResource {
     public List<Exam>getAllExamDetails() {
     	return examService.findAll();
     }
-    
+    /**
+     * select an exam from list of exam for activate or deactivate or view exam details
+     * @param examId
+     * @return activateExam
+     */
+	@GetMapping ("/getSelectedExamDetails/{eId}")
+	public ExamModel selectExam(@PathVariable String eId,ExamModel model) throws Exception
+	{
+		Exam exam=examService.findById(eId);
+		model.setExam(exam);
+		model.setQuestions(exam.getQuestions());
+		return model;
+	}
+	
     /** 
      * get all exam from database
      * @return 
