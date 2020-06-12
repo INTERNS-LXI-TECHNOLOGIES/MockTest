@@ -18,7 +18,7 @@
 <ion-content>
   <div  *ngIf="exam ;else noExamDataFoundTemplate ">
   <ion-text color="tertiary" class="ion-text-center">
-    <h2>All exams in database!</h2>
+  
   </ion-text> 
 <ion-card *ngFor="let data of exam" color="light" button (click)="examDetaills(data.id)">
   <ion-card-content class="ion-text-center">

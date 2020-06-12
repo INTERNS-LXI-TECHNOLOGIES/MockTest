@@ -9,13 +9,13 @@ const routes: Routes = [
     component: MenuPage,
     canActivate: [AuthGuard],
     children: [
-      {
-        path: ' ',
-        redirectTo: 'home',
-        pathMatch: 'full'
-      },
+      // {
+      //   path: ' ',
+      //   redirectTo: 'home',
+      //   pathMatch: 'full'
+      // },
         {
-          path: 'home',
+          path: '',
           loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
         },
         {
@@ -50,10 +50,6 @@ const routes: Routes = [
           path: 'attended-exam-details',
           loadChildren: () => import('../attended-exam-details/attended-exam-details.module').then( m => m.AttendedExamDetailsPageModule)
         },
-      {
-        path: 'pdf-view',
-        loadChildren: () => import('../pdf-view/pdf-view.module').then( m => m.PdfViewPageModule)
-      },
       {
         path: 'exam',
         loadChildren: () => import('../exam/exam.module').then( m => m.ExamPageModule)

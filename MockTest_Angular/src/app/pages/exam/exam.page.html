@@ -5,8 +5,20 @@
     </ion-buttons>
     <ion-title>ExamPage</ion-title>
   </ion-toolbar>
+  <ng-template #noExamDataFoundTemplate>
+   <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </ng-template>
 </ion-header>
 
 <ion-content>
-
+  <div  *ngIf="examData ;else noExamDataFoundTemplate ">
+    <ion-text color="tertiary" class="ion-text-center">
+      <h2>All exams in database!</h2>
+    </ion-text> 
+  <ion-card *ngFor="let data of examData" color="light" button (click)="examDetaills(data.id)">
+    <ion-card-content class="ion-text-center">
+        {{data.name}}
+    </ion-card-content>
+  </ion-card>
+  </div>
 </ion-content>
