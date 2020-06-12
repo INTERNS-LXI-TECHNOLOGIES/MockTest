@@ -14,10 +14,10 @@ export class PopovercomponentPage implements OnInit {
 
   generatePdfReport()
   {
-   // this.router.navigate(['menu/pdf-view',id]);
+  
     // pdfmake.vfs = pdfFonts.pdfMake.vfs;
     const id=this.userServ.getPdfId();
-    console.log("pop"+id);
+    // console.log("pop"+id);
       this.userServ.getPdfviewOfAttendedExamDetail(id).subscribe(data => {
         this.pdfData=data
         console.log(this.pdfData);

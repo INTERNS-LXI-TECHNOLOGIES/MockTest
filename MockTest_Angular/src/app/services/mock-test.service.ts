@@ -42,6 +42,11 @@ export class MockTestService {
     alert("something went wromg..!" );
   }
   }
+  getDataFromApi(id)
+  {
+    return this.http.get(this.defUrl+'/attendedExam/'+id);
+   
+  }
 
   constructor(private http:HttpClient,private router:Router) { }
 }
