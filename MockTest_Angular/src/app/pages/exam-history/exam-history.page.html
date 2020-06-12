@@ -53,12 +53,15 @@ date: <span th:text="${attendedExam.getDateTime().toLocalDate()}+' at '+${attend
 
   <div  *ngIf="attendedExam ;else noExamDataFoundTemplate ">
     dmdm
-    <ion-card *ngFor="let exam of exam" color="light">
+    {{attendedExam?.score}}
+    {{attendedExam?.id}}
+    <p [attendedExam]></p>
+    <ion-card *ngFor="let exam of attendedExam?. attendedOptions" color="light">
       <ion-card-content>
         <ion-text  class="ion-text-center">
           {{exam.id}}
           
-         cc {{attendedExam }}
+         <!-- cc {{attendedExam.id }} -->
         </ion-text>
         
       </ion-card-content>
