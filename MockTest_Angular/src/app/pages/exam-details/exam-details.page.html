@@ -11,20 +11,21 @@
 </ion-header>
 
 <ion-content>
-  <div  *ngIf="selectedExamData; else noDataTemplate" style="overflow-x:auto;">
+  <div  *ngIf="selectedExamData; else noDataTemplate" >
     <ion-text color="dark" class="ion-text-center">
     <h1> {{selectedExamData?.exam?.name}}</h1>
     <h2>Time: {{selectedExamData?.exam?.time}} Hr</h2>
     <h3>Status:{{selectedExamData?.exam?.isActive==true ? 'Active-Now' : 'Not-Active'}}</h3>
     </ion-text>
    <h2><u>Questions</u></h2> 
-   <ion-item  *ngFor="let question of selectedExamData?.questions ,let i=index">
+   <div style="overflow-x:auto;">
+   <ion-item  *ngFor="let question of selectedExamData?.questions ,let i=index" >
     <p>
-     <ion-label> <b> {{i+1}} ) {{question.qstn}} </b></ion-label>  
+     <ion-label > <b> {{i+1}} ) {{question.qstn}} </b></ion-label>  
      <ion-label *ngFor="let opt of question?.qstnOptions,let j=index">&nbsp;&nbsp;{{j+1}}. {{opt.option}}</ion-label>
      <ion-label *ngFor="let opt of question?.qstnOptions">
         <ion-label *ngIf="opt.isAnswer==true">&nbsp;&nbsp;<b>Ans: {{opt.option}}</b></ion-label></ion-label>
    </p> 
-   </ion-item> 
+   </ion-item> </div>
   </div>
 </ion-content>

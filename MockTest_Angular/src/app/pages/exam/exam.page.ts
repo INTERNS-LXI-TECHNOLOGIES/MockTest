@@ -23,5 +23,8 @@ export class ExamPage implements OnInit {
   ngOnInit() {
     this.getAllExam();
   }
-
+click()
+{
+  console.log("clicked ")
+}
 }
