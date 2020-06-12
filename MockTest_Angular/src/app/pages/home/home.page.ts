@@ -53,7 +53,6 @@ export class HomePage implements OnInit {
  
   ngOnInit() {
 
-   
     // this.isAuthenticated();
     this.auth.getUserInfo().then(userData => {
       console.log(userData);
