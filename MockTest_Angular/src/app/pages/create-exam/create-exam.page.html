@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="menu/exam"></ion-back-button>
+    </ion-buttons>
+    <ion-title>createExam</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+          <form (ngSubmit)="createExam(form)">
+            
+                <ion-list>
+                <ion-item>
+                <ion-label position="floating">Enter the Name </ion-label>
+                <ion-input autocomplete="on" type="text" [(ngModel)]="examData.name" name="name" [ngModelOptions]="{standalone: true}"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                <ion-label position="floating">No.of Questions</ion-label>
+                <ion-input autocomplete="on" type="text" [(ngModel)]="examData.count" name="count" [ngModelOptions]="{standalone: true}"></ion-input>
+                </ion-item>
+                
+                <ion-item>
+                  <ion-label>Level: &nbsp;
+                    <select [(ngModel)]="examData.level" [ngModelOptions]="{standalone: true}">
+                      <option *ngFor="let level of allLevels" [value]="level">{{level}}</option>
+                    </select>
+                </ion-label>
+                </ion-item>
+
+               
+                </ion-list>
+                <ion-button expand="block" share="round" color="success" type="submit">create</ion-button>
+                
+                
+                  
+                  
+              
+            </form>
+    </ion-card>
+</ion-content>

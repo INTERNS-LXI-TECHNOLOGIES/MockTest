@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginPageModule } from '../pages/login/login.module';
 import{dashboard} from '../model/dashboard';
+import { Exam } from '../pages/create-exam/create-exam.page';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +11,7 @@ export class UsersService {
   url="http://localhost:8080/api/mocktest-controller";
   private pdfId;
   imports:[HttpClient]
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router:Router) { }
 
   setPdfId(id)
   {
@@ -57,5 +59,15 @@ export class UsersService {
   {
     return this.http.get('http://localhost:8080/api/mocktest-controller/getSelectedExamDetails/'+id);
   }
+  saveExam(exam:Exam)
+  {
+    console.log(exam);
 
+    this.http.post('http://localhost:8080/api/mocktest-controller/create_exam/',exam).subscribe(()=>{alert("Exam created");
+    this.router.navigateByUrl('/menu/exam');}
+  );
+  err=> {
+    alert("something went wromg..!" );
+  }
+  }
 }

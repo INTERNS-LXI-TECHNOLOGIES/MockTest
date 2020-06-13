@@ -1,70 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="exam"></ion-back-button>
-    </ion-buttons>
-    <ion-title>exam history</ion-title>
-  </ion-toolbar>
+    
+  <ion-title>examHistory</ion-title>
+</ion-toolbar>
 </ion-header>
- 
 
 <ion-content>
-  ccuivuchvc
-<!-- <h3>Exam: <span th:text="${attendedExam.exam.name}">exam name</span></h3>
-<h4>Mark: <span th:text="${attendedExam.score}+' / '+${attendedExam.total}">mark</span><br>
-Percentage: <span th:style="${attendedExam.isResult()==true}?'color:#0fe300':'color:red'"
-			 th:text="${attendedExam.percentage}+' ('+(${attendedExam.result}==true? passed:failed)+')'">percentage</span><br></h4>
-date: <span th:text="${attendedExam.getDateTime().toLocalDate()}+' at '+${attendedExam.getDateTime().toLocalTime()}"> Time </span>
-</div>
-<br>
-<div class="container">
-<div align="right"><button class="button button1" onclick="window.print()">Print</button></div>
- 
-<table width=100% th:each="qstn ,stat : ${attendedExam.exam.questions}">
-    <tbody>
-   
-    <tr th:if="${attendedExam.exam.questions.empty}" align="center">
-            <td colspan="1"> Questions has been revoked </td>
-        </tr>
-        
-        <tr>
-	        <td>
-	        <span th:text="${stat.index+1}+'.'" > Sl.No. </span>&nbsp;
-	        <span th:text="${qstn.getQstn()}"> question</span>
-	        </td>
-        </tr>
-        <tr th:each="q_option,iterator : ${qstn.qstnOptions}">
-            <td th:style="${q_option.isAnswer==true} ?'color:#0fe300':null">
-            	&nbsp;&nbsp;&nbsp;<span th:text="'('+${iterator.index+1}+')'" > optn.No. </span>&nbsp;
-            	<span th:text="${q_option.option}">option</span>
-            </td>
-          </tr>
-           <tr>
-           		<td th:style="${attendedOptions[__stat.index__].attendedAnswer==true} ?'color:#0fe300':'color:red'">
-           			&nbsp;&nbsp;Your Answer:- <span th:text="${attendedOptions[__stat.index__].attendedOpt}"></span> 
-           		</td>
-           </tr>
-           <tr>
-           		<br>
-           </tr>
-    </tbody>
-</table> -->
-
-
-  <div  *ngIf="attendedExam ;else noExamDataFoundTemplate ">
-    dmdm
-    {{attendedExam?.score}}
-    {{attendedExam?.id}}
-    <p [attendedExam]></p>
-    <ion-card *ngFor="let exam of attendedExam?. attendedOptions" color="light">
-      <ion-card-content>
-        <ion-text  class="ion-text-center">
-          {{exam?.id}}
-          
-         <!-- cc {{attendedExam.id }} -->
-        </ion-text>
-        
-      </ion-card-content>
-    </ion-card>
-    </div>
+{{attendedExam?.id}}
+{{attendedExam?.exam?.name}}
 </ion-content>

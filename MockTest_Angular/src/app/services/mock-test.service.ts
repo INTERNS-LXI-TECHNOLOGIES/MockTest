@@ -52,6 +52,11 @@ export class MockTestService {
     this.router.navigateByUrl('/question');}
   );
   }
+  getDataFromApi(id)
+  {
+    return this.http.get(this.defUrl+'/attendedExam/'+id);
+   
+  }
 
   constructor(private http:HttpClient,private router:Router) { }
 }
