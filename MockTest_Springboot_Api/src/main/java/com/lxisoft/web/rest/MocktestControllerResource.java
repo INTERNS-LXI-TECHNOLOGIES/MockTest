@@ -174,11 +174,12 @@ public class MocktestControllerResource {
 	    * @return create_exam
 	    */
 		@PostMapping ("/create_exam")
-		public void save_exam(@RequestBody Exam exam,Model model)
+		public boolean save_exam(@RequestBody Exam exam,Model model)
 		{
 			exam.setIsActive(false);
-			log.debug("saving exam {}"+exam);
-			examService.save_exam(exam);
+			log.debug("saving exam {}"+exam.getName());
+			boolean flag=examService.save_exam(exam);
+			return flag;
 		}
 	
 	 @GetMapping("/all")
