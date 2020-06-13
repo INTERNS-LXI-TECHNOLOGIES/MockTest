@@ -50,6 +50,10 @@ export class HomePage implements OnInit {
       console.log(this.activeExams);
     });
   }
+
+  startExam(id){
+    this.router.navigate(['menu/exam-start/'+id]);
+  }
  
   ngOnInit() {
 

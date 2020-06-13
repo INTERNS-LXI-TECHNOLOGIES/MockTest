@@ -4,7 +4,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    <ion-title>home</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="logout()">Logout </ion-button>
     </ion-buttons>
@@ -20,9 +20,9 @@
 
     <div *ngIf="activeExams; else noDataTemplate">
           <div class="ion-text-center"> <h2>welcome {{userInfo?.name}}</h2>
-          <h3> choose a test to start!</h3> </div>
+          <h3> choose an exam to start!</h3> </div>
 
-            <ion-card *ngFor="let exam of activeExams" color="light" button (click)="preview(exam.id)">
+            <ion-card *ngFor="let exam of activeExams" color="light" button (click)="startExam(exam.id)">
               <ion-card-content class="ion-text-center">
                   {{exam.name}}
               </ion-card-content>
