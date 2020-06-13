@@ -35,10 +35,6 @@ export class MockTestService {
       return str;}));
   }
 
-  getDataFromApi(url:string){
-    return this.http.get(this.defUrl+url);
-   }
-
   getDataFromServer(url:string){
     return this.http.get(this.defUrl+url).pipe(map(data => {
       console.log('string from server for url'+this.defUrl+url+' is ::'+data);
@@ -52,10 +48,10 @@ export class MockTestService {
     this.router.navigateByUrl('/question');}
   );
   }
-  getDataFromApi(id)
+
+  getDataById(url:string,id)
   {
-    return this.http.get(this.defUrl+'/attendedExam/'+id);
-   
+    return this.http.get(this.defUrl+url+id);
   }
 
   constructor(private http:HttpClient,private router:Router) { }

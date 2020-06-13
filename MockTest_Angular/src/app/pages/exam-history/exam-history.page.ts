@@ -9,19 +9,19 @@ import { MockTestService } from 'src/app/services/mock-test.service';
 export class ExamHistoryPage implements OnInit {
   attendedExam;
   constructor(private acivaterouter:ActivatedRoute,private mockSer:MockTestService) { }
-  attendedExamDetail(id)
+
+  attendedExamDetail(url:string,id)
   {
-    this.mockSer.getDataFromApi(id).subscribe(data => {
-    
+    this.mockSer.getDataById(url,id).subscribe(data => {
       this.attendedExam=data;
       console.log(this.attendedExam);
     });
   }
-  ngOnInit() {
 
+  ngOnInit() {
     this.acivaterouter.params.subscribe(params => {
       const id= params['id']; //use this id to get examHistory details..!
-     this.attendedExamDetail(id);
+     this.attendedExamDetail('/attendedExam/',id);
 
     });
   }

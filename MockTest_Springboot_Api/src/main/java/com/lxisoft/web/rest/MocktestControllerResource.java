@@ -257,15 +257,6 @@ public class MocktestControllerResource {
 		
 		return model;
     }
-<<<<<<< HEAD
-    
-    @GetMapping("/attendedExam/{id}")
-    public AttendedExam attendedExamById(@PathVariable String id)
-    {
-    	log.debug("get attended exam with id-"+id);
-    	return attendExamService.findById(id);
-    }
-=======
     /**
 	 * GET  /pdf : get the pdf exam report using javabean.
 	 * @return the byte[]
@@ -304,7 +295,6 @@ public class MocktestControllerResource {
 		return active_exams;
 	}
 	
->>>>>>> e7c9953ecf552518acf832189772174013c5f689
 
 	/**
      * Get register page

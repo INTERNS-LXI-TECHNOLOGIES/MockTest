@@ -1,11 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    
-  <ion-title>examHistory</ion-title>
-</ion-toolbar>
-</ion-header>
+  <ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="menu/exam"></ion-back-button>
+      </ion-buttons>
+      <ion-title>exam history</ion-title>
+    </ion-toolbar>
+    <ng-template #noDataTemplate>
+     <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    </ng-template>
+  </ion-header>
 
-<ion-content>
-{{attendedExam?.id}}
-{{attendedExam?.exam?.name}}
+<ion-content class="ion-text-center">
+  <br><b>{{attendedExam?.exam?.name}}</b><br>
+  <ion-text [color]="(attendedExam?.result) ? 'success' : 'danger'" >
+    mark:{{attendedExam?.score}}/{{attendedExam?.total}}<br>
+    percent:{{attendedExam?.percentage}}%
+  </ion-text>
+  <!-- date:{{attendedExam?.dateTime}} at {{attendedExam?.dateTime.toLocalTime}} -->
+<ion-card *ngFor="let question of attendedExam?.exam?.questions,let i=index" color="light">
+  <ion-card-content class="ion-text-center">
+    <ion-text >{{i+1}}. {{question.qstn}}</ion-text >  
+    <div *ngFor="let opt of question.qstnOptions,let o=index">
+      <ion-text [color]="(opt?.isAnswer)? 'success' : ''">
+        {{o+1}}) {{opt.option}}&nbsp;&nbsp;
+      </ion-text>
+  </div>
+    <ion-text [color]="(attendedExam?.attendedOptions[i]?.attendedAnswer)? 'success' : 'danger'">
+      your answer:-{{attendedExam?.attendedOptions[i]?.attendedOpt}}
+    </ion-text>
+  </ion-card-content>
+</ion-card>
 </ion-content>
