@@ -315,7 +315,25 @@ public class MocktestControllerResource {
 	    	return attendExamService.findById(id);
 	    }
 	
-	
+		/**
+     * Activate an selected Exam
+     * @param ExamId
+     * @return activateExam
+     */
+	@RequestMapping ("/app/activate_exam")
+	public String activate_exam(@RequestParam String eId) throws Exception
+	{
+		Exam exam=examService.findById(eId);
+		if(exam.isIsActive()==true)
+		{
+			exam.setIsActive(false);
+		}
+		else {
+			exam.setIsActive(true);
+		}
+		examService.update(exam);
+		return "redirect:/app/selectExam?eId="+eId;
+	}
 
 
 }

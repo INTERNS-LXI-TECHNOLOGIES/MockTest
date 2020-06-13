@@ -45,18 +45,18 @@ export class MenuPage implements OnInit {
       title: 'Dashboard',
       url:  '/menu/user-dashboard',
       icon: 'mail'
-    },
-    {
-      title: 'ActiveExams',
-      url: '/menu/exam',
-      icon: 'heart'
     }
+    // {
+    //   title: 'ActiveExams',
+    //   url: '/menu/exam',
+    //   icon: 'heart'
+    // }
   ];
   
   constructor(private router:Router) { }
 
   ngOnInit() {
-    this.role='admin'
+    this.role='user'
     //  const path = window.location.pathname.split('/')[1];
     // if (path !== undefined) {
     //   this.selectedIndex = this.adminPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());

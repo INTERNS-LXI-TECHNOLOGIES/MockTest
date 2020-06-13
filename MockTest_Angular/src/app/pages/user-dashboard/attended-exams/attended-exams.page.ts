@@ -81,7 +81,7 @@ export class AttendedExamsPage implements OnInit {
  examHistory(id)
  {
   console.log("method call" +id);
-  this.router.navigate(['/exam-history',id]);
+  this.router.navigate(['menu/exam-history',id]);
  
  }
 }
