@@ -41,14 +41,10 @@ export class CreateExamPage implements OnInit {
   constructor( private userServ:UsersService,private modalController:ModalController,private router: Router) { }
   createExam(form)
   {
-    console.log(this.examData);
-    this.examData.time=this.timeData.hour+":"+this.timeData.minute;
    
+    this.examData.time=this.timeData.hour+":"+this.timeData.minute;
     console.log(this.examData.time);
     console.log(this.examData);
-    console.log(this.timeData.hour);
-    console.log(this.timeData.minute);
- 
    this.userServ.saveExam(this.examData)
     // this.dismiss();
     //this.router.navigateByUrl('/menu/exam');
