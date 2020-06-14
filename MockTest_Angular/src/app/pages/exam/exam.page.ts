@@ -11,6 +11,7 @@ import { CreateExamPage } from '../create-exam/create-exam.page';
 })
 export class ExamPage implements OnInit {
   examData;
+  
   constructor(private userServ:UsersService,private router: Router,private modalController:ModalController) { }
   getAllExam() {
     this.userServ.getAllExams().subscribe(data => {
@@ -25,7 +26,30 @@ export class ExamPage implements OnInit {
    }
   ngOnInit() {
     this.getAllExam();
+   
   }
+  doRefresh(event)
+  {
+        this.getAllExam();
+        setTimeout(() => {
+          console.log('Async operation has ended');
+          event.target.complete();
+        }, 2000);
+    }
+
+//  deleteExam()
+//  {
+//   event.stopImmediatePropagation();
+//    console.log("click on delete");
+  //  public deleteUser(id: string){
+  //   event.stopImmediatePropagation();
+  //   this.appservice.deleteUser(id);
+  //   setTimeout(() => {
+  //     this.users = this.appservice.getUsers('http://localhost:8080/api/users/');
+  //   }, 2000);
+  // }
+ //}
+
 
 async presentModal() {
   console.log("clicked ")

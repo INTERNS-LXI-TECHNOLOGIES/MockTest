@@ -45,12 +45,12 @@ export class MenuPage implements OnInit {
       title: 'Dashboard',
       url:  '/menu/user-dashboard',
       icon: 'mail'
-    },
-    {
-      title: 'ActiveExams',
-      url: '/menu/exam',
-      icon: 'heart'
     }
+    // {
+    //   title: 'ActiveExams',
+    //   url: '/menu/exam',
+    //   icon: 'heart'
+    // }
   ];
   
   constructor(private router:Router) { }

@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -181,6 +182,22 @@ public class MocktestControllerResource {
 			boolean flag=examService.save_exam(exam);
 			return flag;
 		}
+
+	/**
+     * update exam
+     * @param exam
+     * @return activateExam
+     */
+	@PutMapping("/update_exam")
+	public void updateExam(@RequestBody Exam exam) 
+	{
+		log.debug("REST request to update Exam : {}", exam);
+		examService.update(exam);
+		// boolean flag=examService.update(exam);
+		// 	return flag;
+	
+	}
+
 	
 	 @GetMapping("/all")
 //	   @CrossOrigin(origins = {"http://localhost:8100","http://localhost:8080"})
@@ -300,7 +317,7 @@ public class MocktestControllerResource {
 	/**
      * Get register page
      * @param Model
-     * @return register page.
+     * @return register p age.
      */
 	@RequestMapping("/register")
 	public User register()
@@ -309,11 +326,11 @@ public class MocktestControllerResource {
 	}
 	
 	 @GetMapping("/attendedExam/{id}")
-    public AttendedExam attendedExamById(@PathVariable String id)
-    {
-    	log.debug("get attended exam with id-"+id);
-    	return attendExamService.findById(id);
-    }
+	    public AttendedExam attendedExamById(@PathVariable String id)
+	    {
+	    	log.debug("get attended exam with id-"+id);
+	    	return attendExamService.findById(id);
+	    }
 	
 	 @GetMapping("/exam/{id}")
     public Exam getExamById(@PathVariable String id) {

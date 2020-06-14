@@ -50,7 +50,7 @@ export class AttendedExamDetailsPage implements OnInit {
   attendedExamData;
   dataSource1= null;
   isLoading = true;
-  isEmpty=true;
+  //isEmpty=true;
  
   displayedColumns: string[] = [ 'index','user', 'score', 'percentage','result','dateTime'];
 
@@ -69,11 +69,11 @@ export class AttendedExamDetailsPage implements OnInit {
           this.attendedExamData=data
           this.isLoading = false;
           this.examlist=this.attendedExamData.attendList
-        
-          if(this.examlist.length>0)
-          {
-            this.isEmpty=false;
-          }
+        console.log(this.examlist);
+          // if(this.examlist.length>0)
+          // {
+          //   this.isEmpty=false;
+          // }
           this.dataSource1 = new MatTableDataSource<attendedExamDetails>(this.examlist);
           this.dataSource1.sort = this.sort;
           console.log(this.dataSource1);

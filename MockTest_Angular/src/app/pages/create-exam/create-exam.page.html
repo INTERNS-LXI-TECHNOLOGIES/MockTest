@@ -1,9 +1,10 @@
 <ion-header [translucent]="true">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
+    <!-- <ion-buttons slot="start">
       <ion-back-button defaultHref="menu/exam"></ion-back-button>
-    </ion-buttons>
+    </ion-buttons> -->
+   <ion-icon slot="end" name="close-circle" color="danger" style="zoom:3.0;" (click)="dismiss()"></ion-icon>
     <ion-title>Create Exam</ion-title>
   </ion-toolbar>
 </ion-header>
