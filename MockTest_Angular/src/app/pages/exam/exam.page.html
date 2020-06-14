@@ -12,23 +12,33 @@
 
 <ion-content>
 
-  <div  *ngIf="examData ;else noExamDataFoundTemplate ">
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <div class="container" *ngIf="examData ;else noExamDataFoundTemplate ">
+    
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+      <ion-refresher-content> </ion-refresher-content>
+    </ion-refresher>
+
+      <div class="text-container">
+              <ion-text color="tertiary" class="ion-text-center">
+                <h2>All exams in database!</h2>
+              </ion-text> 
+              <ion-card *ngFor="let data of examData" color="light" button (click)="examDetaills(data.id)">
+                
+                <!-- <div> <ion-button (click)="deleteEXam()">
+                  <ion-icon name="trash" color="dark" style="zoom:1.0;"></ion-icon>
+                </ion-button></div> -->
+                <ion-card-content class="ion-text-center">
+                  <h1>  {{data.name}} </h1>
+                  <h2>Level: {{data.level}}</h2>
+                  <h3>Status: {{data.isActive==true ? 'Active' : 'Not_Active'}}</h3>
+                  <!-- <ion-toggle color="primary"></ion-toggle> -->
+                  
+                </ion-card-content>
+              </ion-card>
+      </div>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
     <ion-fab-button (click)="presentModal()" color="medium">
       <ion-icon name="add" ></ion-icon>
     </ion-fab-button></ion-fab>
-
-    <ion-text color="tertiary" class="ion-text-center">
-      <h2>All exams in database!</h2>
-    </ion-text> 
-  <ion-card *ngFor="let data of examData" color="light" button (click)="examDetaills(data.id)">
-    <ion-card-content class="ion-text-center">
-      <h1>  {{data.name}} </h1>
-      <h2>Level: {{data.level}}</h2>
-      <h3>Status: {{data.isActive==true ? 'Active' : 'Not_Active'}}</h3>
-      <!-- <ion-toggle color="primary"></ion-toggle> -->
-      
-    </ion-card-content>
-  </ion-card>
-  </div>
 </ion-content>
