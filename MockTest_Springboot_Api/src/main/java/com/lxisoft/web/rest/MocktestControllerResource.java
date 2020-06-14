@@ -189,7 +189,7 @@ public class MocktestControllerResource {
      * @return activateExam
      */
 	@PutMapping("/update_exam")
-	public boolean updateExam(@RequestBody Exam exam) 
+	public void updateExam(@RequestBody Exam exam) 
 	{
 		log.debug("REST request to update Exam : {}", exam);
 		examService.update(exam);
@@ -332,6 +332,11 @@ public class MocktestControllerResource {
 	    	return attendExamService.findById(id);
 	    }
 	
+	 @GetMapping("/exam")
+    public Exam getExamById(@PathVariable String id) {
+    	return examService.findById(id);
+    }
+
 
 
 }
