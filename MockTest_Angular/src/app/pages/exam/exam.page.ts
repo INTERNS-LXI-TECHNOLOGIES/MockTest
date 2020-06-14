@@ -11,6 +11,7 @@ import { CreateExamPage } from '../create-exam/create-exam.page';
 })
 export class ExamPage implements OnInit {
   examData;
+  
   constructor(private userServ:UsersService,private router: Router,private modalController:ModalController) { }
   getAllExam() {
     this.userServ.getAllExams().subscribe(data => {
@@ -25,8 +26,9 @@ export class ExamPage implements OnInit {
    }
   ngOnInit() {
     this.getAllExam();
+   
   }
-
+ 
 async presentModal() {
   console.log("clicked ")
   const modal = await this.modalController.create({

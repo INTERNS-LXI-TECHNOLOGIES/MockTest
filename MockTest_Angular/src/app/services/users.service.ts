@@ -4,6 +4,7 @@ import { LoginPageModule } from '../pages/login/login.module';
 import{dashboard} from '../model/dashboard';
 import { Exam } from '../pages/create-exam/create-exam.page';
 import { Router } from '@angular/router';
+import { ExamData } from '../model/ExamData';
 @Injectable({
   providedIn: 'root'
 })
@@ -60,9 +61,19 @@ export class UsersService {
   {
     return this.http.get('http://localhost:8080/api/mocktest-controller/getSelectedExamDetails/'+id);
   }
+  updateExam(exam:ExamData)
+  {
+    this.http.put('http://localhost:8080/api/mocktest-controller/update_exam/',exam).subscribe(data => {
+      
+          alert("exam updated"); 
+          this.router.navigateByUrl('menu/exam');} 
+         );
+        err=> {
+          alert("something went wromg..!" );
+        }
+  }
   saveExam(exam:Exam)
   {
-    console.log(exam);
    
     this.http.post('http://localhost:8080/api/mocktest-controller/create_exam/',exam).subscribe(data => {
       this.examdata = data;
@@ -79,4 +90,5 @@ export class UsersService {
     alert("something went wromg..!" );
   }
   }
+
 }

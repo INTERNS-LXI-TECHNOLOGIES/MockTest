@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -181,6 +182,22 @@ public class MocktestControllerResource {
 			boolean flag=examService.save_exam(exam);
 			return flag;
 		}
+
+	/**
+     * update exam
+     * @param exam
+     * @return activateExam
+     */
+	@PutMapping("/update_exam")
+	public boolean updateExam(@RequestBody Exam exam) 
+	{
+		log.debug("REST request to update Exam : {}", exam);
+		examService.update(exam);
+		// boolean flag=examService.update(exam);
+		// 	return flag;
+	
+	}
+
 	
 	 @GetMapping("/all")
 //	   @CrossOrigin(origins = {"http://localhost:8100","http://localhost:8080"})
@@ -300,7 +317,7 @@ public class MocktestControllerResource {
 	/**
      * Get register page
      * @param Model
-     * @return register page.
+     * @return register p age.
      */
 	@RequestMapping("/register")
 	public User register()
@@ -315,25 +332,6 @@ public class MocktestControllerResource {
 	    	return attendExamService.findById(id);
 	    }
 	
-		/**
-     * Activate an selected Exam
-     * @param ExamId
-     * @return activateExam
-     */
-	@RequestMapping ("/app/activate_exam")
-	public String activate_exam(@RequestParam String eId) throws Exception
-	{
-		Exam exam=examService.findById(eId);
-		if(exam.isIsActive()==true)
-		{
-			exam.setIsActive(false);
-		}
-		else {
-			exam.setIsActive(true);
-		}
-		examService.update(exam);
-		return "redirect:/app/selectExam?eId="+eId;
-	}
 
 
 }

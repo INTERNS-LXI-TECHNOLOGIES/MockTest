@@ -56,7 +56,7 @@ export class MenuPage implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {
-    this.role='user'
+    this.role='admin'
     //  const path = window.location.pathname.split('/')[1];
     // if (path !== undefined) {
     //   this.selectedIndex = this.adminPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
