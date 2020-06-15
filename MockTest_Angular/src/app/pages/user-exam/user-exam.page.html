@@ -15,36 +15,19 @@
   <ion-text  class="ion-text-center">
     <h2>{{exam?.name}}</h2>
   </ion-text>
-  <ion-list>
-    <ion-radio-group name="auto" value="tesla">
-      <ion-list-header>
-        <ion-label>Auto Manufacturers</ion-label>
-      </ion-list-header>
-      <ion-item>
-        <ion-label>Tesla</ion-label>
-        <ion-radio value="tesla"></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-label>Ford</ion-label>
-        <ion-radio value="ford"></ion-radio>
-      </ion-item>
-    </ion-radio-group>
-  </ion-list>
 
   <ion-card *ngFor="let question of exam?.questions,let i=index" color="light">
     <ion-card-content>
-      <ion-text >{{i+1}}. {{question.qstn}}</ion-text >  
-      <div *ngFor="let opt of question.qstnOptions,let o=index">
+      <ion-text >{{i+1}}) {{question.qstn}}</ion-text >  
         <!-- {{o+1}}) {{opt.option}} -->
       <ion-list>
-        <ion-radio-group name="{{question.id}}" value="{{opt.option}}">
-          <ion-item>
+        <ion-radio-group name="{{question.id}}" >
+          <ion-item  *ngFor="let opt of question.qstnOptions,let o=index">
             <ion-label>{{opt.option}}</ion-label>
-            <ion-radio slot="start" value="{{opt.id}}"></ion-radio>
+            <ion-radio slot="start" ></ion-radio>
           </ion-item>
         </ion-radio-group>
       </ion-list>
-    </div>
       <!-- <ion-text [color]="(attendedExam?.attendedOptions[i]?.attendedAnswer)? 'success' : 'danger'">
         your answer:-{{attendedExam?.attendedOptions[i]?.attendedOpt}}
       </ion-text> -->
