@@ -49,13 +49,22 @@ export class LoginPage implements OnInit {
   async loginAction(){
     console.log(this.postData);
         if(this.postData.username && this.postData.password){
-          //here i want to use API action
+         
        
           console.log(this.postData.username);
           console.log(this.postData.password);
-            if(this.auth.login(this.postData)){
+            if(this.auth.login(this.postData))
+            {
               this.auth.loginUser(this.postData);
-                   this.router.navigate(['/menu']);
+                    if(this.postData.username=='admin')
+                    {
+                      this.auth.setRole('admin');
+                    }
+                    else{
+                      this.auth.setRole('user');
+                    }
+                    console.log("from login"+this.auth.getRole());
+                this.router.navigate(['/menu']);
              }
             } else {
               const toast=await this.toastcntrl.create({

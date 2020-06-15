@@ -237,6 +237,29 @@ public class MocktestControllerResource {
 	
 	}
     
+    /**
+    * view of user_dashboard
+    */
+    @GetMapping("/user_passed_exams/{login}")
+    public List<AttendedExam> userPassedDetails(@PathVariable String login) {
+    	UserExtra userExtra=restServ.currentUserExtra(login);
+		log.debug("email of user "+userExtra.getUser().getEmail());
+		List<AttendedExam> attendExamList=attendExamService.findAllByUserExtra(userExtra);
+		List<AttendedExam> passExams= new ArrayList<AttendedExam>();
+		for(AttendedExam atnd:attendExamList)
+		{
+			if (atnd.isResult()==true)
+			{
+				passExams.add(atnd);
+			}
+		}
+		List<AttendedExamModel> examlist=restServ.attendedExamDetails(attendExamList);
+	return passExams;
+
+	
+	} 
+    
+    
     /** 
      * get all exam from database
      */
@@ -244,10 +267,11 @@ public class MocktestControllerResource {
     public List<Exam>getAllExamDetails() {
     	return examService.findAll();
     }
+    
     /**
      * select an exam from list of exam for activate or deactivate or view exam details
      * @param examId
-     * @return activateExam
+   
      */
 	@GetMapping ("/getSelectedExamDetails/{eId}")
 	public ExamModel selectExam(@PathVariable String eId,ExamModel model) throws Exception
@@ -336,6 +360,31 @@ public class MocktestControllerResource {
     public Exam getExamById(@PathVariable String id) {
     	return examService.findById(id);
     }
+	 
+	 /**
+		 * GET  /pdf : get the pdf of exam Certificate using database.
+		 * @param examid
+		 * @return the byte[]
+		 * @throws Exception 
+		 */
+		@GetMapping("/examCertificate/{id}")
+		public ResponseEntity<byte[]>  getPdf(@PathVariable String id)
+		{
+		long examid=Long.parseLong(id);
+			byte[] pdfContents=null;
+			try {
+				pdfContents=jasperServ.getReportAsPdfUsingDatabase(examid);
+			} catch (JRException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			HttpHeaders headers=new HttpHeaders();
+			headers.setContentType(MediaType.parseMediaType("application/pdf"));
+			String fileName="Certificate.pdf";
+			headers.add("content dis-position","attachment: filename="+fileName);
+			ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
+			return response;
+		}
 
 
 

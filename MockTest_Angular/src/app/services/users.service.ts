@@ -74,21 +74,33 @@ export class UsersService {
   }
   saveExam(exam:Exam)
   {
-   
-    this.http.post('http://localhost:8080/api/mocktest-controller/create_exam/',exam).subscribe(data => {
-      this.examdata = data;
-      console.log(this.examdata);
-      if(this.examdata===false)
-      {
-          alert("less no of question in database");
+      
+        this.http.post('http://localhost:8080/api/mocktest-controller/create_exam/',exam).subscribe(data => {
+          this.examdata = data;
+          console.log(this.examdata);
+          if(this.examdata===false)
+          {
+              alert("less no of question in database");
+          }
+          else{
+          alert("Exam created");
+        this.router.navigateByUrl('menu/exam');} }
+      );
+      err=> {
+        alert("something went wromg..!" );
       }
-      else{
-      alert("Exam created");
-    this.router.navigateByUrl('menu/exam');} }
-  );
-  err=> {
-    alert("something went wromg..!" );
   }
+  getPassedExams(username)
+  {
+    return this.http.get(`http://localhost:8080/api/mocktest-controller/user_passed_exams/`+username);
+  }
+  getPdfviewOfCertificate(id)
+  {
+    const httpOptions = {
+      'responseType'  : 'arraybuffer' as 'json'
+       //'responseType'  : 'blob' as 'json'        //This also worked
+    };
+    return this.http.get<any>('http://localhost:8080/api/mocktest-controller/examCertificate/'+id,httpOptions);
   }
 
 }

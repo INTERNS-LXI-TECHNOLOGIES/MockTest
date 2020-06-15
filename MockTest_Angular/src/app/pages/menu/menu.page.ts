@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
@@ -12,23 +13,23 @@ export class MenuPage implements OnInit {
   role;
   public adminPages = [
     {
-      title: 'home',
+      title: 'Home',
       url: '/menu',
       icon: 'home'
     },
     {
      
-      title: 'question',
+      title: 'Question',
       url: '/menu/question',
       icon: 'mail'
     },
     {
-      title: 'exam',
+      title: 'Exam',
       url: '/menu/exam',
       icon: 'paper-plane'
     },
     {
-      title: 'exam-analysis',
+      title: 'Exam Analysis',
       url: '/menu/exam-analysis',
       icon: 'pencil'
     }
@@ -36,7 +37,7 @@ export class MenuPage implements OnInit {
 
   public userPages = [
     {
-      title: 'home',
+      title: 'Home',
       url: '/menu',
       icon: 'home'
     },
@@ -45,18 +46,24 @@ export class MenuPage implements OnInit {
       title: 'Dashboard',
       url:  '/menu/user-dashboard',
       icon: 'mail'
+    },
+    {
+      title: 'Certificates',
+      url: '/menu/certificates',
+      icon: 'heart'
     }
-    // {
-    //   title: 'ActiveExams',
-    //   url: '/menu/exam',
-    //   icon: 'heart'
-    // }
   ];
   
-  constructor(private router:Router) { }
+  constructor(private router:Router,  private auth:AuthService) { 
+    
+  }
 
   ngOnInit() {
-    this.role='admin'
+
+    // this.role=this.auth.getRole();
+    // console.log(this.role);
+     this.role='user'
+     console.log(this.role);
     //  const path = window.location.pathname.split('/')[1];
     // if (path !== undefined) {
     //   this.selectedIndex = this.adminPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());

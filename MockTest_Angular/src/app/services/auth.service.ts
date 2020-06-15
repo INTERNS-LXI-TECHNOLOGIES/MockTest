@@ -49,7 +49,15 @@ export class AuthService {
      return this.data;
     
     }
-  
+    role;
+    setRole(role:string)
+    {
+      this.role=role;
+    }
+  getRole()
+  {
+    return this.role;
+  }
     public async logout() {
       await sessionStorage.removeItem('userData');
       await sessionStorage.clear();
