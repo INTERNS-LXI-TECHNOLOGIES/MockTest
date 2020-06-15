@@ -12,11 +12,11 @@
 
 
 <ion-content>
-  
-      <div *ngIf="exam">
+
+      <div *ngIf="exam?.time" class="badge badge-info float-right">
         <ion-fab vertical="top" horizontal="end" slot="fixed" color="danger" style="zoom:2.0;">         
           <ion-text color="danger"   >
-          {{examTime}}
+          {{ellapsedTime}} 
           </ion-text>
       </ion-fab>
       </div>
