@@ -12,25 +12,39 @@
 
 
 <ion-content>
-  <ion-text  class="ion-text-center">
-    <h2>{{exam?.name}}</h2>
-  </ion-text>
+  
+      <div *ngIf="exam">
+        <ion-fab vertical="top" horizontal="end" slot="fixed" color="danger" style="zoom:2.0;">         
+          <ion-text color="danger"   >
+          {{examTime}}
+          </ion-text>
+      </ion-fab>
+      </div>
 
-  <ion-card *ngFor="let question of exam?.questions,let i=index" color="light">
-    <ion-card-content>
-      <ion-text >{{i+1}}) {{question.qstn}}</ion-text >  
-        <!-- {{o+1}}) {{opt.option}} -->
-      <ion-list>
-        <ion-radio-group name="{{question.id}}" >
-          <ion-item  *ngFor="let opt of question.qstnOptions,let o=index">
-            <ion-label>{{opt.option}}</ion-label>
-            <ion-radio slot="start" ></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </ion-list>
-      <!-- <ion-text [color]="(attendedExam?.attendedOptions[i]?.attendedAnswer)? 'success' : 'danger'">
-        your answer:-{{attendedExam?.attendedOptions[i]?.attendedOpt}}
-      </ion-text> -->
-    </ion-card-content>
-  </ion-card>
+        <div class="container" *ngIf="exam ;else noDataTemplate ">
+                  <ion-text  class="ion-text-center">
+                    <h1>{{exam?.name}}</h1>
+                  </ion-text>
+
+                  <div class="text-container">
+                      <ion-card *ngFor="let question of exam?.questions,let i=index" color="light">
+                        <ion-card-content>
+                          <ion-text >{{i+1}}) {{question.qstn}}</ion-text >  
+                            <!-- {{o+1}}) {{opt.option}} -->
+                          <ion-list>
+                            <ion-radio-group name="{{question.id}}" >
+                              <ion-item  *ngFor="let opt of question.qstnOptions,let o=index">
+                                <ion-label>{{opt.option}}</ion-label>
+                                <ion-radio slot="start" ></ion-radio>
+                              </ion-item>
+                            </ion-radio-group>
+                          </ion-list>
+                          <!-- <ion-text [color]="(attendedExam?.attendedOptions[i]?.attendedAnswer)? 'success' : 'danger'">
+                            your answer:-{{attendedExam?.attendedOptions[i]?.attendedOpt}}
+                          </ion-text> -->
+                        </ion-card-content>
+                      </ion-card>
+                  </div>
+        </div>
+       
 </ion-content>

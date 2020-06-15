@@ -13,12 +13,16 @@ export class UserExamPage implements OnInit {
     private mockSer:MockTestService) { }
   examId;
   exam;
-
+  examTime={
+    time:""
+  }
   getExam(url:string,id)
   {
     this.mockSer.getDataById(url,id).subscribe(data => {
       this.exam=data;
       console.log(this.exam);
+      this.examTime=this.exam?.time;
+      console.log(this.examTime);
     });
   }
 
