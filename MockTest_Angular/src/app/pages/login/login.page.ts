@@ -14,12 +14,13 @@ export class LoginPage implements OnInit {
   
   // username;
   
-  userdata={}
+
   postData = {
     'username': '',
     'password': ''
     }
-    public errorText: string;
+  
+  public errorText: string;
 
   constructor(private modalCtrl: ModalController,
               public menu: MenuController,
@@ -50,20 +51,30 @@ export class LoginPage implements OnInit {
     console.log(this.postData);
         if(this.postData.username && this.postData.password){
           //here i want to use API action
-       
-          console.log(this.postData.username);
-          console.log(this.postData.password);
-            if(this.auth.login(this.postData)){
-              this.auth.loginUser(this.postData);
-                   this.router.navigate(['/menu']);
-             }
-            } else {
-              const toast=await this.toastcntrl.create({
-                message: this.errorText = 'Please give valid data',
-                duration:2000
-              });
-              toast.present();
-            }
+
+
+
+          this.auth.login(this.postData)
+          .subscribe(tokenObj=>{
+            console.log(tokenObj);
+          },err=>{
+            alert("Invalid pwd")
+          });
+        }
+          // console.log(this.postData.username);
+          // console.log(this.postData.password);
+          //   if(this.auth.login(this.postData)){
+          //     this.auth.loginUser(this.postData);
+          //          this.router.navigate(['/menu']);
+          //    }
+          //   } else {
+          //     const toast=await this.toastcntrl.create({
+          //       message: this.errorText = 'Please give valid data',
+          //       duration:2000
+          //     });
+          //     toast.present();
+          //   }
     }
 
-}
+
+  }

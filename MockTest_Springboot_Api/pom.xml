@@ -106,6 +106,20 @@
   
 <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 <!-- Include GSON dependency -->
+  <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 <dependency>
   <groupId>com.google.code.gson</groupId>
   <artifactId>gson</artifactId>
