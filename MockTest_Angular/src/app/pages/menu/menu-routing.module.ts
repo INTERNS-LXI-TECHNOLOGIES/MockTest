@@ -67,8 +67,8 @@ const routes: Routes = [
         loadChildren: () => import('../create-exam/create-exam.module').then( m => m.CreateExamPageModule)
       },
       {
-        path: 'exam-page',
-        loadChildren: () => import('../exam-page/exam-page.module').then( m => m.ExamPagePageModule)
+        path: 'user-exam',
+        loadChildren: () => import('../user-exam/user-exam.module').then( m => m.UserExamPageModule)
       },
       {
         path: 'exam-start',

@@ -356,7 +356,7 @@ public class MocktestControllerResource {
 	    	return attendExamService.findById(id);
 	    }
 	
-	 @GetMapping("/exam")
+	 @GetMapping("/exam/{id}")
     public Exam getExamById(@PathVariable String id) {
     	return examService.findById(id);
     }

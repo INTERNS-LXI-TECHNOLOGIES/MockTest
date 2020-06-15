@@ -13,7 +13,7 @@ export class ExamStartPage implements OnInit {
 
   examPage()
   {
-    this.router.navigate(['menu/exam-page/'+this.examId]);
+    this.router.navigate(['menu/user-exam/'+this.examId]);
   }
 
   ngOnInit() {
