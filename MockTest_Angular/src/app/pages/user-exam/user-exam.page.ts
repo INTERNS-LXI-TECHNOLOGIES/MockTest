@@ -3,6 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MockTestService } from 'src/app/services/mock-test.service';
 import { AttendedOption } from 'src/app/model/AttendedOption';
 import {AlertController} from '@ionic/angular';
+export interface AttendedOptions{
+  id:String;
+  opt:string;
+}
 @Component({
   selector: 'app-user-exam',
   templateUrl: './user-exam.page.html',
@@ -10,7 +14,14 @@ import {AlertController} from '@ionic/angular';
 })
 export class UserExamPage implements OnInit {
   constructor(private acivaterouter:ActivatedRoute,private router:Router,
-    private mockSer:MockTestService,private alertController: AlertController) { }
+    private mockSer:MockTestService,private alertController: AlertController) { 
+      this.timer = setInterval(() => { this.timer1(); }, 1000);
+     
+    }
+    atndoption:AttendedOptions={
+      id:"",
+      opt:""
+    }
   examId;
   exam;
   /* Edit by pushkala */
@@ -34,8 +45,8 @@ export class UserExamPage implements OnInit {
    
       this.ellapsedTime = this.examTime;
       this.tick();
-      this.timer = setInterval(() => { this.timer1(); }, 1000);
-     
+    ///  this.timer1();
+    
       /* ................. */
     });
   }
@@ -72,11 +83,14 @@ timer1() {
       this.ellapsedTime= this.millisToMinutesAndSeconds(this.mseconds);
       
 			this.examTime= this.mseconds;
-			 window.setTimeout("timer1()" , 1000);
+			  window.setTimeout("timer1()" , 1000);
     }
      else {
       this.ellapsedTime = 0;	
-     this.presentAlert();
+      setTimeout(() => {
+       this.presentAlert();
+      }, 2000);
+    
 			this.submit();
 		}
 }
@@ -104,7 +118,9 @@ millisToMinutesAndSeconds(millis) {
 
 submit()
 {
-  
+  let attendedOptions = [];
+    this.exam.questions.forEach(x => attendedOptions.push({ 'questionId': x.id ,'answered': this.atndoption.opt}));
+    console.log(attendedOptions);
 }
  /* ............................................................................................ */
 

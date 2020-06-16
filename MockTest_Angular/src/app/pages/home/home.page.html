@@ -19,7 +19,8 @@
  <ion-content>
 
     <div *ngIf="activeExams; else noDataTemplate">
-          <div class="ion-text-center"> <h2>welcome {{userInfo?.name}}</h2>
+          <div class="ion-text-center"> <h2>welcome </h2>
+            <!-- {{userInfo?.name}} -->
           <h3> choose an exam to start!</h3> </div>
 
             <ion-card *ngFor="let exam of activeExams" color="light" button (click)="startExam(exam.id)">

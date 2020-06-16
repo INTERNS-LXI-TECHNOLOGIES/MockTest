@@ -5,6 +5,7 @@ import{dashboard} from '../model/dashboard';
 import { Exam } from '../pages/create-exam/create-exam.page';
 import { Router } from '@angular/router';
 import { ExamData } from '../model/ExamData';
+import {AlertController} from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class UsersService {
   private pdfId;
   examdata;
   imports:[HttpClient]
-  constructor(private http: HttpClient,private router:Router) { }
+  constructor(private http: HttpClient,private router:Router,private alertController: AlertController) { }
 
   setPdfId(id)
   {
@@ -65,11 +66,12 @@ export class UsersService {
   {
     this.http.put('http://localhost:8080/api/mocktest-controller/update_exam/',exam).subscribe(data => {
       
-          alert("exam updated"); 
+          // alert("exam updated"); 
+          this.presentAlert('Exam Updated');
           this.router.navigateByUrl('menu/exam');} 
          );
         err=> {
-          alert("something went wromg..!" );
+          this.presentAlert('Something went wrong');
         }
   }
   saveExam(exam:Exam)
@@ -80,14 +82,16 @@ export class UsersService {
           console.log(this.examdata);
           if(this.examdata===false)
           {
-              alert("less no of question in database");
+            this.presentAlert("less no of question in database");
+              // alert("less no of question in database");
           }
           else{
-          alert("Exam created");
+          // alert("Exam created");
+          this.presentAlert("Exam Created");
         this.router.navigateByUrl('menu/exam');} }
       );
       err=> {
-        alert("something went wromg..!" );
+       this.presentAlert('Something went wrong');
       }
   }
   getPassedExams(username)
@@ -102,5 +106,12 @@ export class UsersService {
     };
     return this.http.get<any>('http://localhost:8080/api/mocktest-controller/examCertificate/'+id,httpOptions);
   }
-
+  async presentAlert(msg:string) {
+    const alert = await this.alertController.create({
+      message:  msg,
+      buttons: ['OK']
+    });
+  
+    await alert.present();
+  }
 }

@@ -45,7 +45,7 @@ export class MockTestService {
     console.log('post data  for url'+this.defUrl+url+' is ::'+data);
     this.http.post(this.defUrl+url,data).subscribe(()=>{
     this.alertMessage('successfully created question');
-    this.router.navigateByUrl('/question');}
+    this.router.navigateByUrl('menu/question');}
   );
   }
 

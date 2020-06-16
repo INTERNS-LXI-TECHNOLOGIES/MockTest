@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="menu/exam"></ion-back-button>
+      <ion-back-button defaultHref="menu"></ion-back-button>
     </ion-buttons>
     <ion-title>test</ion-title>
   </ion-toolbar>
@@ -13,13 +13,7 @@
 
 <ion-content>
 
-      <div *ngIf="exam?.time" class="badge badge-info float-right">
-        <ion-fab vertical="top" horizontal="end" slot="fixed" color="danger" style="zoom:2.0;">         
-          <ion-text color="danger"   >
-          {{ellapsedTime}} 
-          </ion-text>
-      </ion-fab>
-      </div>
+      
 
         <div class="container" *ngIf="exam ;else noDataTemplate ">
                   <ion-text  class="ion-text-center">
@@ -33,9 +27,9 @@
                             <!-- {{o+1}}) {{opt.option}} -->
                           <ion-list>
                             <ion-radio-group name="{{question.id}}" >
-                              <ion-item  *ngFor="let opt of question.qstnOptions,let o=index">
+                              <ion-item  *ngFor="let opt of question.qstnOptions,let o=index" >
                                 <ion-label>{{opt.option}}</ion-label>
-                                <ion-radio slot="start" ></ion-radio>
+                                <ion-radio slot="start"   ></ion-radio>
                               </ion-item>
                             </ion-radio-group>
                           </ion-list>
@@ -45,6 +39,13 @@
                         </ion-card-content>
                       </ion-card>
                   </div>
+                  <ion-button expand="block" share="round" color="medium" (click)="submit()">submit</ion-button>
         </div>
        
+          <ion-fab vertical="top" horizontal="end" slot="fixed" color="danger" style="zoom:1.0;">         
+            <ion-text color="danger"   >
+            {{ellapsedTime}} 
+            </ion-text>
+        </ion-fab>
+      
 </ion-content>
