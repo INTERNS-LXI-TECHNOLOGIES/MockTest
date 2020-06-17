@@ -15,20 +15,20 @@ export interface AttendedOptions{
 export class UserExamPage implements OnInit {
   constructor(private acivaterouter:ActivatedRoute,private router:Router,
     private mockSer:MockTestService,private alertController: AlertController) { 
-      this.timer = setInterval(() => { this.timer1(); }, 1000);
      
     }
     atndoption:AttendedOptions={
       id:"",
       opt:""
     }
-  examId;
-  exam;
+     examId;
+     exam;
   /* Edit by pushkala */
       examTime;
-      timer: any = null;
+      timerData: any = null;
       ellapsedTime;
       ms=this.ellapsedTime;
+    // ms;
       mseconds=0;
       
   /* ................. */
@@ -40,12 +40,10 @@ export class UserExamPage implements OnInit {
 
       /* Edit by pushkala */
       this.examTime=this.exam?.time;
-     
-      console.log(this.examTime);
-   
       this.ellapsedTime = this.examTime;
-      this.tick();
-    ///  this.timer1();
+      this.timerInitialization();
+      this.timer();
+   // this.timer = setInterval(() => { this.timer1(); }, 1000);
     
       /* ................. */
     });
@@ -56,14 +54,16 @@ export class UserExamPage implements OnInit {
   ngOnInit() {
     this.acivaterouter.params.subscribe(params => {
       const id= params['id'];
-      this.getExam('/exam/',id);
+      this.getExam('/exam/',id);  
     });
   }
+
+ 
 
 
  /* Edit by pushkala .....................................................*/
 
-tick()
+ timerInitialization()
 {
 
 if(this.ms==null)
@@ -77,20 +77,17 @@ if(this.ms==null)
 }
 
 
-timer1() {
+timer() {
 	this.mseconds = this.mseconds - 1000;
 	  if(this.mseconds > 0) {
       this.ellapsedTime= this.millisToMinutesAndSeconds(this.mseconds);
-      
 			this.examTime= this.mseconds;
-			  window.setTimeout("timer1()" , 1000);
+  this.timerData=setTimeout(() => { this.timer(); }, 1000);
     }
      else {
       this.ellapsedTime = 0;	
-      setTimeout(() => {
+      console.log(this.ellapsedTime);
        this.presentAlert();
-      }, 2000);
-    
 			this.submit();
 		}
 }
@@ -119,7 +116,7 @@ millisToMinutesAndSeconds(millis) {
 submit()
 {
   let attendedOptions = [];
-    this.exam.questions.forEach(x => attendedOptions.push({ 'questionId': x.id ,'answered': this.atndoption.opt}));
+    this.exam?.questions.forEach(x => attendedOptions.push({ 'questionId': x.id ,'answered': this.atndoption.opt}));
     console.log(attendedOptions);
 }
  /* ............................................................................................ */
