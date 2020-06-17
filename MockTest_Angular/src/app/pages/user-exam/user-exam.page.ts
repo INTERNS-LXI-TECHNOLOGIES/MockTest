@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MockTestService } from 'src/app/services/mock-test.service';
+import { MockTestService,Question} from 'src/app/services/mock-test.service';
 import { AttendedOption } from 'src/app/model/AttendedOption';
 import {AlertController} from '@ionic/angular';
+import { QuestionPage } from '../question/question.page';
 export interface AttendedOptions{
   id:String;
   opt:string;
@@ -17,12 +18,18 @@ export class UserExamPage implements OnInit {
     private mockSer:MockTestService,private alertController: AlertController) { 
      
     }
+
+  //  atndOptions: Array<AttendedOptions>;
+  question:Array<Question>;
+   attendedOptions:AttendedOption[];
     atndoption:AttendedOptions={
       id:"",
       opt:""
     }
+  
      examId;
      exam;
+     count;
   /* Edit by pushkala */
       examTime;
       timerData: any = null;
@@ -37,10 +44,14 @@ export class UserExamPage implements OnInit {
     this.mockSer.getDataById(url,id).subscribe(data => {
       this.exam=data;
       console.log(this.exam);
-
+    
+     
       /* Edit by pushkala */
       this.examTime=this.exam?.time;
       this.ellapsedTime = this.examTime;
+      this.count=this.exam?.questions.length;
+      console.log(this.count);
+      this.attendedOptions=[];
       this.timerInitialization();
       this.timer();
    // this.timer = setInterval(() => { this.timer1(); }, 1000);
@@ -48,8 +59,6 @@ export class UserExamPage implements OnInit {
       /* ................. */
     });
   }
-
-  attendedOptions:AttendedOption[];
 
   ngOnInit() {
     this.acivaterouter.params.subscribe(params => {
@@ -113,11 +122,17 @@ millisToMinutesAndSeconds(millis) {
   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
+onSelect(opt)
+{
+ 
+
+this.attendedOptions.push(opt);
+console.log(this.attendedOptions);
+console.log(opt)
+}
 submit()
 {
-  let attendedOptions = [];
-    this.exam?.questions.forEach(x => attendedOptions.push({ 'questionId': x.id ,'answered': this.atndoption.opt}));
-    console.log(attendedOptions);
+ 
 }
  /* ............................................................................................ */
 

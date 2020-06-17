@@ -29,7 +29,7 @@
                             <ion-radio-group name="{{question.id}}" >
                               <ion-item  *ngFor="let opt of question.qstnOptions,let o=index" >
                                 <ion-label>{{opt.option}}</ion-label>
-                                <ion-radio slot="start"   ></ion-radio>
+                                <ion-radio slot="start" (click)="onSelect(opt.option);"  ></ion-radio>
                               </ion-item>
                             </ion-radio-group>
                           </ion-list>
