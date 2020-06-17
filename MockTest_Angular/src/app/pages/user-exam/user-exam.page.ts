@@ -14,6 +14,15 @@ export class UserExamPage implements OnInit {
   examId;
   exam;
 
+  get(){
+    let arr = new Array<AttendedOption>(this.exam.count);
+    arr.forEach(data=>{
+      data.attendedAnswer=false;
+      data.attendedOpt='';
+    })
+    return arr;
+  }
+
   getExam(url:string,id)
   {
     this.mockSer.getDataById(url,id).subscribe(data => {
@@ -22,7 +31,7 @@ export class UserExamPage implements OnInit {
     });
   }
 
-  attendedOptions:AttendedOption[];
+  attendedOptions:AttendedOption[]=this.get();
 
   ngOnInit() {
     this.acivaterouter.params.subscribe(params => {
