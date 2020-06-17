@@ -57,6 +57,7 @@ export class LoginPage implements OnInit {
           this.auth.login(this.postData)
           .subscribe(tokenObj=>{
             console.log(tokenObj);
+            this.router.navigate(['/menu']);
           },err=>{
             alert("Invalid pwd")
           });

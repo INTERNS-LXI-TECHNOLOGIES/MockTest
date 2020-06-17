@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginGuard} from '../../guards/login.guard';
 import { IndexPage } from './index.page';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: IndexPage,
-    canActivate:[LoginGuard],
+    canActivate:[AuthGuard],
     children: [
           {
             path: '',

@@ -7,8 +7,9 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginGuard implements CanActivate {
   constructor(public authService:AuthService,private router:Router){}
+  
   canActivate() : boolean{
-    console.log(this.authService.isAuthenticated());
+    console.log('login gaurd -'+this.authService.isAuthenticated());
     if (this.authService.isAuthenticated()) {
 
       this.router.navigate(['menu']);

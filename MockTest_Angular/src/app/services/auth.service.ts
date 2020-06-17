@@ -13,7 +13,7 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     const userData = sessionStorage.getItem('userData');
-    console.log(userData);
+    console.log('user data in authService- '+userData+'  '+sessionStorage.getItem('userData'));
     if (userData && userData.length > 0) {
     return true;
     } else {
