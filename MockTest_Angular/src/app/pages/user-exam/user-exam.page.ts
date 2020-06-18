@@ -19,9 +19,8 @@ export class UserExamPage implements OnInit {
      
     }
 
-  //  atndOptions: Array<AttendedOptions>;
+  attendedOptions:Array<AttendedOption>;
   question:Array<Question>;
-   attendedOptions:AttendedOption[];
     atndoption:AttendedOptions={
       id:"",
       opt:""
@@ -50,11 +49,11 @@ export class UserExamPage implements OnInit {
       this.examTime=this.exam?.time;
       this.ellapsedTime = this.examTime;
       this.count=this.exam?.questions.length;
-      console.log(this.count);
+      
       this.attendedOptions=[];
       this.timerInitialization();
       this.timer();
-   // this.timer = setInterval(() => { this.timer1(); }, 1000);
+  
     
       /* ................. */
     });
@@ -122,20 +121,29 @@ millisToMinutesAndSeconds(millis) {
   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
-onSelect(opt)
+selectOption(opt,quest)
 {
- 
-
-this.attendedOptions.push(opt);
+  
+this.attendedOptions.push(opt,quest);
 console.log(this.attendedOptions);
-console.log(opt)
+console.log(quest);
+console.log(opt);
 }
+
+mcqAnswer(opt)
+{
+  console.log(this.atndoption);
+ console.log(this.atndoption.opt);
+ //this.attendedOptions.push();
+//   this.attendedOptions.push(opt);
+// console.log(this.attendedOptions);
+  //  console.log(value);
+}
+
 submit()
 {
- 
+ console.log(this.attendedOptions);
 }
  /* ............................................................................................ */
-
-
 
 }
