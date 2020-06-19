@@ -25,11 +25,12 @@
                         <ion-card-content>
                           <ion-text >{{i+1}}) {{question.qstn}}</ion-text >  
                             <!-- {{o+1}}) {{opt.option}} -->
-                          <ion-list padding radio-group *ngFor="let opt of question.qstnOptions,let o=index">
+                          <ion-list  >
                             <ion-radio-group name="{{question.id}}" [(ngModel)]="atndoption.opt" (ionChange)="mcqAnswer()">
-                              <ion-item   >
+                              <ion-item *ngFor="let opt of question.qstnOptions,let o=index">
                                 <ion-label>{{opt.option}}</ion-label>
-                                <ion-radio slot="start"  [value]="opt.id"  ></ion-radio>
+                                <ion-radio  slot="start" (click)="selectOption(opt,question)" [value]="opt.option"  ></ion-radio>
+                                <!-- <input id="{{option.id}}" type="checkbox" [(ngModel)]="option.selected" (change)="onSelect(question, option);" /> -->
                                 <!-- (change)="selectOption(opt.option,question.id);" -->
                               </ion-item>
                             </ion-radio-group> 
@@ -42,63 +43,6 @@
                   </div>
                   <ion-button expand="block" share="round" color="medium" (click)="submit()">submit</ion-button>
                   
-        </div>
-        <div>
-          <ion-list>
-            <ion-radio-group value="grape">
-              <ion-list-header>
-                <ion-label>Fruit</ion-label>
-              </ion-list-header>
-              <ion-item>
-                <ion-label>Apple</ion-label>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Grape</ion-label>
-                <ion-radio slot="start" color="tertiary" value="grape"></ion-radio>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Cherry</ion-label>
-                <ion-radio slot="start" color="danger" value="cherry"></ion-radio>
-              </ion-item>
-            </ion-radio-group>
-    
-            <ion-radio-group allow-empty-selection value="anchovies" >
-              <ion-list-header>
-                <ion-label>Pizza Topping</ion-label>
-              </ion-list-header>
-              <ion-item>
-                <ion-label>Beef</ion-label>
-                <ion-radio slot="end" color="primary" value="beef" ></ion-radio>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Anchovies</ion-label>
-                <ion-radio slot="end" color="secondary" value="anchovies" (ionChange)="mcqAnswer($event)"></ion-radio>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Sausage</ion-label>
-                <ion-radio slot="end" color="tertiary" value="sausage"></ion-radio>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Bellpepper</ion-label>
-                <ion-radio slot="end" color="success" value="tomato"></ion-radio>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Tomato</ion-label>
-                <ion-radio slot="end" color="warning" value="carrot"></ion-radio>
-              </ion-item>
-    
-              <ion-item>
-                <ion-label>Pepperoni</ion-label>
-                <ion-radio slot="end" color="danger" value="pepperoni"></ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-list>
         </div>
        
           <ion-fab vertical="top" horizontal="end" slot="fixed" color="danger" style="zoom:1.0;">         

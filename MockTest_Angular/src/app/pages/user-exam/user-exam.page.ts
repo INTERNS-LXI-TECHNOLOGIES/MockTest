@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MockTestService,Question} from 'src/app/services/mock-test.service';
+import { MockTestService} from 'src/app/services/mock-test.service';
 import { AttendedOption } from 'src/app/model/AttendedOption';
 import {AlertController} from '@ionic/angular';
-import { QuestionPage } from '../question/question.page';
+import { Questions } from '../../model/Questions';
+import {Options} from '../../model/Options';
+import { Exam} from '../../model/Exam';
+
 export interface AttendedOptions{
-  id:String;
+  id:Questions;
   opt:string;
 }
+
 @Component({
   selector: 'app-user-exam',
   templateUrl: './user-exam.page.html',
@@ -20,14 +24,25 @@ export class UserExamPage implements OnInit {
     }
 
   attendedOptions:Array<AttendedOption>;
-  question:Array<Question>;
-    atndoption:AttendedOptions={
-      id:"",
+  questions:Array<Questions>;
+  options:Array<Options>;
+  quest:Questions={
+    id:"",
+    qstn: "",
+    level: "",
+    qstnOptions: this.options,
+    answered:""
+  }
+  atndoption:AttendedOptions={
+      id:this.quest,
       opt:""
     }
-  
+    questionId:string;
+    ans;
+     answer = [];
+  answers=[];
+    exam;
      examId;
-     exam;
      count;
   /* Edit by pushkala */
       examTime;
@@ -41,7 +56,7 @@ export class UserExamPage implements OnInit {
   getExam(url:string,id)
   {
     this.mockSer.getDataById(url,id).subscribe(data => {
-      this.exam=data;
+     this.exam=data;
       console.log(this.exam);
     
      
@@ -49,11 +64,14 @@ export class UserExamPage implements OnInit {
       this.examTime=this.exam?.time;
       this.ellapsedTime = this.examTime;
       this.count=this.exam?.questions.length;
-      
+      console.log(this.count);
+      this.questions=this.exam?.questions;
+      console.log(this.questions);
+      this.questions.forEach(x => { this.options=x.qstnOptions; console.log(this.options); });
       this.attendedOptions=[];
       this.timerInitialization();
       this.timer();
-  
+   // this.timer = setInterval(() => { this.timer1(); }, 1000);
     
       /* ................. */
     });
@@ -121,28 +139,69 @@ millisToMinutesAndSeconds(millis) {
   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
-selectOption(opt,quest)
-{
-  
-this.attendedOptions.push(opt,quest);
-console.log(this.attendedOptions);
-console.log(quest);
-console.log(opt);
-}
 
-mcqAnswer(opt)
+
+mcqAnswer()
 {
-  console.log(this.atndoption);
+
  console.log(this.atndoption.opt);
- //this.attendedOptions.push();
-//   this.attendedOptions.push(opt);
-// console.log(this.attendedOptions);
+
+ // this.attendedOptions.push(opt);
+//console.log(this.atndoption);
   //  console.log(value);
 }
+selectOption(opt:Options,quest:Questions)
+{
+  // this.questions.forEach(question =>{ this.options=question.qstnOptions;
+  //   if(question.id==quest) {
+  //   this.options.forEach((x) => { if (x.id !== opt) x.is_Selected = false; });
+  //  }
+  // })
+  // if (x.id !== opt.id)
+  
 
+  this.questions.forEach(question =>{ if(question.id==quest.id) {
+                                       
+                                        question.qstnOptions.forEach((x) => {
+                                       
+                                        if (x.id == opt.id){
+                                          this.saveOptions(opt.id,question) }
+                                   //   this.ans=x.option;this.answer.push(this.ans); }
+                                        console.log(x.id == opt.id);
+                                         }
+                                          );}  
+  }  ) ;
+// console.log(this.answer);
+// console.log(this.answers);
+// 
+}
+// setQuestion(id)
+// {
+//   this.questionId=id;
+//   console.log("question id"+id);
+// }
+// getQuestion()
+// {
+//   return this.questionId;
+//  }
+saveOptions(optid,quest:Questions)
+{
+ if(this.atndoption.opt) 
+{  
+  this.questions.push(this.atndoption.id)
+this.quest.answered=optid ;
+console.log("new q"+this.quest.answered)
+// this.answers.push(this.quest.answered);
+}
+else {
+this.quest.answered="";
+console.log("exist q"+this.quest.answered)
+}
+// console.log(this.answers); 
+}
 submit()
 {
- console.log(this.attendedOptions);
+ console.log(this.answers);
 }
  /* ............................................................................................ */
 
