@@ -20,6 +20,7 @@ export class LoginService {
       this.authServerProvider.login(credentials).subscribe(
         (data) => {
           this.accountService.identity(true).then((account) => {
+            console.log('logged in by-'+account);
             // After the login the language will be changed to
             // the language selected by the user during his registration
             if (account !== null) {
@@ -43,6 +44,7 @@ export class LoginService {
   }
 
   logout() {
+    console.log('log out');
     this.authServerProvider.logout().subscribe();
     this.accountService.authenticate(null);
   }
