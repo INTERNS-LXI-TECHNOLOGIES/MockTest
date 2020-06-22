@@ -63,6 +63,7 @@ export class AttendedExamsPage implements OnInit {
      }
      this.dataSource = new MatTableDataSource<attendedExam>(this.examlist);
    this.dataSource.sort = this.sort;
+   this.dataSource.paginator = this.paginator;
      console.log(this.dataSource);
     },
     error => this.isLoading = false
