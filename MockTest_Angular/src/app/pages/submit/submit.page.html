@@ -1,9 +1,20 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>submit</ion-title>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Result</ion-title>
   </ion-toolbar>
+  <ng-template #noDataTemplate>
+   <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </ng-template>
 </ion-header>
 
+
 <ion-content>
+  <!-- <div class="container" *ngIf="userResult ;else noDataTemplate "> -->
+    <h1  class="ion-text-center"> {{userDetails?.firstName}}</h1>
+    <h3 class="ion-text-center">Marks {{userResult?.score}} / {{userResult?.total}}</h3>
+    <!-- </div> -->
 
 </ion-content>

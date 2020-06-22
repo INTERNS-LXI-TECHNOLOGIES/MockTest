@@ -62,7 +62,7 @@ export class MenuPage implements OnInit {
 
     // this.role=this.auth.getRole();
     // console.log(this.role);
-     this.role='admin'
+     this.role='user'
      console.log(this.role);
   
   }
