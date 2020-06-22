@@ -385,7 +385,59 @@ public class MocktestControllerResource {
 			ResponseEntity<byte[]> response=new ResponseEntity<byte[]>(pdfContents,headers,HttpStatus.OK);
 			return response;
 		}
+		/**
+	     * save each attended option in exam
+	     */
+		@PostMapping("/save_answers/{eId}/{answers}")
+		public AttendedExam save_option(@PathVariable String eId,@PathVariable List<String> answers,@RequestBody UserExtra user)
+		{
+			log.debug("method save called..");
+			Exam exam = examService.findById(eId);
+			AttendedExam attendedExam=new AttendedExam(ZonedDateTime.now(),exam,user);
+			attendExamService.save(attendedExam);
+			List<Question> list=questService.getAllQuestionsFromExam(exam);
+		//Long aExamId=attendedExam.getId();
+			for(int i=0;i<=list.size()-1;i++)
+			{
+			// attendOptSer.attendOptionInitial(list.get(i),attendedExam);
+			  for(int j=0;j<=answers.size()-1;j++)
+			  {
+				  if (i==j) {
+				  log.debug("attend option string array:..."+answers.get(j));
+				 attendOptSer.attendOptionUpdate(answers.get(j),list.get(i),attendedExam);}
+			  }
+			}
+			int total = exam.getCount();
+			int score=attendOptSer.examScore(attendedExam);
+			attendedExam = attendExamService.attend(attendedExam, score, total);
+			log.debug("attended exam ready to save:- " + attendedExam);
+			attendExamService.save(attendedExam);
+			return attendedExam;
+		}
+		
 
+		
+		/**
+	     * view submit page of exam
+	     * @param examid,attendExam id
+	     * @return submit page
+	     */
+		@RequestMapping("/submit")
+		public String submit(@RequestParam String aExamId,@RequestParam String eId,Model model) 
+		{
+			examValid="0";
+			AttendedExam attendedExam=attendExamService.findById(aExamId);
+			Exam exam = examService.findById(eId);
+			int total = exam.getCount();
+			int score=attendOptSer.examScore(attendedExam);
+			attendedExam = attendExamService.attend(attendedExam, score, total);
+			log.debug("attended exam ready to save:- " + attendedExam);
+			attendExamService.save(attendedExam);
+			model.addAttribute("attendedExam", attendedExam);
+			model.addAttribute("userid",attendedExam.getUserExtra().getUser().getId());
+			model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
+			return "submit";
+		}
 
 
 }

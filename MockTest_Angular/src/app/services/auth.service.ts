@@ -8,7 +8,9 @@ export class AuthService {
   imports:[HttpClient]
   public data;
   public isLogin=false;
+  user;
   private loginurl=""
+  
   constructor(private http: HttpClient) { }
 
   public isAuthenticated(): boolean {
@@ -29,11 +31,15 @@ export class AuthService {
     public async login(postData) {
       console.log('user'+postData.username);
       const loginApiResponce = {
-        name: 'pushkala',
+        
+        firstName: 'pushkala',
+        lastName:'manikandan',
+        login:'pushkala',
         role:'user',
         id: 5
         // token: '2323523523DFSWERWERWER'
       };
+      this.user=loginApiResponce;
       await sessionStorage.setItem('userData', JSON.stringify(loginApiResponce));
       this.data =sessionStorage.getItem('userData');
       console.log('data'+this.data);
@@ -57,6 +63,14 @@ export class AuthService {
   getRole()
   {
     return this.role;
+  }
+  setUser(user)
+  {
+    this.user=user;
+  }
+  getUser()
+  {
+    return this.user;
   }
     public async logout() {
       await sessionStorage.removeItem('userData');

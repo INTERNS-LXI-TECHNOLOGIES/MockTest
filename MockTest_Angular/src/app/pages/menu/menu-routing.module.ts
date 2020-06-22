@@ -77,6 +77,10 @@ const routes: Routes = [
       {
         path: 'certificates',
         loadChildren: () => import('../certificates/certificates.module').then( m => m.CertificatesPageModule)
+      },
+      {
+        path: 'submit',
+        loadChildren: () => import('../submit/submit.module').then( m => m.SubmitPageModule)
       }
 
      ]

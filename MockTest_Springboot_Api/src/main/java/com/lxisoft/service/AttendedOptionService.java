@@ -42,12 +42,20 @@ public class AttendedOptionService {
 	}
 
 	public void attendOptionUpdate(String optionid, Question question, AttendedExam attendedExam) {
-		AttendedOption attendedOption=attendOptRepo.findByAttendedExamAndQuestion(attendedExam,question);
+	//AttendedOption attendedOption=attendOptRepo.findByAttendedExamAndQuestion(attendedExam,question);
+		log.debug("serv class" +attendedExam);
+		log.debug("quest.."+question);
+		AttendedOption attendedOption=new AttendedOption();
+		log.debug("attendedOption {} "+optionid);
 		QstnOption qstnOption;
 		if(!optionid.equals("0"))
 		{
 			qstnOption=optService.findById(optionid);
+			//Long aExamId=attendedExam.getId();
+			attendedOption.setQuestion(question);
+			attendedOption.setAttendedExam(attendedExam);
 			attendedOption.setAttendedOpt(qstnOption.getOption());
+			log.debug("option servvvvvvvvv" +qstnOption.getOption());
 			attendedOption.setAttendedAnswer(qstnOption.isIsAnswer());
 			attendOptRepo.save(attendedOption);
 			log.debug("attendedOption updated after qstn attended:- "+attendedOption);

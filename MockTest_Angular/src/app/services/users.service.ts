@@ -13,6 +13,7 @@ export class UsersService {
   url="http://localhost:8080/api/mocktest-controller";
   private pdfId;
   examdata;
+  result;
   imports:[HttpClient]
   constructor(private http: HttpClient,private router:Router,private alertController: AlertController) { }
 
@@ -114,4 +115,23 @@ export class UsersService {
   
     await alert.present();
   }
+  saveAnswers(answers:any[],examid)
+  {
+     const user = {
+        
+      firstName: 'pushkala',
+      lastName:'manikandan',
+      login:'pushkala',
+      role:'user',
+      id: 5
+      // token: '2323523523DFSWERWERWER'
+    };
+    console.log(user);
+this.http.post('http://localhost:8080/api/mocktest-controller/save_answers/'+examid+'/'+answers,user).subscribe(res => {
+  this.result = res;
+console.log(this.result);
+  });
+this.router.navigateByUrl("menu/submit");
+  }
+
 }

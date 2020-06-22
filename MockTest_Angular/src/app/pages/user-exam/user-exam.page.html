@@ -26,7 +26,7 @@
                           <ion-text >{{i+1}}) {{question.qstn}}</ion-text >  
                             <!-- {{o+1}}) {{opt.option}} -->
                           <ion-list  >
-                            <ion-radio-group name="{{question.id}}" [(ngModel)]="atndoption.opt" (ionChange)="mcqAnswer()">
+                            <ion-radio-group name="{{question.id}}">
                               <ion-item *ngFor="let opt of question.qstnOptions,let o=index">
                                 <ion-label>{{opt.option}}</ion-label>
                                 <ion-radio  slot="start" (click)="selectOption(opt,question)" [value]="opt.option"  ></ion-radio>

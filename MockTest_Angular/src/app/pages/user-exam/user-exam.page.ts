@@ -6,11 +6,12 @@ import {AlertController} from '@ionic/angular';
 import { Questions } from '../../model/Questions';
 import {Options} from '../../model/Options';
 import { Exam} from '../../model/Exam';
+import { UsersService } from '../../services/users.service';
 
-export interface AttendedOptions{
-  id:Questions;
-  opt:string;
-}
+// export interface AttendedOptions{
+//   id:Questions;
+//   opt:string;
+// }
 
 @Component({
   selector: 'app-user-exam',
@@ -19,11 +20,11 @@ export interface AttendedOptions{
 })
 export class UserExamPage implements OnInit {
   constructor(private acivaterouter:ActivatedRoute,private router:Router,
-    private mockSer:MockTestService,private alertController: AlertController) { 
+    private mockSer:MockTestService,private userServ:UsersService,private alertController: AlertController) { 
      
     }
 
-  attendedOptions:Array<AttendedOption>;
+  // attendedOptions:Array<AttendedOption>;
   questions:Array<Questions>;
   options:Array<Options>;
   quest:Questions={
@@ -33,61 +34,44 @@ export class UserExamPage implements OnInit {
     qstnOptions: this.options,
     answered:""
   }
-  atndoption:AttendedOptions={
-      id:this.quest,
-      opt:""
-    }
+  currentExamId;
+  // atndoption:AttendedOptions={
+  //     id:this.quest,
+  //     opt:""
+  //   }
     questionId:string;
-    ans;
-     answer = [];
   answers=[];
     exam;
-     examId;
-     count;
-  /* Edit by pushkala */
+     examId
       examTime;
       timerData: any = null;
       ellapsedTime;
       ms=this.ellapsedTime;
-    // ms;
       mseconds=0;
-      
-  /* ................. */
   getExam(url:string,id)
   {
     this.mockSer.getDataById(url,id).subscribe(data => {
      this.exam=data;
       console.log(this.exam);
-    
-     
-      /* Edit by pushkala */
       this.examTime=this.exam?.time;
       this.ellapsedTime = this.examTime;
-      this.count=this.exam?.questions.length;
-      console.log(this.count);
       this.questions=this.exam?.questions;
       console.log(this.questions);
-      this.questions.forEach(x => { this.options=x.qstnOptions; console.log(this.options); });
-      this.attendedOptions=[];
+      this.questions.forEach(x => { this.options=x.qstnOptions; });
+     // this.attendedOptions=[];
       this.timerInitialization();
       this.timer();
-   // this.timer = setInterval(() => { this.timer1(); }, 1000);
-    
-      /* ................. */
+ 
     });
   }
 
   ngOnInit() {
     this.acivaterouter.params.subscribe(params => {
       const id= params['id'];
-      this.getExam('/exam/',id);  
+      this.getExam('/exam/',id);
+      this.currentExamId=id;  
     });
   }
-
- 
-
-
- /* Edit by pushkala .....................................................*/
 
  timerInitialization()
 {
@@ -102,7 +86,6 @@ if(this.ms==null)
 	}
 }
 
-
 timer() {
 	this.mseconds = this.mseconds - 1000;
 	  if(this.mseconds > 0) {
@@ -113,18 +96,20 @@ timer() {
      else {
       this.ellapsedTime = 0;	
       console.log(this.ellapsedTime);
-       this.presentAlert();
+       this.presentAlert("TimeOut");
 			this.submit();
 		}
 }
-async presentAlert() {
+
+async presentAlert(msg) {
   const alert = await this.alertController.create({
-    message: 'Time Out.',
+    message: msg,
     buttons: ['OK']
   });
 
   await alert.present();
 }
+
 hourToMiliSeconds(hour) {
 	let msecond = 0;
 	let time = hour.split(':');
@@ -132,77 +117,34 @@ hourToMiliSeconds(hour) {
 	return msecond;
 }
 
-
 millisToMinutesAndSeconds(millis) {
   var minutes = Math.floor(millis / 60000);
   var seconds =<number> <any> ((millis % 60000) / 1000).toFixed(0);
   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
-
-
-mcqAnswer()
-{
-
- console.log(this.atndoption.opt);
-
- // this.attendedOptions.push(opt);
-//console.log(this.atndoption);
-  //  console.log(value);
-}
 selectOption(opt:Options,quest:Questions)
 {
-  // this.questions.forEach(question =>{ this.options=question.qstnOptions;
-  //   if(question.id==quest) {
-  //   this.options.forEach((x) => { if (x.id !== opt) x.is_Selected = false; });
-  //  }
-  // })
-  // if (x.id !== opt.id)
-  
-
   this.questions.forEach(question =>{ if(question.id==quest.id) {
-                                       
                                         question.qstnOptions.forEach((x) => {
-                                       
                                         if (x.id == opt.id){
                                           this.saveOptions(opt.id,question) }
-                                   //   this.ans=x.option;this.answer.push(this.ans); }
-                                        console.log(x.id == opt.id);
-                                         }
-                                          );}  
-  }  ) ;
-// console.log(this.answer);
-// console.log(this.answers);
-// 
+                                         });} }  ) ;
 }
-// setQuestion(id)
-// {
-//   this.questionId=id;
-//   console.log("question id"+id);
-// }
-// getQuestion()
-// {
-//   return this.questionId;
-//  }
+
 saveOptions(optid,quest:Questions)
 {
- if(this.atndoption.opt) 
-{  
-  this.questions.push(this.atndoption.id)
 this.quest.answered=optid ;
-console.log("new q"+this.quest.answered)
-// this.answers.push(this.quest.answered);
+this.answers.push(this.quest.answered);
+ console.log(this.answers); 
 }
-else {
-this.quest.answered="";
-console.log("exist q"+this.quest.answered)
-}
-// console.log(this.answers); 
-}
+
 submit()
 {
  console.log(this.answers);
+ this.ellapsedTime=0;
+ this.presentAlert("your test will be submitted");
+ this.userServ.saveAnswers(this.answers,this.currentExamId);
 }
- /* ............................................................................................ */
 
 }
