@@ -13,7 +13,7 @@ export class UsersService {
   url="http://localhost:8080/api/mocktest-controller";
   private pdfId;
   examdata;
-  result
+  result;
   getCurrentUser()
   {
     const user = {
@@ -28,13 +28,7 @@ export class UsersService {
     return user;
   }
  
-  getResult()
-  {
-    console.log(this.result);
-    return this.result;
-   
-
-  }
+ 
 
   imports:[HttpClient]
   constructor(private http: HttpClient,private router:Router,private alertController: AlertController) { }
@@ -151,10 +145,24 @@ export class UsersService {
     console.log(user);
 this.http.post('http://localhost:8080/api/mocktest-controller/save_answers/'+examid+'/'+answers,user).subscribe(res => {
   this.result = res;
-  
+  this.setResult(this.result);
+  this.router.navigateByUrl("menu/submit");
 console.log(this.result);
   });
-this.router.navigateByUrl("menu/submit");
+
+  }
+
+  setResult(result)
+  {
+    console.log(result);
+    this.result=result;
+    console.log(this.result);
+   
+  }
+  getResult()
+  {
+    console.log(this.result);
+    return this.result;
   }
 
 }
