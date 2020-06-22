@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
- 
 import { RouteReuseStrategy,RouterModule } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -17,6 +16,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { File } from '@ionic-native/file/ngx';
+import { ReactiveFormsModule } from '@angular/forms';
+import {RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,9 @@ import { File } from '@ionic-native/file/ngx';
     AppRoutingModule, RouterModule, BrowserAnimationsModule,
     MatTableModule,
     MatSortModule,
+    ReactiveFormsModule,
     MatPaginatorModule,
+    RxReactiveFormsModule
   ],
   providers: [
     StatusBar,
