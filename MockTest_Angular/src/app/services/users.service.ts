@@ -145,19 +145,11 @@ export class UsersService {
     console.log(user);
 this.http.post('http://localhost:8080/api/mocktest-controller/save_answers/'+examid+'/'+answers,user).subscribe(res => {
   this.result = res;
-  this.setResult(this.result);
+ // this.setResult(this.result);
   this.router.navigateByUrl("menu/submit");
 console.log(this.result);
   });
 
-  }
-
-  setResult(result)
-  {
-    console.log(result);
-    this.result=result;
-    console.log(this.result);
-   
   }
   getResult()
   {

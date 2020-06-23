@@ -48,7 +48,7 @@ export class AttendedExamDetailsPage implements OnInit {
   
   examlist: Array<attendedExamDetails>;
   attendedExamData;
-  dataSource1= null;
+  dataSource= null;
   isLoading = true;
   //isEmpty=true;
  
@@ -74,9 +74,10 @@ export class AttendedExamDetailsPage implements OnInit {
           // {
           //   this.isEmpty=false;
           // }
-          this.dataSource1 = new MatTableDataSource<attendedExamDetails>(this.examlist);
-          this.dataSource1.sort = this.sort;
-          console.log(this.dataSource1);
+          this.dataSource = new MatTableDataSource<attendedExamDetails>(this.examlist);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          console.log(this.dataSource);
           },
           error => this.isLoading = false
           );

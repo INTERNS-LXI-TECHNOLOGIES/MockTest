@@ -11,6 +11,7 @@
   </ion-header>
 
 <ion-content class="ion-text-center">
+  <div class="container" *ngIf="attendedExam ;else noDataTemplate "></div>
   <br><b>{{attendedExam?.exam?.name}}</b><br>
   <ion-text [color]="(attendedExam?.result) ? 'success' : 'danger'" >
     mark:{{attendedExam?.score}}/{{attendedExam?.total}}<br>
