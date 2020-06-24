@@ -1,0 +1,9 @@
+export { AccountResourceService } from './services/account-resource.service';
+export { AttendedExamResourceService } from './services/attended-exam-resource.service';
+export { AttendedOptionResourceService } from './services/attended-option-resource.service';
+export { ExamResourceService } from './services/exam-resource.service';
+export { MocktestControllerResourceService } from './services/mocktest-controller-resource.service';
+export { QstnOptionResourceService } from './services/qstn-option-resource.service';
+export { QuestionResourceService } from './services/question-resource.service';
+export { UserExtraResourceService } from './services/user-extra-resource.service';
+export { UserResourceService } from './services/user-resource.service';

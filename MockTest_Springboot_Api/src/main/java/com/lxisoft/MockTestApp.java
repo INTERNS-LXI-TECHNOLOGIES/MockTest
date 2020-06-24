@@ -105,29 +105,29 @@ public class MockTestApp {
             env.getActiveProfiles());
     }
     
-    @Bean
-    public Docket SwaggerConfiguration()
-    {
-    	// return prepared Docket Instance
-    	return new Docket(DocumentationType.SWAGGER_2)
-    			.select()
-    			.paths(PathSelectors.ant("*/api/*"))
-    			.apis(RequestHandlerSelectors.basePackage("com.lxisoft"))
-    			.build()
-    			.apiInfo(apiDetails());
-    }
-    
-    private ApiInfo apiDetails()
-    {
-    	return new ApiInfo( 
-    			"Mocktest Application API",
-    			"mcq based application to take test",
-    			"1.0",
-    			"free to use",
-    			new springFox.documentation.service.Contact("lxisoft technologies","localhost:8080","lxi@lxisoft.com"),
-    			"Api license",
-    			Collections.emptyList());
-    			
-    		   }
+//    @Bean
+//    public Docket SwaggerConfiguration()
+//    {
+//    	// return prepared Docket Instance
+//    	return new Docket(DocumentationType.SWAGGER_2)
+//    			.select()
+//    			.paths(PathSelectors.ant("*/api/*"))
+//    			.apis(RequestHandlerSelectors.basePackage("com.lxisoft"))
+//    			.build()
+//    			.apiInfo(apiDetails());
+//    }
+//    
+//    private ApiInfo apiDetails()
+//    {
+//    	return new ApiInfo( 
+//    			"Mocktest Application API",
+//    			"mcq based application to take test",
+//    			"1.0",
+//    			"free to use",
+//    			new springFox.documentation.service.Contact("lxisoft technologies","localhost:8080","lxi@lxisoft.com"),
+//    			"Api license",
+//    			Collections.emptyList());
+//    			
+//    		   }
     
 }
