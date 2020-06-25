@@ -4,6 +4,9 @@ import{AuthService} from '../../services/auth.service';
 import{Router,ActivatedRoute} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UsersService } from '../../services/users.service';
+import { MocktestControllerResourceService } from 'src/app/api/services';
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -21,7 +24,8 @@ export class HomePage implements OnInit {
 
 //  registerId;
   constructor(private mockTestSer: MockTestService,private http: HttpClient,
-    private route: ActivatedRoute,private userServ:UsersService,private auth:AuthService,private router:Router) { }
+    private route: ActivatedRoute,private userServ:UsersService,private auth:AuthService,private router:Router,
+    private mockser:MocktestControllerResourceService) { }
 
   isAuthenticated(){
    if(this.auth.isLogin==true)

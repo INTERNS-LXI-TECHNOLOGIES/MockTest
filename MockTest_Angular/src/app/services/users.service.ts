@@ -6,6 +6,7 @@ import { Exam } from '../pages/create-exam/create-exam.page';
 import { Router } from '@angular/router';
 import { ExamData } from '../model/ExamData';
 import {AlertController} from '@ionic/angular';
+import { MocktestControllerResourceService } from 'src/app/api/services';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +32,7 @@ export class UsersService {
  
 
   imports:[HttpClient]
-  constructor(private http: HttpClient,private router:Router,private alertController: AlertController) { }
+  constructor(private http: HttpClient,private router:Router,private alertController: AlertController,private mockser:MocktestControllerResourceService) { }
 
   setPdfId(id)
   {
@@ -73,6 +74,7 @@ export class UsersService {
   }
   getActiveExams()
   {
+    //return this.http.get(this.mockser.activeExamsUsingGET);
     return this.http.get(`http://localhost:8080/api/mocktest-controller/activeExams/`);
   }
   getSelectedExamDetails(id)
