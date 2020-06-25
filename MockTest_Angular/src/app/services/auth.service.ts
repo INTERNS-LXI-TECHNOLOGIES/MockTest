@@ -15,7 +15,7 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     const userData = sessionStorage.getItem('userData');
-    console.log(userData);
+    console.log('user data in authService- '+userData+'  '+sessionStorage.getItem('userData'));
     if (userData && userData.length > 0) {
     return true;
     } else {
@@ -28,33 +28,34 @@ export class AuthService {
       const userInfo=await sessionStorage.getItem('userData');
       return JSON.parse(userInfo);
     }
-    public async login(postData) {
-      console.log('user'+postData.username);
-      const loginApiResponce = {
-        
-        firstName: 'pushkala',
-        lastName:'manikandan',
-        login:'pushkala',
-        role:'user',
-        id: 5
-        // token: '2323523523DFSWERWERWER'
-      };
-      this.user=loginApiResponce;
-      await sessionStorage.setItem('userData', JSON.stringify(loginApiResponce));
-      this.data =sessionStorage.getItem('userData');
-      console.log('data'+this.data);
-      return true;
+
+    public login(postData) {
+      console.log('user', postData);
+
+      return this.http.post("http://localhost:8080/api/authenticate" , postData)
+      // const loginApiResponce = {
+      //   name: 'pushkala',
+      //   role:'user',
+      //   id: 5
+      //   // token: '2323523523DFSWERWERWER'
+      // };
+      // await sessionStorage.setItem('userData', JSON.stringify(loginApiResponce));
+      // this.data =sessionStorage.getItem('userData');
+      // console.log('data'+this.data);
+      // return true;
     }
-    public loginUser(user){
-      //  return this.http.post<any>(this.loginurl,user)
-      console.log('hiiiii'+user);
-      this.isLogin=true;
-      console.log(this.isLogin);
-      this.data =sessionStorage.getItem('userData');
-      console.log(this.data);
-     return this.data;
+
+
+    // public loginUser(user){
+    //   //  return this.http.post<any>(this.loginurl,user)
+    //   console.log('hiiiii'+user);
+    //   this.isLogin=true;
+    //   console.log(this.isLogin);
+    //   this.data =sessionStorage.getItem('userData');
+    //   console.log(this.data);
+    //  return this.data;
     
-    }
+   // }
     role;
     setRole(role:string)
     {
@@ -72,6 +73,8 @@ export class AuthService {
   {
     return this.user;
   }
+    // }
+  
     public async logout() {
       await sessionStorage.removeItem('userData');
       await sessionStorage.clear();

@@ -72,7 +72,8 @@ export class AttendedExamsPage implements OnInit {
   ngOnInit() {
     
     this.auth.getUserInfo().then(userData => {
-      this.login=userData.login;
+     // this.login=userData.name;
+     this.login='pushkala';
       this.attendedExams();
 
     })

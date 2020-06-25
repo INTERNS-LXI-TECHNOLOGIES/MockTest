@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { map } from 'rxjs/operators';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -30,7 +31,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
    
-
+    // ReactiveFormConfig.set({
+    //   'validationMessage':{
+    //     'required':"This Field is Required",
+    //     // 'minLength': 'Min length is {{0}}'
+    //   }
+    // })
   
 
     

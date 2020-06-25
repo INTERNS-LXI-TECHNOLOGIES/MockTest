@@ -14,12 +14,13 @@ export class LoginPage implements OnInit {
   
   // username;
   
-  userdata={}
+
   postData = {
     'username': '',
     'password': ''
     }
-    public errorText: string;
+  
+  public errorText: string;
 
   constructor(private modalCtrl: ModalController,
               public menu: MenuController,
@@ -49,30 +50,32 @@ export class LoginPage implements OnInit {
   async loginAction(){
     console.log(this.postData);
         if(this.postData.username && this.postData.password){
-         
-       
-          console.log(this.postData.username);
-          console.log(this.postData.password);
-            if(this.auth.login(this.postData))
-            {
-              this.auth.loginUser(this.postData);
-                    if(this.postData.username=='admin')
-                    {
-                      this.auth.setRole('admin');
-                    }
-                    else{
-                      this.auth.setRole('user');
-                    }
-                    console.log("from login"+this.auth.getRole());
-                this.router.navigate(['/menu']);
-             }
-            } else {
-              const toast=await this.toastcntrl.create({
-                message: this.errorText = 'Please give valid data',
-                duration:2000
-              });
-              toast.present();
-            }
+          //here i want to use API action
+
+
+
+          this.auth.login(this.postData)
+          .subscribe(tokenObj=>{
+            console.log(tokenObj);
+            this.router.navigate(['/menu']);
+          },err=>{
+            alert("Invalid pwd")
+          });
+        }
+          // console.log(this.postData.username);
+          // console.log(this.postData.password);
+          //   if(this.auth.login(this.postData)){
+          //     this.auth.loginUser(this.postData);
+          //          this.router.navigate(['/menu']);
+          //    }
+          //   } else {
+          //     const toast=await this.toastcntrl.create({
+          //       message: this.errorText = 'Please give valid data',
+          //       duration:2000
+          //     });
+          //     toast.present();
+          //   }
     }
 
-}
+
+  }
