@@ -1,0 +1,47 @@
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+       <ion-content>
+        <ion-list id="inbox-list">
+          <ion-list-header>mocktest</ion-list-header>
+         
+          <div *ngIf="role=='admin'">
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of adminPages; let i = index" >
+
+              <ion-item (click)="selectedIndex = i" [routerLink]="[p.url]" routerDirection="root" [class.selected]="selectedIndex == i" lines="none" detail="false" >
+                <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+
+            
+          </ion-menu-toggle>
+         
+          </div>
+          
+          <div *ngIf="role=='user'">
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of userPages; let i = index">
+              <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
+                <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </div> 
+          
+          <ion-item tappable routerLink="/login" routerDirection="root">
+            <ion-icon name="log-out" slot="start"></ion-icon>
+            Logout
+                 </ion-item>
+        </ion-list>
+      </ion-content> 
+
+     
+    </ion-menu>
+   
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+   
+  </ion-split-pane>

@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'signup', loadChildren: './pages/signup/signup.module#SignupPageModule' },
   { path: 'accessdenied', redirectTo: '', pathMatch: 'full' },
+  {path: 'menu',loadChildren: './pages/menu/menu.module#MenuPageModule'},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],

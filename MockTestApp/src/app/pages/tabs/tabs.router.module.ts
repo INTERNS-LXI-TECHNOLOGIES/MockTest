@@ -7,15 +7,15 @@ const routes: Routes = [
     path: '',
     component: TabsPage,
     children: [
-      {
-        path: 'home',
-        children: [
-          {
-            path: '',
-            loadChildren: '../home/home.module#HomePageModule',
-          },
-        ],
-      },
+      // {
+      //   path: 'home',
+      //   children: [
+      //     {
+      //       path: '',
+      //       loadChildren: '../home/home.module#HomePageModule',
+      //     },
+      //   ],
+      // },
       {
         path: 'entities',
         children: [
