@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Result</ion-title>
+  </ion-toolbar>
+  <ng-template #noDataTemplate>
+   <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </ng-template>
+</ion-header>
+
+
+<ion-content>
+  <div class="container" *ngIf="userResult ;else noDataTemplate ">
+    <h1  class="ion-text-center">Marksheet of {{userDetails?.firstName}}</h1>
+    <h3 class="ion-text-center">{{userResult?.result==true ?'Congrats! You pass the Test' : 'You failed the Test !'}}</h3>
+    <h3 class="ion-text-center">Marks: {{userResult?.score}} / {{userResult?.total}}</h3>
+    <h3 class="ion-text-center">Percentage: {{userResult?.percentage}}</h3>
+  <div>
+    <h2 class="ion-text-right"> <a (click)="reviewResult()" >Review</a></h2>
+  </div>
+    </div>
+
+</ion-content>
