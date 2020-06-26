@@ -6,6 +6,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 // import{AuthService} from '../../services/auth.service';
 import{Router,ActivatedRoute} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { MocktestControllerResourceService } from 'src/app/services/services';
 // import { UsersService } from '../../services/users.service';
 // import { MocktestControllerResourceService } from 'src/app/api/services';
 
@@ -16,7 +17,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  constructor(public navController: NavController, private accountService: AccountService, private loginService: LoginService) {}
+  constructor(public navController: NavController, private router:Router,
+    private accountService: AccountService, private loginService: LoginService,
+    private mockController:MocktestControllerResourceService) {}
 
   // url:string='http://localhost:8080/api/mocktest-controller/';
   // questions:any=this.mockTestSer.getDataFromServer('http://localhost:8080/api/questions/');
@@ -40,26 +43,6 @@ export class HomePage implements OnInit {
   //   private route: ActivatedRoute,private userServ:UsersService,private auth:AuthService,private router:Router,
   //   private mockser:MocktestControllerResourceService) { }
 
-//   isAuthenticated(){
-//    if(this.auth.isLogin==true)
-//    {
-//     if(this.auth.data.role=='admin')
-//      this.userRole='admin';
-//      else
-//      this.userRole='user';
-//      console.log(this.userRole)
-//      return true;
-//    }
-//  }
-//  async logout() {
-    
-//   if(this.auth.logout())
-//   {
-//     this.router.navigate(['login']);
-//   }
-
-//   }
-
 //   getActiveExams()
 //   {
 //     this.userServ.getActiveExams().subscribe(response => {
@@ -68,11 +51,15 @@ export class HomePage implements OnInit {
 //     });
 //   }
 
-//   startExam(id){
-//     this.router.navigate(['menu/exam-start/'+id]);
-//   }
+  startExam(id){
+    this.router.navigate(['menu/exam-start/'+id]);
+  }
  
   ngOnInit() {
+    this.mockController.activeExamsUsingGET().subscribe(data=>{
+      console.log(data);
+      this.activeExams=data;
+    })
 
     // this.isAuthenticated();
     // this.auth.getUserInfo().then(userData => {

@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="menu"></ion-back-button>
+    </ion-buttons>
+    <ion-title>test</ion-title>
+  </ion-toolbar>
+  <ng-template #noDataTemplate>
+   <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </ng-template>
+</ion-header>
+
+
+<ion-content>
+
+      
+
+        <div class="container" *ngIf="exam ;else noDataTemplate ">
+                  <ion-text  class="ion-text-center">
+                    <h1>{{exam?.name}}</h1>
+                  </ion-text>
+
+                  <div class="text-container">
+                      <ion-card *ngFor="let question of exam?.questions,let i=index" color="light">
+                        <ion-card-content>
+                          <ion-text >{{i+1}}) {{question.qstn}}</ion-text >  
+                            <!-- {{o+1}}) {{opt.option}} -->
+                          <ion-list  >
+                            <ion-radio-group name="{{question.id}}">
+                              <ion-item *ngFor="let opt of question.qstnOptions,let o=index">
+                                <ion-label>{{opt.option}}</ion-label>
+                                <ion-radio  slot="start" (click)="selectOption(opt,question)" [value]="opt.option"  ></ion-radio>
+                                <!-- <input id="{{option.id}}" type="checkbox" [(ngModel)]="option.selected" (change)="onSelect(question, option);" /> -->
+                                <!-- (change)="selectOption(opt.option,question.id);" -->
+                              </ion-item>
+                            </ion-radio-group> 
+                          </ion-list>
+                          <!-- <ion-text [color]="(attendedExam?.attendedOptions[i]?.attendedAnswer)? 'success' : 'danger'">
+                            your answer:-{{attendedExam?.attendedOptions[i]?.attendedOpt}}
+                          </ion-text> -->
+                        </ion-card-content>
+                      </ion-card>
+                  </div>
+                  <ion-button expand="block" share="round" color="medium" (click)="submit()">submit</ion-button>
+                  
+        </div>
+       
+          <ion-fab vertical="top" horizontal="end" slot="fixed" color="danger" style="zoom:1.0;">         
+            <ion-text color="danger"   >
+            {{ellapsedTime}} 
+            </ion-text>
+        </ion-fab>
+      
+</ion-content>
