@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { MocktestControllerResourceService } from 'src/app/services/services';
 // import { UsersService } from '../../services/users.service';
 // import { MocktestControllerResourceService } from 'src/app/api/services';
-
+import { AccountResourceService } from 'src/app/services/services';
 
 @Component({
   selector: 'app-home',
@@ -17,9 +17,15 @@ import { MocktestControllerResourceService } from 'src/app/services/services';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+
+
+  loggedUser;
+  loggedUserName;
+
   constructor(public navController: NavController, private router:Router,
     private accountService: AccountService, private loginService: LoginService,
-    private mockController:MocktestControllerResourceService) {}
+    private mockController:MocktestControllerResourceService,
+    private accSer:AccountResourceService) {}
 
   // url:string='http://localhost:8080/api/mocktest-controller/';
   // questions:any=this.mockTestSer.getDataFromServer('http://localhost:8080/api/questions/');
@@ -54,11 +60,26 @@ export class HomePage implements OnInit {
   startExam(id){
     this.router.navigate(['menu/exam-start/'+id]);
   }
+  getUserDetails()
+  {
+    this.accSer.getAccountUsingGET().subscribe(resp=>{
+      console.log('user info=>home');
+      console.log(resp);
+      this.loggedUser=resp;
+      this.loggedUserName=resp.firstName;
+    });
+  }
+
+  params={
+    name:this.loggedUserName
+  }
  
   ngOnInit() {
+
     this.mockController.activeExamsUsingGET().subscribe(data=>{
       console.log(data);
       this.activeExams=data;
+      this.getUserDetails();
     })
 
     // this.isAuthenticated();

@@ -82,6 +82,7 @@ export class AccountService {
       .toPromise()
       .then((response) => {
         const account = response.body;
+        console.log(account);
         if (account) {
           this.userIdentity = account;
           this.authenticated = true;
@@ -91,7 +92,7 @@ export class AccountService {
           //const langKey = this.sessionStorage.retrieve('locale') || this.userIdentity.langKey;
           // this.languageService.changeLanguage(langKey);
         } else {
-          this.userIdentity = null;
+          this.userIdentity = null;this.setLanguage();
           this.authenticated = false;
         }
         this.authenticationState.next(this.userIdentity);
