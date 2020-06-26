@@ -1,4 +1,8 @@
 {
+  "Home":{
+            "menu-title":"HOME"
+            
+  },
   "BACK_BUTTON_TEXT": "Back",
 
   "NAME": "Name",
