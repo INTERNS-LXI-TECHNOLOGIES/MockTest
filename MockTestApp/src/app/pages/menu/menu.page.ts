@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
 import { AccountResourceService } from 'src/app/services/services';
+import { LoginService } from 'src/app/services/login/login.service';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
@@ -55,8 +57,19 @@ export class MenuPage implements OnInit {
       icon: 'heart'
     }
   ];
+
+  logout() {
+    this.loginService.logout();
+    this.goBackToHomePage();
+  }
+
+  private goBackToHomePage(): void {
+        this.navController.navigateBack('');
+      }
+
   
-  constructor(private router:Router,private accSer:AccountResourceService) {}
+  constructor(private router:Router,private accSer:AccountResourceService,private loginService: LoginService,
+    public navController: NavController) {}
 
   ngOnInit() {
     this.accSer.getAccountUsingGET().subscribe(d=>{
