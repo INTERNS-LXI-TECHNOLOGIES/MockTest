@@ -64,14 +64,14 @@ const routes: Routes = [
       //   path: 'create-exam',
       //   loadChildren: () => import('../create-exam/create-exam.module').then( m => m.CreateExamPageModule)
       // },
-      // {
-      //   path: 'user-exam',
-      //   loadChildren: () => import('../user-exam/user-exam.module').then( m => m.UserExamPageModule)
-      // },
-      // {
-      //   path: 'exam-start',
-      //   loadChildren: () => import('../exam-start/exam-start.module').then( m => m.ExamStartPageModule)
-      // },
+      {
+        path: 'user-exam',
+        loadChildren: () => import('../user-exam/user-exam.module').then( m => m.UserExamPageModule)
+      },
+      {
+        path: 'exam-start',
+        loadChildren: () => import('../exam-start/exam-start.module').then( m => m.ExamStartPageModule)
+      },
       // {
       //   path: 'certificates',
       //   loadChildren: () => import('../certificates/certificates.module').then( m => m.CertificatesPageModule)
