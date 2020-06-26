@@ -7,8 +7,7 @@
     <ion-title>home</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="logout()" id="logout">
-        <!-- {{ 'LOGOUT_TITLE' | translate }} -->
-        logout
+        {{ 'LOGOUT_TITLE' | translate }}
         <ion-icon slot="end" name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -23,7 +22,7 @@
  <ion-content>
 
     <div *ngIf="activeExams; else noDataTemplate">
-          <div class="ion-text-center"> <h2>welcome </h2>
+          <div class="ion-text-center"> <h2>{{ 'WELCOME_TITLE' | translate }}  </h2>
             <!-- {{userInfo?.name}} -->
           <h3> choose an exam to start!</h3> </div>
 

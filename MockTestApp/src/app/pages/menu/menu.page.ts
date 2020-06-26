@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
+import { AccountResourceService } from 'src/app/services/services';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
@@ -9,6 +10,8 @@ export class MenuPage implements OnInit {
 
   public selectedIndex = 0;
   selectedPath='';
+  loggedUser;
+  userAuthorities;
   role;
   public adminPages = [
     {
@@ -53,17 +56,24 @@ export class MenuPage implements OnInit {
     }
   ];
   
-  constructor(private router:Router) { 
-    
-  }
+  constructor(private router:Router,private accSer:AccountResourceService) {}
 
   ngOnInit() {
-
-    // this.role=this.auth.getRole();
-    // console.log(this.role);
-     this.role='admin'
-     console.log(this.role);
-  
+    this.accSer.getAccountUsingGET().subscribe(d=>{
+      console.log('user logged=>');
+      console.log(d);
+      this.loggedUser=d;
+      this.userAuthorities=d.authorities;
+      this.userAuthorities.forEach(element => {
+        if(element==="ROLE_ADMIN"){
+          this.role='admin';
+        }
+        else{
+          this.role='user';
+        }
+        console.log('user role-'+this.role);
+      });
+    });
   }
 
 }
