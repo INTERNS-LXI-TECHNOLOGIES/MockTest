@@ -1,0 +1,9 @@
+<ion-list>
+  <ion-list-header>
+    <ion-label>Change Language </ion-label>
+  </ion-list-header>
+  <ion-item button *ngFor="let lng of languages" (click)="selectLanguage(lng.value)" detail="false" >
+    <ion-label text-wrap>{{lng.text}}</ion-label>
+    <ion-icon slot="start" name="checkmark" *ngIf="lng.value==selected"></ion-icon>
+  </ion-item>
+</ion-list>
