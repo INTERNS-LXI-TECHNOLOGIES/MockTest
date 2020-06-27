@@ -9,6 +9,7 @@ import { MocktestControllerResourceService } from 'src/app/services/services';
 })
 export class CreateQuestionPage implements OnInit {
 
+  
   question:Question={
     qstn:'',
     level:'beginner',
