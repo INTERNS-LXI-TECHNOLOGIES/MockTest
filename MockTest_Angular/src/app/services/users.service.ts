@@ -75,7 +75,7 @@ export class UsersService {
   getActiveExams()
   {
     
-    //return this.http.get(`http://localhost:8080/api/mocktest-controller/activeExams/`);
+    return this.http.get(`http://localhost:8080/api/mocktest-controller/activeExams/`);
   }
   getSelectedExamDetails(id)
   {

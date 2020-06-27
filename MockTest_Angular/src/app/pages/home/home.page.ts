@@ -49,11 +49,14 @@ export class HomePage implements OnInit {
 
   getActiveExams()
   {
-    // this.userServ.getActiveExams();
-    this.mockser.activeExamsUsingGET().subscribe(response => {
+   /* this.userServ.getActiveExams().subscribe(response => {
       this.activeExams=response;
       console.log(this.activeExams);
-    });
+    }); */
+   this.mockser.activeExamsUsingGET().subscribe(response => {
+      this.activeExams=response;
+      console.log(this.activeExams);
+    }); 
   }
 
   startExam(id){

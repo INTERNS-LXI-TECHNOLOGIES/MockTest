@@ -1,0 +1,14 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Certificates</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let passExam of examData">
+    <ion-item button (click)=" generatePdfReport(passExam.id)" detail="true">{{passExam?.exam?.name}}</ion-item>
+  </ion-list>
+</ion-content>

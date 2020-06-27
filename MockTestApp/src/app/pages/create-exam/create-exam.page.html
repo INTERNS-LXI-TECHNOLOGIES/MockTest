@@ -1,0 +1,127 @@
+<ion-header [translucent]="true">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="start">
+      <ion-back-button defaultHref="menu/exam"></ion-back-button>
+    </ion-buttons> -->
+   <ion-icon slot="end" name="close-circle" color="danger" style="zoom:3.0;" (click)="dismiss()"></ion-icon>
+    <ion-title>Create Exam</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+    <ion-card >
+     <h1 class="ion-text-center" color="tertiary">Exam Creation</h1>
+      <div class="container">
+        <div class="row">
+          <div class="offset-3"></div>
+           <div class="col-md-6">
+              <!-- <form (ngSubmit)="createExam(form)"> -->
+                <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && createExam(form)" novalidate class="feedback-form">
+                  <ion-list>
+                 <!-- ExamName -->
+                        <div class="form-group">
+                          <ion-item>
+                            <ion-label position="floating">Enter the Name </ion-label>
+                            <ion-input
+                                     autocomplete="on" 
+                                     type="text" 
+                                     [(ngModel)]="examData.name"  
+                                     
+                                     #examName="ngModel" 
+                                     name="name" 
+                                     [ngClass]="{ 'is-invalid': f.submitted && examName.invalid }"
+                                     [ngModelOptions]="{standalone: true}" 
+                                     required>
+                            </ion-input>
+                            <!-- input validation group -->
+                            <div *ngIf="f.submitted && examName.invalid" class="invalid-input">
+                              <!-- individual validation errors -->
+                              <div *ngIf="examName.errors?.required">Exam Name is required</div>
+                            </div>
+                       </ion-item> 
+                      </div>
+
+                      <!-- No of questions -->
+                      <div class="form-group">
+                        <ion-item>
+                          <ion-label position="floating">No.of Questions </ion-label>
+                          <ion-input
+                                   autocomplete="on" 
+                                   type="number" 
+                                   [(ngModel)]="examData.count"  
+                                  
+                                   #count="ngModel" 
+                                   name="count"
+                                   [ngClass]="{ 'is-invalid': f.submitted && count.invalid }"
+                                   [ngModelOptions]="{standalone: true}" 
+                                   required number>
+                          </ion-input>
+                          <!-- input validation group -->
+                          <div *ngIf="f.submitted && count.invalid" class="invalid-input">
+                            <!-- individual validation errors -->
+                            <div *ngIf="count.errors?.required">count is required</div>
+                            <div *ngIf="count.errors?.number">field is not valid</div>
+                          </div>
+                     </ion-item> 
+                    </div>
+
+                     <!-- Level of exam -->
+                     <div class="form-group">
+                      <ion-item>
+                      <ion-label>Level: &nbsp; </ion-label>
+                      <select 
+                          [(ngModel)]="examData.level" 
+                          [ngModelOptions]="{standalone: true}"  
+                          #level="ngModel"  
+                          [ngClass]="{ 'is-invalid': f.submitted && level.invalid }"
+                          required>
+                        <option value="" disabled>choose level</option>
+                        <option *ngFor="let level of allLevels" [value]="level">{{level}}</option>
+                      </select>
+                    </ion-item> 
+                        <!-- input validation group -->
+                        <div *ngIf="f.submitted && level.invalid" class="invalid-input">
+                          <!-- individual validation errors -->
+                          <div *ngIf="level.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;level is required</div>
+                        </div>  
+                  </div>
+
+                   <!-- Time  -->
+                   <div class="form-group">
+                    <ion-item>
+                        <ion-label>Time: &nbsp; 
+                          <select 
+                              [(ngModel)]="timeData.hour"
+                              [ngModelOptions]="{standalone: true}"  
+                              #time="ngModel"  
+                              [ngClass]="{ 'is-invalid': f.submitted && time.invalid }"
+                              required>
+                              <option value="" disabled>Hour</option>
+                              <option *ngFor="let hr of Hour" [value]="hr">{{hr}}
+                          </select> 
+                           &nbsp;&nbsp;&nbsp;&nbsp;
+                          <select 
+                              [(ngModel)]="timeData.minute"
+                              [ngModelOptions]="{standalone: true}"  
+                              #time="ngModel"  
+                              [ngClass]="{ 'is-invalid': f.submitted && time.invalid }"
+                              required>
+                        <option value="" disabled>Minutes</option>
+                        <option *ngFor="let min of Minute" [value]="min">{{min}}
+                      </select> </ion-label>
+                  </ion-item> 
+                      <!-- input validation group -->
+                      <div *ngIf="f.submitted && time.invalid" class="invalid-input">
+                        <!-- individual validation errors -->
+                        <div *ngIf="time.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;time is required</div>
+                      </div>  
+                </div>
+
+                  </ion-list>
+                  <ion-button expand="block" share="round" color="secondary" type="submit">create</ion-button>
+                
+            </form></div>
+            <div class="offset-3"></div></div></div>  
+    </ion-card>
+</ion-content>

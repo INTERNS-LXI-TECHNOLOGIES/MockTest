@@ -5,10 +5,6 @@ import {AlertController} from '@ionic/angular';
 import { Question, QstnOption } from 'src/app/services/models';
 import { MocktestControllerResourceService } from 'src/app/services/services';
 
-// export interface AttendedOptions{
-//   id:Questions;
-//   opt:string;
-// }
 
 @Component({
   selector: 'app-user-exam',
@@ -19,11 +15,12 @@ export class UserExamPage implements OnInit {
   constructor(private acivaterouter:ActivatedRoute,private router:Router,
     private mockController:MocktestControllerResourceService,
     // private userServ:UsersService,
+ 
     private alertController: AlertController) { 
      
     }
 
-  // attendedOptions:Array<AttendedOption>;
+
   questions:Array<Question>;
   options:Array<QstnOption>;
   quest:Question={
@@ -34,14 +31,11 @@ export class UserExamPage implements OnInit {
     // answered:""
   }
   currentExamId;
-  // atndoption:AttendedOptions={
-  //     id:this.quest,
-  //     opt:""
-  //   }
-    questionId:string;
-  answers=[];
-    exam;
-     examId
+
+      questionId:string;
+      answers=[];
+      exam;
+      examId
       examTime;
       timerData: any = null;
       ellapsedTime;
@@ -57,7 +51,6 @@ export class UserExamPage implements OnInit {
       this.questions=this.exam?.questions;
       console.log(this.questions);
       this.questions.forEach(x => { this.options=x.qstnOptions; });
-     // this.attendedOptions=[];
       this.timerInitialization();
       this.timer();
  
@@ -134,15 +127,19 @@ selectOption(opt:QstnOption,quest:Question)
 saveOptions(optid,quest:Question)
 {
 // this.quest.answered=optid ;
-// this.answers.push(this.quest.answered);
+this.answers.push(optid);
  console.log(this.answers); 
 }
 
 submit()
 {
+  // let user=this.Home.loggedUser;
+  this.mseconds=0;
+  //this.examTime=0;
  console.log(this.answers);
- this.ellapsedTime=0;
- this.presentAlert("your test will be submitted");
+ 
+ //this.presentAlert("your test will be submitted");
+// this.mockController.saveOptionUsingPOST(this.answers,this.currentExamId,)
 //  this.userServ.saveAnswers(this.answers,this.currentExamId);
 }
 
