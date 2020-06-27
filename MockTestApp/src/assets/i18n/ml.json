@@ -1,0 +1,92 @@
+{
+    "HomePage":{
+              "menu-title":"ഹോം",
+              "greeting":"സ്വാഗതം {{name}}  !",
+              "Title_2": "ആരംഭിക്കുന്നതിന് ഒരു പരീക്ഷ തിരഞ്ഞെടുക്കുക !"
+    },
+  
+  
+             "Home":"ഹോം",
+              "Question":"ചോദ്യം",
+              "Exam":"പരീക്ഷ",
+              "Exam Analysis":"പരീക്ഷ വിശകലനം",
+                            
+    "BACK_BUTTON_TEXT": "തിരികെ",
+  
+    "NAME": "പേര്",
+    "FIRST_NAME": "പേരിന്റെ ആദ്യഭാഗം",
+    "LAST_NAME": "പേരിന്റെ അവസാന ഭാഗം",
+    "EMAIL": "ഇമെയിൽ",
+    "USERNAME": "ഉപയോക്തൃനാമം",
+    "PASSWORD": "പാസ്‌വേഡ്",
+    "REMEMBER_ME": "ഓർമ്മിക്കുക",
+    "LOGIN": "ലോഗിൻ",
+    "SIGNUP": "സൈൻ അപ്പ് ചെയ്യുക",
+    "NO_ACCOUNT_MESSAGE": "നിങ്ങൾക്ക് ഇതുവരെ അക്കൗണ്ട് ഇല്ലെങ്കിൽ?",
+  
+    "TAB1_TITLE": "Home",
+    "TAB2_TITLE": "Entities",
+    "TAB3_TITLE": "Account",
+  
+    "MAP_TITLE": "Map",
+  
+    "TUTORIAL_SKIP_BUTTON": "Skip",
+    "TUTORIAL_CONTINUE_BUTTON": "Continue",
+  
+    "TUTORIAL_SLIDE1_TITLE": "Welcome to the Ionic Super Starter",
+    "TUTORIAL_SLIDE1_DESCRIPTION": "The <b>Ionic Super Starter</b> is a fully-featured Ionic starter with many pre-built pages and best practices.",
+  
+    "TUTORIAL_SLIDE2_TITLE": "How to use the Super Starter",
+    "TUTORIAL_SLIDE2_DESCRIPTION": "Assemble the various page types you want and remove the ones you don't. We've provided many common mobile app page layouts, like login and signup pages, tabs, and this tutorial page.",
+  
+    "TUTORIAL_SLIDE3_TITLE": "Getting Started",
+    "TUTORIAL_SLIDE3_DESCRIPTION": "Need help? Check out the Super Starter README for a full tutorial",
+  
+    "TUTORIAL_SLIDE4_TITLE": "Ready to Play?",
+  
+    "WELCOME_INTRO": "The starting point for your next hipster Ionic app",
+  
+    "SETTINGS_TITLE": "Settings",
+    "SETTINGS_OPTION1": "Option 1",
+    "SETTINGS_OPTION2": "Option 2",
+    "SETTINGS_OPTION3": "Option 3",
+    "SETTINGS_OPTION4": "Option 4",
+  
+    "SETTINGS_PROFILE_BUTTON": "Edit Profile",
+  
+    "SETTINGS_PAGE_PROFILE": "Edit Profile",
+  
+    "WELCOME_TITLE": "സ്വാഗതം ",
+    "LOGOUT_TITLE": "ലോഗൗട്ട്",
+  
+    "LOGIN_TITLE": "ലോഗിൻ",
+    "LOGIN_ERROR": "ദയവായി നിങ്ങളുടെ അക്കൗണ്ട് വിവരങ്ങൾ വീണ്ടും പരിശോധിക്കുക.",
+    "LOGIN_BUTTON": "ലോഗിൻ",
+    "SIGNUP_TITLE": "സൈൻ അപ്പ് ചെയ്യുക",
+    "SIGNUP_ERROR": "അക്കൗണ്ട് സൃഷ്‌ടിക്കാനായില്ല. നിങ്ങളുടെ അക്കൗണ്ട് വിവരങ്ങൾ വീണ്ടും പരിശോധിക്കുക.",
+    "SIGNUP_SUCCESS": "രജിസ്ട്രേഷൻ പൂർത്തിയായി സ്ഥിരീകരണത്തിനായി ദയവായി നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കുക.",
+    "EXISTING_USER_ERROR": "ഇമെയിൽ ഇതിനകം ഉപയോഗത്തിലാണ്! മറ്റൊന്ന് തിരഞ്ഞെടുക്കുക.",
+    "INVALID_PASSWORD_ERROR": "പാസ്‌വേഡ് അസാധുവാണ്, ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+    "SIGNUP_BUTTON": "സൈൻ അപ്പ് ചെയ്യുക",
+  
+  
+    "LIST_MASTER_TITLE": "Items",
+  
+    "ITEM_CREATE_TITLE": "New Item",
+    "ITEM_CREATE_CHOOSE_IMAGE": "Add Image",
+  
+    "ITEM_NAME_PLACEHOLDER": "Name",
+    "ITEM_ABOUT_PLACEHOLDER": "About",
+  
+    "EDIT_BUTTON": "Edit",
+    "DONE_BUTTON": "Done",
+    "CANCEL_BUTTON": "Cancel",
+    "DELETE_BUTTON": "Delete",
+  
+    "CARDS_TITLE": "Social",
+  
+    "SEARCH_TITLE": "Search",
+    "SEARCH_PLACEHOLDER": "Search the items list, e.g. \"Donald Duck\"",
+    "EMPTY_ENTITIES_MESSAGE": "You haven't generated entities yet. Run `yo jhipster-ionic:entity <name>`"
+  }
+  

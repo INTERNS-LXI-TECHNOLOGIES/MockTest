@@ -1,8 +1,16 @@
 {
-  "Home":{
-            "menu-title":"HOME"
-            
+  "HomePage":{
+            "menu-title":"HOME",
+            "greeting":"welcome {{name}}  !",
+            "Title_2": "Choose An exam to Start !"
   },
+
+
+           "Home":"Home",
+            "Question":"Question",
+            "Exam":"Exam",
+            "Exam Analysis":"Exam Analysis",
+                          
   "BACK_BUTTON_TEXT": "Back",
 
   "NAME": "Name",

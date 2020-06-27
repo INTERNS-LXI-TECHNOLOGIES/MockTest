@@ -42,4 +42,5 @@ export class AppComponent {
     //   this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
     // });
   }
+ 
 }

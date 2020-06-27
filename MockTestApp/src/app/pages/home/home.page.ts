@@ -60,6 +60,7 @@ export class HomePage implements OnInit {
   startExam(id){
     this.router.navigate(['menu/exam-start/'+id]);
   }
+  params;
   getUserDetails()
   {
     this.accSer.getAccountUsingGET().subscribe(resp=>{
@@ -67,12 +68,13 @@ export class HomePage implements OnInit {
       console.log(resp);
       this.loggedUser=resp;
       this.loggedUserName=resp.firstName;
+    this.params={
+        name:this.loggedUserName
+      }
     });
   }
 
-  params={
-    name:this.loggedUserName
-  }
+ 
  
   ngOnInit() {
 

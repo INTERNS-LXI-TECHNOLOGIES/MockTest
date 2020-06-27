@@ -6,6 +6,9 @@ import { Account } from 'src/model/account.model';
 import { ApiService } from '../api/api.service';
 import { LanguageService } from '../../services/language/language.service';
 import{Storage} from '@ionic/storage';
+import { TranslateService } from '@ngx-translate/core';
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +19,7 @@ export class AccountService {
 
   constructor(private sessionStorage: SessionStorageService, 
     private http: HttpClient,
- 
+    private translate: TranslateService,
     private langServ:LanguageService,private storage:Storage) {}
 
   fetch(): Observable<HttpResponse<Account>> {
@@ -92,8 +95,9 @@ export class AccountService {
           //const langKey = this.sessionStorage.retrieve('locale') || this.userIdentity.langKey;
           // this.languageService.changeLanguage(langKey);
         } else {
-          this.userIdentity = null;this.setLanguage();
-          this.authenticated = false;
+          this.userIdentity = null;
+         
+          this.authenticated = false; this.setLanguage();
         }
         this.authenticationState.next(this.userIdentity);
         return this.userIdentity;
@@ -127,7 +131,9 @@ export class AccountService {
 
     this.storage.get('LNG_KEY').then(val => {
       if(val){
+        //this.translate.setDefaultLang(val);
         this.langServ.setLanguage(val);  
+       
       }
     }); 
     
