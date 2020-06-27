@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="question"></ion-back-button>
+    </ion-buttons>
+    <ion-title>All Questions</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let question of allQuestions ,let i=index" color="light">
+    <ion-card-content class="ion-text-center">
+      <ion-text >{{i+1}}. {{question.qstn}}</ion-text >  
+      <div>
+      <ion-text  *ngFor="let opt of question.qstnOptions,let o=index">
+        {{o+1}}) {{opt.option}}&nbsp;&nbsp;
+      </ion-text >
+    </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

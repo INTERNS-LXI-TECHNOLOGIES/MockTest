@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="menu/exam"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Exam Details</ion-title>
+   
+    <ion-toggle slot="end" [(ngModel)]="isToggled" color="dark" (ionChange)="notify()"></ion-toggle>
+  </ion-toolbar>
+  <ng-template #noDataTemplate>
+   <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </ng-template>
+</ion-header>
+
+
+<ion-content>
+  <div  *ngIf="selectedExamData; else noDataTemplate" >
+    <ion-text color="dark" class="ion-text-center">
+    <h1> {{selectedExamData?.exam?.name}}</h1>
+    <h2>Time: {{selectedExamData?.exam?.time}} Hr</h2>
+    <h3>Status:{{selectedExamData?.exam?.isActive==true ? 'Active-Now' : 'Not-Active'}}</h3>
+    
+    </ion-text>
+   <h2><u>Questions</u></h2> 
+   <div style="overflow-x:auto;">
+   <ion-item  *ngFor="let question of selectedExamData?.questions ,let i=index" >
+    <p>
+     <ion-label > <b> {{i+1}} ) {{question.qstn}} </b></ion-label>  
+     <ion-label *ngFor="let opt of question?.qstnOptions,let j=index">&nbsp;&nbsp;{{j+1}}. {{opt.option}}</ion-label>
+     <ion-label *ngFor="let opt of question?.qstnOptions">
+        <ion-label *ngIf="opt.isAnswer==true">&nbsp;&nbsp;<b>Ans: {{opt.option}}</b></ion-label></ion-label>
+   </p> 
+   </ion-item> </div>
+  </div>
+</ion-content>

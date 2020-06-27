@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      
+      <ion-back-button defaultHref="menu/question"> </ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Question</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="logForm(form)">
+    <ion-item>
+      <ion-label>enter the question: </ion-label>
+      <ion-input type="text" [(ngModel)]="question.qstn" name="question"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>select the level: &nbsp;
+      <select [(ngModel)]="question.level" [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let level of allLevels" [value]="level">{{level}}</option>
+      </select>
+    </ion-label>
+    </ion-item>
+
+      <ion-item *ngFor="let opt of question.qstnOptions,let i=index">
+        <ion-label>enter option-{{i+1}}: </ion-label>
+        <ion-input type="text" [(ngModel)]="question.qstnOptions[i].option" name="option"></ion-input>
+      </ion-item>
+      <br>
+      <div align="center">
+        <button type="submit">save</button>
+      </div>
+  </form>
+<!-- </ion-tabs> -->
+  <!-- <p *ngIf="question.qstn != ''"> {{question.qstn}}  {{question.qstnOptions[2].option}}</p> -->
+</ion-content>

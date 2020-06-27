@@ -59,7 +59,7 @@ export class HomePage implements OnInit {
     this.mockController.activeExamsUsingGET().subscribe(data=>{
       console.log(data);
       this.activeExams=data;
-    })
+    });
 
     // this.isAuthenticated();
     // this.auth.getUserInfo().then(userData => {
