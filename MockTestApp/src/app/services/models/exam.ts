@@ -5,7 +5,7 @@ export interface Exam {
   attendedExams?: Array<AttendedExam>;
   count?: number;
   id?: number;
-  isActive?: boolean;
+  isActive: boolean;
   level?: string;
   name?: string;
   questions?: Array<Question>;

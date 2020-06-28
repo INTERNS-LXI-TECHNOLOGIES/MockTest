@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { RouterModule,ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { RouterModule,ActivatedRoute, Router } from '@angular/router';
+
 import { PopoverController } from '@ionic/angular';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from  '@angular/material/paginator';
@@ -21,7 +21,7 @@ export interface attendedExamDetails
     percentage:string;
     result:string;
     dateTime:string;
-    
+  
 }
 
 @Component({
@@ -70,10 +70,7 @@ export class AttendedExamDetailsPage implements OnInit {
           this.isLoading = false;
           this.examlist=this.attendedExamData.attendList
         console.log(this.examlist);
-          // if(this.examlist.length>0)
-          // {
-          //   this.isEmpty=false;
-          // }
+        
           this.dataSource = new MatTableDataSource<attendedExamDetails>(this.examlist);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
