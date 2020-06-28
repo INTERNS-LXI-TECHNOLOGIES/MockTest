@@ -4,10 +4,10 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>home</ion-title>
+    <ion-title>{{ 'HomePage.menu-title' | translate }}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="logout()" id="logout">
-        {{ 'LOGOUT_TITLE' | translate }}
+        {{ "LOGOUT_TITLE" | translate }}
         <ion-icon slot="end" name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -23,9 +23,9 @@
  <ion-content>
 
     <div *ngIf="activeExams; else noDataTemplate">
-          <div class="ion-text-center"> <h2>{{ 'WELCOME_TITLE' | translate }}  </h2>
+          <div class="ion-text-center"> <h2>{{ 'HomePage.greeting' | translate:params}}  </h2>
             <!-- {{userInfo?.name}} -->
-          <h3> choose an exam to start!</h3> </div>
+          <h3> {{ 'HomePage.Title_2' | translate }} </h3> </div>
 
             <ion-card *ngFor="let exam of activeExams" color="light" button (click)="startExam(exam.id)">
               <ion-card-content class="ion-text-center">

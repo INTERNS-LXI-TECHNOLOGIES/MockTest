@@ -1,4 +1,17 @@
 {
+  "HomePage":{
+    "menu-title":"Zuhause",
+    "greeting":"Willkommen {{name}} !",
+    "Title_2": "Wählen Sie eine Prüfung zum Starten !"
+    
+},
+
+"Home":"Zuhause",
+  "Question":"Frage",
+  "Exam":"Prüfung",
+  "Exam Analysis":"Prüfungsanalyse"
+
+,
   "BACK_BUTTON_TEXT": "Zurück",
 
   "NAME": "Name",
@@ -42,16 +55,16 @@
   "SETTINGS_PAGE_PROFILE": "Profil ändern",
 
   "WELCOME_TITLE": "Willkommen",
-  "LOGOUT_TITLE": "Logout",
+  "LOGOUT_TITLE": "Ausloggen",
 
   "LOGIN_TITLE": "Anmelden",
   "LOGIN_ERROR": "Fehler beim Anmelden, bitte überprüfe deine Informationen und versuche es erneut.",
   "LOGIN_BUTTON": "Anmelden",
   "SIGNUP_TITLE": "Registrieren",
   "SIGNUP_ERROR": "Fehler beim Registrieren, bitte überprüfe deine Informationen und versuche es erneut.",
-  "SIGNUP_SUCCESS": "Registration saved! Please check your email for confirmation.",
+  "SIGNUP_SUCCESS": "Registrierung gespeichert! Bitte überprüfen Sie Ihre E-Mails zur Bestätigung.",
   "EXISTING_USER_ERROR": "Email is already in use! Please choose another one.",
-  "INVALID_PASSWORD_ERROR": "Invalid password, please try again.",
+  "INVALID_PASSWORD_ERROR": "Falsche Kennwort. Bitte versuchen Sie es erneut.",
   "SIGNUP_BUTTON": "Registrieren",
 
   "LIST_MASTER_TITLE": "Artikel",

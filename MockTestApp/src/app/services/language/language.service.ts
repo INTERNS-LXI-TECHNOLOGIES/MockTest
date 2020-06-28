@@ -26,6 +26,7 @@ selected='';
   {
     return[
       {text:'English',value:'en'},
+      {text:'Malayalam',value:'ml'},
       {text:'German',value:'de'}
     ];
   }

@@ -4,6 +4,10 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { Observable, Subject } from 'rxjs';
 import { Account } from 'src/model/account.model';
 import { ApiService } from '../api/api.service';
+import { LanguageService } from '../../services/language/language.service';
+import{Storage} from '@ionic/storage';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +17,10 @@ export class AccountService {
   private authenticated = false;
   private authenticationState = new Subject<any>();
 
-  constructor(private sessionStorage: SessionStorageService, private http: HttpClient) {}
+  constructor(private sessionStorage: SessionStorageService, 
+    private http: HttpClient,
+    private translate: TranslateService,
+    private langServ:LanguageService,private storage:Storage) {}
 
   fetch(): Observable<HttpResponse<Account>> {
     return this.http.get<Account>(ApiService.API_URL + '/account', { observe: 'response' });
@@ -78,17 +85,19 @@ export class AccountService {
       .toPromise()
       .then((response) => {
         const account = response.body;
+        console.log(account);
         if (account) {
           this.userIdentity = account;
           this.authenticated = true;
           // After retrieve the account info, the language will be changed to
           // the user's preferred language configured in the account setting
-
-          const langKey = this.sessionStorage.retrieve('locale') || this.userIdentity.langKey;
+          this.setLanguage();
+          //const langKey = this.sessionStorage.retrieve('locale') || this.userIdentity.langKey;
           // this.languageService.changeLanguage(langKey);
         } else {
           this.userIdentity = null;
-          this.authenticated = false;
+         
+          this.authenticated = false; this.setLanguage();
         }
         this.authenticationState.next(this.userIdentity);
         return this.userIdentity;
@@ -115,5 +124,19 @@ export class AccountService {
 
   getImageUrl(): string {
     return this.isIdentityResolved() ? this.userIdentity.imageUrl : null;
+  }
+
+  setLanguage()
+  {
+
+    this.storage.get('LNG_KEY').then(val => {
+      if(val){
+        //this.translate.setDefaultLang(val);
+        this.langServ.setLanguage(val);  
+       
+      }
+    }); 
+    
+  
   }
 }
