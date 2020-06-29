@@ -45,9 +45,9 @@ const routes: Routes = [
         loadChildren: () => import('../exam-analysis/exam-analysis.module').then( m => m.ExamAnalysisPageModule)
       },
       {
-          path: 'attended-exam-details',
-          loadChildren: () => import('../attended-exam-details/attended-exam-details.module').then( m => m.AttendedExamDetailsPageModule)
-        },
+        path: 'attended-exam-details',
+        loadChildren: () => import('../attended-exam-details/attended-exam-details.module').then( m => m.AttendedExamDetailsPageModule)
+      },
       {
         path: 'exam',
         loadChildren: () => import('../exam/exam.module').then( m => m.ExamPageModule)
