@@ -5,9 +5,9 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 // import{attendedExam} from '../../../model/attendedExam';
 // import { dashboard } from '../../../model/dashboard';
-import { MatTableDataSource } from '@angular/material/table';
-import {MatPaginator} from  '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+// import { MatTableDataSource } from '@angular/material/table';
+// import {MatPaginator} from  '@angular/material/paginator';
+// import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-attended-exams',
@@ -26,8 +26,8 @@ export class AttendedExamsPage implements OnInit {
 
  displayedColumns: string[] = [ 'index','examName', 'score', 'percentage','result','dateTime'];
 
- @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+//  @ViewChild(MatPaginator) paginator: MatPaginator;
+//   @ViewChild(MatSort) sort: MatSort;
 
   // examData:attendedExam={
   //   examId:"",
