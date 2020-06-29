@@ -3407,7 +3407,7 @@ module MocktestControllerResourceService {
     /**
      * answers
      */
-    answers: string;
+    answers: any;
   }
 
   /**
