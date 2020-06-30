@@ -14,13 +14,12 @@ import { AuthExpiredInterceptor } from './interceptors/auth-expired.interceptor'
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import{IonicStorageModule} from '@ionic/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { MatTableModule } from '@angular/material/table';
-// import { MatTableDataSource } from '@angular/material/table';
-// import { MatSortModule } from '@angular/material/sort';
-// import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
-// import { ReactiveFormsModule } from '@angular/forms';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -44,11 +43,11 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
      RouterModule,
      BrowserAnimationsModule, 
-     //MatTableModule,
-    // MatSortModule,
-    // ReactiveFormsModule,
-    // MatPaginatorModule,
-    // BrowserAnimationsModule,
+     MatTableModule,
+    MatSortModule,
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     StatusBar,

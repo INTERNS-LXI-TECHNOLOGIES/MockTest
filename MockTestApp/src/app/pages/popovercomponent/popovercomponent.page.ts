@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// import { UsersService } from '../../services/users.service';
+
+import { MocktestControllerResourceService } from 'src/app/api/services';
 @Component({
   selector: 'app-popovercomponent',
   templateUrl: './popovercomponent.page.html',
@@ -8,30 +9,26 @@ import { Component, OnInit } from '@angular/core';
 export class PopovercomponentPage implements OnInit {
   pdfData;
   constructor( 
-    // private userServ:UsersService
+    private mockController:MocktestControllerResourceService
     ) { }
 
   ngOnInit() {
   }
 
   generatePdfReport()
-  {
-  
-    // // pdfmake.vfs = pdfFonts.pdfMake.vfs;
-    // const id=this.userServ.getPdfId();
-    // // console.log("pop"+id);
-    //   this.userServ.getPdfviewOfAttendedExamDetail(id).subscribe(data => {
-    //     this.pdfData=data
-    //     console.log(this.pdfData);
-    //     // var UTF8_STR = new Uint8Array(this.data); // Convert to UTF-8... 
-    //     // var BINARY_ARR = UTF8_STR.buffer; // Convert to buffer...
-    //    // pdfmake.createPdf(this.data).open()
-    //    let file = new Blob([data], { type: 'application/pdf' });            
-    //       var fileURL = URL.createObjectURL(file);
-    //       window.open(fileURL);
-    //   },
-    //  error => console.log(error)
-    //   );
+  { 
+    const id=this.mockController.getPdfId();
+    console.log("pdf open"+id);
+      this.mockController.getReportAsPdfUsingDataBaseUsingGET(id).subscribe(data => {
+        this.pdfData=data
+        console.log(this.pdfData);
+   
+       let file = new Blob([data], { type: 'application/pdf' });            
+          var fileURL = URL.createObjectURL(file);
+          window.open(fileURL);
+      },
+     error => console.log(error)
+      );
   
   }
 }

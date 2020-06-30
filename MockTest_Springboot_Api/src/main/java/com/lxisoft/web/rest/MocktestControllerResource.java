@@ -106,40 +106,6 @@ public class MocktestControllerResource {
 	
 	  @Autowired 
 	    UserResource userRes;
-	  
-    /**
-     * View authenticated pages or redirect index page 
-     * @return index
-     */
-
-	@SuppressWarnings("unlikely-arg-type")
-	@PostMapping(value="/login/{login}")
-	public String index(@PathVariable String login )
-
-	{
-		Pageable pageable=null;
-		List<User> users=extraService.findAll();
-		
-//		for( User user:users)
-//		{	
-//			Set<Authority> authorities=user.getAuthorities();
-//				log.debug("cssdfsd"+login);
-//			if(user.getLogin().equals(login))
-//			{
-//				log.debug(login);
-//				for(Authority auth:authorities)
-//				{
-//					if((auth.equals(user.getAuthorities().equals("ROLE_ADMIN")))&&(auth.equals(user.getAuthorities().equals("ROLE_USER"))))
-//					 {
-//						return"Admin";
-//					 }	
-//				}
-//						
-//			}
-//			
-//		}
-		return "user";	 
-	}
 	
 	@GetMapping ("/app/allQuestions")
 	public List<Question> getAllQuestions() 
@@ -287,8 +253,9 @@ public class MocktestControllerResource {
      * @return 
      */
     @GetMapping("/getAllAttendedExamDetails/{id}")
-    public AttendedExamListModel getAllAttendedExamDetails(@PathVariable String id,AttendedExamListModel model)
+    public AttendedExamListModel getAllAttendedExamDetails(@PathVariable String id)
     {
+    	AttendedExamListModel model=new AttendedExamListModel();
     	Exam exam=examService.findById(id);
     	model.setExam(exam);
     //	List<User> users=extraService.findAll();
@@ -335,18 +302,6 @@ public class MocktestControllerResource {
 	{
 		Set<Exam> active_exams=examService.findActiveExams();
 		return active_exams;
-	}
-	
-
-	/**
-     * Get register page
-     * @param Model
-     * @return register p age.
-     */
-	@RequestMapping("/register")
-	public User register()
-	{
-		return  new User();
 	}
 	
 	 @GetMapping("/attendedExam/{id}")
@@ -415,29 +370,5 @@ public class MocktestControllerResource {
 			return attendedExam;
 		}
 		
-
-		
-		/**
-	     * view submit page of exam
-	     * @param examid,attendExam id
-	     * @return submit page
-	     */
-		@RequestMapping("/submit")
-		public String submit(@RequestParam String aExamId,@RequestParam String eId,Model model) 
-		{
-			examValid="0";
-			AttendedExam attendedExam=attendExamService.findById(aExamId);
-			Exam exam = examService.findById(eId);
-			int total = exam.getCount();
-			int score=attendOptSer.examScore(attendedExam);
-			attendedExam = attendExamService.attend(attendedExam, score, total);
-			log.debug("attended exam ready to save:- " + attendedExam);
-			attendExamService.save(attendedExam);
-			model.addAttribute("attendedExam", attendedExam);
-			model.addAttribute("userid",attendedExam.getUserExtra().getUser().getId());
-			model.addAttribute("username", SecurityContextHolder.getContext().getAuthentication().getName());
-			return "submit";
-		}
-
 
 }
