@@ -22,9 +22,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
     FormsModule,
     IonicModule,
     AttendedExamsPageRoutingModule,
-    // MatTableModule,
-    // MatSortModule,
-    // MatPaginatorModule
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   declarations: [AttendedExamsPage]
 })

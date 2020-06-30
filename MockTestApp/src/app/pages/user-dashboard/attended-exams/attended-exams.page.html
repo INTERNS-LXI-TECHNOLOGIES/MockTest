@@ -68,37 +68,11 @@
                   </mat-card>
 
                   <ng-template #noDataTemplate>
-                    <div  *ngIf="isEmpty">
+                    <div  *ngIf="!isEmpty">
                       <ion-text color="medium" class="ion-text-center">
-                     <h1> No data !!! </h1>
+                     <h1> No attended exam yet!!! </h1>
                       </ion-text>
                       </div>
                   </ng-template>
-
-         				  <!-- <table  width=95% border=3px style="font-size: 100%" matSort (matSortChange)="sortData($event)">
-							    <thead>
-							        <tr>
-							            <th> Sl.No. </th>
-							            <th mat-sort-header="examName">Exam Name </th>
-							            <th> Your Score </th>
-							              <th mat-sort-header="percentage"> Percentage </th>
-							              <th> Result </th>
-                            <th mat-sort-header="date">  Date & Time </th>
-                          
-							          </tr>
-                                  </thead>
-                                  <tbody>
-                                    
-                                    <tr  *ngFor="let d of examlist,index as i;">
-                                     <td>{{i+1}}</td> 
-                                     <td><a  (click)="examHistory(d.examId)">{{d.examName}}</a></td>
-                                     <td>{{d.score}} / {{d?.total}}</td>
-                                     <td>{{d.percentage}}</td>
-                                       <td> {{d?.result==true ? 'pass' :'fail'}}</td>  -->
-                                      <!-- <td>{{d.result}}</td>
-                                    <td>{{d.date}} : {{d.time}}</td>
-                                    
-                                    </tbody>
-                   </table></div>  -->
                    
 </ion-content>

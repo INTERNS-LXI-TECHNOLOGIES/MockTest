@@ -188,8 +188,8 @@ public class MocktestControllerResource {
     * view of user_dashboard
     */
     @GetMapping("/user_dashboard/{login}")
-    public UserDashBoard userDashboard(UserDashBoard board,@PathVariable String login) {
-    	
+    public UserDashBoard userDashboard( @PathVariable String login) {
+    	UserDashBoard board=new UserDashBoard();
 //		model.addAttribute("username",SecurityContextHolder.getContext().getAuthentication().getName());
 		UserExtra userExtra=restServ.currentUserExtra(login);
 		log.debug("email of user "+userExtra.getUser().getEmail());
@@ -240,8 +240,9 @@ public class MocktestControllerResource {
    
      */
 	@GetMapping ("/getSelectedExamDetails/{eId}")
-	public ExamModel selectExam(@PathVariable String eId,ExamModel model) throws Exception
+	public ExamModel selectExam(@PathVariable String eId) throws Exception
 	{
+		ExamModel model=new ExamModel();
 		Exam exam=examService.findById(eId);
 		model.setExam(exam);
 		model.setQuestions(exam.getQuestions());

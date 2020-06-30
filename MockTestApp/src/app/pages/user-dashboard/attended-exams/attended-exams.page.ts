@@ -1,14 +1,12 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-// import { UsersService } from '../../../services/users.service';
-// import {AuthService} from '../../../services/auth.service';
-// import {Sort} from '@angular/material/sort';
 import { Router } from '@angular/router';
-// import{attendedExam} from '../../../model/attendedExam';
-// import { dashboard } from '../../../model/dashboard';
-// import { MatTableDataSource } from '@angular/material/table';
-// import {MatPaginator} from  '@angular/material/paginator';
-// import {MatSort} from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import {MatPaginator} from  '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {AccountResourceService ,MocktestControllerResourceService} from 'src/app/services/services';
 
+import{UserDashBoard} from 'src/app/services/models';
+import{AttendedExam} from 'src/app/services/models';
 @Component({
   selector: 'app-attended-exams',
   templateUrl: './attended-exams.page.html',
@@ -16,18 +14,19 @@ import { Router } from '@angular/router';
 })
 
 export class AttendedExamsPage implements OnInit {
-
+  
+username:string;
  data:object;
- login:String;
-//  examlist: Array<attendedExam>;
+
+ examlist: Array<AttendedExam>;
  dataSource= null;
  isLoading = true;
  isEmpty=true;
 
  displayedColumns: string[] = [ 'index','examName', 'score', 'percentage','result','dateTime'];
 
-//  @ViewChild(MatPaginator) paginator: MatPaginator;
-//   @ViewChild(MatSort) sort: MatSort;
+ @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   // examData:attendedExam={
   //   examId:"",
@@ -38,50 +37,54 @@ export class AttendedExamsPage implements OnInit {
   //   result:"",
   //   date:"",
   //   time:"",
+    
   // }
-
+  examData:AttendedExam;
   // dashboardData:dashboard={
   //   currentUser:"",
   //   userId:"",
   //   attendedExamList:this.examlist
   // }
-
+  dashboardData:UserDashBoard;
   constructor(
-    // private userServ:UsersService,private auth:AuthService,
-    private router: Router
+    private mockController:MocktestControllerResourceService,
+    private router: Router, private accRes:AccountResourceService
     ) {}
  
  
-  // attendedExams()
-  // {
-  //   this.userServ.getUserDashboardDetails(this.login).subscribe(data => {
-  //     console.log(data);
-  //     this.dashboardData=data
-  //     this.examlist=this.dashboardData.attendedExamList;
-  //     console.log(this.examlist); 
-  //     this.isLoading = false;
-  //     if(this.examlist.length>0)
-  //    {
-  //     this.isEmpty=false;
-  //    }
-  //    this.dataSource = new MatTableDataSource<attendedExam>(this.examlist);
-  //  this.dataSource.sort = this.sort;
-  //  this.dataSource.paginator = this.paginator;
-  //    console.log(this.dataSource);
-  //   },
-  //   error => this.isLoading = false
-  //   );
-  // }
+  attendedExams(login)
+  {
+
+    this.mockController.userDashboardUsingGET(login).subscribe(data => {
+      console.log(data);
+      this.dashboardData=data
+      this.examlist=this.dashboardData.attendedExamList;
+      console.log(this.examlist); 
+      this.isLoading = false;
+    if(this.examlist.length>0)
+     {
+      this.isEmpty=false;
+     }
+    this.dataSource = new MatTableDataSource<AttendedExam>(this.examlist);
+   this.dataSource.sort = this.sort;
+   this.dataSource.paginator = this.paginator;
+     console.log(this.dataSource);
+     console.log(this.dataSource.sort);
+     console.log(this.dataSource.paginator);
+    },
+    error => this.isLoading = false
+    );
+  }
 
   ngOnInit() {
-    
-    // this.auth.getUserInfo().then(userData => {
-    //  // this.login=userData.name;
-    //  this.login='pushkala';
-    //   this.attendedExams();
-
-    // })
-
+    this.accRes.getAccountUsingGET().subscribe(u=>{
+      const user=u;
+      console.log(user);
+      this.username=user?.login;
+      console.log(this.username);
+      this.attendedExams(this.username);
+    })
+     
   }
   
  examHistory(id)

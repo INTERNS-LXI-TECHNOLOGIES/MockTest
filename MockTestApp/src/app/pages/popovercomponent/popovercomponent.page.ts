@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { MocktestControllerResourceService } from 'src/app/api/services';
+import {MocktestControllerResourceService} from 'src/app/services/services';
 @Component({
   selector: 'app-popovercomponent',
   templateUrl: './popovercomponent.page.html',

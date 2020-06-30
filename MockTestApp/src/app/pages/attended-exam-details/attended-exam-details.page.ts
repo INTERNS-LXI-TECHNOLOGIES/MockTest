@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from  '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { PopovercomponentPage } from '../popovercomponent/popovercomponent.page';  
-import { MocktestControllerResourceService } from 'src/app/api/services';
+import {MocktestControllerResourceService} from 'src/app/services/services';
 import {AttendedExamListModel} from '../../services/models/attended-exam-list-model';
 
 
