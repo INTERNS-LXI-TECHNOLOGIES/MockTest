@@ -18,6 +18,7 @@
         <div class="container" *ngIf="exam ;else noDataTemplate ">
                   <ion-text  class="ion-text-center">
                     <h1>{{exam?.name}}</h1>
+                    <ion-text (onChange)="examInit()" hidden></ion-text>
                   </ion-text>
 
                   <div class="text-container">

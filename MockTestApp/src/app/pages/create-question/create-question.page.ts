@@ -47,6 +47,7 @@ export class CreateQuestionPage implements OnInit {
       message:  msg,
       buttons: ['OK']
     });
+    await alert.present();
   } 
 
   ngOnInit() {

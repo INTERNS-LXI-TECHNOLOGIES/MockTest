@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {AlertController} from '@ionic/angular';
 // import { UsersService } from '../../services/users.service';
 import { Question, QstnOption } from 'src/app/services/models';
-import { MocktestControllerResourceService } from 'src/app/services/services';
+import { MocktestControllerResourceService, AccountResourceService } from 'src/app/services/services';
 
 
 @Component({
@@ -14,33 +14,30 @@ import { MocktestControllerResourceService } from 'src/app/services/services';
 export class UserExamPage implements OnInit {
   constructor(private acivaterouter:ActivatedRoute,private router:Router,
     private mockController:MocktestControllerResourceService,
-    // private userServ:UsersService,
- 
-    private alertController: AlertController) { 
-     
-    }
+    private accRes:AccountResourceService,
+    private alertController: AlertController) {}
 
-
+    params:MocktestControllerResourceService.SaveOptionUsingPOSTParams;
   questions:Array<Question>;
   options:Array<QstnOption>;
   quest:Question={
-    // id:'""',
+    id:0,
     qstn: "",
     level: "",
     qstnOptions: this.options,
     // answered:""
   }
   currentExamId;
+  questionId:string;
+  answers=[];
+  exam;
+  examTime;
+  timerData: any = null;
+  ellapsedTime;
+  ms=this.ellapsedTime;
+  mseconds=0;
+  user;
 
-      questionId:string;
-      answers=[];
-      exam;
-      examId
-      examTime;
-      timerData: any = null;
-      ellapsedTime;
-      ms=this.ellapsedTime;
-      mseconds=0;
   getExam(id)
   {
     this.mockController.getExamByIdUsingGET(id).subscribe(data => {
@@ -48,12 +45,15 @@ export class UserExamPage implements OnInit {
       console.log(this.exam);
       this.examTime=this.exam?.time;
       this.ellapsedTime = this.examTime;
+      console.log(this.ellapsedTime);
       this.questions=this.exam?.questions;
       console.log(this.questions);
       this.questions.forEach(x => { this.options=x.qstnOptions; });
       this.timerInitialization();
-      this.timer();
- 
+      if(this.ellapsedTime!=0){
+          this.timer();
+      }
+      
     });
   }
 
@@ -63,6 +63,10 @@ export class UserExamPage implements OnInit {
       this.getExam(id);
       this.currentExamId=id;  
     });
+    this.accRes.getAccountUsingGET().subscribe(u=>{
+      this.user=u;
+    })
+    
   }
 
  timerInitialization()
@@ -88,7 +92,7 @@ timer() {
      else {
       this.ellapsedTime = 0;	
       console.log(this.ellapsedTime);
-       this.presentAlert("TimeOut");
+       this.presentAlert("Time Out");
 			this.submit();
 		}
 }
@@ -117,11 +121,12 @@ millisToMinutesAndSeconds(millis) {
 
 selectOption(opt:QstnOption,quest:Question)
 {
-  this.questions.forEach(question =>{ if(question.id==quest.id) {
-                                        question.qstnOptions.forEach((x) => {
-                                        if (x.id == opt.id){
-                                          this.saveOptions(opt.id,question) }
-                                         });} }  ) ;
+  this.questions.forEach(question =>{ 
+    if(question.id==quest.id) {
+    question.qstnOptions.forEach((x) => {
+    if (x.id == opt.id){
+      this.saveOptions(opt.id,question) }
+  });} }  ) ;
 }
 
 saveOptions(optid,quest:Question)
@@ -131,16 +136,31 @@ this.answers.push(optid);
  console.log(this.answers); 
 }
 
+
 submit()
 {
   // let user=this.Home.loggedUser;
-  this.mseconds=0;
+  
+  
   //this.examTime=0;
- console.log(this.answers);
- 
- //this.presentAlert("your test will be submitted");
-// this.mockController.saveOptionUsingPOST(this.answers,this.currentExamId,)
-//  this.userServ.saveAnswers(this.answers,this.currentExamId);
+  if(this.answers.length==0)
+  {
+    this.answers.push(0);
+    this.presentAlert('no options attended!');
+    console.log(this.answers);
+  }
+   
+ this.params={user:this.user,
+      eId:this.currentExamId,
+      answers:this.answers};
+      console.log(this.user);
+      console.log(this.answers);
+ this.mockController.saveOptionUsingPOST(this.params).subscribe(()=>{
+  this.presentAlert('exam submitted successfully');
+  this.ellapsedTime=0;
+  this.mseconds=0;
+  this.router.navigateByUrl('menu');
+});
 }
 
 }
