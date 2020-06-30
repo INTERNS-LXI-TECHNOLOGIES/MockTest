@@ -136,12 +136,20 @@ this.answers.push(optid);
  console.log(this.answers); 
 }
 
+
 submit()
 {
   // let user=this.Home.loggedUser;
-  // this.mseconds=0;
-  this.ellapsedTime=0;
+  
+  
   //this.examTime=0;
+  if(this.answers.length==0)
+  {
+    this.answers.push(0);
+    this.presentAlert('no options attended!');
+    console.log(this.answers);
+  }
+   
  this.params={user:this.user,
       eId:this.currentExamId,
       answers:this.answers};
@@ -149,6 +157,8 @@ submit()
       console.log(this.answers);
  this.mockController.saveOptionUsingPOST(this.params).subscribe(()=>{
   this.presentAlert('exam submitted successfully');
+  this.ellapsedTime=0;
+  this.mseconds=0;
   this.router.navigateByUrl('menu');
 });
 }
