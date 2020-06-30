@@ -8,25 +8,6 @@ import {AccountResourceService ,MocktestControllerResourceService} from 'src/app
 import{UserDashBoard} from 'src/app/services/models';
 import{AttendedExamModel} from 'src/app/services/models';
 
-// export interface dashboard
-// {
-//     currentUser:Object;
-//     userId:string;
-//     attendedExamList:attendedExam[];
-// }
-// export interface attendedExam
-// {
-//     examId:string;
-//     examName:string;
-//     score:string;
-//     total:string;
-//     percentage:string;
-//     result:string;
-//     date:string;
-//     time:string;
-    
-// }
-
 @Component({
   selector: 'app-attended-exams',
   templateUrl: './attended-exams.page.html',
