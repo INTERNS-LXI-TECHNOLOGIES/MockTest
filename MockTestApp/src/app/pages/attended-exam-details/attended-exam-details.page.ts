@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild ,ChangeDetectorRef} from '@angular/core';
 import { RouterModule,ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { MatTableDataSource } from '@angular/material/table';
@@ -34,7 +34,7 @@ export class AttendedExamDetailsPage implements OnInit {
   constructor(private acivaterouter:ActivatedRoute,
     private router: Router,
     private mockController:MocktestControllerResourceService,
-    public popoverController: PopoverController) { }
+    public popoverController: PopoverController,private cdr: ChangeDetectorRef) { }
 
   attendedExamDetails(id)
   {
@@ -46,6 +46,7 @@ export class AttendedExamDetailsPage implements OnInit {
         console.log(this.examlist);
         
           this.dataSource = new MatTableDataSource<AttendedExamListModel>(this.examlist);
+          this.cdr.detectChanges();
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
           console.log(this.dataSource);

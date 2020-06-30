@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild ,ChangeDetectorRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from  '@angular/material/paginator';
@@ -6,7 +6,27 @@ import {MatSort} from '@angular/material/sort';
 import {AccountResourceService ,MocktestControllerResourceService} from 'src/app/services/services';
 
 import{UserDashBoard} from 'src/app/services/models';
-import{AttendedExam} from 'src/app/services/models';
+import{AttendedExamModel} from 'src/app/services/models';
+
+// export interface dashboard
+// {
+//     currentUser:Object;
+//     userId:string;
+//     attendedExamList:attendedExam[];
+// }
+// export interface attendedExam
+// {
+//     examId:string;
+//     examName:string;
+//     score:string;
+//     total:string;
+//     percentage:string;
+//     result:string;
+//     date:string;
+//     time:string;
+    
+// }
+
 @Component({
   selector: 'app-attended-exams',
   templateUrl: './attended-exams.page.html',
@@ -18,7 +38,7 @@ export class AttendedExamsPage implements OnInit {
 username:string;
  data:object;
 
- examlist: Array<AttendedExam>;
+ examlist: Array<AttendedExamModel>;
  dataSource= null;
  isLoading = true;
  isEmpty=true;
@@ -28,27 +48,12 @@ username:string;
  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // examData:attendedExam={
-  //   examId:"",
-  //   examName:"",
-  //   score : "",
-  //   total:"",
-  //   percentage:"" ,
-  //   result:"",
-  //   date:"",
-  //   time:"",
-    
-  // }
-  examData:AttendedExam;
-  // dashboardData:dashboard={
-  //   currentUser:"",
-  //   userId:"",
-  //   attendedExamList:this.examlist
-  // }
+  examData:AttendedExamModel;
+ 
   dashboardData:UserDashBoard;
   constructor(
     private mockController:MocktestControllerResourceService,
-    private router: Router, private accRes:AccountResourceService
+    private router: Router, private accRes:AccountResourceService,private cdr: ChangeDetectorRef
     ) {}
  
  
@@ -65,7 +70,8 @@ username:string;
      {
       this.isEmpty=false;
      }
-    this.dataSource = new MatTableDataSource<AttendedExam>(this.examlist);
+    this.dataSource = new MatTableDataSource<AttendedExamModel>(this.examlist);
+    this.cdr.detectChanges();
    this.dataSource.sort = this.sort;
    this.dataSource.paginator = this.paginator;
      console.log(this.dataSource);

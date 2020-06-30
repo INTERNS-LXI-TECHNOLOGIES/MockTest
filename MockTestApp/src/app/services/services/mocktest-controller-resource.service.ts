@@ -441,7 +441,7 @@ class MocktestControllerResourceService extends __BaseService {
       {
         headers: __headers,
         params: __params,
-        responseType: 'text'
+        responseType  : 'arraybuffer' as 'json'
       });
 
     return this.http.request<any>(req).pipe(
