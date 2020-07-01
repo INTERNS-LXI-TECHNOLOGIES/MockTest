@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      
       <ion-back-button defaultHref="menu/question"> </ion-back-button>
     </ion-buttons>
     <ion-title>Create Question</ion-title>
@@ -9,28 +9,79 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="logForm(form)">
-    <ion-item>
-      <ion-label>enter the question: </ion-label>
-      <ion-input type="text" [(ngModel)]="question.qstn" name="question"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>select the level: &nbsp;
-      <select [(ngModel)]="question.level" [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let level of allLevels" [value]="level">{{level}}</option>
-      </select>
-    </ion-label>
-    </ion-item>
+  <ion-card >
+       <div class="container">
+       <div class="row">
+         <div class="offset-3"></div>
+          <div class="col-md-6">
+              <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && logForm(form)" novalidate class="feedback-form">
+                <ion-list>
+                  <ion-item>
+                      <ion-label position="floating">Enter Question: </ion-label>
+                      <ion-input
+                              autocomplete="on" 
+                              type="text" 
+                              [(ngModel)]="question.qstn" 
+                              #quest="ngModel" 
+                              name="question"
+                              [ngClass]="{ 'is-invalid': f.submitted && quest.invalid }"
+                              [ngModelOptions]="{standalone: true}" 
+                              required>
+                       </ion-input>
 
-      <ion-item *ngFor="let opt of question.qstnOptions,let i=index">
-        <ion-label>enter option-{{i+1}}: </ion-label>
-        <ion-input type="text" [(ngModel)]="question.qstnOptions[i].option" name="option"></ion-input>
-      </ion-item>
-      <br>
-      <div >
-        <ion-button expand="block" share="round" color="primary" type="submit">save</ion-button>
-        </div>
-  </form>
-<!-- </ion-tabs> -->
-  <!-- <p *ngIf="question.qstn != ''"> {{question.qstn}}  {{question.qstnOptions[2].option}}</p> -->
+                       <!-- input validation group -->
+                       <div *ngIf="f.submitted && quest.invalid" class="invalid-input">
+                        <!-- individual validation errors -->
+                        <div *ngIf="quest.errors?.required">Question is required</div>
+                       </div>
+                   </ion-item>
+
+
+                  <ion-item>
+                      <ion-label>Level: &nbsp; </ion-label>
+                      <select 
+                            [(ngModel)]="question.level"
+                            [ngModelOptions]="{standalone: true}"  
+                            #level="ngModel"  
+                            [ngClass]="{ 'is-invalid': f.submitted && level.invalid }"
+                            required>
+                          <option value="" disabled>choose level</option>
+                          <option *ngFor="let level of allLevels" [value]="level">{{level}}</option>
+                      </select>
+                   </ion-item>
+                      <!-- input validation group -->
+                     <div *ngIf="f.submitted && level.invalid" class="invalid-input">
+                      <!-- individual validation errors -->
+                      <div *ngIf="level.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;level is required</div>
+                    </div> 
+
+                    <ion-item *ngFor="let opt of question.qstnOptions,let i=index">
+                      <ion-label position="floating">Option-{{i+1}}: </ion-label>
+                        <ion-input
+                              autocomplete="on" 
+                              type="text" 
+                              [(ngModel)]="question.qstnOptions[i].option"
+                              #option="ngModel" 
+                              name="option"
+                              [ngClass]="{ 'is-invalid': f.submitted && option.invalid }"
+                              [ngModelOptions]="{standalone: true}" 
+                              required>
+                         </ion-input>
+                        <!-- input validation group -->
+                       <div *ngIf="f.submitted && option.invalid" class="invalid-input">
+                        <!-- individual validation errors -->
+                        <div *ngIf="option.errors?.required">option is required</div>
+                      </div>
+                    </ion-item>
+                </ion-list>
+                  
+                <div >
+                   <ion-button expand="block" share="round" color="primary" type="submit">Save</ion-button>
+                 </div>
+              </form>
+          </div>
+              <div class="offset-3"></div>
+            </div></div>  
+    </ion-card>
+
 </ion-content>

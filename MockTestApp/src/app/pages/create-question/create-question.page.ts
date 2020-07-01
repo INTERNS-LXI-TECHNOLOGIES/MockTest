@@ -15,7 +15,7 @@ export class CreateQuestionPage implements OnInit {
   
   question:Question={
     qstn:'',
-    level:'beginner',
+    level:'',
     qstnOptions:[
       {
         option:'',

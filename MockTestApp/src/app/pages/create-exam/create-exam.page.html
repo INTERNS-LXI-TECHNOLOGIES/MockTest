@@ -20,7 +20,7 @@
                 <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && createExam(form)" novalidate class="feedback-form">
                   <ion-list>
                  <!-- ExamName -->
-                        <div class="form-group">
+                        
                           <ion-item>
                             <ion-label position="floating">Enter the Name </ion-label>
                             <ion-input
@@ -40,10 +40,10 @@
                               <div *ngIf="examName.errors?.required">Exam Name is required</div>
                             </div>
                        </ion-item> 
-                      </div>
+                      
 
                       <!-- No of questions -->
-                      <div class="form-group">
+                      
                         <ion-item>
                           <ion-label position="floating">No.of Questions </ion-label>
                           <ion-input
@@ -64,10 +64,10 @@
                             <div *ngIf="count.errors?.number">field is not valid</div>
                           </div>
                      </ion-item> 
-                    </div>
+                    
 
                      <!-- Level of exam -->
-                     <div class="form-group">
+                    
                       <ion-item>
                       <ion-label>Level: &nbsp; </ion-label>
                       <select 
@@ -85,10 +85,10 @@
                           <!-- individual validation errors -->
                           <div *ngIf="level.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;level is required</div>
                         </div>  
-                  </div>
+                  
 
                    <!-- Time  -->
-                   <div class="form-group">
+                  
                     <ion-item>
                         <ion-label>Time: &nbsp; 
                           <select 
@@ -116,7 +116,7 @@
                         <!-- individual validation errors -->
                         <div *ngIf="time.errors?.required">&nbsp;&nbsp;&nbsp;&nbsp;time is required</div>
                       </div>  
-                </div>
+                
 
                   </ion-list>
                   <ion-button expand="block" share="round" color="primary" type="submit">create</ion-button>
