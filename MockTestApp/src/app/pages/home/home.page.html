@@ -23,13 +23,13 @@
  <ion-content>
 
     <div *ngIf="activeExams; else noDataTemplate">
-          <div class="ion-text-center"> <h2>{{ 'HomePage.greeting' | translate:params}}  </h2>
+          <div class="ion-text-center"> <h1>{{ 'HomePage.greeting' | translate:params}}  </h1>
             <!-- {{userInfo?.name}} -->
-          <h3> {{ 'HomePage.Title_2' | translate }} </h3> </div>
+          <h2> {{ 'HomePage.Title_2' | translate }} </h2> </div>
 
             <ion-card *ngFor="let exam of activeExams" color="light" button (click)="startExam(exam.id)">
               <ion-card-content class="ion-text-center">
-                  {{exam.name}}
+                <h4>  {{exam.name}} </h4>
               </ion-card-content>
             </ion-card>
     </div>

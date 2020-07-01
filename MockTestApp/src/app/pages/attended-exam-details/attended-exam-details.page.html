@@ -20,12 +20,12 @@
    
 
     <div  *ngIf="attendedExamData">
-    <ion-text color="medium" class="ion-text-center">
+    <ion-text  class="ion-text-center">
     <h1> {{attendedExamData?.exam?.name}}</h1>
-    <h3>Status:{{attendedExamData?.exam?.isActive==true ? 'Active-Now' : 'Not-Active'}}</h3>
+    <h2>Status:{{attendedExamData?.exam?.isActive==true ? 'Active-Now' : 'Not-Active'}}</h2>
     </ion-text>
     <div  *ngIf="attendedExamData?.attendList.length>0; else noDataTemplate" >
-<h5>*click on the username to see the corresponding details for further analysis</h5>
+<h4>*click on the username to see the corresponding details for further analysis</h4>
        <div style="overflow-x:auto;">
 
       

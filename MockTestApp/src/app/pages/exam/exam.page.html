@@ -19,7 +19,7 @@
     </ion-refresher>
 
       <div class="text-container">
-              <ion-text color="tertiary" class="ion-text-center">
+              <ion-text  class="ion-text-center">
                 <h2>All exams in database!</h2>
               </ion-text> 
               <ion-card *ngFor="let data of examData" color="light" button (click)="examDetaills(data.id)">
@@ -31,14 +31,14 @@
                   <h1>  {{data.name}} </h1>
                   <h2>Level: {{data.level}}</h2>
                   <h3>Status: {{data.isActive==true ? 'Active' : 'Not_Active'}}</h3>
-                  <!-- <ion-toggle color="primary"></ion-toggle> -->
+               
                   
                 </ion-card-content>
               </ion-card>
       </div>
   </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
-    <ion-fab-button (click)="presentModal()" color="medium">
+    <ion-fab-button color="primary"  (click)="presentModal()" >
       <ion-icon name="add" ></ion-icon>
     </ion-fab-button></ion-fab>
 </ion-content>
