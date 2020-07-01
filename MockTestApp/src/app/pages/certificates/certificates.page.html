@@ -9,6 +9,6 @@
 
 <ion-content>
   <ion-list *ngFor="let passExam of examData">
-    <ion-item button (click)=" generatePdfReport(passExam.id)" detail="true">{{passExam?.exam?.name}}</ion-item>
+    <ion-item button (click)=" generatePdfReport(passExam.id)" detail="true" color="light">{{passExam?.exam?.name}}</ion-item>
   </ion-list>
 </ion-content>
