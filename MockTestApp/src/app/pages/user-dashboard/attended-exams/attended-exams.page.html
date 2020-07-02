@@ -43,7 +43,10 @@
 
                         <ng-container matColumnDef="result">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> Result  </th>
-                          <td mat-cell *matCellDef="let element">{{element.result ==true? 'passed' :'failed'}}  </td>
+                          <td mat-cell *matCellDef="let element"> 
+                            <ion-text [color]="(element.result) ? 'success' : 'danger'">
+                              {{element.result ==true? 'passed' :'failed'}}</ion-text>
+                          </td>
                         </ng-container>
 
                         <ng-container matColumnDef="dateTime">

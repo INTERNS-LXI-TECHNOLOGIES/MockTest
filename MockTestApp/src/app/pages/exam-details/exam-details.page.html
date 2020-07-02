@@ -23,13 +23,15 @@
     </ion-text>
    <h2><u>Questions</u></h2> 
    <div style="overflow-x:auto;">
-   <ion-item  *ngFor="let question of selectedExamData?.questions ,let i=index" >
+    <ion-list  *ngFor="let question of selectedExamData?.questions ,let i=index">
+   <ion-item  color="light">
     <p>
      <ion-label > <b> {{i+1}} ) {{question.qstn}} </b></ion-label>  
      <ion-label *ngFor="let opt of question?.qstnOptions,let j=index">&nbsp;&nbsp;{{j+1}}. {{opt.option}}</ion-label>
      <ion-label *ngFor="let opt of question?.qstnOptions">
         <ion-label *ngIf="opt.isAnswer==true">&nbsp;&nbsp;<b>Ans: {{opt.option}}</b></ion-label></ion-label>
    </p> 
-   </ion-item> </div>
+   </ion-item> 
+  </ion-list></div>
   </div>
 </ion-content>

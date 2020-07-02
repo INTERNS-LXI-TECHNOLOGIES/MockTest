@@ -25,17 +25,17 @@ export class MenuPage implements OnInit {
      
       title: 'Question',
       url: '/menu/question',
-      icon: 'mail'
+      icon: 'book'
     },
     {
       title: 'Exam',
       url: '/menu/exam',
-      icon: 'paper-plane'
+      icon: 'create'
     },
     {
       title: 'Exam Analysis',
       url: '/menu/exam-analysis',
-      icon: 'pencil'
+      icon: 'analytics'
     }
   ];
 
@@ -49,12 +49,13 @@ export class MenuPage implements OnInit {
     {
       title: 'Dashboard',
       url:  '/menu/user-dashboard',
-      icon: 'mail'
+      icon: 'information-circle'
+      //person
     },
     {
       title: 'Certificates',
       url: '/menu/certificates',
-      icon: 'heart'
+      icon: 'trophy'
     }
   ];
 

@@ -16,7 +16,25 @@ width:20em;
 height:18em;
 margin-top: -9em; 
 margin-left: -10em; 
-
-
-
 }
+
+ion-content{
+    --background: url('../../../assets/img/bg.jpg');
+    //--background-repeat: no-repeat;
+    background-size:initial;
+    // box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+    // border-radius: 10px;
+  
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23), 0 0 5px #aaa inset;
+	border-radius: 10px;
+	position:relative;
+  display:block;
+  
+}
+ion-list{
+    
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23), 0 0 5px #aaa inset;
+    border-radius: 20px;
+    border: 5px outset rgb(24, 130, 165);
+}
+

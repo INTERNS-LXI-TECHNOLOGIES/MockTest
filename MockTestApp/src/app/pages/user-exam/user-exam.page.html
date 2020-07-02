@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="menu"></ion-back-button>
     </ion-buttons>
-    <ion-title>test</ion-title>
+    <ion-title>MockTest</ion-title>
   </ion-toolbar>
   <ng-template #noDataTemplate>
    <ion-progress-bar type="indeterminate"></ion-progress-bar>
@@ -17,7 +17,7 @@
 
         <div class="container" *ngIf="exam ;else noDataTemplate ">
                   <ion-text  class="ion-text-center">
-                    <h1>{{exam?.name}}</h1>
+                    <h1>Test :{{exam?.name}}</h1>
                     <ion-text (onChange)="examInit()" hidden></ion-text>
                   </ion-text>
 
@@ -26,7 +26,7 @@
                         <ion-card-content>
                           <ion-text >{{i+1}}) {{question.qstn}}</ion-text >  
                             <!-- {{o+1}}) {{opt.option}} -->
-                          <ion-list  >
+                          <ion-list  class="option-class">
                             <ion-radio-group name="{{question.id}}">
                               <ion-item *ngFor="let opt of question.qstnOptions,let o=index">
                                 <ion-label>{{opt.option}}</ion-label>
@@ -42,7 +42,7 @@
                         </ion-card-content>
                       </ion-card>
                   </div>
-                  <ion-button expand="block" share="round" color="medium" (click)="submit()">submit</ion-button>
+                  <ion-button expand="block" share="round" color="primary" (click)="submit()">submit</ion-button>
                   
         </div>
        
