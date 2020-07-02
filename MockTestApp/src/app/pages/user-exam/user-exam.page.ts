@@ -37,7 +37,7 @@ export class UserExamPage implements OnInit {
   ms=this.ellapsedTime;
   mseconds=0;
   user;
-
+  result;
   getExam(id)
   {
     this.mockController.getExamByIdUsingGET(id).subscribe(data => {
@@ -93,17 +93,26 @@ timer() {
       this.ellapsedTime = 0;	
       console.log(this.ellapsedTime);
        this.presentAlert("Time Out");
-			this.submit();
+		
 		}
 }
 
 async presentAlert(msg) {
   const alert = await this.alertController.create({
     message: msg,
-    buttons: ['OK']
-  });
+    buttons: [
+      {
+        text:'OK',
+        handler: () => {
+            this.submit();
+      
+        }
+      }]
+    });
+
 
   await alert.present();
+ 
 }
 
 hourToMiliSeconds(hour) {
@@ -139,10 +148,7 @@ this.answers.push(optid);
 
 submit()
 {
-  // let user=this.Home.loggedUser;
-  
-  
-  //this.examTime=0;
+
   if(this.answers.length==0)
   {
     this.answers.push(0);
@@ -150,17 +156,43 @@ submit()
     console.log(this.answers);
   }
    
- this.params={user:this.user,
+ this.params={
+      user:this.user,
       eId:this.currentExamId,
-      answers:this.answers};
+      answers:this.answers
+    };
       console.log(this.user);
       console.log(this.answers);
- this.mockController.saveOptionUsingPOST(this.params).subscribe(()=>{
-  this.presentAlert('exam submitted successfully');
-  this.ellapsedTime=0;
-  this.mseconds=0;
-  this.router.navigateByUrl('menu');
-});
-}
 
+  this.mockController.saveOptionUsingPOST(this.params).subscribe(res => {
+    this.submitAlert(res);
+  
+
+  });
+    
+ 
+
+}
+async submitAlert(res) {
+          const alert = await this.alertController.create({
+            header: ' Exam submitted successfully !',
+            // message: msg,
+            buttons: [
+              {
+              text: 'Ok',
+              handler: () => {
+
+                this.result = res;
+                this.mockController.setResult(this.result);
+                console.log('submitted');
+                this.router.navigateByUrl("menu/submit");
+              }
+            }]
+          });
+
+          await alert.present();
+          // this.result = res;
+          // this.mockController.setResult(this.result);
+       //   await this.router.navigateByUrl("menu/submit");
+  }
 }

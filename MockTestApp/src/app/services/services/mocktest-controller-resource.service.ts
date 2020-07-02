@@ -51,6 +51,16 @@ class MocktestControllerResourceService extends __BaseService {
   }
 
  private  pdfId;
+ private result;
+ setResult(result)
+ {
+   this.result=result;
+ }
+ getResult()
+ {
+   return this.result;
+   console.log("result from service"+this.result);
+ }
   setPdfId(id)
   {
     this.pdfId=id;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import { UsersService } from '../../services/users.service';
+import { MocktestControllerResourceService, AccountResourceService} from 'src/app/services/services';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-submit',
@@ -10,13 +10,16 @@ export class SubmitPage implements OnInit {
   userResult;
   userDetails;
   constructor(
-    // private userServ:UsersService,
+    private mockController:MocktestControllerResourceService,
+    private accRes:AccountResourceService,
     private router: Router) { }
   getResult()
   {
-    // this.userResult=this.userServ.getResult();
+    this.userResult=this.mockController.getResult();
     console.log(this.userResult);
-    // this.userDetails=this.userServ.getCurrentUser();
+    this.accRes.getAccountUsingGET().subscribe(u=>{
+      this.userDetails=u;
+    })
     console.log(this.userDetails);
   }
   ngOnInit() {

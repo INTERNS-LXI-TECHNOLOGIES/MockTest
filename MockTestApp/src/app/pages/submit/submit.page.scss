@@ -1,0 +1,14 @@
+.container{
+    position:fixed;
+    top: 50%;
+    left: 7%;
+    width:20em;
+    height:25em;
+    margin-top: -9em; 
+    margin-left: 1em;
+    }
+ion-card{
+border-radius: 10px;
+box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23), 0 0 5px #aaa inset;
+// border: 5px outset rgb(24, 130, 165);
+}
