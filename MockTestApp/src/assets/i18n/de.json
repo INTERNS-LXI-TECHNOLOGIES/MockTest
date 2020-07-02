@@ -5,13 +5,17 @@
     "Title_2": "Wählen Sie eine Prüfung zum Starten !"
     
 },
-
-"Home":"Zuhause",
+  "MenuHeader":"Simulierter Test",  
+  "Home":"Zuhause",
   "Question":"Frage",
   "Exam":"Prüfung",
-  "Exam Analysis":"Prüfungsanalyse"
+  "Exam Analysis":"Prüfungsanalyse",
+  "Dashboard":"Instrumententafel",
+  "Certificates" :"Zertifikate",
 
-,
+  
+
+
   "BACK_BUTTON_TEXT": "Zurück",
 
   "NAME": "Name",

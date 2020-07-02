@@ -10,16 +10,24 @@
   </ng-template>
 </ion-header>
 
-<ion-content class="ion-text-center">
-  <h2>instructions for candidates</h2>
- <ol>
-  <li> No other electronic devices are allowed for assistance</li>
-  <li> Paper is provided for rough working.</li>
-  <li> All exam scripts are collected at the end</li>
- <li> under no circumstances can anything leave the exam room.</li>
- </ol>
- <ion-button (click)="examPage()" expand="block" fill="clear" shape="round">
-  start
- </ion-button>
-
+<ion-content class="container">
+  <ion-card color="light">
+    <ion-card-header  class="ion-text-center">
+      <h2> Instruction For Candidates</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <ol>
+            <li>No other electronic devices are allowed for assistance</li>
+            <li> No negative marks</li>
+            <li>All exam scripts are collected at the end</li>
+          <li> under no circumstances can anything leave the exam room</li>
+          </ol>
+          <ion-button (click)="examPage()" expand="block" share="round" color="primary" >start</ion-button>
+       <!-- <ion-button (click)="examPage()" expand="block" fill="clear" shape="round">
+        start
+       </ion-button> -->
+      
+    </ion-card-content>
+  </ion-card> 
+ 
 </ion-content>

@@ -17,7 +17,7 @@
 
   <ion-content>
     
-   
+   <ion-card>
 
     <div  *ngIf="attendedExamData">
     <ion-text  class="ion-text-center">
@@ -26,7 +26,7 @@
     </ion-text>
     <div  *ngIf="attendedExamData?.attendList.length>0; else noDataTemplate" >
 <h4>*click on the username to see the corresponding details for further analysis</h4>
-       <div style="overflow-x:auto;">
+       <div style="overflow-x:auto;" class="container">
 
       
 
@@ -90,5 +90,5 @@
                      
                   </ng-template>
                  
-              
+           </ion-card>   
 </ion-content>

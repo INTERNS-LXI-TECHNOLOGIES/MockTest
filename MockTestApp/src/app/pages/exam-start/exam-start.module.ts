@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ExamStartPageRoutingModule } from './exam-start-routing.module';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { ExamStartPage } from './exam-start.page';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { ExamStartPage } from './exam-start.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ExamStartPageRoutingModule
+    ExamStartPageRoutingModule, 
+    TranslateModule,
   ],
   declarations: [ExamStartPage]
 })

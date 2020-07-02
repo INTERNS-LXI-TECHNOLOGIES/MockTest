@@ -12,12 +12,17 @@
   <div  *ngIf="user; else noDataTemplate">
   <div class="container">
   <ion-card class="ion-text-center" color="light">
+    <ion-card-header>
+     
+      <ion-card-title><h1 class="ion-text-uppercase">{{user?.firstName}} {{user?.lastName}}</h1></ion-card-title>
+    </ion-card-header>
     <ion-card-content>
+      <h3>RegisterId : {{user?.id}}</h3>
      <h3>FirstName  :<ion-text style="text-transform: capitalize;">{{user?.firstName}} </ion-text></h3>
       
      <h3>LastName   :<ion-text style="text-transform: capitalize;"> {{user?.lastName}}</ion-text></h3>
     <h3> Email      : {{user?.email}} </h3>
-     <h3>RegisterId : {{user?.id}}</h3>
+    
     
     </ion-card-content>
     </ion-card>

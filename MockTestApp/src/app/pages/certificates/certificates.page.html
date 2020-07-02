@@ -8,7 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let passExam of examData">
-    <ion-item button (click)=" generatePdfReport(passExam.id)" detail="true" color="light">{{passExam?.exam?.name}}</ion-item>
+  <ion-card>
+  <ion-list *ngFor="let passExam of examData" >
+    <ion-item  class="container" button (click)=" generatePdfReport(passExam.id)" detail="true" color="light">{{passExam?.exam?.name}}</ion-item>
   </ion-list>
+</ion-card>
 </ion-content>

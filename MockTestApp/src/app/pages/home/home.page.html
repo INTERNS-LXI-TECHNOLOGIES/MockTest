@@ -20,8 +20,11 @@
 
 </ion-header>
 
- <ion-content>
 
+  
+
+ <ion-content class="container">
+  
     <div *ngIf="activeExams; else noDataTemplate">
           <div class="ion-text-center"> <h1>{{ 'HomePage.greeting' | translate:params}}  </h1>
             <!-- {{userInfo?.name}} -->

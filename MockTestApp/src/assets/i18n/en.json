@@ -5,11 +5,18 @@
             "Title_2": "Choose An exam to Start !"
   },
 
-
-           "Home":"Home",
+            "MenuHeader":"MockTest",
+            "Home":"Home",
             "Question":"Question",
             "Exam":"Exam",
             "Exam Analysis":"Exam Analysis",
+            "Dashboard":"Dashboard",
+            "Certificates" :"Certificates",
+
+           
+
+
+
                           
   "BACK_BUTTON_TEXT": "Back",
 

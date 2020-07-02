@@ -1,14 +1,5 @@
-	
-	// table { 
-	// 	width: 90%; 
-    //     border-collapse: collapse; 
-    //     text-align:center;
-	// }
-	// /* Zebra striping */
-	// tr:nth-of-type(odd) { 
-    //     background: #eee; 
-        
-	// }
+
+
 	th { 
 		padding: 15px;
 		background: #4c8dff; 
@@ -20,6 +11,11 @@
 		/* row padding */
 		padding: 5px 5px;
 		
+	   }
+	   .container{
+		border-radius: 10px;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23), 0 0 5px #aaa inset;
+		  border: 5px outset rgb(216, 229, 233);
 	   }
 	 
 	   
