@@ -66,8 +66,18 @@
   --ion-color-light-shade: #b4c4e0;
   --ion-color-light-tint: #d1e2ff;
 
-  
+   /*
+   *    font setting
+   * -------------------------------------------
+   */
+   --ion-font-family: 'Roboto';
 
+   @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../assets/fonts/Roboto-Italic.ttf');
+  }
   /*
    * Material Design Dark Theme
    * -------------------------------------------
