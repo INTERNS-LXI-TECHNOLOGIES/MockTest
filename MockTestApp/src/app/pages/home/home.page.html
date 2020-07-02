@@ -6,10 +6,13 @@
     </ion-buttons>
     <ion-title>{{ 'HomePage.menu-title' | translate }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="logout()" id="logout">
-        {{ "LOGOUT_TITLE" | translate }}
+      Theme Mode
+      <ion-toggle [(ngModel)]="isToggled" color="light" (ionChange)="onChangeToggle()"></ion-toggle>
+      <ion-button (click)="logout()" >
+        <!-- {{ "LOGOUT_TITLE" | translate }} -->
         <ion-icon slot="end" name="log-out"></ion-icon>
       </ion-button>
+      
     </ion-buttons>
   </ion-toolbar>
 

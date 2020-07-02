@@ -2,14 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AccountService } from 'src/app/services/auth/account.service';
 import { LoginService } from 'src/app/services/login/login.service';
-// import { MockTestService } from '../../services/mock-test.service';
-// import{AuthService} from '../../services/auth.service';
+
 import{Router,ActivatedRoute} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { MocktestControllerResourceService } from 'src/app/services/services';
-// import { UsersService } from '../../services/users.service';
-// import { MocktestControllerResourceService } from 'src/app/api/services';
-import { AccountResourceService } from 'src/app/services/services';
+import { MocktestControllerResourceService,AccountResourceService  } from 'src/app/services/services';
+import {ThemeService} from 'src/app/services/services/ThemeService/theme.service'
 
 @Component({
   selector: 'app-home',
@@ -18,18 +15,16 @@ import { AccountResourceService } from 'src/app/services/services';
 })
 export class HomePage implements OnInit {
 
-
+  public isToggled: boolean;
   loggedUser;
   loggedUserName;
 
   constructor(public navController: NavController, private router:Router,
     private accountService: AccountService, private loginService: LoginService,
     private mockController:MocktestControllerResourceService,
-    private accSer:AccountResourceService) {}
+    private accSer:AccountResourceService,
+    private theme:ThemeService) {}
 
-  // url:string='http://localhost:8080/api/mocktest-controller/';
-  // questions:any=this.mockTestSer.getDataFromServer('http://localhost:8080/api/questions/');
-  // userRole=this.mockTestSer.getStringFromServer(this.url);
 
   public userInfo:object;
    userRole;
@@ -44,18 +39,6 @@ export class HomePage implements OnInit {
         this.navController.navigateBack('');
       }
 
-//  registerId;
-  // constructor(private mockTestSer: MockTestService,private http: HttpClient,
-  //   private route: ActivatedRoute,private userServ:UsersService,private auth:AuthService,private router:Router,
-  //   private mockser:MocktestControllerResourceService) { }
-
-//   getActiveExams()
-//   {
-//     this.userServ.getActiveExams().subscribe(response => {
-//       this.activeExams=response;
-//       console.log(this.activeExams);
-//     });
-//   }
 
   startExam(id){
     this.router.navigate(['menu/exam-start/'+id]);
@@ -84,59 +67,17 @@ export class HomePage implements OnInit {
       this.getUserDetails();
     })
 
-    // this.isAuthenticated();
-    // this.auth.getUserInfo().then(userData => {
-    //   console.log(userData);
-    //   this.userInfo=userData;
-      // this.id=userData.id;
-     
-    // })
    
-    // this.getActiveExams();
   
+  }
+  onChangeToggle(ev: CustomEvent) {
+    if(this.isToggled)
+    this.theme.enableDark();
+    else
+    this.theme.enableLight();
   }
 
 }
 
 
 
-
-// import { Component, OnInit } from '@angular/core';
-// import { NavController } from '@ionic/angular';
-// import { AccountService } from 'src/app/services/auth/account.service';
-// import { LoginService } from 'src/app/services/login/login.service';
-// import { Account } from 'src/model/account.model';
-
-// @Component({
-//   selector: 'app-home',
-//   templateUrl: 'home.page.html',
-//   styleUrls: ['home.page.scss'],
-// })
-// export class HomePage implements OnInit {
-//   account: Account;
-
-//   constructor(public navController: NavController, private accountService: AccountService, private loginService: LoginService) {}
-
-//   ngOnInit() {
-//     this.accountService.identity().then((account) => {
-//       if (account === null) {
-//         this.goBackToHomePage();
-//       } else {
-//         this.account = account;
-//       }
-//     });
-//   }
-
-//   isAuthenticated() {
-//     return this.accountService.isAuthenticated();
-//   }
-
-//   logout() {
-//     this.loginService.logout();
-//     this.goBackToHomePage();
-//   }
-
-//   private goBackToHomePage(): void {
-//     this.navController.navigateBack('');
-//   }
-// }
