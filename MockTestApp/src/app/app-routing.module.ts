@@ -8,6 +8,8 @@ const routes: Routes = [
   { path: 'signup', loadChildren: './pages/signup/signup.module#SignupPageModule' },
   { path: 'accessdenied', redirectTo: '', pathMatch: 'full' },
   {path: 'menu',loadChildren: './pages/menu/menu.module#MenuPageModule'},
+  {path: 'welcome',loadChildren: './pages/welcome/welcome.module#WelcomePageModule'},
+  
   {
     path: 'language-setttings',
     loadChildren: () => import('./pages/language-setttings/language-setttings.module').then( m => m.LanguageSetttingsPageModule)

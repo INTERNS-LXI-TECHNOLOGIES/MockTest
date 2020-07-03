@@ -60,6 +60,8 @@ export class SignupPage implements OnInit {
           position: 'top',
         });
         toast.present();
+        this.navController.navigateRoot('/welcome');
+
       },
       async (response) => {
         // Unable to sign up
